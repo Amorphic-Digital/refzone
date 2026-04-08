@@ -4,9 +4,7 @@ import { useMemo, useState } from "react"
 import { BookOpen } from "lucide-react"
 import Link from "next/link"
 import {
-  BarChart,
   Bar,
-  LineChart,
   Line,
   XAxis,
   YAxis,
@@ -58,6 +56,7 @@ export function PerformanceChart({ data }: PerformanceChartProps) {
     return days.map((day) => ({
       day,
       questions: byDay[day].total,
+      correct: byDay[day].correct,
       accuracy: byDay[day].total > 0 ? Math.round((byDay[day].correct / byDay[day].total) * 100) : 0,
     }))
   }, [data])
@@ -104,7 +103,8 @@ export function PerformanceChart({ data }: PerformanceChartProps) {
           <ComposedChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" className="stroke-muted" vertical={false} />
             <XAxis dataKey="day" tick={{ fontSize: 11 }} className="text-muted-foreground" />
-            <YAxis tick={{ fontSize: 10 }} className="text-muted-foreground" />
+            <YAxis yAxisId="left" tick={{ fontSize: 10 }} className="text-muted-foreground" />
+            <YAxis yAxisId="right" orientation="right" domain={[0, 100]} tick={{ fontSize: 10 }} className="text-muted-foreground" tickFormatter={(v: number) => `${v}%`} />
             <Tooltip
               contentStyle={{
                 backgroundColor: "hsl(var(--card))",
@@ -112,31 +112,49 @@ export function PerformanceChart({ data }: PerformanceChartProps) {
                 borderRadius: "8px",
                 fontSize: "12px",
               }}
+              formatter={(value: number, name: string, props: any) => {
+                if (name === "correct") {
+                  return [`${value}`, "Correct"]
+                }
+                if (name === "accuracy") {
+                  return [`${value}%`, "Accuracy"]
+                }
+                return [value, "Total"]
+              }}
             />
             <defs>
               <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="#a855f7" />
                 <stop offset="100%" stopColor="#7c3aed" stopOpacity={0.6} />
               </linearGradient>
+              <linearGradient id="correctBarGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#ec4899" />
+                <stop offset="100%" stopColor="#db2777" stopOpacity={0.6} />
+              </linearGradient>
             </defs>
-            <Bar dataKey="questions" fill="url(#barGradient)" radius={[4, 4, 0, 0]} />
+            <Bar yAxisId="left" dataKey="questions" fill="url(#barGradient)" radius={[4, 4, 0, 0]} />
+            <Bar yAxisId="left" dataKey="correct" fill="url(#correctBarGradient)" radius={[4, 4, 0, 0]} />
             <Line
+              yAxisId="right"
               type="monotone"
               dataKey="accuracy"
-              stroke="#ec4899"
+              stroke="#facc15"
               strokeWidth={2}
-              dot={{ fill: "#ec4899", r: 3 }}
+              dot={{ fill: "#facc15", r: 3 }}
               activeDot={{ r: 5 }}
             />
           </ComposedChart>
         </ResponsiveContainer>
       </div>
-      <div className="mt-2 flex justify-between text-xs text-muted-foreground">
+      <div className="mt-2 flex justify-center gap-4 text-xs text-muted-foreground">
         <span className="flex items-center gap-1.5">
-          <span className="inline-block h-2 w-2 rounded-full bg-purple-500" /> Questions
+          <span className="inline-block h-2 w-2 rounded-full bg-purple-500" /> Total
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="inline-block h-2 w-2 rounded-full bg-pink-500" /> Accuracy trend
+          <span className="inline-block h-2 w-2 rounded-full bg-pink-500" /> Correct
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="inline-block h-2 w-2 rounded-full bg-yellow-400" /> Accuracy %
         </span>
       </div>
     </div>

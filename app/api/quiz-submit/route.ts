@@ -28,8 +28,21 @@ export async function POST(request: Request) {
       }>
     }
 
-    if (!quizId || !answers || !questions) {
+    if (!quizId || !answers) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+    }
+
+    // If questions not provided (e.g. from public weekly quiz), fetch from DB
+    let resolvedQuestions = questions
+    if (!resolvedQuestions) {
+      const { data: dbQuestions, error: qErr } = await supabase
+        .from("quiz_questions")
+        .select("id, correct_answer, points_value, law_category, law_section")
+        .eq("quiz_id", quizId)
+      if (qErr || !dbQuestions) {
+        return NextResponse.json({ error: "Quiz not found" }, { status: 404 })
+      }
+      resolvedQuestions = dbQuestions
     }
 
     // Score the answers
@@ -43,7 +56,7 @@ export async function POST(request: Request) {
       lawSection: string | null
     }> = []
 
-    questions.forEach((question) => {
+    resolvedQuestions.forEach((question) => {
       totalPossible += question.points_value
       const userAnswer = answers[question.id] || []
       const correctAnswer = normalizeAnswer(question.correct_answer)

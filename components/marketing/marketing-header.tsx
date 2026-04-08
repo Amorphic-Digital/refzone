@@ -37,8 +37,8 @@ export function MarketingHeader() {
         }`}
         onClick={() => setMobileOpen(false)}
       />
-    <header className="fixed top-0 left-0 right-0 z-50 px-8 pt-6">
-      <div className="nav-blur max-w-[1420px] mx-auto px-9 flex flex-col">
+    <header className="fixed top-0 left-0 right-0 z-50 px-2 sm:px-8 pt-2 sm:pt-6">
+      <div className="nav-blur mx-auto px-3 sm:px-9 flex flex-col" style={{ maxWidth: "min(1420px, 100vw - 1rem)" }}>
         {/* Top bar */}
         <div className="h-[76px] flex items-center justify-between relative">
           {/* Logo */}

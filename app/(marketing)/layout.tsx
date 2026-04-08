@@ -7,7 +7,7 @@ export default function MarketingLayout({
   children: React.ReactNode
 }) {
   return (
-    <div data-marketing="" style={{ fontFamily: 'var(--font-inter), Inter, system-ui, sans-serif' }}>
+    <div data-marketing="" className="overflow-x-hidden" style={{ fontFamily: 'var(--font-inter), Inter, system-ui, sans-serif' }}>
       <MarketingHeader />
       {children}
       <MarketingFooter />

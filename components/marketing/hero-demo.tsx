@@ -66,7 +66,7 @@ export function HeroDemo() {
     top: 0, left: 0, right: 0, bottom: 0,
     display: 'flex',
     flexDirection: 'column',
-    padding: '2rem 2.5rem',
+    padding: '1.5rem 1rem',
     opacity: phase === index ? 1 : 0,
     transform: phase === index ? 'translateY(0)' : 'translateY(12px)',
     transition: `opacity ${CROSS_FADE_MS}ms ease, transform ${CROSS_FADE_MS}ms ease`,
