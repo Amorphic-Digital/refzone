@@ -138,7 +138,7 @@ export function MarketingHomePage() {
       {/* ============================================================
           2. FEATURE SHOWCASE — "Real decisions. Real improvement."
           ============================================================ */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-4 sm:px-9 py-24 md:py-32">
         <div className="mx-auto max-w-[1200px]">
           <ScrollAnimate>
             <div className="text-center">
@@ -258,7 +258,7 @@ export function MarketingHomePage() {
       {/* ============================================================
           3. INTERACTIVE DEMO — "Test your knowledge"
           ============================================================ */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-4 sm:px-9 py-24 md:py-32">
         <div className="mx-auto max-w-[1200px]">
           <ScrollAnimate>
             <div className="text-center">
@@ -284,7 +284,7 @@ export function MarketingHomePage() {
       {/* ============================================================
           4. FEATURE GRID — "Everything you need"
           ============================================================ */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-4 sm:px-9 py-24 md:py-32">
         <div className="mx-auto max-w-[1200px]">
           <ScrollAnimate>
             <div className="text-center">
@@ -326,7 +326,7 @@ export function MarketingHomePage() {
       {/* ============================================================
           5. STATS — "Numbers that speak"
           ============================================================ */}
-      <section className="relative px-9 py-24 md:py-32">
+      <section className="relative px-4 sm:px-9 py-24 md:py-32">
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full bg-purple-600/5 blur-3xl" />
         </div>
@@ -370,7 +370,7 @@ export function MarketingHomePage() {
       {/* ============================================================
           6. TESTIMONIALS
           ============================================================ */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-4 sm:px-9 py-24 md:py-32">
         <div className="mx-auto max-w-[1200px]">
           <ScrollAnimate>
             <div className="text-center">
@@ -458,7 +458,7 @@ export function MarketingHomePage() {
       {/* ============================================================
           7. FAQ
           ============================================================ */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-4 sm:px-9 py-24 md:py-32">
         <div className="mx-auto max-w-2xl">
           <ScrollAnimate>
             <div className="text-center">
@@ -480,7 +480,7 @@ export function MarketingHomePage() {
       {/* ============================================================
           8. BOTTOM CTA
           ============================================================ */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-4 sm:px-9 py-24 md:py-32">
         <div className="mx-auto max-w-[1200px] text-center">
           <ScrollAnimate>
             <h2 className="text-4xl font-bold tracking-tight text-white md:text-5xl">

@@ -4,7 +4,7 @@ export function HeroSectionWrapper({ children }: { children: React.ReactNode }) 
   return (
     <section
       id="hero-section"
-      className="relative overflow-hidden bg-[#0a0a0f] px-9 pt-40 pb-28 md:pt-48 md:pb-36"
+      className="relative overflow-hidden bg-[#0a0a0f] px-4 sm:px-9 pt-40 pb-28 md:pt-48 md:pb-36"
     >
       {/* Animated gradient orbs */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">

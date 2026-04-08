@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
 import { useAuth, useUser } from "@clerk/nextjs"
-import { Home, Settings, LogOut, Moon, Sun, Users, Shield, HelpCircle, Mail, Copy, Check, FlaskConical } from "lucide-react"
+import { Home, Settings, LogOut, Moon, Sun, Users, Shield, HelpCircle, Mail, Copy, Check, FlaskConical, Menu } from "lucide-react"
 import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
@@ -121,8 +121,8 @@ export function MobileBottomNav() {
                 data-tutorial="settings-nav"
                 className="group relative flex flex-col items-center justify-center gap-0.5 p-2 pb-3 rounded-xl cursor-pointer"
               >
-                <Settings className="h-6 w-6" />
-                <span className="text-[10px] text-muted-foreground">Settings</span>
+                <Menu className="h-6 w-6" />
+                <span className="text-[10px] text-muted-foreground">More</span>
                 <GradientUnderline active={isAccountActive} />
               </button>
             </DropdownMenuTrigger>
@@ -136,7 +136,10 @@ export function MobileBottomNav() {
                 </DropdownMenuItem>
               )}
               <DropdownMenuItem asChild>
-                <Link href="/settings">Settings</Link>
+                <Link href="/settings" className="flex items-center">
+                    <Settings className="h-4 w-4 mr-2" />
+                    Settings
+                  </Link>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onSelect={(e) => {

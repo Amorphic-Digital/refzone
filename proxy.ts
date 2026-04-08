@@ -32,6 +32,7 @@ const isPublicRoute = createRouteMatcher([
   '/auth/reset-password(.*)',
   '/user/(.*)',
   '/api/cron/(.*)',
+  '/api/weekly-quiz(.*)',
 ])
 
 // Main middleware: skip Clerk entirely for marketing routes

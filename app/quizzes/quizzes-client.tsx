@@ -44,7 +44,6 @@ export function QuizzesClient({ quizzes, bestScores }: QuizzesClientProps) {
     const q = searchParams.get("search")
     if (q) {
       setSearchQuery(q)
-      setShowCompleted(true) // Show all quizzes when searching
     }
   }, [searchParams])
 

@@ -217,7 +217,7 @@ export default function DecisionLabClient() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div>
         <div className="flex items-center gap-3">
           <h1 className="text-3xl font-bold tracking-tight">Decision Lab</h1>
@@ -242,7 +242,7 @@ export default function DecisionLabClient() {
         </div>
       </div>
 
-      <Card className="flex flex-col" style={{ height: "calc(100vh - 280px)" }}>
+      <Card className="flex flex-col">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">

@@ -53,6 +53,8 @@ export function DashboardContent({
   activeDays,
 }: DashboardContentProps) {
   const { userId: clerkUserId } = useAuth()
+  const [liveProfile, setLiveProfile] = useState(profile)
+  const [liveQuizAccuracy, setLiveQuizAccuracy] = useState(quizAccuracy)
   const [availableQuizzes, setAvailableQuizzes] = useState<any[]>([])
   const [userQuizAttempts, setUserQuizAttempts] = useState<string[]>([])
   const [generatingQuiz, setGeneratingQuiz] = useState<string | null>(null)
@@ -88,6 +90,52 @@ export function DashboardContent({
       window.dispatchEvent(new CustomEvent("dashboard-ready"))
     }, 100)
     return () => clearTimeout(timer)
+  }, [])
+
+  // Submit pending weekly quiz results from before login
+  useEffect(() => {
+    async function submitPending() {
+      try {
+        const pending = localStorage.getItem("pendingQuizResult")
+        if (!pending) return
+        const data = JSON.parse(pending)
+        // Only submit if saved within the last 24 hours
+        const savedAt = new Date(data.savedAt).getTime()
+        if (Date.now() - savedAt > 24 * 60 * 60 * 1000) {
+          localStorage.removeItem("pendingQuizResult")
+          return
+        }
+        const res = await fetch("/api/quiz-submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            quizId: data.quizId,
+            answers: data.answers,
+            timeElapsed: data.timeElapsed,
+          }),
+        })
+        localStorage.removeItem("pendingQuizResult")
+
+        if (res.ok) {
+          const result = await res.json()
+          // Update dashboard state with new scores
+          setLiveProfile((prev: any) => ({
+            ...prev,
+            total_points: (prev.total_points || 0) + (result.score || 0),
+            current_streak: Math.max(prev.current_streak || 0, 1),
+          }))
+          if (result.percentage !== undefined) {
+            setLiveQuizAccuracy((prev: number) => {
+              // Blend existing accuracy with new result
+              return prev > 0 ? Math.round((prev + result.percentage) / 2) : result.percentage
+            })
+          }
+        }
+      } catch {
+        localStorage.removeItem("pendingQuizResult")
+      }
+    }
+    submitPending()
   }, [])
 
   // Fetch available quizzes and user attempts
@@ -242,7 +290,7 @@ export function DashboardContent({
         {/* Welcome */}
         <div>
           <h1 className="text-3xl font-bold text-foreground mb-1">
-            Welcome back, {profile.display_name || "Referee"}!
+            Welcome back, {liveProfile.display_name || "Referee"}!
           </h1>
           <p className="text-muted-foreground">Ready to sharpen your skills today?</p>
         </div>
@@ -297,7 +345,7 @@ export function DashboardContent({
                   </div>
                   <div className="flex items-center gap-1 text-orange-400 shrink-0" data-tutorial="scenario-streak">
                     <Flame className="h-5 w-5" />
-                    <span className="font-bold">{profile.scenario_streak || 0}</span>
+                    <span className="font-bold">{liveProfile.scenario_streak || 0}</span>
                   </div>
                 </div>
               </CardContent>
@@ -368,15 +416,17 @@ export function DashboardContent({
         {/* Streak Bar — compact inline */}
         <Card className="border">
           <CardContent className="py-3 px-4">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1.5">
-                <Flame className="h-4 w-4 text-orange-500" />
-                <span className="text-lg font-bold">{profile.current_streak || 0}</span>
-                <span className="text-xs text-muted-foreground">day streak</span>
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-col gap-0.5 shrink-0">
+                <div className="flex items-center gap-1.5">
+                  <Flame className="h-4 w-4 text-orange-500" />
+                  <span className="text-lg font-bold">{liveProfile.current_streak || 0}</span>
+                  <span className="text-xs text-muted-foreground">day streak</span>
+                </div>
+                <span className="text-xs text-muted-foreground ml-6">Best: <span className="font-semibold text-foreground">{liveProfile.longest_streak || 0}</span></span>
               </div>
-              <div className="h-4 w-px bg-border" />
               {/* Last 7 days dots */}
-              <div className="flex items-center gap-1.5 flex-1">
+              <div className="flex items-center gap-1.5">
                 {(() => {
                   const activeDaysSet = new Set(activeDays)
                   const todayStr = new Date().toISOString().split("T")[0]
@@ -388,7 +438,7 @@ export function DashboardContent({
                     const isToday = dateStr === todayStr
                     const dayLabel = d.toLocaleDateString("en-US", { weekday: "narrow" })
                     return (
-                      <div key={i} className="flex flex-col items-center gap-0.5 flex-1">
+                      <div key={i} className="flex flex-col items-center gap-0.5">
                         <div className={`h-5 w-5 rounded-full flex items-center justify-center text-[9px] font-medium ${
                           isToday ? "bg-purple-500 text-white" : isActive ? "bg-purple-500/30 text-purple-400" : "bg-muted/50 text-muted-foreground/50"
                         }`}>
@@ -399,8 +449,6 @@ export function DashboardContent({
                   })
                 })()}
               </div>
-              <div className="h-4 w-px bg-border" />
-              <span className="text-xs text-muted-foreground">Best: <span className="font-semibold text-foreground">{profile.longest_streak || 0}</span></span>
             </div>
           </CardContent>
         </Card>
@@ -550,7 +598,7 @@ export function DashboardContent({
                   <p className="text-xs text-muted-foreground">Scenario Accuracy</p>
                 </div>
                 <div className="text-center p-3 rounded-lg bg-blue-500/10">
-                  <p className="text-2xl font-bold text-foreground">{quizAccuracy}%</p>
+                  <p className="text-2xl font-bold text-foreground">{liveQuizAccuracy}%</p>
                   <p className="text-xs text-muted-foreground">Quiz Accuracy</p>
                 </div>
               </div>

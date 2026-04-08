@@ -115,6 +115,17 @@ export function WeeklyQuizClient() {
       })
       const data = await res.json()
       setResults(data)
+
+      // Save to localStorage so results can be submitted after login
+      try {
+        localStorage.setItem('pendingQuizResult', JSON.stringify({
+          quizId: quiz.id,
+          answers,
+          timeElapsed: elapsed,
+          savedAt: new Date().toISOString(),
+        }))
+      } catch {}
+
     } catch {
       setError('Failed to submit quiz. Please try again.')
     } finally {
