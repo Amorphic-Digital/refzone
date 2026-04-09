@@ -68,21 +68,9 @@ export default function WebIndexPage() {
         </div>
       </section>
 
-      {/* Laws of the Game section */}
-      <section className="px-9 py-12 md:py-16 border-t border-white/[0.06]">
+      {/* Laws of the Game — grid directly, no separate heading */}
+      <section className="px-9 py-12 md:py-16">
         <div className="mx-auto max-w-[1420px]">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold tracking-tight text-white">Laws of the Game</h2>
-            <a
-              href="https://www.theifab.com/laws-of-the-game/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 text-xs text-white/30 hover:text-white/60 transition-colors"
-            >
-              Official IFAB text
-              <ExternalLink className="h-3 w-3" />
-            </a>
-          </div>
           <LawsGrid laws={lawsForSearch} />
         </div>
       </section>

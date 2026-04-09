@@ -31,6 +31,9 @@ function buildHighlightHref(href: string, query: string): string {
   return `${href}?highlight=${encodeURIComponent(query)}`
 }
 
+// Cache AI summaries so they persist across navigations
+const aiCache = new Map<string, string>()
+
 export function SearchPageClient({ searchIndex }: Props) {
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -38,13 +41,20 @@ export function SearchPageClient({ searchIndex }: Props) {
   const initialQuery = searchParams.get('q') || ''
   const [query, setQuery] = useState(initialQuery)
   const [submittedQuery, setSubmittedQuery] = useState(initialQuery)
-  const [completion, setCompletion] = useState('')
+  const [completion, setCompletion] = useState(() => aiCache.get(initialQuery) || '')
   const [aiLoading, setAiLoading] = useState(false)
   const [aiFailed, setAiFailed] = useState(false)
   const hasSearched = submittedQuery.length >= 2
 
-  // Fetch AI answer (non-streaming JSON)
+  // Fetch AI answer (non-streaming JSON) — skips if cached
   const fetchAiAnswer = useCallback(async (q: string) => {
+    const cached = aiCache.get(q)
+    if (cached) {
+      setCompletion(cached)
+      setAiLoading(false)
+      setAiFailed(false)
+      return
+    }
     setCompletion('')
     setAiLoading(true)
     setAiFailed(false)
@@ -62,6 +72,7 @@ export function SearchPageClient({ searchIndex }: Props) {
       const data = await res.json()
       if (data.text) {
         setCompletion(data.text)
+        aiCache.set(q, data.text)
       } else {
         setAiFailed(true)
       }
@@ -176,7 +187,7 @@ export function SearchPageClient({ searchIndex }: Props) {
               <button
                 type="button"
                 onClick={() => { setQuery(''); inputRef.current?.focus() }}
-                className="absolute right-20 top-1/2 -translate-y-1/2 text-white/20 hover:text-white/50 transition-colors"
+                className="absolute right-24 top-1/2 -translate-y-1/2 text-white/20 hover:text-white/50 transition-colors"
                 aria-label="Clear search"
               >
                 <X className="h-4 w-4" />
