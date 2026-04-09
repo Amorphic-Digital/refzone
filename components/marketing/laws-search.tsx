@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo, useRef, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Search, X } from 'lucide-react'
 
 interface LawSearchItem {
@@ -32,6 +33,7 @@ function buildSuggestions(laws: LawSearchItem[]): string[] {
 }
 
 export function LawsSearch({ laws, onQueryChange }: LawsSearchProps) {
+  const router = useRouter()
   const [query, setQuery] = useState('')
   const [focused, setFocused] = useState(false)
   const [selectedIdx, setSelectedIdx] = useState(-1)
@@ -52,12 +54,10 @@ export function LawsSearch({ laws, onQueryChange }: LawsSearchProps) {
     setSelectedIdx(-1)
   }, [matchedSuggestions])
 
-  // Propagate query changes to parent
   useEffect(() => {
     onQueryChange(query)
   }, [query, onQueryChange])
 
-  // Close dropdown on click outside
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (
@@ -73,6 +73,12 @@ export function LawsSearch({ laws, onQueryChange }: LawsSearchProps) {
     return () => document.removeEventListener('mousedown', handleClick)
   }, [])
 
+  function navigateToSearch(searchQuery: string) {
+    if (searchQuery.trim().length >= 2) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
+    }
+  }
+
   function handleKeyDown(e: React.KeyboardEvent) {
     if (e.key === 'ArrowDown') {
       e.preventDefault()
@@ -80,10 +86,16 @@ export function LawsSearch({ laws, onQueryChange }: LawsSearchProps) {
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
       setSelectedIdx((prev) => Math.max(prev - 1, -1))
-    } else if (e.key === 'Enter' && selectedIdx >= 0) {
+    } else if (e.key === 'Enter') {
       e.preventDefault()
-      setQuery(matchedSuggestions[selectedIdx])
-      setFocused(false)
+      if (selectedIdx >= 0) {
+        const selected = matchedSuggestions[selectedIdx]
+        setQuery(selected)
+        setFocused(false)
+        navigateToSearch(selected)
+      } else {
+        navigateToSearch(query)
+      }
     } else if (e.key === 'Escape') {
       setFocused(false)
       inputRef.current?.blur()
@@ -139,6 +151,7 @@ export function LawsSearch({ laws, onQueryChange }: LawsSearchProps) {
                 e.preventDefault()
                 setQuery(suggestion)
                 setFocused(false)
+                navigateToSearch(suggestion)
               }}
             >
               <Search className="h-3.5 w-3.5 shrink-0 text-white/20" />
@@ -159,6 +172,17 @@ export function LawsSearch({ laws, onQueryChange }: LawsSearchProps) {
               </span>
             </button>
           ))}
+          {/* Search button at bottom of suggestions */}
+          <button
+            className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm border-t border-white/[0.06] text-purple-400/70 hover:bg-purple-400/[0.05] transition-colors"
+            onMouseDown={(e) => {
+              e.preventDefault()
+              navigateToSearch(query)
+            }}
+          >
+            <Search className="h-3.5 w-3.5 shrink-0" />
+            Search &quot;{query}&quot; with AI
+          </button>
         </div>
       )}
     </div>
