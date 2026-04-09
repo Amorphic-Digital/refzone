@@ -3,9 +3,9 @@ import { SearchPageClient } from './search-client'
 import { buildSearchIndex } from '@/content/search-index'
 
 export const metadata: Metadata = {
-  title: 'Search the Laws of the Game — Referee Knowledge Engine',
+  title: 'RefZone Web — Search the Laws of the Game',
   description:
-    'Search across all 17 IFAB Laws of the Game, FAQs, and referee training resources. AI-powered answers for football referees in Australia.',
+    'RefZone Web: search across all 17 IFAB Laws of the Game, FAQs, and referee training resources. AI-powered summaries for football referees in Australia.',
 }
 
 // Serialize the search index at build time

@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Search, X, ArrowRight, Sparkles, BookOpen, HelpCircle, Zap, FileText, Loader2 } from 'lucide-react'
+import { Search, X, ArrowRight, Sparkles, BookOpen, HelpCircle, Zap, FileText, Loader2, Mail } from 'lucide-react'
 import { type SearchResult, searchContent } from '@/content/search-index'
 
 interface Props {
@@ -26,6 +26,11 @@ const badgeColors: Record<string, string> = {
   page: 'bg-amber-400/10 text-amber-400',
 }
 
+/** Build a URL with a highlight hash so the target page can scroll + highlight */
+function buildHighlightHref(href: string, query: string): string {
+  return `${href}?highlight=${encodeURIComponent(query)}`
+}
+
 export function SearchPageClient({ searchIndex }: Props) {
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -35,46 +40,52 @@ export function SearchPageClient({ searchIndex }: Props) {
   const [submittedQuery, setSubmittedQuery] = useState(initialQuery)
   const [completion, setCompletion] = useState('')
   const [aiLoading, setAiLoading] = useState(false)
+  const [aiFailed, setAiFailed] = useState(false)
   const hasSearched = submittedQuery.length >= 2
 
   // Stream AI answer
   const fetchAiAnswer = useCallback(async (q: string) => {
     setCompletion('')
     setAiLoading(true)
+    setAiFailed(false)
     try {
       const res = await fetch('/api/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: q }),
       })
-      if (!res.ok || !res.body) { setAiLoading(false); return }
+      if (!res.ok || !res.body) {
+        setAiLoading(false)
+        setAiFailed(true)
+        return
+      }
       const reader = res.body.getReader()
       const decoder = new TextDecoder()
       let text = ''
+      let gotContent = false
       while (true) {
         const { done, value } = await reader.read()
         if (done) break
         const chunk = decoder.decode(value, { stream: true })
-        // Parse SSE data stream from AI SDK
         const lines = chunk.split('\n')
         for (const line of lines) {
-          // AI SDK data stream format: lines starting with various prefixes
           if (line.startsWith('0:')) {
-            // Text chunk — parse the JSON string after "0:"
             try {
               const parsed = JSON.parse(line.slice(2))
               if (typeof parsed === 'string') {
                 text += parsed
                 setCompletion(text)
+                gotContent = true
               }
             } catch {
-              // not valid JSON, skip
+              // skip
             }
           }
         }
       }
+      if (!gotContent) setAiFailed(true)
     } catch {
-      // silent fail
+      setAiFailed(true)
     }
     setAiLoading(false)
   }, [])
@@ -152,10 +163,13 @@ export function SearchPageClient({ searchIndex }: Props) {
           <div className="absolute left-1/2 top-0 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/8 to-transparent blur-3xl" />
         </div>
         <div className="mx-auto max-w-3xl">
-          {/* Logo / title */}
+          {/* Branding */}
           <Link href="/laws" className="mb-6 inline-flex items-center gap-2 text-white/40 hover:text-white/60 transition-colors text-sm">
             <BookOpen className="h-4 w-4" />
-            RefZone Laws Search
+            <span>
+              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent font-semibold">RefZone</span>
+              {' '}Web
+            </span>
           </Link>
 
           {/* Search form */}
@@ -215,7 +229,7 @@ export function SearchPageClient({ searchIndex }: Props) {
                 <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-purple-400/10">
                   <Sparkles className="h-4 w-4 text-purple-400" />
                 </div>
-                <span className="text-sm font-medium text-purple-300">AI Answer</span>
+                <span className="text-sm font-medium text-purple-300">AI Summary</span>
                 {aiLoading && (
                   <Loader2 className="h-3.5 w-3.5 animate-spin text-purple-400/50 ml-1" />
                 )}
@@ -225,25 +239,30 @@ export function SearchPageClient({ searchIndex }: Props) {
                   completion.split('\n\n').map((para, i) => (
                     <p key={i}>{formatAIText(para)}</p>
                   ))
+                ) : aiFailed ? (
+                  <p className="text-white/30">
+                    AI Summary is currently unavailable. Browse the results below for answers, or ask your question in{' '}
+                    <Link href="/decision-lab" className="text-purple-400 hover:text-purple-300 transition-colors">Decision Lab</Link>.
+                  </p>
                 ) : aiLoading ? (
                   <div className="space-y-2">
                     <div className="h-4 w-full rounded bg-white/[0.04] animate-pulse" />
                     <div className="h-4 w-4/5 rounded bg-white/[0.04] animate-pulse" />
                     <div className="h-4 w-3/5 rounded bg-white/[0.04] animate-pulse" />
                   </div>
-                ) : (
-                  <p className="text-white/30">Generating answer...</p>
-                )}
+                ) : null}
               </div>
-              <div className="mt-4 pt-3 border-t border-white/[0.06]">
-                <Link
-                  href="/decision-lab"
-                  className="inline-flex items-center gap-1.5 text-xs text-purple-400/60 hover:text-purple-300 transition-colors"
-                >
-                  Ask a follow-up question in Decision Lab
-                  <ArrowRight className="h-3 w-3" />
-                </Link>
-              </div>
+              {completion && (
+                <div className="mt-4 pt-3 border-t border-white/[0.06]">
+                  <Link
+                    href="/decision-lab"
+                    className="inline-flex items-center gap-1.5 text-xs text-purple-400/60 hover:text-purple-300 transition-colors"
+                  >
+                    Ask a follow-up question in Decision Lab
+                    <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
+              )}
             </div>
 
             {/* Result count */}
@@ -272,7 +291,7 @@ export function SearchPageClient({ searchIndex }: Props) {
                         return (
                           <Link
                             key={`${item.href}-${i}`}
-                            href={item.href}
+                            href={buildHighlightHref(item.href, submittedQuery)}
                             className="group flex gap-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-colors hover:border-purple-400/30 hover:bg-white/[0.04]"
                           >
                             <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.04]">
@@ -300,6 +319,23 @@ export function SearchPageClient({ searchIndex }: Props) {
                 ))}
               </div>
             )}
+
+            {/* Request a page CTA */}
+            <div className="mt-10 rounded-xl border border-white/[0.06] bg-white/[0.02] p-6 text-center">
+              <Mail className="mx-auto h-6 w-6 text-white/15 mb-3" />
+              <h3 className="text-sm font-medium text-white/50">Can&apos;t find what you&apos;re looking for?</h3>
+              <p className="mt-1.5 text-xs text-white/30 max-w-md mx-auto">
+                Request a new page on RefZone Web. Tell us what topic you need covered — provide
+                as much or as little detail as you like, and we&apos;ll build it.
+              </p>
+              <a
+                href={`mailto:hello@refzone.com.au?subject=RefZone Web Page Request&body=I'd like to request a new page on RefZone Web about:%0A%0A${encodeURIComponent(submittedQuery)}%0A%0ADetails:%0A`}
+                className="mt-4 inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.05] px-4 py-2 text-sm font-medium text-white/60 hover:text-white hover:border-white/20 transition-colors"
+              >
+                <Mail className="h-3.5 w-3.5" />
+                Request a page
+              </a>
+            </div>
           </div>
         </section>
       )}
@@ -310,11 +346,20 @@ export function SearchPageClient({ searchIndex }: Props) {
           <div className="mx-auto max-w-3xl">
             <div className="mt-8 rounded-xl border border-white/[0.06] bg-white/[0.02] p-8 text-center">
               <Search className="mx-auto h-10 w-10 text-white/10 mb-4" />
-              <h2 className="text-lg font-semibold text-white/50">Referee Knowledge Engine</h2>
+              <h2 className="text-lg font-semibold text-white/50">RefZone Web</h2>
               <p className="mt-2 text-sm text-white/30 max-w-md mx-auto">
                 Search across all 17 IFAB Laws of the Game, FAQs, training resources, and more.
-                Get an AI-powered answer alongside relevant pages.
+                Get an AI-powered summary alongside relevant pages.
               </p>
+              <div className="mt-6 pt-4 border-t border-white/[0.04]">
+                <p className="text-xs text-white/20">
+                  Want a topic added?{' '}
+                  <a href="mailto:hello@refzone.com.au?subject=RefZone Web Page Request" className="text-purple-400/60 hover:text-purple-300 transition-colors">
+                    Email hello@refzone.com.au
+                  </a>
+                  {' '}to request a page.
+                </p>
+              </div>
             </div>
           </div>
         </section>
