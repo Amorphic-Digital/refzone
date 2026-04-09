@@ -26,6 +26,17 @@ export async function POST(request: Request) {
 
     const lawsDocument = configData?.config_value || ""
 
+    // Fetch existing quiz titles to avoid duplicates
+    const { data: existingQuizzes } = await supabase
+      .from("quizzes")
+      .select("title")
+      .order("created_at", { ascending: false })
+      .limit(50)
+    const existingTitles = (existingQuizzes || []).map((q) => q.title)
+    const avoidTitlesNote = existingTitles.length > 0
+      ? `\nDo NOT reuse any of these existing titles: ${existingTitles.join(", ")}`
+      : ""
+
     const { text } = await generateText({
       model: getModel(),
       system: lawsDocument
@@ -58,16 +69,33 @@ Return ONLY valid JSON in this exact format:
   ]
 }
 
+IMPORTANT: The title MUST be unique — do not reuse any existing quiz title.${avoidTitlesNote}
+
 REMEMBER: EXACTLY 5 questions. Each question must have a clear, educational explanation citing the relevant Law.`,
     })
 
     const quizData = parseAIJsonResponse(text) as any
 
+    // Ensure title is unique
+    let finalTitle = quizData.title
+    const { data: titleCheck } = await supabase
+      .from("quizzes")
+      .select("id")
+      .eq("title", finalTitle)
+      .limit(1)
+    if (titleCheck && titleCheck.length > 0) {
+      const { count } = await supabase
+        .from("quizzes")
+        .select("*", { count: "exact", head: true })
+        .ilike("title", `${finalTitle}%`)
+      finalTitle = `${finalTitle} (${(count || 1) + 1})`
+    }
+
     // Create the quiz
     const { data: newQuiz, error: quizError } = await supabase
       .from("quizzes")
       .insert({
-        title: quizData.title,
+        title: finalTitle,
         description: quizData.description,
         difficulty: quizData.difficulty || "medium",
         time_limit_minutes: quizData.questions?.length <= 5 ? 10 : quizData.questions?.length <= 10 ? 15 : 20,

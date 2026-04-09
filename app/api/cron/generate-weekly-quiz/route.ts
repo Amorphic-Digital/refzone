@@ -18,6 +18,18 @@ export async function GET(request: Request) {
   const supabase = createServiceClient()
 
   try {
+    // Fetch existing weekly quiz titles to avoid duplicates
+    const { data: existingQuizzes } = await supabase
+      .from("quizzes")
+      .select("title")
+      .ilike("title", "Weekly Challenge%")
+      .order("created_at", { ascending: false })
+      .limit(20)
+    const existingTitles = (existingQuizzes || []).map((q: any) => q.title)
+    const avoidTitlesNote = existingTitles.length > 0
+      ? `\n- IMPORTANT: Do NOT reuse any of these existing titles: ${existingTitles.join(", ")}`
+      : ""
+
     const { text } = await generateText({
       model: getModel(),
       maxOutputTokens: 8192,
@@ -59,7 +71,7 @@ Requirements:
 - Include clear explanations citing the relevant Law number and using direct quotes where possible
 - Make questions educational, realistic, and strictly compliant with IFAB Laws
 - Questions should test understanding of the Laws, not trick questions
-- CRITICAL: Every question MUST have a specific law_category (e.g. "Law 12") and a specific law_section (e.g. "Fouls and Misconduct"). Never use "General" — always cite the exact IFAB Law number and section name.`,
+- CRITICAL: Every question MUST have a specific law_category (e.g. "Law 12") and a specific law_section (e.g. "Fouls and Misconduct"). Never use "General" — always cite the exact IFAB Law number and section name.${avoidTitlesNote}`,
     })
 
     const quizData = parseAIJsonResponse(text) as any
@@ -70,11 +82,26 @@ Requirements:
 
     await supabase.from("quizzes").update({ is_active: false }).lt("created_at", fourWeeksAgo.toISOString())
 
+    // Ensure title is unique
+    let finalTitle = quizData.title
+    const { data: titleCheck } = await supabase
+      .from("quizzes")
+      .select("id")
+      .eq("title", finalTitle)
+      .limit(1)
+    if (titleCheck && titleCheck.length > 0) {
+      const { count } = await supabase
+        .from("quizzes")
+        .select("*", { count: "exact", head: true })
+        .ilike("title", `${finalTitle}%`)
+      finalTitle = `${finalTitle} (${(count || 1) + 1})`
+    }
+
     // Insert the new quiz
     const { data: newQuiz, error: quizError } = await supabase
       .from("quizzes")
       .insert({
-        title: quizData.title,
+        title: finalTitle,
         description: quizData.description,
         difficulty: quizData.difficulty,
         time_limit_minutes: quizData.questions?.length <= 5 ? 10 : quizData.questions?.length <= 10 ? 15 : 20,
