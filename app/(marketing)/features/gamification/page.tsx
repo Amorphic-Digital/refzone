@@ -4,9 +4,9 @@ import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { Flame, ArrowRight, Calendar, TrendingUp, Target } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Streaks — RefZone',
+  title: 'Daily Training Streaks — Build Your Referee Training Habit',
   description:
-    'Build consistent training habits with daily streaks. Track your progress, maintain your momentum, and watch your skills improve over time.',
+    'Build consistent referee training habits with daily streaks and activity tracking. Watch your Laws of the Game knowledge improve over time.',
 }
 
 export default function GamificationPage() {
@@ -27,7 +27,7 @@ export default function GamificationPage() {
             <Flame className="h-8 w-8 text-pink-400" />
           </div>
           <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-            Build the training habit
+            Daily Referee Training Streaks
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-[14px] leading-relaxed text-white/45">
             Daily streaks keep you consistent. Train every day, maintain your

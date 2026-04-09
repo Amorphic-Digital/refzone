@@ -4,9 +4,9 @@ import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { Crosshair, ArrowRight, Flame, CheckCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Game Scenarios — RefZone',
+  title: 'Football Referee Scenarios — Real Match Decision Training',
   description:
-    '100+ real-game decision-making scenarios with expert analysis. Practice match situations and sharpen your referee instincts with RefZone.',
+    'Practice 100+ real-game referee scenarios with instant expert analysis. Train your decision-making for offside, fouls, penalties, and advantage under match pressure.',
 }
 
 export default function ScenariosPage() {
@@ -27,7 +27,7 @@ export default function ScenariosPage() {
             <Crosshair className="h-8 w-8 text-pink-400" />
           </div>
           <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-            Experience real match decisions
+            Referee Match Scenarios — Train With Real Decisions
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-[14px] leading-relaxed text-white/45">
             Over 100 algorithm-driven game scenarios recreate the pressure of real

@@ -20,9 +20,12 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.refzone.com.au'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "RefZone",
+  title: {
+    default: "RefZone | Football Referee Training Platform — Scenarios, Quizzes & Analytics",
+    template: "%s | RefZone",
+  },
   description:
-    "Master decision-making with real-game scenarios, comprehensive quizzes, and advanced performance analytics. Supporting referees across Australia with 500+ quiz questions, 100+ scenarios, and 24/7 training assistant.",
+    "Train smarter with 500+ Laws of the Game quiz questions, 100+ match scenarios, and performance analytics. Free football referee training for Australia.",
   keywords: [
     "referee training",
     "football referee",

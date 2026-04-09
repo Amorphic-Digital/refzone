@@ -263,7 +263,7 @@ export function MarketingHomePage() {
           <ScrollAnimate>
             <div className="text-center">
               <h2 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-                Test your knowledge
+                Laws of the Game Quiz Practice
               </h2>
               <p className="text-[16px] text-white/45 text-center max-w-xl mx-auto mt-4">
                 Try a quick quiz from our library of 500+ questions covering every Law of the Game.
@@ -289,7 +289,7 @@ export function MarketingHomePage() {
           <ScrollAnimate>
             <div className="text-center">
               <h2 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-                Everything you need
+                Complete Referee Training Tools
               </h2>
               <p className="text-[16px] text-white/45 text-center max-w-xl mx-auto mt-4">
                 A complete training platform built for referees at every level.

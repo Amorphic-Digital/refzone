@@ -4,9 +4,9 @@ import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { BarChart3, ArrowRight } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Performance Analytics — RefZone',
+  title: 'Referee Performance Analytics — Track Your Training Progress',
   description:
-    'Track your referee training progress with detailed analytics. Accuracy breakdowns, law-by-law stats, and daily activity trends.',
+    'Track your referee training with accuracy dashboards, law-by-law breakdowns, and 7-day activity charts. Data-driven improvement for football referees.',
 }
 
 export default function AnalyticsPage() {
@@ -27,7 +27,7 @@ export default function AnalyticsPage() {
             <BarChart3 className="h-8 w-8 text-pink-400" />
           </div>
           <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-            See exactly where you stand
+            Referee Performance Analytics
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-[14px] leading-relaxed text-white/45">
             Detailed performance analytics show your strengths, weaknesses, and

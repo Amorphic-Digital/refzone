@@ -4,9 +4,9 @@ import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { Brain, ArrowRight, BookMarked, Clock, Zap, MessageCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Decision Lab — RefZone',
+  title: 'Decision Lab — AI Referee Mentor & Law Analysis',
   description:
-    'Your specialised referee mentor, built on the Laws of the Game. Ask any question and get instant, detailed analysis with law references.',
+    'Ask any football referee question and get instant expert analysis with law references. Your 24/7 Laws of the Game mentor powered by AI.',
 }
 
 export default function DecisionLabPage() {
@@ -27,7 +27,7 @@ export default function DecisionLabPage() {
             <Brain className="h-8 w-8 text-pink-400" />
           </div>
           <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-            Your specialised referee mentor
+            Decision Lab — Your AI Referee Mentor
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-[14px] leading-relaxed text-white/45">
             Ask any question about the Laws of the Game and receive instant,
