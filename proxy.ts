@@ -22,7 +22,6 @@ const bypassPaths = [
   '/become-a-referee',
   '/search',
   '/api/search',
-  '/api/web-search',
 ]
 
 function shouldBypassClerk(pathname: string): boolean {
