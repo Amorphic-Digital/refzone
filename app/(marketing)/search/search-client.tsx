@@ -149,25 +149,25 @@ export function SearchPageClient({ searchIndex }: Props) {
       <div className="pt-32 md:pt-40" />
 
       {/* Sticky search bar — pins below navbar on scroll */}
-      <div className="sticky top-[84px] sm:top-[100px] z-40 px-4 sm:px-9 py-3 backdrop-blur-xl" style={{ background: 'color-mix(in srgb, var(--m-bg) 85%, transparent)', borderBottom: '1px solid var(--m-border)' }}>
-        <div className="mx-auto max-w-3xl">
+      <div className="sticky top-[84px] sm:top-[100px] z-40 px-2 sm:px-8 py-2">
+        <div className="nav-blur mx-auto px-3 sm:px-5 py-2.5" style={{ maxWidth: 'min(800px, 100vw - 1rem)' }}>
           <form onSubmit={handleSubmit} className="relative">
-            <Search className="absolute left-4 top-1/2 h-4.5 w-4.5 -translate-y-1/2 pointer-events-none" style={{ color: 'var(--m-text-4)' }} />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 pointer-events-none" style={{ color: 'var(--m-text-4)' }} />
             <input
               ref={inputRef}
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search anything... offside, red card, penalty kick, handball..."
-              className="w-full rounded-xl border py-3 pl-12 pr-24 text-[15px] focus:outline-none focus:ring-1 focus:ring-purple-400/30 transition-colors"
-              style={{ background: 'var(--m-bg-card)', borderColor: 'var(--m-border)', color: 'var(--m-text)' }}
+              className="w-full bg-transparent py-1.5 pl-9 pr-20 text-[15px] focus:outline-none"
+              style={{ color: 'var(--m-text)' }}
               aria-label="Search the Laws of the Game"
             />
             {query && (
               <button
                 type="button"
                 onClick={() => { setQuery(''); inputRef.current?.focus() }}
-                className="absolute right-24 top-1/2 -translate-y-1/2 transition-colors"
+                className="absolute right-20 top-1/2 -translate-y-1/2 transition-colors"
                 style={{ color: 'var(--m-text-4)' }}
                 aria-label="Clear search"
               >
@@ -176,7 +176,7 @@ export function SearchPageClient({ searchIndex }: Props) {
             )}
             <button
               type="submit"
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg bg-purple-500/20 px-4 py-1.5 text-sm font-medium text-purple-300 hover:bg-purple-500/30 transition-colors"
+              className="absolute right-1 top-1/2 -translate-y-1/2 rounded-lg bg-purple-500/20 px-3 py-1 text-sm font-medium text-purple-300 hover:bg-purple-500/30 transition-colors"
             >
               Search
             </button>
