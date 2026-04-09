@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Search, X, ArrowRight, Sparkles, BookOpen, HelpCircle, Zap, FileText, Loader2, Mail, Globe, ExternalLink } from 'lucide-react'
-import { type SearchResult, searchContent } from '@/content/search-index'
+import { type SearchResult, type ScoredResult, searchContentScored } from '@/content/search-index'
 
 interface WebResult {
   title: string
@@ -100,22 +100,29 @@ export function SearchPageClient({ searchIndex }: Props) {
     setAiLoading(false)
   }, [])
 
-  // Search results
-  const results = useMemo(
-    () => searchContent(submittedQuery, searchIndex),
+  // Scored search results split into relevance tiers
+  const scoredResults = useMemo(
+    () => searchContentScored(submittedQuery, searchIndex),
     [submittedQuery, searchIndex]
   )
 
-  // Group results by type
-  const grouped = useMemo(() => {
+  const highRelevance = useMemo(() => scoredResults.filter((r) => r.relevance === 'high'), [scoredResults])
+  const otherRelevance = useMemo(() => scoredResults.filter((r) => r.relevance !== 'high'), [scoredResults])
+  const totalResults = scoredResults.length
+
+  // Group a set of scored results by type
+  function groupByType(items: ScoredResult[]): Record<string, SearchResult[]> {
     const groups: Record<string, SearchResult[]> = {}
-    for (const r of results) {
-      const key = r.type === 'law-faq' ? 'law' : r.type
+    for (const r of items) {
+      const key = r.item.type === 'law-faq' ? 'law' : r.item.type
       if (!groups[key]) groups[key] = []
-      groups[key].push(r)
+      groups[key].push(r.item)
     }
     return groups
-  }, [results])
+  }
+
+  const highGrouped = useMemo(() => groupByType(highRelevance), [highRelevance])
+  const otherGrouped = useMemo(() => groupByType(otherRelevance), [otherRelevance])
 
   const groupLabels: Record<string, string> = {
     law: 'Laws of the Game',
@@ -277,105 +284,145 @@ export function SearchPageClient({ searchIndex }: Props) {
             </div>
 
             {/* Result count */}
-            <p className="mb-4 text-sm text-[var(--m-text-4)]">
-              {results.length} result{results.length !== 1 ? 's' : ''} for &quot;{submittedQuery}&quot;
+            <p className="mb-4 text-sm" style={{ color: 'var(--m-text-4)' }}>
+              {totalResults} result{totalResults !== 1 ? 's' : ''} for &quot;{submittedQuery}&quot;
             </p>
 
-            {/* Grouped results */}
-            {results.length === 0 ? (
-              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-8 text-center">
-                <p className="text-[var(--m-text-4)]">No results found. Try a different search term.</p>
-                <p className="mt-2 text-sm text-white/25">
+            {totalResults === 0 && !webLoading && webResults.length === 0 ? (
+              <div className="rounded-xl border p-8 text-center" style={{ borderColor: 'var(--m-border)', background: 'var(--m-bg-card)' }}>
+                <p style={{ color: 'var(--m-text-3)' }}>No results found. Try a different search term.</p>
+                <p className="mt-2 text-sm" style={{ color: 'var(--m-text-5)' }}>
                   Tip: Search for specific terms like &quot;offside&quot;, &quot;penalty&quot;, or &quot;red card&quot;
                 </p>
               </div>
             ) : (
-              <div className="space-y-6">
-                {Object.entries(grouped).map(([type, items]) => (
-                  <div key={type}>
-                    <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-white/20">
-                      {groupLabels[type] || type}
+              <div className="space-y-8">
+                {/* Best matches — high relevance internal results */}
+                {highRelevance.length > 0 && (
+                  <div>
+                    <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--m-text-5)' }}>
+                      Best matches
                     </h2>
                     <div className="space-y-2">
-                      {items.map((item, i) => {
-                        const Icon = typeIcons[item.type] || FileText
-                        return (
-                          <Link
-                            key={`${item.href}-${i}`}
-                            href={buildHighlightHref(item.href, submittedQuery)}
-                            className="group flex gap-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-colors hover:border-purple-400/30 hover:bg-white/[0.04]"
-                          >
-                            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.04]">
-                              <Icon className="h-4 w-4 text-[var(--m-text-4)] group-hover:text-purple-400 transition-colors" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2">
-                                <h3 className="font-medium text-white group-hover:text-purple-300 transition-colors truncate">
-                                  {item.title}
-                                </h3>
-                                <span className={`shrink-0 rounded-md px-2 py-0.5 text-[10px] font-medium ${badgeColors[item.type] || 'bg-white/10 text-white/50'}`}>
-                                  {item.badge}
-                                </span>
+                      {Object.entries(highGrouped).map(([type, items]) => (
+                        items.map((item, i) => {
+                          const Icon = typeIcons[item.type] || FileText
+                          return (
+                            <Link
+                              key={`high-${item.href}-${i}`}
+                              href={buildHighlightHref(item.href, submittedQuery)}
+                              className="group flex gap-4 rounded-xl border p-4 transition-colors hover:border-purple-400/30"
+                              style={{ borderColor: 'var(--m-border)', background: 'var(--m-bg-card)' }}
+                            >
+                              <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: 'var(--m-bg-card-hover)' }}>
+                                <Icon className="h-4 w-4 group-hover:text-purple-400 transition-colors" style={{ color: 'var(--m-text-4)' }} />
                               </div>
-                              <p className="mt-1 text-sm text-white/35 line-clamp-2">
-                                {item.description}
-                              </p>
-                            </div>
-                            <ArrowRight className="mt-2 h-4 w-4 shrink-0 text-white/10 group-hover:text-purple-400/50 transition-colors" />
-                          </Link>
-                        )
-                      })}
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2">
+                                  <h3 className="font-medium group-hover:text-purple-300 transition-colors truncate" style={{ color: 'var(--m-text)' }}>
+                                    {item.title}
+                                  </h3>
+                                  <span className={`shrink-0 rounded-md px-2 py-0.5 text-[10px] font-medium ${badgeColors[item.type] || 'bg-white/10 text-white/50'}`}>
+                                    {item.badge}
+                                  </span>
+                                </div>
+                                <p className="mt-1 text-sm line-clamp-2" style={{ color: 'var(--m-text-3)' }}>
+                                  {item.description}
+                                </p>
+                              </div>
+                              <ArrowRight className="mt-2 h-4 w-4 shrink-0 group-hover:text-purple-400/50 transition-colors" style={{ color: 'var(--m-text-5)' }} />
+                            </Link>
+                          )
+                        })
+                      ))}
                     </div>
                   </div>
-                ))}
-              </div>
-            )}
+                )}
 
-            {/* Web results from the internet */}
-            {(webResults.length > 0 || webLoading) && (
-              <div className="mt-8">
-                <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--m-text-5)' }}>
-                  From the web
-                </h2>
-                {webLoading && webResults.length === 0 ? (
-                  <div className="space-y-2">
-                    {[1, 2, 3].map((i) => (
-                      <div key={i} className="rounded-xl border p-4" style={{ borderColor: 'var(--m-border)', background: 'var(--m-bg-card)' }}>
-                        <div className="h-4 w-3/4 rounded animate-pulse" style={{ background: 'var(--m-bg-card-hover)' }} />
-                        <div className="mt-2 h-3 w-full rounded animate-pulse" style={{ background: 'var(--m-bg-card-hover)' }} />
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="space-y-2">
-                    {webResults.map((result, i) => (
-                      <a
-                        key={i}
-                        href={result.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex gap-4 rounded-xl border p-4 transition-colors hover:border-purple-400/30"
-                        style={{ borderColor: 'var(--m-border)', background: 'var(--m-bg-card)' }}
-                      >
-                        <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: 'var(--m-bg-card-hover)' }}>
-                          <Globe className="h-4 w-4 group-hover:text-purple-400 transition-colors" style={{ color: 'var(--m-text-4)' }} />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            <h3 className="font-medium group-hover:text-purple-300 transition-colors truncate" style={{ color: 'var(--m-text)' }}>
-                              {result.title}
-                            </h3>
+                {/* From the web — shown after best matches */}
+                {(webResults.length > 0 || webLoading) && (
+                  <div>
+                    <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--m-text-5)' }}>
+                      From the web
+                    </h2>
+                    {webLoading && webResults.length === 0 ? (
+                      <div className="space-y-2">
+                        {[1, 2, 3].map((i) => (
+                          <div key={i} className="rounded-xl border p-4" style={{ borderColor: 'var(--m-border)', background: 'var(--m-bg-card)' }}>
+                            <div className="h-4 w-3/4 rounded animate-pulse" style={{ background: 'var(--m-bg-card-hover)' }} />
+                            <div className="mt-2 h-3 w-full rounded animate-pulse" style={{ background: 'var(--m-bg-card-hover)' }} />
                           </div>
-                          <p className="mt-0.5 text-xs truncate" style={{ color: 'var(--m-accent)' }}>
-                            {result.source}
-                          </p>
-                          <p className="mt-1 text-sm line-clamp-2" style={{ color: 'var(--m-text-3)' }}>
-                            {result.snippet}
-                          </p>
-                        </div>
-                        <ExternalLink className="mt-2 h-3.5 w-3.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: 'var(--m-text-4)' }} />
-                      </a>
-                    ))}
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        {webResults.map((result, i) => (
+                          <a
+                            key={i}
+                            href={result.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex gap-4 rounded-xl border p-4 transition-colors hover:border-purple-400/30"
+                            style={{ borderColor: 'var(--m-border)', background: 'var(--m-bg-card)' }}
+                          >
+                            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: 'var(--m-bg-card-hover)' }}>
+                              <Globe className="h-4 w-4 group-hover:text-purple-400 transition-colors" style={{ color: 'var(--m-text-4)' }} />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h3 className="font-medium group-hover:text-purple-300 transition-colors truncate" style={{ color: 'var(--m-text)' }}>
+                                {result.title}
+                              </h3>
+                              <p className="mt-0.5 text-xs truncate" style={{ color: 'var(--m-accent)' }}>
+                                {result.source}
+                              </p>
+                              <p className="mt-1 text-sm line-clamp-2" style={{ color: 'var(--m-text-3)' }}>
+                                {result.snippet}
+                              </p>
+                            </div>
+                            <ExternalLink className="mt-2 h-3.5 w-3.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: 'var(--m-text-4)' }} />
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Related — lower relevance internal results */}
+                {otherRelevance.length > 0 && (
+                  <div>
+                    <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--m-text-5)' }}>
+                      Related
+                    </h2>
+                    <div className="space-y-2">
+                      {Object.entries(otherGrouped).map(([type, items]) => (
+                        items.map((item, i) => {
+                          const Icon = typeIcons[item.type] || FileText
+                          return (
+                            <Link
+                              key={`other-${item.href}-${i}`}
+                              href={buildHighlightHref(item.href, submittedQuery)}
+                              className="group flex gap-4 rounded-xl border p-3 transition-colors hover:border-purple-400/30"
+                              style={{ borderColor: 'var(--m-border)', background: 'var(--m-bg-card)' }}
+                            >
+                              <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md" style={{ background: 'var(--m-bg-card-hover)' }}>
+                                <Icon className="h-3.5 w-3.5 group-hover:text-purple-400 transition-colors" style={{ color: 'var(--m-text-5)' }} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <h3 className="text-sm font-medium group-hover:text-purple-300 transition-colors truncate" style={{ color: 'var(--m-text-2)' }}>
+                                  {item.title}
+                                </h3>
+                                <p className="mt-0.5 text-xs line-clamp-1" style={{ color: 'var(--m-text-4)' }}>
+                                  {item.description}
+                                </p>
+                              </div>
+                              <span className={`mt-1 shrink-0 rounded-md px-1.5 py-0.5 text-[9px] font-medium ${badgeColors[item.type] || 'bg-white/10 text-white/50'}`}>
+                                {item.badge}
+                              </span>
+                            </Link>
+                          )
+                        })
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>

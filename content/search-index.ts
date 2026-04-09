@@ -163,8 +163,14 @@ export function buildSearchIndex(): SearchResult[] {
   return results
 }
 
-/** Score and rank search results for a query */
-export function searchContent(query: string, index: SearchResult[]): SearchResult[] {
+export interface ScoredResult {
+  item: SearchResult
+  score: number
+  relevance: 'high' | 'medium' | 'low'
+}
+
+/** Score and rank search results for a query, returning scored results with relevance tiers */
+export function searchContentScored(query: string, index: SearchResult[]): ScoredResult[] {
   if (!query || query.length < 2) return []
   const q = query.toLowerCase().trim()
   const terms = q.split(/\s+/).filter(Boolean)
@@ -189,7 +195,17 @@ export function searchContent(query: string, index: SearchResult[]): SearchResul
     })
     .filter((r) => r.score > 0)
     .sort((a, b) => b.score - a.score)
-    .slice(0, 15)
+    .slice(0, 20)
 
-  return scored.map((r) => r.item)
+  // Determine relevance tiers based on top score
+  const topScore = scored[0]?.score || 0
+  return scored.map((r) => ({
+    ...r,
+    relevance: r.score >= topScore * 0.6 ? 'high' : r.score >= topScore * 0.3 ? 'medium' : 'low',
+  }))
+}
+
+/** Simple wrapper returning just items (backward compat) */
+export function searchContent(query: string, index: SearchResult[]): SearchResult[] {
+  return searchContentScored(query, index).map((r) => r.item)
 }
