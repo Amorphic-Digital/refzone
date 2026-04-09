@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Search, X, ArrowRight, Sparkles, BookOpen, HelpCircle, Zap, FileText, Loader2, Mail } from 'lucide-react'
-import { type SearchResult, type ScoredResult, searchContentScored } from '@/content/search-index'
+import { type ScoredResult, searchContentScored } from '@/content/search-index'
 
 interface Props {
   searchIndex: SearchResult[]
@@ -26,13 +26,15 @@ const badgeColors: Record<string, string> = {
   page: 'bg-amber-400/10 text-amber-400',
 }
 
-/** Build a URL with a highlight hash so the target page can scroll + highlight */
-function buildHighlightHref(href: string, query: string): string {
-  return `${href}?highlight=${encodeURIComponent(query)}`
+/** Build a URL with highlight param — uses AI keywords if available, falls back to first keyword */
+function buildHighlightHref(href: string, keywords: string[]): string {
+  const term = keywords[0] || ''
+  if (!term) return href
+  return `${href}?highlight=${encodeURIComponent(term)}`
 }
 
-// Cache AI summaries so they persist across navigations
-const aiCache = new Map<string, string>()
+// Cache AI summaries + keywords so they persist across navigations
+const aiCache = new Map<string, { text: string; keywords: string[] }>()
 
 export function SearchPageClient({ searchIndex }: Props) {
   const searchParams = useSearchParams()
@@ -41,21 +43,24 @@ export function SearchPageClient({ searchIndex }: Props) {
   const initialQuery = searchParams.get('q') || ''
   const [query, setQuery] = useState(initialQuery)
   const [submittedQuery, setSubmittedQuery] = useState(initialQuery)
-  const [completion, setCompletion] = useState(() => aiCache.get(initialQuery) || '')
+  const [completion, setCompletion] = useState(() => aiCache.get(initialQuery)?.text || '')
+  const [highlightKeywords, setHighlightKeywords] = useState<string[]>(() => aiCache.get(initialQuery)?.keywords || [])
   const [aiLoading, setAiLoading] = useState(false)
   const [aiFailed, setAiFailed] = useState(false)
   const hasSearched = submittedQuery.length >= 2
 
-  // Fetch AI answer (non-streaming JSON) — skips if cached
+  // Fetch AI answer + highlight keywords — skips if cached
   const fetchAiAnswer = useCallback(async (q: string) => {
     const cached = aiCache.get(q)
     if (cached) {
-      setCompletion(cached)
+      setCompletion(cached.text)
+      setHighlightKeywords(cached.keywords)
       setAiLoading(false)
       setAiFailed(false)
       return
     }
     setCompletion('')
+    setHighlightKeywords([])
     setAiLoading(true)
     setAiFailed(false)
     try {
@@ -72,7 +77,9 @@ export function SearchPageClient({ searchIndex }: Props) {
       const data = await res.json()
       if (data.text) {
         setCompletion(data.text)
-        aiCache.set(q, data.text)
+        const kw = data.highlightKeywords || []
+        setHighlightKeywords(kw)
+        aiCache.set(q, { text: data.text, keywords: kw })
       } else {
         setAiFailed(true)
       }
@@ -88,30 +95,8 @@ export function SearchPageClient({ searchIndex }: Props) {
     [submittedQuery, searchIndex]
   )
 
-  const highRelevance = useMemo(() => scoredResults.filter((r) => r.relevance === 'high'), [scoredResults])
-  const otherRelevance = useMemo(() => scoredResults.filter((r) => r.relevance !== 'high'), [scoredResults])
+  // Flat list sorted by relevance (most relevant first)
   const totalResults = scoredResults.length
-
-  // Group a set of scored results by type
-  function groupByType(items: ScoredResult[]): Record<string, SearchResult[]> {
-    const groups: Record<string, SearchResult[]> = {}
-    for (const r of items) {
-      const key = r.item.type === 'law-faq' ? 'law' : r.item.type
-      if (!groups[key]) groups[key] = []
-      groups[key].push(r.item)
-    }
-    return groups
-  }
-
-  const highGrouped = useMemo(() => groupByType(highRelevance), [highRelevance])
-  const otherGrouped = useMemo(() => groupByType(otherRelevance), [otherRelevance])
-
-  const groupLabels: Record<string, string> = {
-    law: 'Laws of the Game',
-    faq: 'Frequently Asked Questions',
-    feature: 'Features & Tools',
-    page: 'Pages & Resources',
-  }
 
   // Trigger search
   const executeSearch = useCallback(
@@ -156,38 +141,30 @@ export function SearchPageClient({ searchIndex }: Props) {
 
   return (
     <main className="min-h-screen">
-      {/* Search header */}
-      <section className="relative px-9 pt-32 pb-8 md:pt-40 md:pb-12">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-          <div className="absolute left-1/2 top-0 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/8 to-transparent blur-3xl" />
-        </div>
-        <div className="mx-auto max-w-3xl">
-          {/* Branding */}
-          <Link href="/web" className="mb-6 inline-flex items-center gap-2 text-[var(--m-text-4)] hover:text-white/60 transition-colors text-sm">
-            <BookOpen className="h-4 w-4" />
-            <span>
-              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent font-semibold">RefZone</span>
-              {' '}Web
-            </span>
-          </Link>
+      {/* Spacer for sticky bar */}
+      <div className="pt-32 md:pt-40" />
 
-          {/* Search form */}
+      {/* Sticky search bar — pins below navbar on scroll */}
+      <div className="sticky top-[76px] z-30 px-4 sm:px-9 py-3" style={{ background: 'var(--m-bg)', borderBottom: '1px solid var(--m-border)' }}>
+        <div className="mx-auto max-w-3xl">
           <form onSubmit={handleSubmit} className="relative">
-            <Search className="absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--m-text-4)] pointer-events-none" />
+            <Search className="absolute left-4 top-1/2 h-4.5 w-4.5 -translate-y-1/2 pointer-events-none" style={{ color: 'var(--m-text-4)' }} />
             <input
               ref={inputRef}
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search anything... offside, red card, penalty kick, handball..."
-              className="w-full rounded-2xl border border-white/10 bg-white/[0.05] py-4 pl-14 pr-24 text-[16px] text-white placeholder:text-white/25 focus:border-purple-400/50 focus:outline-none focus:ring-1 focus:ring-purple-400/30 transition-colors"
+              className="w-full rounded-xl border py-3 pl-12 pr-24 text-[15px] focus:outline-none focus:ring-1 focus:ring-purple-400/30 transition-colors"
+              style={{ background: 'var(--m-bg-card)', borderColor: 'var(--m-border)', color: 'var(--m-text)' }}
               aria-label="Search the Laws of the Game"
             />
             {query && (
               <button
                 type="button"
                 onClick={() => { setQuery(''); inputRef.current?.focus() }}
-                className="absolute right-24 top-1/2 -translate-y-1/2 text-white/20 hover:text-white/50 transition-colors"
+                className="absolute right-24 top-1/2 -translate-y-1/2 transition-colors"
+                style={{ color: 'var(--m-text-4)' }}
                 aria-label="Clear search"
               >
                 <X className="h-4 w-4" />
@@ -195,28 +172,31 @@ export function SearchPageClient({ searchIndex }: Props) {
             )}
             <button
               type="submit"
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-xl bg-purple-500/20 px-4 py-2 text-sm font-medium text-purple-300 hover:bg-purple-500/30 transition-colors"
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg bg-purple-500/20 px-4 py-1.5 text-sm font-medium text-purple-300 hover:bg-purple-500/30 transition-colors"
             >
               Search
             </button>
           </form>
-
-          {/* Quick suggestions */}
-          {!hasSearched && (
-            <div className="mt-4 flex flex-wrap gap-2">
-              {['offside rule', 'red card', 'penalty kick', 'handball', 'throw-in', 'advantage', 'DOGSO', 'back pass rule'].map((term) => (
-                <button
-                  key={term}
-                  onClick={() => { setQuery(term); executeSearch(term) }}
-                  className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-1.5 text-xs text-[var(--m-text-4)] hover:text-white/70 hover:border-white/15 transition-colors"
-                >
-                  {term}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
-      </section>
+      </div>
+
+      {/* Quick suggestions — below sticky bar */}
+      {!hasSearched && (
+        <div className="px-9 pt-6">
+          <div className="mx-auto max-w-3xl flex flex-wrap gap-2">
+            {['offside rule', 'red card', 'penalty kick', 'handball', 'throw-in', 'advantage', 'DOGSO', 'back pass rule'].map((term) => (
+              <button
+                key={term}
+                onClick={() => { setQuery(term); executeSearch(term) }}
+                className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-1.5 text-xs transition-colors"
+                style={{ color: 'var(--m-text-4)' }}
+              >
+                {term}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Results */}
       {hasSearched && (
@@ -269,7 +249,7 @@ export function SearchPageClient({ searchIndex }: Props) {
               {totalResults} result{totalResults !== 1 ? 's' : ''} for &quot;{submittedQuery}&quot;
             </p>
 
-            {totalResults === 0 && !webLoading && webResults.length === 0 ? (
+            {totalResults === 0 ? (
               <div className="rounded-xl border p-8 text-center" style={{ borderColor: 'var(--m-border)', background: 'var(--m-bg-card)' }}>
                 <p style={{ color: 'var(--m-text-3)' }}>No results found. Try a different search term.</p>
                 <p className="mt-2 text-sm" style={{ color: 'var(--m-text-5)' }}>
@@ -277,87 +257,37 @@ export function SearchPageClient({ searchIndex }: Props) {
                 </p>
               </div>
             ) : (
-              <div className="space-y-8">
-                {/* Best matches — high relevance internal results */}
-                {highRelevance.length > 0 && (
-                  <div>
-                    <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--m-text-5)' }}>
-                      Best matches
-                    </h2>
-                    <div className="space-y-2">
-                      {Object.entries(highGrouped).map(([type, items]) => (
-                        items.map((item, i) => {
-                          const Icon = typeIcons[item.type] || FileText
-                          return (
-                            <Link
-                              key={`high-${item.href}-${i}`}
-                              href={buildHighlightHref(item.href, submittedQuery)}
-                              className="group flex gap-4 rounded-xl border p-4 transition-colors hover:border-purple-400/30"
-                              style={{ borderColor: 'var(--m-border)', background: 'var(--m-bg-card)' }}
-                            >
-                              <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: 'var(--m-bg-card-hover)' }}>
-                                <Icon className="h-4 w-4 group-hover:text-purple-400 transition-colors" style={{ color: 'var(--m-text-4)' }} />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2">
-                                  <h3 className="font-medium group-hover:text-purple-300 transition-colors truncate" style={{ color: 'var(--m-text)' }}>
-                                    {item.title}
-                                  </h3>
-                                  <span className={`shrink-0 rounded-md px-2 py-0.5 text-[10px] font-medium ${badgeColors[item.type] || 'bg-white/10 text-white/50'}`}>
-                                    {item.badge}
-                                  </span>
-                                </div>
-                                <p className="mt-1 text-sm line-clamp-2" style={{ color: 'var(--m-text-3)' }}>
-                                  {item.description}
-                                </p>
-                              </div>
-                              <ArrowRight className="mt-2 h-4 w-4 shrink-0 group-hover:text-purple-400/50 transition-colors" style={{ color: 'var(--m-text-5)' }} />
-                            </Link>
-                          )
-                        })
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Related — lower relevance internal results */}
-                {otherRelevance.length > 0 && (
-                  <div>
-                    <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--m-text-5)' }}>
-                      Related
-                    </h2>
-                    <div className="space-y-2">
-                      {Object.entries(otherGrouped).map(([type, items]) => (
-                        items.map((item, i) => {
-                          const Icon = typeIcons[item.type] || FileText
-                          return (
-                            <Link
-                              key={`other-${item.href}-${i}`}
-                              href={buildHighlightHref(item.href, submittedQuery)}
-                              className="group flex gap-4 rounded-xl border p-3 transition-colors hover:border-purple-400/30"
-                              style={{ borderColor: 'var(--m-border)', background: 'var(--m-bg-card)' }}
-                            >
-                              <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md" style={{ background: 'var(--m-bg-card-hover)' }}>
-                                <Icon className="h-3.5 w-3.5 group-hover:text-purple-400 transition-colors" style={{ color: 'var(--m-text-5)' }} />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <h3 className="text-sm font-medium group-hover:text-purple-300 transition-colors truncate" style={{ color: 'var(--m-text-2)' }}>
-                                  {item.title}
-                                </h3>
-                                <p className="mt-0.5 text-xs line-clamp-1" style={{ color: 'var(--m-text-4)' }}>
-                                  {item.description}
-                                </p>
-                              </div>
-                              <span className={`mt-1 shrink-0 rounded-md px-1.5 py-0.5 text-[9px] font-medium ${badgeColors[item.type] || 'bg-white/10 text-white/50'}`}>
-                                {item.badge}
-                              </span>
-                            </Link>
-                          )
-                        })
-                      ))}
-                    </div>
-                  </div>
-                )}
+              <div className="space-y-2">
+                {scoredResults.map((scored, i) => {
+                  const item = scored.item
+                  const Icon = typeIcons[item.type] || FileText
+                  return (
+                    <Link
+                      key={`${item.href}-${i}`}
+                      href={buildHighlightHref(item.href, highlightKeywords)}
+                      className="group flex gap-4 rounded-xl border p-4 transition-colors hover:border-purple-400/30"
+                      style={{ borderColor: 'var(--m-border)', background: 'var(--m-bg-card)' }}
+                    >
+                      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: 'var(--m-bg-card-hover)' }}>
+                        <Icon className="h-4 w-4 group-hover:text-purple-400 transition-colors" style={{ color: 'var(--m-text-4)' }} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-medium group-hover:text-purple-300 transition-colors truncate" style={{ color: 'var(--m-text)' }}>
+                            {item.title}
+                          </h3>
+                          <span className={`shrink-0 rounded-md px-2 py-0.5 text-[10px] font-medium ${badgeColors[item.type] || 'bg-white/10 text-white/50'}`}>
+                            {item.badge}
+                          </span>
+                        </div>
+                        <p className="mt-1 text-sm line-clamp-2" style={{ color: 'var(--m-text-3)' }}>
+                          {item.description}
+                        </p>
+                      </div>
+                      <ArrowRight className="mt-2 h-4 w-4 shrink-0 group-hover:text-purple-400/50 transition-colors" style={{ color: 'var(--m-text-5)' }} />
+                    </Link>
+                  )
+                })}
               </div>
             )}
 
