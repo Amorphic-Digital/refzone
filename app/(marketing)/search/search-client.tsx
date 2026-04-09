@@ -26,11 +26,14 @@ const badgeColors: Record<string, string> = {
   page: 'bg-amber-400/10 text-amber-400',
 }
 
-/** Build a URL with highlight param — uses AI keywords if available, falls back to first keyword */
-function buildHighlightHref(href: string, keywords: string[]): string {
-  const term = keywords[0] || ''
-  if (!term) return href
-  return `${href}?highlight=${encodeURIComponent(term)}`
+/** Build a URL with highlight param — picks the best keyword that exists in the result's text */
+function buildHighlightHref(href: string, keywords: string[], resultText: string): string {
+  if (keywords.length === 0) return href
+  const lower = resultText.toLowerCase()
+  // Find the first keyword that actually appears in this result's visible text
+  const match = keywords.find((k) => lower.includes(k.toLowerCase()))
+  if (!match) return href
+  return `${href}?highlight=${encodeURIComponent(match)}`
 }
 
 // Cache AI summaries + keywords so they persist across navigations
@@ -268,7 +271,7 @@ export function SearchPageClient({ searchIndex }: Props) {
                   return (
                     <Link
                       key={`${item.href}-${i}`}
-                      href={buildHighlightHref(item.href, highlightKeywords)}
+                      href={buildHighlightHref(item.href, highlightKeywords, `${item.title} ${item.description}`)}
                       className="group flex gap-4 rounded-xl border p-4 transition-colors hover:border-purple-400/30"
                       style={{ borderColor: 'var(--m-border)', background: 'var(--m-bg-card)' }}
                     >

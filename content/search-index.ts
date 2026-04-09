@@ -228,14 +228,19 @@ export function searchContentScored(query: string, index: SearchResult[]): Score
     })
     .filter((r) => {
       if (r.score <= 0) return false
-      // At least one meaningful term must appear in the title or description
-      // This prevents results that only match on generic body text
-      const titleLower = r.item.title.toLowerCase()
-      const descLower = r.item.description.toLowerCase()
-      return terms.some((t) => titleLower.includes(t) || descLower.includes(t))
+      // At least one meaningful term must appear in title, description, or badge
+      // This prevents showing pages where the term only exists deep in body text
+      // that the user won't see on the search result card
+      const visible = `${r.item.title} ${r.item.description} ${r.item.badge}`.toLowerCase()
+      return terms.some((t) => visible.includes(t))
     })
     .sort((a, b) => b.score - a.score)
-    .slice(0, 20)
+    // Deduplicate by href — keep only the highest-scoring result per page
+    .filter((r, i, arr) => {
+      const firstIdx = arr.findIndex((other) => other.item.href === r.item.href)
+      return firstIdx === i
+    })
+    .slice(0, 15)
 
   // Determine relevance tiers based on top score
   const topScore = scored[0]?.score || 0
