@@ -226,7 +226,14 @@ export function searchContentScored(query: string, index: SearchResult[]): Score
       if (item.type === 'law-faq') score *= 1.3
       return { item, score }
     })
-    .filter((r) => r.score > 0)
+    .filter((r) => {
+      if (r.score <= 0) return false
+      // At least one meaningful term must appear in the title or description
+      // This prevents results that only match on generic body text
+      const titleLower = r.item.title.toLowerCase()
+      const descLower = r.item.description.toLowerCase()
+      return terms.some((t) => titleLower.includes(t) || descLower.includes(t))
+    })
     .sort((a, b) => b.score - a.score)
     .slice(0, 20)
 
