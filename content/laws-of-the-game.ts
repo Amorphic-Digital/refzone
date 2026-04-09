@@ -1553,33 +1553,102 @@ export const lawsOfTheGame: LawContent[] = [
       'Law 13 governs the procedures for taking free kicks, including the distinction between direct and indirect free kicks, positioning requirements, and the rules for defensive walls. For Australian referees, managing free kicks efficiently is a key match management skill.',
     sections: [
       {
-        heading: 'Types of free kick',
-        body: 'Direct free kicks allow a goal to be scored directly against the opposing team. Indirect free kicks require the ball to touch another player before a goal can be scored — the referee indicates an indirect free kick by raising an arm above the head and maintains this signal until the kick is taken and the ball touches another player or goes out of play.',
+        heading: 'Types of free kick — direct vs indirect',
+        body: 'There are two types of free kick: direct and indirect. A direct free kick allows the kicker to score a goal directly against the opposing team without the ball needing to touch another player first. Direct free kicks are awarded for the physical and handling offences listed in Law 12, such as kicking, tripping, pushing, or deliberately handling the ball. An indirect free kick requires the ball to touch another player before a goal can be scored. Indirect free kicks are awarded for non-physical offences such as dangerous play, impeding, or offside. If an indirect free kick enters the goal without touching another player, a goal kick is awarded.',
       },
       {
-        heading: 'Procedure',
-        body: 'The ball must be stationary when the kick is taken, and the kicker must not touch the ball again until it has touched another player. All opponents must be at least 9.15 metres (10 yards) from the ball until it is in play. If a free kick is awarded inside the kicker\'s penalty area, all opponents must be outside the penalty area and at least 9.15m from the ball.',
+        heading: 'Procedure for taking a free kick',
+        body: 'The ball must be stationary when the kick is taken, and the kicker must not touch the ball again until it has touched another player. All opponents must be at least 9.15 metres (10 yards) from the ball until it is in play. The ball is in play when it is kicked and clearly moves — it does not need to travel any minimum distance. The kicker may pass the ball in any direction. If the kicker touches the ball a second time before it has touched another player, an indirect free kick is awarded to the opposing team from the location of the second touch.',
       },
       {
-        heading: 'Defensive wall rules',
-        body: 'When the defending team forms a "wall" of three or more players, all attacking team players must remain at least 1 metre from the wall until the ball is in play. This rule, introduced in 2019, prevents attackers from infiltrating the wall and causing confusion. The referee must manage this actively and may caution any attacking player who does not comply.',
+        heading: 'Free kicks inside the penalty area',
+        body: 'When a free kick is awarded to the defending team inside their own penalty area, all opponents must be outside the penalty area and at least 9.15 metres from the ball until it is in play. The ball is in play when it is kicked and clearly moves — under the 2019 rule change, it no longer needs to leave the penalty area before another player can touch it. A team-mate may receive the ball inside the penalty area. For an indirect free kick awarded to the attacking team inside the defending team\'s penalty area, such as a goalkeeper back-pass offence, the same 9.15-metre distance applies and the referee must manage the crowded area carefully.',
+      },
+      {
+        heading: 'Defensive wall rules (2019 change)',
+        body: 'When the defending team forms a \u201Cwall\u201D of three or more players, all attacking team players must remain at least 1 metre from the wall until the ball is in play. This rule was introduced in 2019 to prevent attackers from infiltrating the defensive wall and causing confusion or obstruction. If an attacking player does not respect this 1-metre distance, the referee stops play and awards an indirect free kick to the defending team. Referees should communicate this requirement clearly to both teams. The 1-metre exclusion zone applies only to walls of three or more defenders.',
+      },
+      {
+        heading: 'Quick free kicks',
+        body: 'A player may take a free kick quickly without waiting for the referee\'s whistle, provided the referee has not indicated that the kick requires a whistle signal (such as when managing a wall or showing a card). If a player takes a quick free kick and an opponent within 9.15 metres intercepts it, the referee allows play to continue. However, an opponent who deliberately prevents the free kick from being taken quickly — for example, by standing over the ball or kicking it away — must be cautioned for delaying the restart of play. Quick free kicks can be a highly effective tactical tool.',
+      },
+      {
+        heading: 'The referee\'s signal for indirect free kicks',
+        body: 'The referee indicates an indirect free kick by raising one arm above the head and keeping it raised until the kick is taken and the ball touches another player or goes out of play. This signal is essential because it communicates to all players, coaches, and assistants the type of restart. If the referee forgets to signal and the ball enters the goal directly, the goal cannot be awarded — a goal kick is given instead. Assistant referees should mirror the indirect free kick signal when they are closer to the location of the offence.',
+      },
+      {
+        heading: 'Free kicks and offside considerations',
+        body: 'When a free kick is taken, the offside law (Law 11) applies in full. Players in an offside position at the moment the ball is kicked may be penalised if they become involved in active play, interfere with an opponent, or gain an advantage. Referees and assistant referees must be alert to offside at every free kick, particularly those taken from deep positions or the halfway line. Attackers often attempt to time their runs to stay onside, making communication between the referee and assistants vital for correct decision-making.',
+      },
+      {
+        heading: 'Ceremonial vs non-ceremonial free kicks',
+        body: 'A ceremonial free kick is one where the referee uses the whistle to signal the restart, typically after managing the defensive wall distance or after showing a card. A non-ceremonial (quick) free kick is taken without the whistle. The referee decides whether to make a free kick ceremonial based on the match situation. If a player asks for the required 9.15-metre distance to be enforced, the free kick becomes ceremonial and cannot be taken until the referee blows the whistle. This distinction is key to effective match management and preventing disputes over early kicks.',
       },
     ],
     keyPoints: [
-      'Direct: goal can be scored directly; indirect: must touch another player first',
-      'Ball must be stationary and opponents 9.15m away',
-      'Free kick inside own penalty area: opponents must leave the area',
-      'Attacking players must be 1m from a 3+ person defensive wall',
-      'Referee raises arm to signal indirect free kick',
+      'Direct free kick: a goal can be scored directly against the opposing team',
+      'Indirect free kick: the ball must touch another player before a goal can be scored',
+      'The ball must be stationary when the kick is taken',
+      'All opponents must be at least 9.15 metres (10 yards) from the ball',
+      'Free kick inside own penalty area: opponents must be outside the penalty area',
+      'Attacking players must stay 1 metre from a defensive wall of 3 or more players',
+      'The referee raises an arm to signal an indirect free kick and keeps it raised',
+      'A quick free kick may be taken without the whistle unless the referee indicates otherwise',
+      'Kicker cannot touch the ball again until another player has touched it',
+      'A goal cannot be scored directly from an indirect free kick — a goal kick results',
     ],
     commonQuestions: [
       {
         q: 'What is the difference between a direct and indirect free kick?',
-        a: 'A goal can be scored directly from a direct free kick. An indirect free kick must touch another player first.',
+        a: 'A direct free kick allows a goal to be scored directly against the opposing team. An indirect free kick requires the ball to touch another player before a goal can be scored — the referee signals it by raising an arm.',
       },
       {
         q: 'How far must defenders stand from a free kick?',
-        a: '9.15 metres (10 yards) from the ball until it is in play.',
+        a: 'All opponents must be at least 9.15 metres (10 yards) from the ball until it is in play. If the free kick is inside the defending team\'s penalty area, opponents must also be outside the penalty area.',
+      },
+      {
+        q: 'Can you score a goal directly from an indirect free kick?',
+        a: 'No. If the ball enters the goal without touching another player, a goal kick is awarded. The ball must touch another player before entering the goal for it to count.',
+      },
+      {
+        q: 'What happens if the kicker touches the ball twice from a free kick?',
+        a: 'An indirect free kick is awarded to the opposing team from the location where the kicker touched the ball a second time.',
+      },
+      {
+        q: 'Can a free kick be taken quickly without the whistle?',
+        a: 'Yes, unless the referee has indicated the kick requires a whistle signal — for example, when managing the wall or showing a card. If a player requests the distance be enforced, the referee must use the whistle.',
+      },
+      {
+        q: 'What is the 1-metre rule for attacking players at a wall?',
+        a: 'When the defending team forms a wall of three or more players, all attacking players must remain at least 1 metre from the wall until the ball is in play. Failure to comply results in an indirect free kick to the defending team.',
+      },
+      {
+        q: 'What if an opponent deliberately delays a free kick?',
+        a: 'A player who deliberately prevents a free kick from being taken quickly — such as kicking the ball away or standing over the ball — must be cautioned (yellow card) for delaying the restart of play.',
+      },
+      {
+        q: 'Does the ball need to travel a minimum distance from a free kick?',
+        a: 'No. The ball is in play when it is kicked and clearly moves. There is no minimum distance requirement.',
+      },
+      {
+        q: 'Does the offside rule apply at free kicks?',
+        a: 'Yes. The offside law applies in full at free kicks. A player in an offside position when the ball is kicked may be penalised if they become involved in active play.',
+      },
+      {
+        q: 'What if the referee forgets to signal an indirect free kick?',
+        a: 'If the referee does not signal and the ball enters the goal directly, the goal cannot be awarded. A goal kick is given because it was an indirect free kick, regardless of the missing signal.',
+      },
+      {
+        q: 'Can a free kick inside the penalty area be passed to a team-mate in the area?',
+        a: 'Yes. Since 2019, the ball does not need to leave the penalty area to be in play. A team-mate may receive it inside the penalty area once the ball has been kicked and clearly moves.',
+      },
+      {
+        q: 'What happens if a free kick is awarded for offside?',
+        a: 'An indirect free kick is awarded to the defending team from the position where the offside player was when the ball was played by their team-mate.',
+      },
+      {
+        q: 'Can a goalkeeper handle a free kick taken by a team-mate?',
+        a: 'Not if the team-mate deliberately kicks the ball to the goalkeeper. This is a back-pass offence under Law 12, resulting in an indirect free kick to the opposing team.',
       },
     ],
     refereeTips: [
@@ -1588,9 +1657,22 @@ export const lawsOfTheGame: LawContent[] = [
       'Manage the wall actively — ensure 9.15m distance and that attackers stay 1m from a 3+ person wall',
       'If a player delays the restart by kicking the ball away, caution them for delaying the restart',
     ],
-    australiaContext: 'Free kick management is a key assessment criterion for referee promotion in Australian football. State associations evaluate how efficiently referees manage restarts, particularly in and around the penalty area. Quick, clear communication and confident positioning during free kicks are skills that Football NSW, Football Victoria, and other associations expect from referees seeking advancement.',
+    australiaContext:
+      'Free kick management is a key assessment criterion for referee promotion in Australian football. State associations evaluate how efficiently referees manage restarts, particularly in and around the penalty area. Quick, clear communication and confident positioning during free kicks are skills that Football NSW, Football Victoria, and other associations expect from referees seeking advancement.',
     ifabUrl: 'https://www.theifab.com/laws/latest/free-kicks/',
-    searchTerms: ['free kick', 'direct free kick', 'indirect free kick', 'wall', 'defensive wall', '9.15 metres', '10 yards', 'free kick procedure', 'quick free kick', 'free kick in penalty area', 'attacking wall distance'],
+    searchTerms: [
+      'free kick',
+      'direct free kick',
+      'indirect free kick',
+      'wall',
+      'defensive wall',
+      '9.15 metres',
+      '10 yards',
+      'free kick procedure',
+      'quick free kick',
+      'free kick in penalty area',
+      'attacking wall distance',
+    ],
     relatedLaws: [12, 14],
   },
   {
@@ -1606,33 +1688,106 @@ export const lawsOfTheGame: LawContent[] = [
       'Law 14 defines the procedure for taking a penalty kick, which is awarded when a direct free kick offence is committed inside the offender\'s penalty area. Penalty kicks are high-pressure moments for referees — getting the procedure right is critical. Australian referees at all levels must understand the rules around feinting, goalkeeper positioning, and encroachment.',
     sections: [
       {
-        heading: 'Procedure',
-        body: 'The ball is placed on the penalty mark (11 metres from the goal line). The goalkeeper must remain on the goal line, facing the kicker, between the goalposts until the ball is kicked. The goalkeeper must have at least part of one foot touching or in line with the goal line. The kicker must kick the ball forward. All other players must be outside the penalty area, outside the penalty arc, and behind the penalty mark.',
+        heading: 'When a penalty kick is awarded',
+        body: 'A penalty kick is awarded when a player commits a direct free kick offence inside their own penalty area while the ball is in play. The offence may be committed by any player — not just a defender. If a defender commits a foul inside the penalty area during a stoppage, the penalty is not awarded because the ball was not in play. The penalty kick is taken from the penalty mark, which is located 11 metres (12 yards) from the midpoint of the goal line. Additional time is always allowed for a penalty kick to be completed at the end of each half.',
       },
       {
-        heading: 'Feinting',
-        body: 'The kicker is permitted to use a feinting (deceptive) approach during the run-up, but must not feint to kick the ball once they have completed the run-up. If the kicker feints at the point of kicking (stops the kicking motion and then kicks), the referee stops play, cautions the kicker for unsporting behaviour, and awards an indirect free kick to the defending team.',
+        heading: 'Procedure for taking the kick',
+        body: 'The ball must be placed on the penalty mark. The kicker must be clearly identified to the referee. The goalkeeper must remain on the goal line, facing the kicker, between the goalposts until the ball is kicked. All other players must be outside the penalty area, outside the penalty arc, and behind the penalty mark. The referee must not signal for the kick until all players are in the correct position. The kicker must kick the ball forward — a backward penalty is not permitted. The ball is in play when it is kicked and clearly moves.',
       },
       {
-        heading: 'Infringements and sanctions',
-        body: 'If the goalkeeper moves off the goal line before the ball is kicked and the kick is missed or saved, the kick is retaken and the goalkeeper may be cautioned. If an attacker encroaches and the kick scores, it is retaken. If a defender encroaches and the kick is saved or missed, it is retaken. If players from both teams encroach, the kick is always retaken regardless of the outcome.',
+        heading: 'Goalkeeper positioning on the goal line',
+        body: 'The goalkeeper must have at least part of one foot touching the goal line or, if jumping, in line with the goal line when the ball is kicked. The goalkeeper may move along the line and may move their body (such as waving arms), but must not advance off the line before the ball is kicked. If the goalkeeper moves off the line before the kick is taken and the penalty is missed or saved, the kick is retaken. The goalkeeper may be cautioned for repeatedly moving off the line. This rule ensures a fair contest between kicker and goalkeeper.',
+      },
+      {
+        heading: 'Feinting during the run-up and at the point of kick',
+        body: 'The kicker is permitted to use a feinting (deceptive) approach during the run-up to the ball. Stutter steps, changes of pace, and body feints during the approach are all legal. However, the kicker must not feint to kick the ball once they have completed the run-up — that is, once the kicker reaches the ball, they must kick it in one continuous motion. If the kicker stops at the ball and then kicks it (feinting at the point of kick), the referee stops play, cautions the kicker for unsporting behaviour, and awards an indirect free kick to the defending team.',
+      },
+      {
+        heading: 'Encroachment by players',
+        body: 'Encroachment occurs when a player other than the kicker or goalkeeper enters the penalty area, the penalty arc, or moves ahead of the penalty mark before the ball is kicked. The outcome of the kick determines the sanction. If a team-mate of the kicker encroaches and the kick scores, the goal is disallowed and the kick is retaken. If a defender encroaches and the kick is missed or saved, the kick is retaken. If players from both teams encroach, the kick is always retaken regardless of the outcome. If the encroaching player does not affect play and the kick is missed, no retake is necessary.',
+      },
+      {
+        heading: 'Infringements by the kicker',
+        body: 'If the kicker infringes the Laws after the referee signals but before the ball is in play — for example, by feinting at the point of kick — the referee stops the kick, cautions the kicker, and awards an indirect free kick to the defending team. If the kicker kicks the ball backwards, play is stopped and an indirect free kick is awarded. If the kicker takes the kick before the referee signals, the kick is retaken. The kicker must not play the ball a second time until it has touched another player; doing so results in an indirect free kick.',
+      },
+      {
+        heading: 'Penalty kicks at the end of each half',
+        body: 'Additional time is always allowed for a penalty kick to be taken or retaken at the end of each half of play or at the end of extra time. The half does not end until the penalty kick is completed — that is, until the ball stops moving, goes out of play, or the referee stops play for an infringement. If the ball rebounds from the goalkeeper, crossbar, or goalpost back into play, the half ends immediately once the ball is touched by any player or stops moving. The kicker may score from the rebound during normal play but not at the end of a half.',
+      },
+      {
+        heading: 'Penalty shoot-outs (kicks from the penalty mark)',
+        body: 'Kicks from the penalty mark are used to determine the winner of a match when competition rules require a result. These are governed by the procedure in Law 14 with additional specific rules. Each team takes five kicks alternately. If one team has scored more goals than the other could even if it completed its remaining kicks, the shoot-out ends. If scores are level after five kicks each, sudden-death rounds continue until one team scores and the other does not in the same round. The goalkeeper may be replaced only if injured during the shoot-out.',
       },
     ],
     keyPoints: [
-      'Ball placed on the penalty mark, 11m from goal',
-      'Goalkeeper must have one foot on or in line with the goal line',
-      'Feinting during run-up is permitted; feinting at the point of kick is not',
-      'Encroachment by the kicker\'s team-mates: retake if goal scored',
-      'Encroachment by defenders: retake if saved or missed',
+      'A penalty kick is awarded for a direct free kick offence inside the offender\'s penalty area',
+      'Ball placed on the penalty mark, 11 metres from the midpoint of the goal line',
+      'Goalkeeper must have at least part of one foot on or in line with the goal line',
+      'The kicker must kick the ball forward — backward penalties are not permitted',
+      'Feinting during the run-up is permitted; feinting at the point of kick is not',
+      'Encroachment by attackers: goal disallowed and retake if the kick scores',
+      'Encroachment by defenders: retake if the kick is saved or missed',
+      'Both teams encroach: always retake regardless of outcome',
+      'Additional time is always given for a penalty kick at the end of each half',
+      'Kicks from the penalty mark (shoot-outs) follow specific additional procedures',
     ],
     commonQuestions: [
       {
         q: 'Can a goalkeeper move during a penalty kick?',
-        a: 'The goalkeeper must have at least part of one foot touching or in line with the goal line until the ball is kicked. They may move along the line.',
+        a: 'The goalkeeper may move along the goal line and wave their arms, but must have at least part of one foot touching or in line with the goal line when the ball is kicked. They must not advance off the line before the kick.',
       },
       {
         q: 'Is feinting allowed during a penalty kick?',
-        a: 'Feinting during the run-up is allowed. Feinting at the point of kicking (stopping then kicking) is an offence — the kicker is cautioned.',
+        a: 'Feinting during the run-up (stutter steps, changes of pace) is permitted. Feinting at the point of kicking — stopping at the ball and then kicking — is an offence punishable with a caution and an indirect free kick.',
+      },
+      {
+        q: 'What happens if a penalty kick is missed after encroachment?',
+        a: 'If a defender encroaches and the kick is missed or saved, the kick is retaken. If an attacker encroaches and the kick is missed, play continues because the encroachment did not give the attacking team an advantage.',
+      },
+      {
+        q: 'Can you score from a penalty kick rebound?',
+        a: 'Yes, during normal play. If the ball rebounds from the goalkeeper, post, or crossbar, any player except the kicker may play it. However, at the end of a half, the half ends as soon as the ball is touched by any player after the initial save or rebound.',
+      },
+      {
+        q: 'Does a penalty kick have to be kicked forward?',
+        a: 'Yes. The kicker must kick the ball forward. If the ball is kicked backwards, the referee stops play and awards an indirect free kick to the defending team.',
+      },
+      {
+        q: 'What if the goalkeeper moves off the line early and the penalty is scored?',
+        a: 'If the penalty is scored, the goal stands. The goalkeeper is only penalised (retake and possible caution) if the kick is missed or saved.',
+      },
+      {
+        q: 'Can any player take the penalty kick?',
+        a: 'Any player who is on the field of play at the time the penalty is awarded may take the kick. The kicker must be clearly identified to the referee before the kick is taken.',
+      },
+      {
+        q: 'What if the ball bursts during a penalty kick?',
+        a: 'If the ball bursts or becomes defective before it passes the goal line, enters the goal, or is touched by another player, the penalty kick is retaken with a replacement ball.',
+      },
+      {
+        q: 'Is a penalty awarded if the foul continues into the penalty area?',
+        a: 'Yes. If a foul starts outside the penalty area but the contact or holding continues inside the penalty area, the referee should award a penalty kick because the offence is occurring inside the area.',
+      },
+      {
+        q: 'What is the penalty arc used for?',
+        a: 'The penalty arc marks an area 9.15 metres (10 yards) from the penalty mark. All players except the kicker and goalkeeper must remain outside this arc and outside the penalty area until the ball is kicked.',
+      },
+      {
+        q: 'Can the kicker pass the ball to a team-mate from a penalty kick?',
+        a: 'Yes, provided the ball is kicked forward and clearly moves. Once in play, any player may touch the ball. However, the kicker must not touch it again until another player has touched it.',
+      },
+      {
+        q: 'How many penalty kicks does each team take in a shoot-out?',
+        a: 'Each team takes five kicks initially. If scores are still level, sudden-death rounds follow — each team takes one kick per round until one team scores and the other does not.',
+      },
+      {
+        q: 'Can a goalkeeper be replaced during a penalty shoot-out?',
+        a: 'Only if the goalkeeper is injured during the shoot-out and the team has not used all permitted substitutions. Otherwise, the goalkeeper must continue.',
+      },
+      {
+        q: 'What happens if both the kicker and goalkeeper infringe during a penalty?',
+        a: 'If both the kicker and goalkeeper infringe simultaneously, the kick is retaken and both players may be cautioned for their respective offences.',
       },
     ],
     refereeTips: [
@@ -1641,9 +1796,24 @@ export const lawsOfTheGame: LawContent[] = [
       'If you spot encroachment, wait for the outcome before deciding on the sanction',
       'Brief both teams on penalty kick procedure before any penalty is taken, especially in finals',
     ],
-    australiaContext: 'Penalty kicks are high-pressure moments in Australian football, particularly in finals and cup matches. Referees at NPL and A-League level in Australia receive specific training on penalty management. At community level, ensuring both the goalkeeper and kicker understand the rules before the kick is taken can prevent confusion and disputes.',
+    australiaContext:
+      'Penalty kicks are high-pressure moments in Australian football, particularly in finals and cup matches. Referees at NPL and A-League level in Australia receive specific training on penalty management. At community level, ensuring both the goalkeeper and kicker understand the rules before the kick is taken can prevent confusion and disputes.',
     ifabUrl: 'https://www.theifab.com/laws/latest/the-penalty-kick/',
-    searchTerms: ['penalty kick', 'penalty', 'penalty spot', 'penalty mark', 'goalkeeper penalty', 'feinting penalty', 'encroachment', 'penalty retake', 'penalty procedure', 'goalkeeper line', 'penalty saved', 'penalty missed', 'stutter run-up'],
+    searchTerms: [
+      'penalty kick',
+      'penalty',
+      'penalty spot',
+      'penalty mark',
+      'goalkeeper penalty',
+      'feinting penalty',
+      'encroachment',
+      'penalty retake',
+      'penalty procedure',
+      'goalkeeper line',
+      'penalty saved',
+      'penalty missed',
+      'stutter run-up',
+    ],
     relatedLaws: [10, 12, 13],
   },
   {
@@ -1659,29 +1829,102 @@ export const lawsOfTheGame: LawContent[] = [
       'Law 15 defines the procedure for a throw-in, which is awarded when the ball wholly crosses the touchline. Throw-ins are the most common restart in football, and foul throws are one of the most frequent errors at junior and community level in Australia. Understanding the correct procedure helps referees apply the law consistently.',
     sections: [
       {
-        heading: 'Procedure',
-        body: 'A throw-in is awarded to the opponents of the player who last touched the ball when the whole ball passes over the touchline. The thrower must face the field of play, have part of each foot on the touchline or on the ground outside the touchline, hold the ball with both hands, and deliver the ball from behind and over the head from the point where it left the field of play. All opponents must stand at least 2 metres from the point on the touchline where the throw-in is taken.',
+        heading: 'When a throw-in is awarded',
+        body: 'A throw-in is awarded to the opponents of the player who last touched the ball when the whole of the ball passes over the touchline, either on the ground or in the air. It is not possible to score a goal directly from a throw-in — if the ball enters the opponent\'s goal directly, a goal kick is awarded; if it enters the thrower\'s own goal, a corner kick is awarded. The throw-in is the only restart where an outfield player is permitted to handle the ball. Determining which team is entitled to the throw-in is primarily the responsibility of the assistant referee on that side of the field.',
       },
       {
-        heading: 'Foul throws and infringements',
-        body: 'If the thrower does not follow the correct procedure, a throw-in is awarded to the opposing team. Common foul throws include lifting one or both feet completely off the ground, not delivering the ball from behind and over the head, and throwing from the wrong location. The thrower must not touch the ball again until it has touched another player. A goal cannot be scored directly from a throw-in.',
+        heading: 'Correct throw-in procedure',
+        body: 'The thrower must face the field of play and have part of each foot on the touchline or on the ground outside the touchline at the moment the ball is delivered. The thrower must hold the ball with both hands and deliver it from behind and over the head in a single continuous motion. The throw must be taken from the point where the ball left the field of play, though referees typically allow a reasonable margin of a metre or so. The thrower must not touch the ball again until it has touched another player.',
+      },
+      {
+        heading: 'Foul throws explained',
+        body: 'A foul throw occurs when the thrower fails to follow the correct procedure. The most common foul throws are: lifting one or both feet completely off the ground during the throw; failing to deliver the ball from behind and over the head; releasing the ball with only one hand; and throwing from a location significantly different from where the ball crossed the touchline. When a foul throw occurs, the throw-in is awarded to the opposing team. There is no card for a foul throw itself — it is simply a procedural error that results in the restart being given to the opposition.',
+      },
+      {
+        heading: 'Opponent distance and interference',
+        body: 'All opponents must stand at least 2 metres from the point on the touchline where the throw-in is taken. If an opponent does not respect this distance and unfairly interferes with the thrower or the throw, the referee should caution the offending player for unsporting behaviour. However, if the throw-in is taken quickly and an opponent happens to be within 2 metres without deliberately interfering, play should continue. The thrower should not be penalised for opponents standing too close — the referee should manage the distance.',
+      },
+      {
+        heading: 'Throw-ins and the offside rule',
+        body: 'There is no offside offence if a player receives the ball directly from a throw-in. This is an important exception to the offside law (Law 11) that many players and coaches overlook. A player may stand in an offside position and receive the ball directly from a throw-in without being penalised. However, once the ball has been touched by another player after the throw-in, the normal offside law applies again. This exception applies only to the initial receipt of the ball — subsequent touches are subject to the standard offside rules.',
+      },
+      {
+        heading: 'Double touch and second-touch infringements',
+        body: 'If the thrower touches the ball again before it has touched another player, an indirect free kick is awarded to the opposing team from the place where the thrower touched the ball a second time. If the thrower deliberately handles the ball before it has touched another player, a direct free kick is awarded — or a penalty kick if the handling occurs inside the thrower\'s own penalty area. These situations are rare but important for referees to understand, particularly when a throw-in bounces back off a post, hoarding, or fence near the touchline.',
+      },
+      {
+        heading: 'Long throws as a tactical weapon',
+        body: 'The long throw-in has become an increasingly popular tactic in modern football, effectively turning a throw-in deep in the opponent\'s half into a set-piece opportunity similar to a corner kick. There is nothing in the Laws prohibiting a long throw-in, and referees should not discourage this tactic. The same procedural requirements apply — both feet on or behind the touchline, both hands on the ball, delivered from behind and over the head. Referees should ensure defenders maintain the 2-metre distance and watch for fouls in the penalty area as the ball is delivered.',
+      },
+      {
+        heading: 'Delays and time-wasting at throw-ins',
+        body: 'A player who takes an unreasonable amount of time to take a throw-in may be cautioned for delaying the restart of play. Similarly, a player who picks up the ball for a throw-in and then walks slowly to the touchline, or who repeatedly fakes taking the throw to waste time, can be cautioned. Opponents who delay the throw-in by failing to retreat 2 metres or by kicking the ball away should also be cautioned. Referees must manage time-wasting at throw-ins consistently, particularly in the closing stages of matches.',
       },
     ],
     keyPoints: [
-      'Both feet must be on the touchline or on the ground outside it',
+      'Awarded to opponents of the player who last touched the ball over the touchline',
+      'Both feet must be on the touchline or on the ground outside the touchline',
       'Ball must be delivered from behind and over the head with both hands',
-      'Opponents must be at least 2 metres away',
+      'Opponents must stand at least 2 metres from the throw-in point',
       'The thrower cannot touch the ball again until another player touches it',
-      'No offside offence from a throw-in received directly',
+      'No offside offence from receiving the ball directly from a throw-in',
+      'A goal cannot be scored directly from a throw-in',
+      'A foul throw results in a throw-in to the opposing team — no card',
+      'Long throws are legal provided the correct procedure is followed',
+      'Time-wasting at throw-ins is cautionable as delaying the restart',
     ],
     commonQuestions: [
       {
         q: 'What is a foul throw in football?',
-        a: 'A foul throw occurs when the thrower lifts a foot off the ground, fails to deliver the ball from behind and over the head, or throws from the wrong position.',
+        a: 'A foul throw occurs when the thrower lifts a foot off the ground, fails to deliver the ball from behind and over the head, throws with one hand, or throws from the wrong location. The opposing team receives the throw-in.',
       },
       {
         q: 'Can you score directly from a throw-in?',
         a: 'No. If the ball enters the opponent\'s goal directly from a throw-in, a goal kick is awarded. If it enters the thrower\'s own goal, a corner kick is awarded.',
+      },
+      {
+        q: 'Is there offside from a throw-in?',
+        a: 'No. A player cannot be offside when receiving the ball directly from a throw-in. This exception to the offside rule applies only to the initial receipt — subsequent play is subject to normal offside rules.',
+      },
+      {
+        q: 'How far must opponents stand from a throw-in?',
+        a: 'All opponents must stand at least 2 metres from the point on the touchline where the throw-in is taken. Failure to respect this distance when interfering with the throw can result in a caution.',
+      },
+      {
+        q: 'Can you take a throw-in from the wrong position?',
+        a: 'The throw must be taken from approximately where the ball crossed the touchline. Referees typically allow a reasonable margin, but throwing from a significantly different location results in a foul throw awarded to the opposing team.',
+      },
+      {
+        q: 'What happens if the thrower touches the ball twice?',
+        a: 'An indirect free kick is awarded to the opposing team from the location of the second touch. If the thrower deliberately handles the ball, a direct free kick (or penalty kick if inside their own penalty area) is awarded.',
+      },
+      {
+        q: 'Can a goalkeeper pick up a throw-in from a team-mate?',
+        a: 'No. If a team-mate throws the ball directly to their own goalkeeper and the goalkeeper handles it, an indirect free kick is awarded to the opposing team. This is a back-pass offence under Law 12.',
+      },
+      {
+        q: 'Are long throw-ins legal in football?',
+        a: 'Yes. There is no rule against long throw-ins. The same procedural requirements apply — both feet on or behind the line, both hands, delivered from behind and over the head. They are a legitimate tactical weapon.',
+      },
+      {
+        q: 'Can you take a throw-in sitting down or kneeling?',
+        a: 'No. The thrower must have part of each foot on the touchline or on the ground outside it. This requires the thrower to be standing. A seated or kneeling throw would be a foul throw.',
+      },
+      {
+        q: 'What if the ball does not enter the field of play from a throw-in?',
+        a: 'The throw-in is retaken by the same team. The ball must enter the field of play to be in play. If the thrower throws the ball and it does not cross the touchline into the field, it is not yet in play.',
+      },
+      {
+        q: 'Can a throw-in be taken quickly?',
+        a: 'Yes. A player may take a throw-in as quickly as they wish, provided the correct procedure is followed. Opponents do not need to be 2 metres away if the throw is taken quickly — but they must not deliberately interfere.',
+      },
+      {
+        q: 'Is dragging the foot a foul throw?',
+        a: 'If part of the foot remains on the ground on or behind the touchline at the moment of release, the throw is legal. The foot may slide or drag, but must not be completely lifted off the ground.',
+      },
+      {
+        q: 'What if two opponents touched the ball simultaneously before it went out?',
+        a: 'If the referee cannot determine which team touched the ball last, a dropped ball is awarded at the position where the ball crossed the touchline. In practice, the assistant referee usually indicates the direction of the throw-in.',
       },
     ],
     refereeTips: [
@@ -1690,9 +1933,20 @@ export const lawsOfTheGame: LawContent[] = [
       'Position yourself to see the thrower\'s feet and the field of play simultaneously',
       'In junior football, consider using a quick coaching moment for first-time foul throws rather than immediately penalising',
     ],
-    australiaContext: 'Foul throws are one of the most common infringements in Australian junior football. Many state associations including Football NSW and Football Queensland encourage referees to use a developmental approach with younger players — explaining the correct procedure rather than simply awarding a throw-in to the opposition. At senior level, the law is applied strictly.',
+    australiaContext:
+      'Foul throws are one of the most common infringements in Australian junior football. Many state associations including Football NSW and Football Queensland encourage referees to use a developmental approach with younger players — explaining the correct procedure rather than simply awarding a throw-in to the opposition. At senior level, the law is applied strictly.',
     ifabUrl: 'https://www.theifab.com/laws/latest/the-throw-in/',
-    searchTerms: ['throw-in', 'throw in', 'foul throw', 'throw-in procedure', 'both feet', 'behind and over the head', 'throw-in distance', 'can you score from throw-in', 'long throw'],
+    searchTerms: [
+      'throw-in',
+      'throw in',
+      'foul throw',
+      'throw-in procedure',
+      'both feet',
+      'behind and over the head',
+      'throw-in distance',
+      'can you score from throw-in',
+      'long throw',
+    ],
     relatedLaws: [9, 11],
   },
   {
@@ -1708,29 +1962,102 @@ export const lawsOfTheGame: LawContent[] = [
       'Law 16 defines the goal kick procedure, which is used to restart play when the ball wholly crosses the goal line (excluding the part between the goalposts) having last been touched by an attacker. Goal kicks are a routine restart but have specific rules that referees must enforce, particularly regarding when the ball is in play.',
     sections: [
       {
-        heading: 'Procedure',
-        body: 'The ball is kicked from any point within the goal area by a player of the defending team. The ball is in play when it is kicked and clearly moves. The ball does not need to leave the penalty area before another player can touch it — this rule changed in 2019. Opponents must remain outside the penalty area until the ball is in play.',
+        heading: 'When a goal kick is awarded',
+        body: 'A goal kick is awarded when the whole of the ball passes over the goal line, either on the ground or in the air, having last touched a player of the attacking team, and a goal is not scored. This includes deflections off attacking players, deliberate passes, shots that miss the goal, and headers. The assistant referee typically signals for a goal kick by pointing towards the goal area. The ball may be kicked from any point within the goal area by any player of the defending team — it does not have to be the goalkeeper.',
       },
       {
-        heading: 'Infringements',
-        body: 'If the ball does not leave the penalty area, the goal kick is not retaken — this was the old rule. Under current rules, the ball is in play as soon as it clearly moves. If the kicker touches the ball again before it touches another player, an indirect free kick is awarded. A goal may be scored directly from a goal kick, but only against the opposing team.',
+        heading: 'Procedure and ball placement',
+        body: 'The ball is placed at any point within the goal area and kicked by a player of the defending team. The ball is in play when it is kicked and clearly moves. Under the 2019 rule change, the ball no longer needs to leave the penalty area before it is in play — this was a significant change that altered build-up play at all levels. The kicker may pass the ball to a team-mate standing inside the penalty area, allowing short goal kicks directly to nearby defenders. The ball must be stationary when kicked.',
+      },
+      {
+        heading: 'The 2019 rule change explained',
+        body: 'Before 2019, the ball had to leave the penalty area before it was considered in play during a goal kick. If a player touched it before it left the penalty area, the kick was retaken. The 2019 IFAB rule change removed this requirement entirely. Now the ball is in play the moment it is kicked and clearly moves, even if it stays within the penalty area. This change was designed to speed up play and allow teams to build from the back more effectively. It has fundamentally changed how goal kicks are taken at all levels of the game.',
+      },
+      {
+        heading: 'Opponent positioning during a goal kick',
+        body: 'All opponents must remain outside the penalty area until the ball is in play (kicked and clearly moves). If an opponent enters the penalty area before the ball is in play and touches the ball or challenges for it, the goal kick is retaken. If an opponent is inside the penalty area when the goal kick is taken and does not interfere with play, the referee may allow play to continue at their discretion. Referees should actively manage opponent positioning and ensure the penalty area is clear before signalling for the kick to be taken.',
+      },
+      {
+        heading: 'Offside and goal kicks',
+        body: 'There is no offside offence if a player receives the ball directly from a goal kick. This is one of the key exceptions to the offside rule under Law 11. A player may stand in an offside position and receive the ball directly from a goal kick without being penalised. However, once the ball has been touched by any player after the goal kick, the normal offside rules apply again. This exception is important for long goal kicks aimed at strikers positioned beyond the defensive line.',
+      },
+      {
+        heading: 'Scoring directly from a goal kick',
+        body: 'A goal may be scored directly from a goal kick, but only against the opposing team. If the ball is kicked directly into the opponent\'s goal from a goal kick, the goal stands. If the ball enters the kicker\'s own goal directly from a goal kick — for instance, blown back by the wind — a goal is not awarded. Instead, a corner kick is awarded to the opposing team. While scoring directly from a goal kick is extremely rare due to the distance involved, it is a legally valid goal.',
+      },
+      {
+        heading: 'Second touch and kicker infringements',
+        body: 'If the kicker touches the ball a second time before it has touched another player, an indirect free kick is awarded to the opposing team from the position where the second touch occurred. This most commonly happens when a goalkeeper takes a short goal kick to a nearby defender, the pass is poor, and the goalkeeper instinctively handles or kicks the ball again. If the goalkeeper handles the ball inside the penalty area after a goal kick without another player touching it, an indirect free kick is awarded from the location of the handling.',
+      },
+      {
+        heading: 'Goal kick taken from the wrong position',
+        body: 'If a goal kick is taken from outside the goal area, the kick is retaken. The ball must be placed within the goal area — it cannot be placed on or outside the goal area line for a goal kick. Referees should clearly communicate with the kicker if the ball is in the wrong position before the kick is taken. At community level in Australia, goalkeepers sometimes place the ball outside the goal area out of habit, and a brief reminder is usually sufficient to correct the placement before the kick.',
       },
     ],
     keyPoints: [
-      'Ball is kicked from inside the goal area',
-      'Ball is in play when kicked and clearly moves (does not need to leave penalty area)',
-      'Opponents must be outside the penalty area until ball is in play',
+      'Awarded when the ball wholly crosses the goal line last touched by an attacker',
+      'Ball is kicked from any point within the goal area by any defending player',
+      'Ball is in play when kicked and clearly moves (2019 rule: no need to leave penalty area)',
+      'Opponents must remain outside the penalty area until the ball is in play',
       'No offside offence from receiving a goal kick directly',
-      'A goal can be scored directly against the opposing team',
+      'A goal can be scored directly from a goal kick against the opposing team',
+      'If the ball enters the kicker\'s own goal from a goal kick, a corner kick is awarded',
+      'Kicker cannot touch the ball again until another player has touched it',
+      'Goal kick taken from outside the goal area must be retaken',
+      'Any player of the defending team may take the goal kick — not just the goalkeeper',
     ],
     commonQuestions: [
       {
         q: 'Does a goal kick need to leave the penalty area?',
-        a: 'No. Since 2019, the ball is in play as soon as it is kicked and clearly moves. It does not need to leave the penalty area.',
+        a: 'No. Since 2019, the ball is in play as soon as it is kicked and clearly moves. It does not need to leave the penalty area. Team-mates may receive the ball inside the penalty area.',
       },
       {
         q: 'Can you score from a goal kick?',
-        a: 'Yes, against the opposing team. If the ball enters the kicker\'s own goal directly, a corner kick is awarded.',
+        a: 'Yes, against the opposing team. If the ball enters the kicker\'s own goal directly from a goal kick, a corner kick is awarded to the opposition.',
+      },
+      {
+        q: 'Is there offside from a goal kick?',
+        a: 'No. There is no offside offence if a player receives the ball directly from a goal kick. Once the ball has been touched by another player, normal offside rules apply again.',
+      },
+      {
+        q: 'Can an outfield player take a goal kick?',
+        a: 'Yes. Any player of the defending team may take the goal kick. It does not have to be the goalkeeper, though the goalkeeper takes most goal kicks in practice.',
+      },
+      {
+        q: 'What happens if an opponent enters the penalty area before the goal kick is taken?',
+        a: 'If the opponent touches the ball or interferes with play, the goal kick is retaken. If they do not interfere, the referee may allow play to continue.',
+      },
+      {
+        q: 'Where must the ball be placed for a goal kick?',
+        a: 'The ball must be placed at any point within the goal area. If it is placed outside the goal area, the kick must be retaken from the correct position.',
+      },
+      {
+        q: 'What if the goalkeeper picks up a short goal kick?',
+        a: 'If the goalkeeper takes the goal kick and then handles the ball again before another player touches it, an indirect free kick is awarded to the opposing team from the location of the handling.',
+      },
+      {
+        q: 'Can a goal kick be taken quickly?',
+        a: 'Yes, provided the ball is placed within the goal area and opponents are outside the penalty area. There is no requirement to wait for the referee\'s whistle for a goal kick.',
+      },
+      {
+        q: 'What changed about goal kicks in 2019?',
+        a: 'The ball no longer needs to leave the penalty area to be in play. It is in play as soon as it is kicked and clearly moves. Team-mates may receive the ball inside the penalty area, allowing short goal kicks to nearby defenders.',
+      },
+      {
+        q: 'What happens if the wind blows a goal kick into the kicker\'s own goal?',
+        a: 'A goal is not scored. A corner kick is awarded to the opposing team. A goal from a goal kick can only be scored against the opposition.',
+      },
+      {
+        q: 'Can the goalkeeper handle the ball outside the penalty area from a goal kick?',
+        a: 'No. The goalkeeper may only handle the ball inside their own penalty area. If the goal kick leaves the penalty area and the goalkeeper handles it outside, a direct free kick is awarded.',
+      },
+      {
+        q: 'Is time-wasting at goal kicks a cautionable offence?',
+        a: 'Yes. If a player deliberately delays taking a goal kick to waste time, the referee may caution them for delaying the restart of play. This is particularly relevant in the closing stages of matches.',
+      },
+      {
+        q: 'What if the ball is not stationary when the goal kick is taken?',
+        a: 'The ball must be stationary before it is kicked. If the ball is moving when kicked, the goal kick should be retaken.',
       },
     ],
     refereeTips: [
@@ -1739,9 +2066,18 @@ export const lawsOfTheGame: LawContent[] = [
       'Position yourself to monitor both the goal kick procedure and potential offside situations',
       'A goal kick taken from the wrong position should be retaken — communicate clearly with the kicker',
     ],
-    australiaContext: 'The 2019 rule change allowing goal kicks to be received inside the penalty area is still misunderstood by many players and coaches in Australian community football. Referees should be prepared to explain this change, particularly at lower levels. Football Australia and state federations have issued guidance on communicating rule changes to teams.',
+    australiaContext:
+      'The 2019 rule change allowing goal kicks to be received inside the penalty area is still misunderstood by many players and coaches in Australian community football. Referees should be prepared to explain this change, particularly at lower levels. Football Australia and state federations have issued guidance on communicating rule changes to teams.',
     ifabUrl: 'https://www.theifab.com/laws/latest/the-goal-kick/',
-    searchTerms: ['goal kick', 'goal kick procedure', 'goal kick penalty area', 'goal kick rule change', 'goal kick offside', 'can you score from goal kick', 'goal kick in play'],
+    searchTerms: [
+      'goal kick',
+      'goal kick procedure',
+      'goal kick penalty area',
+      'goal kick rule change',
+      'goal kick offside',
+      'can you score from goal kick',
+      'goal kick in play',
+    ],
     relatedLaws: [1, 9, 11],
   },
   {
@@ -1757,29 +2093,106 @@ export const lawsOfTheGame: LawContent[] = [
       'Law 17 defines the corner kick, which is awarded when the ball wholly crosses the goal line (excluding the part between the goalposts) having last been touched by a defender. Corner kicks create some of the most exciting moments in football and require referees to manage positioning, encroachment, and potential fouls in a crowded penalty area.',
     sections: [
       {
-        heading: 'Procedure',
-        body: 'The ball is placed inside the corner arc nearest to the point where the ball crossed the goal line. The corner flagpost must not be moved. Opponents must remain at least 9.15 metres from the corner arc until the ball is in play. The ball is in play when it is kicked and clearly moves. The kicker must not touch the ball again until it has touched another player.',
+        heading: 'When a corner kick is awarded',
+        body: 'A corner kick is awarded when the whole of the ball passes over the goal line, either on the ground or in the air, having last touched a player of the defending team, and a goal is not scored. This includes goalkeeper saves that deflect over the line, deliberate clearances, defensive headers, and deflections off defenders. The corner kick is taken from the corner arc nearest to the point where the ball crossed the goal line. The assistant referee signals a corner kick by pointing their flag towards the corner arc.',
       },
       {
-        heading: 'Infringements and scoring',
-        body: 'A goal may be scored directly from a corner kick, but only against the opposing team. If the ball enters the kicker\'s own goal directly from a corner kick, a corner kick is awarded to the opposing team. There is no offside offence if a player receives the ball directly from a corner kick. If the kicker touches the ball a second time before it has touched another player, an indirect free kick is awarded.',
+        heading: 'Ball placement and the corner arc',
+        body: 'The ball must be placed inside the corner arc or on the line of the corner arc nearest to where the ball crossed the goal line. The corner arc is a quarter circle with a radius of 1 metre from the corner flagpost. The ball must be stationary before it is kicked. The corner flagpost must not be moved to facilitate taking the kick — this is a specific requirement in the Laws. If the ball is placed outside the corner arc, the referee should instruct the kicker to reposition the ball before allowing the kick to be taken.',
+      },
+      {
+        heading: 'Opponent distance and encroachment',
+        body: 'All opponents must remain at least 9.15 metres (10 yards) from the corner arc until the ball is in play. The ball is in play when it is kicked and clearly moves. If an opponent encroaches within the 9.15-metre distance before the ball is in play and interferes with the kick, the corner kick is retaken. In practice, the penalty area line is typically within the 9.15-metre zone, so opponents often position themselves at the edge of the penalty area or on the goal line. Referees should manage encroachment firmly but pragmatically.',
+      },
+      {
+        heading: 'Scoring directly from a corner kick',
+        body: 'A goal may be scored directly from a corner kick, but only against the opposing team. This is sometimes called an \u201COlympic goal\u201D — named after a famous goal scored directly from a corner kick in the 1924 Olympics. If the ball enters the kicker\'s own goal directly from a corner kick, a corner kick is awarded to the opposing team — a goal cannot be scored against the kicker\'s own team directly from this restart. Scoring directly from a corner requires the ball to swerve into the goal without touching another player.',
+      },
+      {
+        heading: 'Corner kicks and the offside rule',
+        body: 'There is no offside offence if a player receives the ball directly from a corner kick. This is one of the four restarts (along with throw-ins, goal kicks, and dropped balls) where the offside law does not apply to the initial receipt. A player may stand in an offside position and receive the ball directly from a corner kick without penalty. However, once the ball has been touched by any player after the corner kick, normal offside rules apply immediately. This distinction is important when a corner is flicked on by a near-post player towards a team-mate in an offside position.',
+      },
+      {
+        heading: 'Short corner kicks',
+        body: 'A short corner kick is a tactical variation where the kicker plays a short pass to a nearby team-mate rather than delivering the ball directly into the penalty area. Short corners are perfectly legal and increasingly common in modern football. The same rules apply — opponents must remain 9.15 metres from the corner arc, and the kicker cannot touch the ball again until another player has touched it. Referees should be alert to opponents who rush towards the ball to close down the short corner before the minimum distance is respected.',
+      },
+      {
+        heading: 'Fouls and misconduct during corner kicks',
+        body: 'Corner kicks create crowded situations in the penalty area where fouls frequently occur. Pushing, holding, shirt-pulling, and elbowing are common offences as players jostle for position. Referees must be vigilant for off-the-ball incidents that occur while attention is focused on the ball. If a direct free kick offence occurs inside the penalty area during a corner kick, a penalty kick is awarded. Communication between the referee and assistant referees is essential — the assistant referee near the goal line can monitor incidents the referee may not see.',
+      },
+      {
+        heading: 'Second touch and kicker infringements',
+        body: 'If the kicker touches the ball a second time before it has been touched by another player, an indirect free kick is awarded to the opposing team from the location of the second touch. This can occur when a corner kick rebounds off the corner flagpost or the goalpost back to the kicker. The kicker must wait for another player to touch the ball before playing it again. If the kicker deliberately handles the ball before it touches another player, a direct free kick (or penalty kick if inside the opposing penalty area) is awarded to the defending team.',
       },
     ],
     keyPoints: [
-      'Ball placed inside the corner arc nearest to where it crossed the line',
-      'The corner flagpost must not be moved',
-      'Opponents must be 9.15m from the corner arc',
-      'A goal can be scored directly from a corner kick',
-      'No offside offence from receiving a corner kick directly',
+      'Awarded when the ball wholly crosses the goal line last touched by a defender',
+      'Ball must be placed inside or on the corner arc nearest to where it crossed the line',
+      'The corner flagpost must not be moved when taking a corner kick',
+      'Opponents must remain at least 9.15 metres from the corner arc until the ball is in play',
+      'A goal can be scored directly from a corner kick (an \u201COlympic goal\u201D)',
+      'No offside offence from receiving the ball directly from a corner kick',
+      'Short corner kicks are legal — the same distance rules apply',
+      'Kicker cannot touch the ball again until another player has touched it',
+      'Fouls in the penalty area during a corner result in a penalty kick',
+      'If the ball enters the kicker\'s own goal directly, a corner is awarded to the opposition',
     ],
     commonQuestions: [
       {
         q: 'Can you score directly from a corner kick?',
-        a: 'Yes, against the opposing team. If the ball enters the kicker\'s own goal directly, a corner kick is awarded to the opponents.',
+        a: 'Yes, against the opposing team. This is known as an \u201COlympic goal.\u201D If the ball enters the kicker\'s own goal directly, a corner kick is awarded to the opponents.',
       },
       {
         q: 'Is there offside from a corner kick?',
-        a: 'No. There is no offside offence if a player receives the ball directly from a corner kick.',
+        a: 'No. There is no offside offence if a player receives the ball directly from a corner kick. Once the ball has been touched by another player, normal offside rules apply again.',
+      },
+      {
+        q: 'How far must opponents stand from a corner kick?',
+        a: 'All opponents must remain at least 9.15 metres (10 yards) from the corner arc until the ball is in play. The ball is in play when it is kicked and clearly moves.',
+      },
+      {
+        q: 'Can the corner flagpost be moved to take a corner kick?',
+        a: 'No. The Laws specifically state that the corner flagpost must not be moved. The kicker must take the kick with the flagpost in place.',
+      },
+      {
+        q: 'What is a short corner kick?',
+        a: 'A short corner is when the kicker plays a short pass to a nearby team-mate instead of delivering the ball into the penalty area. It is a legal tactic and the same distance rules apply — opponents must be 9.15 metres from the arc.',
+      },
+      {
+        q: 'What happens if the corner kick goes directly into the kicker\'s own goal?',
+        a: 'A goal is not scored. A corner kick is awarded to the opposing team. You cannot score an own goal directly from a corner kick.',
+      },
+      {
+        q: 'What if the kicker touches the ball twice from a corner kick?',
+        a: 'An indirect free kick is awarded to the defending team from the location of the second touch. The kicker must wait for another player to touch the ball first.',
+      },
+      {
+        q: 'Can a corner kick be taken from either side?',
+        a: 'No. The corner kick must be taken from the corner arc nearest to where the ball crossed the goal line. The kicker cannot choose which corner to use.',
+      },
+      {
+        q: 'What is an Olympic goal?',
+        a: 'An Olympic goal is a goal scored directly from a corner kick without the ball touching another player. The term originates from a goal scored in the 1924 Olympics. It is a legal goal under the Laws of the Game.',
+      },
+      {
+        q: 'What if a defender fouls an attacker in the penalty area during a corner?',
+        a: 'If the foul is a direct free kick offence (pushing, holding, tripping, etc.), a penalty kick is awarded. The defender may also be cautioned or sent off depending on the severity of the offence.',
+      },
+      {
+        q: 'Can you take a corner kick quickly?',
+        a: 'Yes. A corner kick may be taken quickly without waiting for the referee\'s whistle. However, opponents must still respect the 9.15-metre distance — if they deliberately interfere while too close, they should be cautioned.',
+      },
+      {
+        q: 'Does the ball have to leave the corner arc to be in play?',
+        a: 'The ball is in play when it is kicked and clearly moves. It does not need to leave the corner arc. However, the ball must clearly move — a touch that does not move the ball is not sufficient.',
+      },
+      {
+        q: 'What if the ball hits the corner flagpost and rebounds to the kicker?',
+        a: 'If the ball rebounds off the corner flagpost to the kicker and they play it again, an indirect free kick is awarded to the defending team for a second touch. The flagpost is not considered another player.',
+      },
+      {
+        q: 'Who decides which side the corner is taken from?',
+        a: 'The law states the corner is taken from the corner arc nearest to where the ball crossed the goal line. It is not a choice — the position is determined by where the ball went out.',
       },
     ],
     refereeTips: [
@@ -1788,9 +2201,20 @@ export const lawsOfTheGame: LawContent[] = [
       'Ensure the ball is placed inside the corner arc and the flagpost is not moved',
       'Be alert for short corner kicks — opponents must still maintain 9.15m distance',
     ],
-    australiaContext: 'Corner kicks are a common source of penalty area incidents in Australian football. Referees at all levels should focus on managing the crowded penalty area during corners, watching for off-the-ball fouls that can escalate quickly. State federation assessors in Football NSW, Football Victoria, and Football Queensland frequently evaluate referee positioning and awareness during set pieces as part of promotion assessments.',
+    australiaContext:
+      'Corner kicks are a common source of penalty area incidents in Australian football. Referees at all levels should focus on managing the crowded penalty area during corners, watching for off-the-ball fouls that can escalate quickly. State federation assessors in Football NSW, Football Victoria, and Football Queensland frequently evaluate referee positioning and awareness during set pieces as part of promotion assessments.',
     ifabUrl: 'https://www.theifab.com/laws/latest/the-corner-kick/',
-    searchTerms: ['corner kick', 'corner', 'corner arc', 'corner flag', 'corner kick procedure', 'corner kick offside', 'can you score from corner', 'short corner', 'inswinging corner'],
+    searchTerms: [
+      'corner kick',
+      'corner',
+      'corner arc',
+      'corner flag',
+      'corner kick procedure',
+      'corner kick offside',
+      'can you score from corner',
+      'short corner',
+      'inswinging corner',
+    ],
     relatedLaws: [1, 9, 11, 13],
   },
 ]
