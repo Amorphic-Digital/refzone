@@ -554,47 +554,127 @@ export const lawsOfTheGame: LawContent[] = [
       'The offside rule explained simply. Law 11 covers offside position, when it is an offence, and exceptions. Clear explanations for football referees in Australia.',
     h1: 'Law 11: Offside — The Offside Rule Explained Simply',
     intro:
-      'Law 11 is one of the most debated and misunderstood laws in football. The offside rule exists to prevent players from gaining an unfair advantage by positioning themselves behind the defence. For Australian referees, mastering offside interpretation is critical — it is tested heavily in assessments and is one of the most common areas of match-day controversy.',
+      'Law 11 is one of the most debated and misunderstood laws in football. The offside rule exists to prevent players from gaining an unfair advantage by positioning themselves behind the defence. For Australian referees, mastering offside interpretation is critical — it is tested heavily in assessments and is one of the most common areas of match-day controversy. This page provides a comprehensive breakdown of every aspect of the offside rule, from the basic definition through to the most complex edge cases.',
     sections: [
       {
-        heading: 'Offside position',
-        body: 'A player is in an offside position if any part of the head, body, or feet is nearer to the opponents\' goal line than both the ball and the second-last opponent. The hands and arms of all players, including the goalkeeper, are not considered. Being in an offside position is not an offence in itself — a player is only penalised if they are involved in active play at the moment the ball is played or touched by a team-mate.',
+        heading: 'Offside position defined',
+        body: 'A player is in an offside position if any part of the head, body, or feet is nearer to the opponents\' goal line than both the ball and the second-last opponent. The hands and arms of all players, including the goalkeeper, are not considered when determining offside position. This is consistent with the body parts that can legitimately play the ball. Crucially, being in an offside position is not an offence in itself — a player is only penalised if they become involved in active play at the moment the ball is played or touched by a team-mate. A player who is standing in an offside position but is not involved in the play commits no offence.',
       },
       {
-        heading: 'Offside offence',
-        body: 'A player in an offside position is penalised if, at the moment the ball is played or touched by a team-mate, they interfere with play (touching the ball), interfere with an opponent (preventing them from playing the ball by obstructing their line of vision or movement, or challenging them), or gain an advantage by being in that position (playing a ball that rebounds off a post, crossbar, match official, or opponent). The penalty is an indirect free kick from the position of the offending player.',
+        heading: 'The "second-last opponent" explained',
+        body: 'The offside rule references the "second-last opponent" rather than the "last defender" because the goalkeeper typically counts as one of the two required opponents. In most situations, the goalkeeper is the last opponent and one outfield defender is the second-last, which is why people often simplify offside as "behind the last defender." However, if the goalkeeper has come upfield (for example, during a corner kick), then two outfield players become the reference points. A player is not offside if they are level with the second-last opponent — "level" means any part of their eligible body (head, body, or feet) is in line with the second-last opponent.',
+      },
+      {
+        heading: 'Interfering with play',
+        body: 'A player in an offside position is penalised for interfering with play if they touch or play the ball that has been passed or touched by a team-mate. This is the most straightforward offside offence. The key moment is when the ball is played by the team-mate, not when the player receives it. If a player is onside when the ball is played but then moves into an offside position before touching it, they are not offside. Conversely, if a player is offside when the ball is played but then moves back onside before touching it, they are still offside because position is judged at the moment the ball is played.',
+      },
+      {
+        heading: 'Interfering with an opponent',
+        body: 'A player in an offside position interferes with an opponent by preventing the opponent from playing or being able to play the ball by clearly obstructing the opponent\'s line of vision, or by challenging an opponent for the ball, or by clearly attempting to play a ball near them that impacts an opponent, or by making an obvious action that clearly impacts the ability of an opponent to play the ball. This category covers situations where an offside player does not touch the ball but still affects the play — for example, by standing directly in front of the goalkeeper and blocking their view of a shot, or by making a run toward the ball that causes a defender to change direction even though the offside player does not ultimately touch it.',
+      },
+      {
+        heading: 'Gaining an advantage by being in an offside position',
+        body: 'A player in an offside position is penalised for gaining an advantage if they play the ball or interfere with an opponent after the ball has rebounded or been deflected off the goalpost, crossbar, a match official, or an opponent. The key word is "deliberately" — if an opponent deliberately plays the ball (for example, a deliberate clearance or save by the goalkeeper), then the offside player is not considered to have gained an advantage and may play the ball. However, if the ball merely deflects or ricochets off an opponent without a deliberate play, the offside player is still penalised. This distinction between a "deliberate play" and a "deflection" is one of the most difficult interpretations in the offside rule and is frequently tested in referee assessments.',
       },
       {
         heading: 'When there is no offside offence',
-        body: 'There is no offside offence if a player receives the ball directly from a goal kick, throw-in, or corner kick. A player is also not offside if they are in their own half of the field, or if they are level with the second-last opponent or level with the last two opponents. These exceptions are important and frequently tested in referee assessments across Australia.',
+        body: 'There is no offside offence if a player receives the ball directly from a goal kick, a throw-in, or a corner kick, even if the player is in an offside position. A player is also not in an offside position if they are in their own half of the field of play, or if they are level with the second-last opponent, or if they are level with the last two opponents. These three restart exceptions (goal kick, throw-in, corner kick) are among the most frequently tested aspects of the offside rule. Note that there is no exception for free kicks — a player can be offside from a free kick, whether direct or indirect.',
+      },
+      {
+        heading: 'The "deliberate play" vs "deflection" distinction',
+        body: 'One of the most complex areas of offside interpretation involves determining whether an opponent "deliberately played" the ball. If a defender makes a deliberate attempt to play the ball (e.g. a clearance, interception, or save) and the ball then goes to a player who was in an offside position, that player is not offside because the defender\'s action created a "new phase of play." However, if the ball merely deflects off a defender (with no deliberate attempt to play it), or if the defender\'s clearance is uncontrolled and the ball ricochets off them, the offside player is considered to have gained an advantage and should be penalised. The test is whether the defender had time to react and made a deliberate attempt to play the ball, regardless of whether that attempt was successful.',
+      },
+      {
+        heading: 'Offside and VAR',
+        body: 'In competitions using Video Assistant Referee (VAR) technology, offside decisions can be reviewed using replay footage and calibrated line technology. VAR draws precise offside lines on the pitch to determine whether any eligible body part of the attacking player was beyond the second-last defender when the ball was played. In the A-League in Australia, VAR is used for offside reviews on goals. At community level where VAR is not available, the assistant referee and referee must rely on their positioning, concentration, and the "wait and see" technique to make offside decisions in real time.',
       },
     ],
     keyPoints: [
-      'Being in an offside position alone is not an offence',
-      'Offside is judged at the moment the ball is played by a team-mate',
+      'Being in an offside position alone is not an offence — the player must be involved in active play',
+      'Offside is judged at the exact moment the ball is played or touched by a team-mate',
       'No offside from goal kicks, throw-ins, or corner kicks',
-      'Arms and hands do not count for offside position',
-      'The restart for an offside offence is an indirect free kick',
+      'Arms and hands do not count for determining offside position',
+      'The restart for an offside offence is an indirect free kick from where the offence occurred',
+      '"Level" with the second-last opponent means the player is not in an offside position',
+      'A deliberate play by an opponent creates a new phase of play and resets offside',
+      'A deflection off an opponent does not reset offside — the attacker is still penalised',
+      'The goalkeeper usually counts as one of the two required opponents',
+      'VAR uses calibrated lines for offside reviews in professional competitions',
     ],
     commonQuestions: [
       {
         q: 'What is the offside rule in football explained simply?',
-        a: 'A player is offside if they are closer to the goal than the second-last defender when the ball is played to them by a team-mate, and they are involved in active play.',
+        a: 'A player is offside if any part of their head, body, or feet is closer to the opponents\' goal than both the ball and the second-last opponent at the moment a team-mate plays the ball to them, and they are involved in active play. Think of it as: you cannot be behind the defence when your team-mate passes to you.',
       },
       {
         q: 'Can you be offside from a throw-in?',
-        a: 'No. There is no offside offence if the ball is received directly from a throw-in, goal kick, or corner kick.',
+        a: 'No. There is no offside offence if the ball is received directly from a throw-in. The same applies to goal kicks and corner kicks.',
+      },
+      {
+        q: 'Can you be offside from a free kick?',
+        a: 'Yes. Unlike throw-ins, goal kicks, and corner kicks, there is no offside exception for free kicks. A player can be penalised for offside from both direct and indirect free kicks.',
+      },
+      {
+        q: 'Can you be offside in your own half?',
+        a: 'No. A player in their own half of the field is never in an offside position, regardless of where the opponents are.',
+      },
+      {
+        q: 'Do arms count for offside?',
+        a: 'No. Hands and arms are not considered when determining offside position. This applies to all players, including the goalkeeper. Only the head, body, and feet are used.',
+      },
+      {
+        q: 'What is the "wait and see" technique for offside?',
+        a: 'The "wait and see" technique means the assistant referee delays raising the flag when a player is in an offside position until that player becomes actively involved in play. This prevents incorrect flags in situations where the offside player does not interfere with play.',
+      },
+      {
+        q: 'What happens if the ball deflects off a defender to an offside player?',
+        a: 'If the ball deflects or ricochets off a defender without a deliberate attempt to play it, the offside player is penalised for gaining an advantage. However, if the defender made a deliberate play on the ball (e.g. an attempted clearance), the offside player is not penalised.',
+      },
+      {
+        q: 'What is the difference between a "deliberate play" and a "deflection" for offside?',
+        a: 'A deliberate play is when a player chooses to play the ball (e.g. a tackle, clearance, or save). A deflection is when the ball bounces off a player unintentionally. Deliberate plays reset offside; deflections do not.',
+      },
+      {
+        q: 'Can a goalkeeper be offside?',
+        a: 'Technically, yes — if a goalkeeper moves upfield into the opponents\' half and is in an offside position when a team-mate plays the ball. However, this is extremely rare in practice.',
+      },
+      {
+        q: 'What is the restart for an offside offence?',
+        a: 'An indirect free kick is awarded to the defending team from the position where the offside player was when their team-mate played the ball.',
+      },
+      {
+        q: 'Can you be offside if you are behind the ball?',
+        a: 'No. You cannot be in an offside position if you are behind the ball (nearer to your own goal than the ball). Even if there are no defenders between you and the goal, being behind the ball means you are not offside.',
+      },
+      {
+        q: 'Is it offside if a player runs from onside to offside after the ball is played?',
+        a: 'No. Offside position is judged at the exact moment the ball is played by a team-mate. If the player was onside at that moment, they can run into an offside position afterwards and still legally play the ball.',
+      },
+      {
+        q: 'What does "interfering with an opponent" mean in offside?',
+        a: 'Interfering with an opponent means preventing them from playing the ball by blocking their line of vision, physically challenging them, or making an obvious action that impacts their ability to play — even without touching the ball yourself.',
+      },
+      {
+        q: 'How does VAR check offside?',
+        a: 'VAR uses calibrated camera angles and draws precise lines on the pitch to determine whether any eligible body part of the attacker was beyond the second-last defender at the exact frame when the ball was played.',
+      },
+      {
+        q: 'Can you be offside from a corner kick?',
+        a: 'No. There is no offside offence from a corner kick. However, once the ball has been touched by another player after the corner kick, normal offside rules apply again.',
       },
     ],
     refereeTips: [
-      'Focus on the moment the ball is played — that is when offside position is judged',
-      'Use the "wait and see" technique: flag only when the player becomes involved in active play',
+      'Focus on the moment the ball is played — that is the only moment offside position matters',
+      'Use the "wait and see" technique: delay the flag until the player becomes involved in active play',
       'Communicate with your assistant referee about marginal calls — eye contact and body language matter',
       'Remember the three exceptions: goal kick, throw-in, corner kick — commit these to memory',
+      'For the "deliberate play" vs "deflection" distinction, ask: did the defender choose to play the ball?',
+      'Position yourself in line with the second-last defender, not the last defender',
+      'Keep both the ball and the offside line in your peripheral vision simultaneously',
     ],
-    australiaContext: 'Offside is the most frequently debated decision in Australian football at every level. Without VAR at community level, referees and assistant referees must rely on positioning and concentration. Football NSW and Football Victoria both include specific offside assessment modules in their referee development programmes. RefZone\'s quiz bank includes over 50 offside-specific questions to help Australian referees master this law.',
+    australiaContext: 'Offside is the most frequently debated decision in Australian football at every level. Without VAR at community level, referees and assistant referees must rely on positioning and concentration. Football NSW and Football Victoria both include specific offside assessment modules in their referee development programmes. In the A-League, VAR reviews all offside decisions on goals using calibrated line technology. For community referees working without neutral assistants, offside decisions become even more challenging — you must judge both the moment the ball is played and the position of the players from a single vantage point. RefZone\'s quiz bank includes over 50 offside-specific questions to help Australian referees master this law.',
     ifabUrl: 'https://www.theifab.com/laws/latest/offside/',
-    searchTerms: ['offside rule', 'offside position', 'offside explained', 'interfering with play', 'gaining an advantage', 'second last opponent', 'offside from goal kick', 'offside from throw-in', 'offside from corner', 'active play', 'offside trap', 'delayed flag', 'wait and see', 'offside line'],
+    searchTerms: ['offside rule', 'offside position', 'offside explained', 'interfering with play', 'gaining an advantage', 'second last opponent', 'offside from goal kick', 'offside from throw-in', 'offside from corner', 'active play', 'offside trap', 'delayed flag', 'wait and see', 'offside line', 'deliberate play', 'deflection', 'VAR offside', 'can you be offside in own half', 'offside from free kick'],
     relatedLaws: [6, 13, 15, 16, 17],
   },
   {
@@ -607,52 +687,127 @@ export const lawsOfTheGame: LawContent[] = [
       'Law 12 covers fouls, misconduct, yellow cards, and red cards in football. What is a red card offence? Direct and indirect free kicks explained for referees.',
     h1: 'Law 12: Fouls & Misconduct — Cards, Fouls & Free Kicks',
     intro:
-      'Law 12 is the most extensive and frequently applied law in football. It defines what constitutes a foul, the difference between direct and indirect free kicks, and the disciplinary actions available to the referee. For Australian referees, Law 12 is the foundation of match control — understanding careless, reckless, and excessive force is essential at every level.',
+      'Law 12 is the most extensive and frequently applied law in football. It defines what constitutes a foul, the difference between direct and indirect free kicks, and the disciplinary actions available to the referee. For Australian referees, Law 12 is the foundation of match control — understanding careless, reckless, and excessive force is essential at every level of the game. This comprehensive guide covers every aspect of fouls and misconduct, from physical challenges through to handball, dissent, and the DOGSO rule.',
     sections: [
       {
         heading: 'Direct free kick offences',
-        body: 'A direct free kick is awarded if a player commits any of the following offences against an opponent in a manner considered by the referee to be careless, reckless, or using excessive force: charges, jumps at, kicks or attempts to kick, pushes, strikes or attempts to strike, tackles or challenges, or trips or attempts to trip. A direct free kick is also awarded if a player handles the ball deliberately (except the goalkeeper in their own penalty area). If the offence occurs inside the offender\'s penalty area, a penalty kick is awarded.',
+        body: 'A direct free kick is awarded if a player commits any of the following offences against an opponent in a manner considered by the referee to be careless, reckless, or using excessive force: charges, jumps at, kicks or attempts to kick, pushes, strikes or attempts to strike (including head-butt), tackles or challenges, or trips or attempts to trip. A direct free kick is also awarded if a player handles the ball deliberately (except the goalkeeper in their own penalty area, subject to specific restrictions). If the offence occurs inside the offender\'s penalty area, a penalty kick is awarded instead of a direct free kick. The key distinction is the level of force: careless (free kick only), reckless (free kick + yellow card), or excessive force (free kick + red card).',
+      },
+      {
+        heading: 'Careless, reckless, and excessive force explained',
+        body: 'A careless challenge is one where the player shows a lack of attention or consideration when making a challenge, or acts without precaution. No disciplinary sanction is required — just a free kick. A reckless challenge is one where the player acts with disregard to the danger to, or consequences for, an opponent. A reckless challenge must be sanctioned with a yellow card (caution). Using excessive force means the player far exceeds the necessary use of force and endangers the safety of an opponent. A challenge using excessive force must be sanctioned with a red card (send-off). This three-tier system is the cornerstone of Law 12 and is the framework referees use for every physical challenge.',
       },
       {
         heading: 'Indirect free kick offences',
-        body: 'An indirect free kick is awarded if a player plays in a dangerous manner, impedes the progress of an opponent without any contact being made, or prevents the goalkeeper from releasing the ball from their hands. An indirect free kick is also awarded if the goalkeeper handles the ball after it has been deliberately kicked to them by a team-mate (the back-pass rule), handles a throw-in from a team-mate, or holds the ball for more than six seconds.',
+        body: 'An indirect free kick is awarded if a player plays in a dangerous manner (e.g. attempting to kick the ball near an opponent\'s head), impedes the progress of an opponent without any contact being made, or prevents the goalkeeper from releasing the ball from their hands. Specific goalkeeper offences also result in an indirect free kick: handling a deliberate kick-back from a team-mate (the back-pass rule), handling a throw-in received directly from a team-mate, touching the ball with the hands after releasing it and before it touches another player, and holding the ball for more than six seconds. The referee signals an indirect free kick by raising one arm above the head and keeping it raised until the ball is played and touches another player or goes out of play.',
       },
       {
-        heading: 'Cautions (yellow card) and send-offs (red card)',
-        body: 'A player is cautioned (yellow card) for: delaying the restart of play, dissent, entering/leaving without permission, failing to respect the required distance, persistent offences, and unsporting behaviour. A player is sent off (red card) for: denying an obvious goal-scoring opportunity (DOGSO) by a foul, serious foul play, violent conduct, spitting, biting, using offensive language or gestures, or receiving a second caution. In Australian football, send-off and suspension rules vary by state federation.',
+        heading: 'Handling the ball (handball)',
+        body: 'Handball is one of the most complex and frequently debated areas of Law 12. It is an offence if a player deliberately touches the ball with their hand or arm. It is also usually an offence if the ball touches a player\'s hand/arm when it has made the body unnaturally bigger, or when the hand/arm is above or beyond the shoulder level. After recent IFAB clarifications, a goal scored or chance created using the hand/arm is always penalised, even if accidental. However, it is not an offence if the ball touches a player\'s hand/arm directly from the player\'s own head, body, or foot, or if the hand/arm is close to the body and does not make the body unnaturally bigger. For goalkeepers, handling restrictions apply outside their own penalty area (treated the same as any outfield player) and for back-passes inside it.',
       },
       {
-        heading: 'Handling the ball',
-        body: 'It is an offence if a player deliberately handles the ball, or their hand/arm makes their body unnaturally bigger, or the ball touches a player\'s hand/arm which is above/beyond their shoulder (unless the player deliberately plays the ball and it then touches their hand/arm). A player\'s hand/arm making their silhouette unnaturally bigger is always considered an offence. The interpretation of "unnatural position" is one of the most debated areas in football refereeing.',
+        heading: 'Cautionable offences (yellow card)',
+        body: 'A player is cautioned and shown a yellow card for any of the following: delaying the restart of play, dissent by word or action, entering or re-entering the field without permission, deliberately leaving the field without permission, failing to respect the required distance at a corner kick, free kick, or throw-in, persistent infringement of the Laws of the Game, and unsporting behaviour. Unsporting behaviour is a broad category that includes simulation (diving), reckless challenges, handling the ball to prevent a promising attack, committing a tactical foul, showing a lack of respect for the game, and verbally distracting an opponent during play. Team officials can also receive yellow cards for irresponsible behaviour in the technical area.',
+      },
+      {
+        heading: 'Sending-off offences (red card)',
+        body: 'A player is sent off and shown a red card for any of the following: serious foul play (a tackle or challenge that endangers the safety of an opponent using excessive force or brutality), violent conduct (using or attempting to use excessive force or brutality against any person when not challenging for the ball), spitting at or towards any person, biting or attempting to bite any person, denying the opposing team a goal or an obvious goal-scoring opportunity by a handball offence, denying an obvious goal-scoring opportunity by a foul (DOGSO), using offensive, insulting, or abusive language and/or action, or receiving a second caution (yellow card) in the same match. A player who is sent off must leave the field and its surroundings, including the technical area.',
+      },
+      {
+        heading: 'Denying an obvious goal-scoring opportunity (DOGSO)',
+        body: 'DOGSO is one of the most critical concepts in Law 12. When a player commits a foul that denies an obvious goal-scoring opportunity, the referee must consider four criteria: the distance between the offence and the goal, the general direction of play, the likelihood of keeping or gaining control of the ball, and the location and number of defenders. If a player inside the penalty area commits a DOGSO foul and the referee awards a penalty kick, the offending player receives a yellow card (not a red card) — this is known as the "triple punishment" reduction introduced by IFAB. However, if the foul involves holding, pulling, pushing, or no attempt to play the ball, or the offence is outside the penalty area, a red card is still given. If the referee plays advantage for DOGSO, the offending player receives a yellow card.',
+      },
+      {
+        heading: 'Fouls against the goalkeeper',
+        body: 'The goalkeeper is protected by specific provisions in Law 12. It is an offence to prevent the goalkeeper from releasing the ball from their hands. A player who impedes the goalkeeper\'s release (e.g. by blocking the throw or kick) commits an indirect free kick offence. Physical challenges against the goalkeeper are judged using the same careless/reckless/excessive force framework as any other challenge. Charging the goalkeeper while they are holding the ball is not permitted, as the goalkeeper is considered to be in control of the ball when touching it with any part of the hands or arms. The goalkeeper\'s six-second rule is enforced by an indirect free kick, though in practice referees often warn the goalkeeper before penalising.',
       },
     ],
     keyPoints: [
-      'Careless = lack of attention; reckless = disregard for danger; excessive force = exceeds necessary use of force',
+      'Careless = lack of attention (free kick only); reckless = disregard for danger (+ yellow card); excessive force = endangers safety (+ red card)',
       'Direct free kick fouls inside the penalty area become penalty kicks',
       'Two yellow cards in one match result in a red card and send-off',
-      'DOGSO by foul in the penalty area: red card becomes yellow if the referee plays advantage or awards a penalty',
-      'Indirect free kicks include back-pass violations and dangerous play',
+      'DOGSO by foul in the penalty area: yellow card if a penalty is awarded (not red)',
+      'DOGSO outside the penalty area or with no attempt to play the ball: red card',
+      'Indirect free kicks include back-pass violations, dangerous play, and impeding',
+      'Handball is always penalised if the hand/arm is above shoulder level',
+      'Goalkeeper holding the ball for more than 6 seconds: indirect free kick',
+      'Team officials can receive yellow and red cards for misconduct',
+      'Simulation (diving) is cautionable as unsporting behaviour',
     ],
     commonQuestions: [
       {
         q: 'What is a red card offence in football?',
-        a: 'Red card offences include serious foul play, violent conduct, denying a goal-scoring opportunity by foul, spitting, offensive language/gestures, and receiving a second yellow card.',
+        a: 'Red card offences include serious foul play, violent conduct, denying a goal-scoring opportunity by foul or handball, spitting, biting, offensive/abusive language or gestures, and receiving a second yellow card in the same match.',
       },
       {
         q: 'What is the difference between a direct and indirect free kick?',
-        a: 'A goal can be scored directly from a direct free kick. An indirect free kick requires the ball to touch another player before a goal can be scored.',
+        a: 'A goal can be scored directly from a direct free kick. An indirect free kick requires the ball to touch another player before a goal can be scored. The referee signals an indirect free kick by raising an arm.',
+      },
+      {
+        q: 'What is the difference between careless, reckless, and excessive force?',
+        a: 'Careless means lack of attention — just a free kick. Reckless means disregard for danger — free kick plus a yellow card. Excessive force means endangering the opponent\'s safety — free kick plus a red card.',
+      },
+      {
+        q: 'What is DOGSO in football?',
+        a: 'DOGSO stands for Denying an Obvious Goal-Scoring Opportunity. If a player commits a foul that prevents a clear chance on goal, they are normally sent off. However, if the foul is inside the penalty area and a penalty is awarded, the player receives a yellow card instead of red.',
+      },
+      {
+        q: 'What is the back-pass rule?',
+        a: 'If a team-mate deliberately kicks the ball to their own goalkeeper and the goalkeeper handles it, an indirect free kick is awarded to the opposing team from where the goalkeeper touched the ball. The same applies if the goalkeeper handles a throw-in from a team-mate.',
+      },
+      {
+        q: 'Is diving a yellow card offence?',
+        a: 'Yes. Simulation (attempting to deceive the referee by faking a fall or injury) is classified as unsporting behaviour and is punishable with a yellow card.',
+      },
+      {
+        q: 'Can a goalkeeper get a yellow card for time-wasting?',
+        a: 'Yes. The goalkeeper is subject to the same disciplinary rules as any other player. Holding the ball for more than six seconds results in an indirect free kick, and deliberately wasting time can result in a yellow card.',
+      },
+      {
+        q: 'What happens if a player gets two yellow cards?',
+        a: 'A player who receives two yellow cards in the same match is shown a red card and sent off. The two yellow cards result in an automatic send-off — the player must leave the field and cannot be replaced.',
+      },
+      {
+        q: 'Is a shirt pull a foul in football?',
+        a: 'Yes. Holding or pulling an opponent\'s shirt is a foul and results in a direct free kick (or penalty if inside the penalty area). Depending on the context, it may also warrant a yellow card for unsporting behaviour or a red card for DOGSO.',
+      },
+      {
+        q: 'What is serious foul play?',
+        a: 'Serious foul play is a tackle or challenge that endangers the safety of an opponent using excessive force or brutality when challenging for the ball. It results in a red card. The key factor is the degree of force — challenges that could cause injury are classified as serious foul play.',
+      },
+      {
+        q: 'What is dangerous play in football?',
+        a: 'Dangerous play is any action that threatens injury to someone, including the player themselves. Common examples include a high foot near an opponent\'s head and playing on the ground in a way that risks being kicked. It results in an indirect free kick — no card unless reckless.',
+      },
+      {
+        q: 'Can you get a red card without getting a yellow card first?',
+        a: 'Yes. A straight red card is given for serious foul play, violent conduct, DOGSO, spitting, biting, or offensive language/gestures. These do not require a prior yellow card.',
+      },
+      {
+        q: 'What is the handball rule in football?',
+        a: 'A handball is penalised when a player deliberately handles the ball, when the hand/arm makes the body unnaturally bigger, or when the hand/arm is above shoulder level. A goal scored using the hand/arm is always disallowed, even if accidental.',
+      },
+      {
+        q: 'What counts as dissent in football?',
+        a: 'Dissent is protesting or showing disagreement with a referee\'s decision by word or action. This includes arguing, throwing the ball away after a decision, or making sarcastic gestures. Dissent is punishable with a yellow card.',
+      },
+      {
+        q: 'Can a substitute receive a red card?',
+        a: 'Yes. A substitute or substituted player can receive a yellow or red card for misconduct, including during the half-time interval. If a substitute is sent off before entering play, they cannot be replaced — the team plays with the same number of players.',
       },
     ],
     refereeTips: [
-      'Distinguish between careless (free kick only), reckless (free kick + caution), and excessive force (free kick + send-off)',
-      'For handling decisions, ask: was the arm in an unnatural position? Did the player make their body bigger?',
+      'Distinguish between careless (free kick only), reckless (free kick + caution), and excessive force (free kick + send-off) on every challenge',
+      'For handling decisions, ask: was the arm in an unnatural position? Did the player make their body bigger? Was the hand above shoulder level?',
       'When applying DOGSO, consider the four criteria: distance to goal, direction of play, likelihood of keeping the ball, and location/number of defenders',
       'Keep your cards in separate pockets — yellow in one, red in the other — to avoid mistakes under pressure',
       'Record the time, player number, and reason for every card in your notebook immediately',
+      'For the "triple punishment" rule, remember: DOGSO foul + penalty awarded = yellow card, not red',
+      'When assessing a tackle, look at the point of contact, the speed of the challenge, and whether studs were showing',
     ],
-    australiaContext: 'Law 12 accounts for the majority of disciplinary action in Australian football. State federations including Football NSW, Football Queensland, and Football Victoria maintain judiciary systems that review red card incidents after each match round. Referees must submit detailed match reports for all send-offs. Understanding the difference between careless, reckless, and excessive force is essential for passing referee assessments in Australia.',
+    australiaContext: 'Law 12 accounts for the majority of disciplinary action in Australian football. State federations including Football NSW, Football Queensland, and Football Victoria maintain judiciary systems that review red card incidents after each match round. Referees must submit detailed match reports for all send-offs within 24 hours. Understanding the difference between careless, reckless, and excessive force is the single most important skill for passing referee assessments in Australia. The handball rule has undergone significant changes in recent years, and Australian referees should stay current with IFAB amendments — RefZone updates its content to reflect the latest interpretations.',
     ifabUrl: 'https://www.theifab.com/laws/latest/fouls-and-misconduct/',
-    searchTerms: ['foul', 'misconduct', 'yellow card', 'red card', 'caution', 'send off', 'sending off', 'handball', 'handling', 'dangerous play', 'careless', 'reckless', 'excessive force', 'DOGSO', 'denying a goal scoring opportunity', 'SFP', 'serious foul play', 'violent conduct', 'dissent', 'unsporting behaviour', 'back pass', 'indirect free kick', 'direct free kick', 'penalty', 'spitting', 'simulation', 'diving'],
+    searchTerms: ['foul', 'misconduct', 'yellow card', 'red card', 'caution', 'send off', 'sending off', 'handball', 'handling', 'dangerous play', 'careless', 'reckless', 'excessive force', 'DOGSO', 'denying a goal scoring opportunity', 'SFP', 'serious foul play', 'violent conduct', 'dissent', 'unsporting behaviour', 'back pass', 'indirect free kick', 'direct free kick', 'penalty', 'spitting', 'simulation', 'diving', 'shirt pull', 'two yellow cards', 'triple punishment', 'goalkeeper six seconds'],
     relatedLaws: [5, 13, 14],
   },
   {
