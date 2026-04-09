@@ -17,6 +17,7 @@ const appLinks = [
 ];
 
 const navLinks = [
+  { label: "Weekly Quiz", href: "/weekly-quiz" },
   { label: "Web", href: "/web" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },

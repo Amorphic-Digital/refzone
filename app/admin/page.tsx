@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useAuth, useUser } from "@clerk/nextjs"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
-import { Shield, Users, Target, BookOpen, MessageSquare, TrendingUp, Settings, Bell, AlertCircle } from "lucide-react"
+import { Shield, Users, Target, BookOpen, MessageSquare, TrendingUp, Settings, Bell, AlertCircle, Mail } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 
@@ -258,6 +258,22 @@ export default function AdminDashboard() {
                 <div>
                   <CardTitle>Feature Closures</CardTitle>
                   <CardDescription className="mt-1">Temporarily close features with custom messages</CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+          </Card>
+        </Link>
+
+        <Link href="/admin/web-beta-signups">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer border-2 hover:border-primary">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="p-3 rounded-lg bg-purple-500/10">
+                  <Mail className="h-6 w-6 text-purple-500" />
+                </div>
+                <div>
+                  <CardTitle>Web Beta Signups</CardTitle>
+                  <CardDescription className="mt-1">Emails from users wanting to be notified when RefZone Web launches</CardDescription>
                 </div>
               </div>
             </CardHeader>
