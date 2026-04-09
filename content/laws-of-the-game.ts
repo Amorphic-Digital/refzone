@@ -40,36 +40,113 @@ export const lawsOfTheGame: LawContent[] = [
       'Learn about Law 1 of the IFAB Laws of the Game. Football pitch dimensions, field markings, goal sizes, and surface requirements explained for referees in Australia.',
     h1: 'Law 1: The Field of Play — Pitch Dimensions & Markings',
     intro:
-      'Law 1 of the IFAB Laws of the Game defines the playing surface, pitch markings, dimensions, and goal specifications for football matches. As a referee in Australia, understanding the field of play is fundamental — it determines where restarts occur, when the ball is out of play, and how to manage technical areas and spectator zones.',
+      'Law 1 of the IFAB Laws of the Game defines every physical aspect of the playing field — dimensions, markings, surfaces, goals, flagposts, and technical areas. As a referee in Australia, understanding the field of play is fundamental. It determines where restarts occur, when the ball is out of play, how to manage the technical areas, and whether a pitch is safe to play on. This comprehensive guide covers every element of Law 1 in detail.',
     sections: [
       {
-        heading: 'Pitch dimensions and surface',
-        body: 'The field of play must be rectangular and marked with continuous lines. For international matches, the pitch must be 100–110 metres long and 64–75 metres wide. For other matches, the length must be 90–120 metres and the width 45–90 metres. The playing surface can be natural grass, artificial turf, or a hybrid system, but it must be green. In Australia, many community grounds use natural grass, while newer facilities may feature FIFA Quality-approved artificial surfaces.',
+        heading: 'Pitch dimensions and shape',
+        body: 'The field of play must be rectangular — the length of the touchline must always be greater than the length of the goal line. For international matches, the pitch must be 100–110 metres long and 64–75 metres wide. For all other matches, the range is broader: 90–120 metres long and 45–90 metres wide. Competition rules may further narrow these ranges. The field is bounded by two long sides called touchlines and two short sides called goal lines. All boundary lines are part of the area they define — this means the touchline is part of the field of play, and the goal line is part of the penalty area and goal area.',
       },
       {
-        heading: 'Field markings',
-        body: 'The field is marked with a halfway line, centre circle (radius 9.15m), penalty areas, goal areas, corner arcs, and optional flagposts. The penalty area extends 16.5 metres from each goalpost and 16.5 metres into the field. The goal area extends 5.5 metres from each goalpost and 5.5 metres into the field. The penalty mark is 11 metres from the midpoint of the goal line. All lines must be the same width, not exceeding 12 centimetres.',
+        heading: 'Playing surface requirements',
+        body: 'The playing surface can be natural grass, artificial turf, or a hybrid system combining both. It must be green in colour. For artificial surfaces, FIFA mandates specific quality certifications: FIFA Quality and FIFA Quality Pro marks ensure the surface meets performance and safety standards. The surface must be uniform and level — significant undulations, holes, or dangerous debris make a pitch unsafe. If the referee deems the surface dangerous, they have the authority to postpone or abandon the match under Law 5.',
       },
       {
-        heading: 'Goals',
-        body: 'Goals must be placed on the centre of each goal line. They consist of two upright posts equidistant from the corner flagposts and joined at the top by a horizontal crossbar. The distance between the inside of the posts is 7.32 metres and the distance from the lower edge of the crossbar to the ground is 2.44 metres. Goalposts and crossbars must be white, made of approved material, and not dangerous to players.',
+        heading: 'Field markings explained',
+        body: 'The field is marked with continuous lines that must all be the same width, not exceeding 12 centimetres (5 inches). The major markings include: the halfway line dividing the field into two equal halves, the centre mark at the midpoint of the halfway line, and a centre circle with a radius of 9.15 metres (10 yards) around the centre mark. Two penalty areas are marked at each end of the field. The penalty area extends 16.5 metres (18 yards) from each goalpost and 16.5 metres into the field, forming a rectangular area. The goal area is a smaller rectangle extending 5.5 metres (6 yards) from each goalpost and 5.5 metres into the field.',
+      },
+      {
+        heading: 'The penalty area and penalty mark',
+        body: 'The penalty area is one of the most important zones on the field for referees. A direct free kick foul committed inside the penalty area by the defending team results in a penalty kick (Law 14). The penalty mark is located 11 metres (12 yards) from the midpoint of the goal line, directly centred between the goalposts. An arc of a circle with a radius of 9.15 metres from the penalty mark is drawn outside the penalty area — this is the penalty arc, used to ensure all players (except the kicker and goalkeeper) remain at least 9.15 metres from the ball during a penalty kick.',
+      },
+      {
+        heading: 'Corner arcs and flagposts',
+        body: 'A quarter circle with a radius of 1 metre (1 yard) from each corner flagpost is drawn inside the field. This is the corner arc — the ball must be placed inside or on this arc when a corner kick is taken. Corner flagposts are compulsory and must be at least 1.5 metres (5 feet) high with a non-pointed top. They must not be removed for any reason, including when a corner kick is being taken. Halfway line flagposts are optional and may be placed at each end of the halfway line, at least 1 metre outside the touchline.',
+      },
+      {
+        heading: 'Goals — dimensions and specifications',
+        body: 'Goals must be placed on the centre of each goal line. They consist of two vertical posts equidistant from the corner flagposts and joined at the top by a horizontal crossbar. The distance between the inside of the posts is 7.32 metres (8 yards), and the distance from the lower edge of the crossbar to the ground is 2.44 metres (8 feet). Goalposts and crossbars must be the same width and depth, not exceeding 12 centimetres (5 inches). They must be white, made of wood, metal, or other approved material, and must not be dangerous. Nets may be attached to the goals and the ground behind, but they are not required by law.',
+      },
+      {
+        heading: 'The technical area',
+        body: 'Where a technical area exists, it extends 1 metre either side of the designated seated area and forward to within 1 metre of the touchline. Only one person at a time is authorised to convey tactical instructions from the technical area, and they must return to their position immediately after. Team officials must remain within the technical area except in special circumstances — entering the field requires the referee\'s permission. The fourth official monitors the technical area and reports any misconduct to the referee.',
+      },
+      {
+        heading: 'Lines as part of the areas they define',
+        body: 'A critical principle in Law 1 is that all lines belong to the area they define. The touchline is part of the field of play — the ball must wholly cross the touchline to be out of play. The goal line is part of the penalty area and goal area. This means that if a foul occurs with the ball on the penalty area line, it is considered to have occurred inside the penalty area. Similarly, if the ball is on the goal line between the posts and under the crossbar, it has not crossed the line and is therefore not a goal. The entire ball must cross the entire line.',
       },
     ],
     keyPoints: [
-      'Pitch must be rectangular — length always exceeds width',
-      'All lines are part of the area they define',
-      'The centre mark is the midpoint of the halfway line',
-      'Corner flagposts must not be less than 1.5 metres high',
+      'Pitch must be rectangular — touchline always longer than goal line',
+      'All lines belong to the area they define (touchline = part of field)',
+      'The centre circle has a radius of 9.15m (10 yards)',
+      'Penalty area extends 16.5m from each goalpost into the field',
+      'Goal area extends 5.5m from each goalpost into the field',
+      'Penalty mark is 11m from the midpoint of the goal line',
+      'Corner flagposts are compulsory and at least 1.5m high',
+      'Goals are 7.32m wide and 2.44m high (inside measurements)',
       'Goal nets are permitted but not required by law',
+      'The referee can postpone or abandon a match if the surface is unsafe',
     ],
     commonQuestions: [
       {
         q: 'What are the official dimensions of a football pitch?',
-        a: 'For international matches: 100–110m long by 64–75m wide. For other matches: 90–120m long by 45–90m wide.',
+        a: 'For international matches: 100–110m long by 64–75m wide. For other matches: 90–120m long by 45–90m wide. The length must always exceed the width.',
       },
       {
         q: 'Are artificial pitches allowed in professional football?',
-        a: 'Yes. FIFA Quality or FIFA Quality Pro certified artificial turf is permitted at all levels, including international matches.',
+        a: 'Yes. FIFA Quality or FIFA Quality Pro certified artificial turf is permitted at all levels, including international matches. The surface must be green.',
+      },
+      {
+        q: 'How big is a football goal?',
+        a: 'The goal is 7.32 metres (8 yards) wide and 2.44 metres (8 feet) high, measured from the inside of the posts and the lower edge of the crossbar.',
+      },
+      {
+        q: 'How far is the penalty spot from the goal?',
+        a: 'The penalty mark is 11 metres (12 yards) from the midpoint of the goal line, centred between the goalposts.',
+      },
+      {
+        q: 'How big is the penalty area in football?',
+        a: 'The penalty area extends 16.5 metres (18 yards) from each goalpost and 16.5 metres into the field, forming a rectangle approximately 40.3m wide and 16.5m deep.',
+      },
+      {
+        q: 'What is the centre circle for in football?',
+        a: 'The centre circle (radius 9.15m/10 yards) ensures opponents stay the required distance from the ball at kick-off. Only the kicking team may be inside the circle when the kick is taken.',
+      },
+      {
+        q: 'Is the line part of the penalty area?',
+        a: 'Yes. All lines belong to the area they define. The penalty area line is part of the penalty area, so a foul on the line is a penalty kick.',
+      },
+      {
+        q: 'Can a referee cancel a match because of the pitch?',
+        a: 'Yes. Under Law 5, the referee has the authority to postpone, abandon, or not start a match if the field of play or its surroundings are deemed unsafe.',
+      },
+      {
+        q: 'Are goal nets required in football?',
+        a: 'No. Goal nets are permitted but not required by law. However, most competitions mandate nets in their own regulations.',
+      },
+      {
+        q: 'What is the technical area in football?',
+        a: 'The technical area extends 1 metre either side of the seating area and 1 metre from the touchline. Only one person at a time may stand in it to give tactical instructions.',
+      },
+      {
+        q: 'How wide are the lines on a football pitch?',
+        a: 'All lines must be the same width, not exceeding 12 centimetres (5 inches). They must be continuous and visible.',
+      },
+      {
+        q: 'Can corner flagposts be removed during play?',
+        a: 'No. Corner flagposts are compulsory and must not be removed for any reason, even to take a corner kick.',
+      },
+      {
+        q: 'What is the penalty arc used for?',
+        a: 'The penalty arc marks a 9.15m (10 yard) radius from the penalty mark. It ensures all players (except the kicker and goalkeeper) remain the required distance during a penalty kick.',
+      },
+      {
+        q: 'What is the goal area used for?',
+        a: 'Goal kicks can be taken from anywhere inside the goal area. If a dropped ball restart is required inside the goal area, it is taken on the goal area line parallel to the goal line at the nearest point.',
+      },
+      {
+        q: 'What surface colours are allowed for football pitches?',
+        a: 'The playing surface must be green. This applies to both natural grass and artificial turf.',
       },
     ],
     refereeTips: [
@@ -93,32 +170,101 @@ export const lawsOfTheGame: LawContent[] = [
       'Law 2 of the IFAB Laws of the Game covers football specifications: size, weight, pressure, and replacement rules. Essential knowledge for Australian referees.',
     h1: 'Law 2: The Ball — Size, Weight & Match Specifications',
     intro:
-      'Law 2 specifies the qualities and measurements of the ball used in football. Referees must ensure the ball meets the required standards before and during the match. In Australian competitions, understanding ball specifications helps referees make confident decisions about replacements and stoppages.',
+      'Law 2 specifies the qualities, measurements, and replacement procedures for the ball used in football. While it is one of the shorter laws, referees must be confident about ball specifications, what to do when a ball becomes defective, and how to manage multiple balls during a match. This page covers every aspect of Law 2 in detail.',
     sections: [
       {
-        heading: 'Ball specifications',
-        body: 'The ball must be spherical, made of suitable material, have a circumference of 68–70 cm, weigh 410–450 grams at the start of the match, and have a pressure equal to 0.6–1.1 atmosphere (600–1100 g/cm2) at sea level. For matches in FIFA competitions and competitions of FIFA member associations, only footballs bearing one of the FIFA Quality Programme marks are permitted.',
+        heading: 'Ball specifications and qualities',
+        body: 'The ball must be spherical, made of suitable material (typically synthetic leather panels), have a circumference of 68–70 centimetres (size 5), weigh between 410 and 450 grams at the start of the match, and have a pressure equal to 0.6–1.1 atmosphere (600–1100 g/cm2) at sea level. The referee is responsible for checking that the ball meets these requirements before the match, though in practice most referees rely on the match ball bearing a FIFA Quality mark. For matches in FIFA competitions and competitions of FIFA member associations, only footballs bearing the FIFA Quality Programme, FIFA Quality, or FIFA Quality Pro marks are permitted.',
       },
       {
-        heading: 'Replacement of a defective ball',
-        body: 'If the ball becomes defective during play, the match is stopped and restarted with a dropped ball at the position where the original ball became defective (unless play was stopped inside the goal area, in which case the dropped ball is on the goal area line parallel to the goal line). If the ball becomes defective during a penalty kick or kicks from the penalty mark, the kick is retaken. If the ball becomes defective at a kick-off, goal kick, corner kick, free kick, penalty kick, or throw-in, the restart is retaken.',
+        heading: 'Ball sizes by age group',
+        body: 'While Law 2 specifies size 5 for senior football, competition rules commonly prescribe smaller balls for younger age groups. Size 4 balls (circumference 63.5–66 cm, weight 340–390g) are standard for Under 12 to Under 14 matches. Size 3 balls (circumference 58–60 cm, weight 300–320g) are used for Under 8 and younger. The referee should confirm the correct ball size with the competition organiser before kick-off, particularly in junior football where the wrong ball size is a common issue.',
+      },
+      {
+        heading: 'Replacement of a defective ball during play',
+        body: 'If the ball becomes defective during play, the referee stops the match and restarts with a dropped ball using a replacement ball at the position where the original ball became defective. If the ball became defective inside the goal area, the dropped ball is taken on the goal area line parallel to the goal line at the nearest point to where the ball was when play was stopped. If the ball becomes defective during a penalty kick or during kicks from the penalty mark and has not yet touched the goalpost, crossbar, or a player, the kick is retaken.',
+      },
+      {
+        heading: 'Replacement of a defective ball at a restart',
+        body: 'If the ball becomes defective at a kick-off, goal kick, corner kick, free kick, penalty kick, or throw-in — that is, the ball was defective at the moment of the restart — the restart is simply retaken with a replacement ball. This is different from a ball becoming defective during open play, where a dropped ball is used. The distinction is important: if the ball bursts the moment a free kick is taken, the free kick is retaken rather than using a dropped ball.',
+      },
+      {
+        heading: 'The multi-ball system',
+        body: 'Many professional and semi-professional competitions use a multi-ball system where spare balls are placed around the perimeter of the field. When the match ball goes out of play, the nearest spare ball is used immediately to speed up restarts. The referee must ensure that all spare balls meet the required specifications before the match. Ball persons (ball kids) are responsible for retrieving and distributing spare balls. The referee can instruct ball persons to delay or accelerate the return of a ball if needed for match management purposes.',
+      },
+      {
+        heading: 'Electronic performance tracking',
+        body: 'Modern match balls may contain electronic performance and tracking (EPT) devices embedded in the ball. These devices are permitted provided they are safe, do not affect the ball\'s performance, and meet the requirements of the FIFA Quality Programme. EPT technology is used in conjunction with goal-line technology (GLT) to determine whether the ball has crossed the goal line, and with semi-automated offside technology (SAOT) to provide data for offside reviews. In Australia, EPT-equipped balls are used in the A-League.',
+      },
+      {
+        heading: 'Referee responsibility and the pre-match check',
+        body: 'The referee is the sole judge of whether the ball meets the required specifications. Before the match, the referee should check the ball\'s condition, pressure, and roundness. During the match, if a player or team official claims the ball is defective, the referee should inspect it at the next natural stoppage — there is no obligation to stop play immediately. If the referee determines the ball is satisfactory, play continues. The referee\'s decision on the ball\'s condition is final.',
       },
     ],
     keyPoints: [
-      'Size 5 ball is used for senior football (circumference 68–70 cm)',
-      'Ball must weigh 410–450g at kick-off',
-      'Referee decides if the ball meets requirements',
+      'Size 5 ball: circumference 68–70 cm, weight 410–450g',
+      'Ball pressure must be 0.6–1.1 atmosphere at sea level',
+      'The referee is the sole judge of whether the ball meets requirements',
       'Spare balls must be available around the field of play',
-      'If defective during play, restart with a dropped ball',
+      'Defective ball during play: restart with a dropped ball',
+      'Defective ball at a restart (FK, GK, CK, throw-in): retake the restart',
+      'Defective ball during a penalty kick: retake the kick',
+      'FIFA Quality marks are required for FIFA and member association competitions',
+      'Electronic tracking devices are permitted if safe and approved',
+      'Size 4 balls are standard for Under 12–14 matches',
     ],
     commonQuestions: [
       {
         q: 'What size ball is used in professional football?',
-        a: 'Size 5 — circumference of 68–70 cm, weight of 410–450 grams.',
+        a: 'Size 5 — circumference of 68–70 cm, weight of 410–450 grams at the start of the match.',
       },
       {
         q: 'What happens if the ball bursts during a goal kick?',
-        a: 'The goal kick is retaken with a replacement ball.',
+        a: 'Since the ball was defective at the restart, the goal kick is retaken with a replacement ball.',
+      },
+      {
+        q: 'What happens if the ball bursts during open play?',
+        a: 'Play is stopped and restarted with a dropped ball at the position where the ball became defective.',
+      },
+      {
+        q: 'What happens if the ball bursts during a penalty kick?',
+        a: 'If the ball has not yet touched the goalpost, crossbar, or a player, the penalty kick is retaken with a replacement ball.',
+      },
+      {
+        q: 'What size ball is used for junior football?',
+        a: 'Size 4 (circumference 63.5–66 cm) for Under 12 to Under 14. Size 3 (circumference 58–60 cm) for Under 8 and younger. Check with your competition.',
+      },
+      {
+        q: 'Can the referee change the ball during a match?',
+        a: 'Yes. The referee can replace the ball at any stoppage if they judge it to be defective or unsuitable. The referee\'s decision is final.',
+      },
+      {
+        q: 'What is the FIFA Quality mark on a football?',
+        a: 'FIFA Quality and FIFA Quality Pro marks certify that a ball meets specific performance standards for circumference, roundness, weight, bounce, water absorption, and pressure retention.',
+      },
+      {
+        q: 'Are electronic chips inside footballs allowed?',
+        a: 'Yes. Electronic performance and tracking (EPT) devices are permitted if they are safe, do not affect the ball, and are approved under the FIFA Quality Programme.',
+      },
+      {
+        q: 'What happens if the ball hits an object above the pitch (e.g. floodlight)?',
+        a: 'Play is stopped and restarted with a dropped ball at the position where the ball made contact with the object (treated similarly to a defective ball/outside interference).',
+      },
+      {
+        q: 'What is the correct ball pressure for football?',
+        a: '0.6 to 1.1 atmosphere (600–1100 g/cm2) at sea level. The referee checks this before the match.',
+      },
+      {
+        q: 'Can a player request a different ball?',
+        a: 'A player can request the referee inspect the ball, but the referee decides whether to replace it. The referee is not obligated to change the ball if they judge it satisfactory.',
+      },
+      {
+        q: 'Who provides the match ball?',
+        a: 'Competition rules determine who provides the ball. In Australian community football, the home team typically provides the match ball and spare balls.',
+      },
+      {
+        q: 'What is the multi-ball system?',
+        a: 'A system where spare balls are placed around the pitch perimeter. When the match ball goes out, the nearest spare is used immediately. Common in professional competitions to reduce delays.',
       },
     ],
     refereeTips: [
@@ -142,36 +288,109 @@ export const lawsOfTheGame: LawContent[] = [
       'Law 3 covers number of players, substitution procedures, and team officers. Understand player requirements for Australian football matches.',
     h1: 'Law 3: The Players — Substitutions & Team Requirements',
     intro:
-      'Law 3 of the IFAB Laws of the Game governs the number of players required for a match, substitution procedures, and the roles of team officers. In Australian football, competitions may vary in the number of permitted substitutions, making it essential for referees to know both the law and competition-specific regulations.',
+      'Law 3 governs the number of players required for a match, substitution procedures, the roles of team officers, and what happens when extra players or outside agents enter the field. In Australian football, competitions vary significantly in the number of permitted substitutions — from unlimited rolling subs in junior matches to 5-window systems in NPL. Referees must know both the law itself and their competition\'s specific regulations.',
     sections: [
       {
         heading: 'Number of players',
-        body: 'A match is played by two teams, each with a maximum of eleven players, one of whom must be the goalkeeper. A match may not start or continue if either team has fewer than seven players. In Australian community football, competition rules may allow smaller-sided formats (e.g. 7-a-side, 9-a-side), but the minimum player requirement still applies proportionally.',
+        body: 'A match is played by two teams, each with a maximum of eleven players, one of whom must be the goalkeeper. A match may not start or continue if either team has fewer than seven players. This minimum applies regardless of the reason for the reduction — whether through send-offs, injuries, or players leaving the field. If a team is reduced to fewer than seven players during the match, the referee must abandon the match. In Australian community football, smaller-sided formats (7-a-side, 9-a-side) have proportionally adjusted minimums set by competition rules.',
+      },
+      {
+        heading: 'The goalkeeper',
+        body: 'Each team must designate one player as the goalkeeper at all times. The goalkeeper is the only player permitted to handle the ball within their own penalty area (subject to back-pass restrictions). If the goalkeeper is sent off, injured, or swapped, the replacement must be clearly identified and wear a distinguishing jersey. An outfield player may swap positions with the goalkeeper provided the referee is informed beforehand and the change is made during a stoppage. If the swap is made without the referee\'s knowledge, both players are cautioned.',
       },
       {
         heading: 'Substitution procedures',
-        body: 'Substitutions can be made during any stoppage in play. The player being replaced must have the referee\'s permission to leave and must leave from the nearest boundary line (unless otherwise directed by the referee). The substitute enters at the halfway line during a stoppage. A player who has been replaced may not return to play. Competition rules may state the maximum number of substitutes — typically 3 in professional matches, with many Australian community leagues allowing up to 5.',
+        body: 'Substitutions may only be made during a stoppage in play. The player being replaced must have the referee\'s permission to leave and must leave from the nearest point on the boundary line (unless otherwise directed by the referee for safety or injury reasons). The substitute only enters the field at the halfway line after the player being replaced has left and after receiving the referee\'s signal. A substitution is complete when the substitute enters the field — from that moment, the substitute becomes a player and the replaced player becomes a substituted player who may not return to the match.',
       },
       {
-        heading: 'Team officers',
-        body: 'Only one person at a time is authorised to convey tactical instructions from the technical area. Team officers must behave responsibly. If a team official is guilty of misconduct, the referee may issue a warning, caution (yellow card), or send-off (red card) to team officials, just as with players.',
+        heading: 'Number of substitutions allowed',
+        body: 'The maximum number of substitutes is determined by competition rules. In FIFA competitions and most professional leagues, each team may use up to five substitutes in a maximum of three substitution windows (plus the half-time interval). Some competitions use different systems: Australian community leagues commonly allow unlimited rolling substitutions in junior matches, while NPL competitions across Football NSW and Football Victoria follow the five-substitution, three-window model. Referees must confirm the applicable rules before every match.',
+      },
+      {
+        heading: 'Extra persons on the field of play',
+        body: 'If a team official, substitute, substituted player, or sent-off player enters the field without permission, the referee must stop play (unless advantage applies) and caution or send off the person as appropriate. If the referee stops play, it is restarted with a direct free kick from where the interference occurred, or an indirect free kick if the person did not interfere with play. If a player who left the field for treatment or a clothing adjustment re-enters without the referee\'s permission, they are cautioned.',
+      },
+      {
+        heading: 'Outside agents and spectators',
+        body: 'If an outside agent (anyone not registered on the team sheet, including spectators, animals, or objects) enters the field and interferes with play, the referee stops the match and restarts with a dropped ball. If an outside agent enters but does not interfere, the referee stops play at the next stoppage. If a goal is scored with the ball having been touched by an outside agent, the goal is not awarded and play is restarted with a dropped ball.',
+      },
+      {
+        heading: 'Team officers and the technical area',
+        body: 'Only one team official at a time is authorised to convey tactical instructions from the technical area, and they must return to their seat immediately after. Team officers must behave responsibly. The referee can issue formal warnings, cautions (yellow card), or send-offs (red card) to team officials just as with players. A team official who is sent off must leave the field and its surroundings, including the technical area. If a team official cannot be identified, the senior coach present in the technical area receives the sanction.',
+      },
+      {
+        heading: 'Concussion substitutions',
+        body: 'IFAB has introduced trial rules for concussion substitutions in certain competitions. Under these trials, a team may make an additional substitution if a player is suspected of having a concussion, and this does not count against the team\'s normal substitution allowance. The opposing team is also permitted an additional substitution to maintain competitive balance. Concussion protocols are taken very seriously in Australian football, and referees should be familiar with their competition\'s specific concussion management procedures.',
       },
     ],
     keyPoints: [
-      'Maximum 11 players per team, minimum 7 to start or continue',
-      'One player must be designated as goalkeeper',
-      'Substitutes enter at the halfway line during a stoppage',
-      'A substituted player cannot return to the match',
-      'Team officials can receive yellow and red cards',
+      'Maximum 11 players per team, minimum 7 to start or continue a match',
+      'One player must always be designated as goalkeeper',
+      'Substitutes enter at the halfway line during a stoppage only',
+      'A substituted player cannot return to the match (except in rolling sub competitions)',
+      'Team officials can receive yellow and red cards for misconduct',
+      'An outfield player can swap with the goalkeeper if the referee is informed',
+      'If a team drops below 7 players, the match is abandoned',
+      'Extra persons on the field without permission: caution + direct free kick',
+      'Competition rules determine the number of substitutions allowed',
+      'Concussion substitutions are additional and do not count against the normal allowance',
     ],
     commonQuestions: [
       {
         q: 'How many substitutions are allowed in football?',
-        a: 'Competition rules determine the number — typically 3 in professional matches. Many Australian leagues allow up to 5.',
+        a: 'Competition rules determine the number. In most professional competitions: up to 5 substitutes in 3 windows (plus half-time). Many Australian community leagues allow unlimited rolling substitutions in junior matches.',
       },
       {
         q: 'Can a match continue with fewer than 7 players?',
-        a: 'No. If a team has fewer than 7 players, the match cannot start or continue.',
+        a: 'No. If a team is reduced to fewer than 7 players for any reason, the match cannot start or continue and the referee must abandon it.',
+      },
+      {
+        q: 'Can a substituted player come back on the field?',
+        a: 'No — in standard substitution rules, a substituted player cannot return to the match. However, in competitions using rolling substitutions, a replaced player may re-enter.',
+      },
+      {
+        q: 'Can an outfield player become the goalkeeper?',
+        a: 'Yes. Any player may swap with the goalkeeper provided the referee is informed before the change and it occurs during a stoppage. The new goalkeeper must wear a distinguishing jersey.',
+      },
+      {
+        q: 'What happens if a team has 12 players on the field?',
+        a: 'The referee stops play, identifies the extra player, and removes them. The extra person is cautioned. Play restarts with a direct free kick from where the ball was when play stopped, or a dropped ball if the extra person did not interfere.',
+      },
+      {
+        q: 'What happens if a spectator enters the field?',
+        a: 'The referee stops play. If the spectator interfered with play, the restart is a dropped ball. The referee does not restart until the spectator has been removed from the field.',
+      },
+      {
+        q: 'Can a team official be sent off?',
+        a: 'Yes. Team officials can receive yellow and red cards. A sent-off team official must leave the field and its surroundings, including the technical area.',
+      },
+      {
+        q: 'Where does a substitute enter the field?',
+        a: 'Substitutes must enter at the halfway line during a stoppage in play, after the player being replaced has left and the referee has given a signal.',
+      },
+      {
+        q: 'What are rolling substitutions?',
+        a: 'Rolling substitutions allow replaced players to re-enter the match later. This is common in Australian junior football but not used in most professional competitions.',
+      },
+      {
+        q: 'What is a concussion substitution?',
+        a: 'An additional substitution allowed when a player is suspected of having a concussion. It does not count against the team\'s normal allowance. The opposing team also gets an extra sub.',
+      },
+      {
+        q: 'Can the goalkeeper be sent off?',
+        a: 'Yes. If the goalkeeper is sent off, another player must take over as goalkeeper and wear a distinguishing jersey. The team plays with one fewer player.',
+      },
+      {
+        q: 'What happens if a player enters the field without permission?',
+        a: 'The player is cautioned (yellow card) for entering the field without the referee\'s permission. If they interfered with play, a direct free kick is awarded.',
+      },
+      {
+        q: 'How many players are on a football team?',
+        a: 'A maximum of 11 players per team on the field, including the goalkeeper. Squads typically have 16–23 players with the remaining players available as substitutes.',
+      },
+      {
+        q: 'Can a team start with fewer than 11 players?',
+        a: 'Yes, a team can start with fewer than 11 players as long as they have at least 7 (or the minimum set by competition rules for smaller-sided formats).',
       },
     ],
     refereeTips: [
@@ -195,32 +414,109 @@ export const lawsOfTheGame: LawContent[] = [
       "Law 4 of the IFAB Laws of the Game explains required football kit, prohibited equipment, and referee safety checks. Equipment rules for Australian referees.",
     h1: "Law 4: The Players' Equipment — Kit Rules & Safety Checks",
     intro:
-      "Law 4 specifies what players must and must not wear during a match. As a referee, you are responsible for checking players' equipment before the match and ensuring compliance throughout. In Australian football, equipment checks are a standard part of pre-match preparation.",
+      "Law 4 specifies what players must and must not wear during a football match. The referee is responsible for checking players' equipment before kick-off and ensuring compliance throughout the match, including when substitutes enter the field. Equipment violations are among the most common issues referees encounter in Australian community football, particularly jewellery and missing shinguards.",
     sections: [
       {
-        heading: 'Compulsory equipment',
-        body: 'A player must wear a jersey or shirt with sleeves, shorts, socks (tape or material applied externally must be the same colour as the sock), shinguards (made of rubber, plastic, or similar material and covered by the socks), and footwear. The two teams must wear colours that distinguish them from each other, the referee, and the assistant referees. Goalkeepers must wear colours distinguishable from all other players and match officials.',
+        heading: 'Compulsory equipment (the basic kit)',
+        body: 'Every player must wear five items of compulsory equipment: (1) a jersey or shirt with sleeves, (2) shorts, (3) socks — any tape or material applied externally must be the same colour as the part of the sock it covers, (4) shinguards — made of rubber, plastic, or similar suitable material, providing a reasonable degree of protection, covered entirely by the socks, and (5) footwear. These five items are non-negotiable — a player who is missing any compulsory item must leave the field to correct it and can only return with the referee\'s permission during a stoppage.',
       },
       {
-        heading: 'Prohibited equipment and items',
-        body: 'Players must not wear or use anything dangerous to themselves or others, including jewellery. All jewellery (necklaces, rings, bracelets, earrings, leather bands, rubber bands, etc.) is prohibited and must be removed. Taping over jewellery is not permitted. Electronic communication equipment is not allowed except where goal-line technology or referee communication systems are in use. Medical alert bracelets may be permitted if covered and not dangerous.',
+        heading: 'Colours and team identification',
+        body: 'The two teams must wear colours that distinguish them from each other and from the referee and assistant referees. Goalkeepers must wear colours that are clearly distinguishable from all other players, the referee, and the assistant referees. If the two goalkeepers\' jerseys are the same colour and neither has a replacement, the referee allows play to continue. In practice, the home team has first choice of colours and the away team must change if there is a clash. The referee\'s jersey must also be distinct from both teams.',
+      },
+      {
+        heading: 'Undershirts and undergarments',
+        body: 'If a player wears an undershirt beneath their jersey, the sleeves of the undershirt must be the same colour as the main colour of the jersey sleeves. Similarly, undershorts or tights must be the same colour as the main colour of the shorts or the lowest part of the shorts. All players of the same team wearing undershorts or tights must wear the same colour. This rule ensures a uniform appearance and prevents confusion during play.',
+      },
+      {
+        heading: 'Shinguards — requirements and standards',
+        body: 'Shinguards are the only piece of protective equipment that is compulsory under the Laws of the Game. They must be made of rubber, plastic, or similar suitable material and must provide a reasonable degree of protection. They must be covered entirely by the socks. Shinguards that are too small, cracked, or broken do not provide reasonable protection and should not be accepted by the referee. In Australian junior football, referees should be particularly vigilant about shinguard compliance as children often forget them or wear undersized guards.',
+      },
+      {
+        heading: 'Prohibited items — jewellery and dangerous equipment',
+        body: 'Players must not use equipment or wear anything that is dangerous to themselves or others. All items of jewellery — including necklaces, rings, bracelets, earrings, leather bands, rubber bands, and all similar items — are forbidden and must be removed before the match. Taping over jewellery is not permitted; the item itself must be physically removed. Players with newly pierced ears must remove the studs or cover them is not acceptable — they must be taken out. Electronic communication devices are also prohibited unless they are part of an approved performance tracking system or referee communication equipment.',
+      },
+      {
+        heading: 'Head covers, knee braces, and protective equipment',
+        body: 'Head covers are permitted provided they are the same colour as the jersey, are not attached to the jersey, do not pose a danger to the wearer or other players, and do not have any protruding elements. Protective equipment such as headgear, facemasks, knee and arm protectors made of soft, lightweight, padded material is permitted, as are goalkeepers\' caps and sports spectacles. Modern protective headbands designed to reduce concussion risk are generally permitted if they meet the safety criteria. Medical alert bracelets or necklaces may be permitted if they are covered and present no danger.',
+      },
+      {
+        heading: 'Footwear — boots, studs, and barefoot play',
+        body: 'Footwear is compulsory but the Laws do not specify the type — boots, trainers, and sports shoes are all acceptable provided they are not dangerous. The referee assesses whether studs or blades are dangerous based on their condition and design. Worn, sharpened, or protruding metal studs may be deemed dangerous. Rubber-moulded studs and bladed boots are generally accepted. Playing barefoot is not permitted. In Australian community football, some junior competitions restrict the type of studs allowed — for example, no metal studs for under-8 matches.',
+      },
+      {
+        heading: 'Equipment check procedures',
+        body: 'The referee (or a delegated match official) checks players\' equipment before the match begins. Players whose equipment does not comply must leave the field to correct it. A player who leaves to correct their equipment may only re-enter with the referee\'s permission during a stoppage, and only after the referee (or match official) has verified the equipment. Substitutes\' equipment must be checked before they are allowed to enter the field. If the referee discovers non-compliant equipment during play, they wait for the next stoppage to address it unless the equipment is dangerous, in which case play is stopped immediately.',
       },
     ],
     keyPoints: [
-      'Shinguards are compulsory and must be covered by socks',
-      'All jewellery must be removed — taping is not acceptable',
-      'Goalkeepers must wear distinct colours from all other players',
-      'Undershirts must match the sleeve colour of the jersey',
-      'Referee checks equipment before kick-off and at substitutions',
+      'Five compulsory items: jersey with sleeves, shorts, socks, shinguards (covered by socks), footwear',
+      'All jewellery must be physically removed — taping over is not acceptable',
+      'Goalkeepers must wear colours distinct from all other players and officials',
+      'Undershirt sleeves must match the main colour of the jersey sleeves',
+      'Shinguards must provide reasonable protection and be fully covered by socks',
+      'Head covers are permitted if the same colour as the jersey and not dangerous',
+      'Protective headgear and sports spectacles are permitted if safe',
+      'Electronic devices are prohibited unless part of approved systems',
+      'The referee checks equipment before the match and at substitutions',
+      'A player with non-compliant equipment must leave the field to correct it',
     ],
     commonQuestions: [
       {
         q: 'Can players tape over jewellery in football?',
-        a: 'No. All jewellery must be removed. Taping over jewellery is not permitted under Law 4.',
+        a: 'No. All jewellery must be physically removed from the body. Taping, covering, or wrapping jewellery is not permitted under Law 4.',
       },
       {
         q: 'Are shin guards mandatory in football?',
-        a: 'Yes. Shinguards are compulsory equipment and must be covered by the socks.',
+        a: 'Yes. Shinguards are the only compulsory piece of protective equipment. They must be made of suitable material, provide reasonable protection, and be covered by the socks.',
+      },
+      {
+        q: 'Can a player wear a headband or head cover?',
+        a: 'Yes, provided it is the same colour as the jersey, not attached to the jersey, has no protruding elements, and is not dangerous. Protective headgear designed to reduce injury is also permitted.',
+      },
+      {
+        q: 'Can a player wear glasses during a football match?',
+        a: 'Yes. Sports spectacles are permitted provided they are not dangerous to the wearer or other players. Modern sports goggles with flexible frames are generally accepted.',
+      },
+      {
+        q: 'What happens if a player loses a boot during play?',
+        a: 'Play continues — the player may play on without the boot until the next natural stoppage. The player should put the boot back on at the earliest opportunity. If a player deliberately removes a boot, they may be cautioned.',
+      },
+      {
+        q: 'Can goalkeepers wear tracksuit bottoms?',
+        a: 'Yes. Goalkeepers may wear tracksuit bottoms instead of shorts, provided the colour is distinct from other players and officials.',
+      },
+      {
+        q: 'Are GPS vests allowed in football?',
+        a: 'Yes. Electronic performance and tracking systems (GPS vests) are permitted if they are safe, commercially available, and do not transmit data to the coaching staff in real time (unless competition rules allow it).',
+      },
+      {
+        q: 'Can a player wear a wedding ring during a match?',
+        a: 'No. All rings, including wedding rings, must be removed before play. No exceptions are made in the Laws of the Game for any type of jewellery.',
+      },
+      {
+        q: 'What colour must the goalkeeper\'s jersey be?',
+        a: 'The goalkeeper must wear colours that are clearly distinguishable from all other players (both teams), the referee, and the assistant referees. There is no specific colour requirement — just that it is distinct.',
+      },
+      {
+        q: 'Can a player wear a knee brace?',
+        a: 'Yes. Knee braces and arm protectors are permitted if they are made of soft, lightweight, padded material and are not dangerous to other players.',
+      },
+      {
+        q: 'What happens if a player\'s kit clashes with the referee?',
+        a: 'The referee may ask the player or team to change. In practice, the referee is more likely to change their own shirt colour since referee kits typically include multiple colour options.',
+      },
+      {
+        q: 'Are metal studs allowed in football?',
+        a: 'Metal studs are permitted provided they are not sharp, worn, or dangerous. The referee inspects boots and can prohibit any footwear deemed unsafe.',
+      },
+      {
+        q: 'Can a player play barefoot?',
+        a: 'No. Footwear is compulsory equipment under Law 4. A player cannot participate without shoes or boots.',
+      },
+      {
+        q: 'What colour must undershorts be?',
+        a: 'Undershorts or tights must be the same colour as the main colour of the shorts, or the lowest part of the shorts. All players of the same team must wear the same colour.',
       },
     ],
     refereeTips: [
