@@ -8,6 +8,7 @@ import { useUser } from "@clerk/nextjs";
 const navLinks = [
   { label: "Scenarios", href: "/features/scenarios" },
   { label: "Quizzes", href: "/features/quizzes" },
+  { label: "Laws", href: "/laws" },
   { label: "Weekly Quiz", href: "/weekly-quiz" },
   { label: "Decision Lab", href: "/features/decision-lab" },
   { label: "About", href: "/about" },

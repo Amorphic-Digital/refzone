@@ -12,10 +12,14 @@ const bypassPaths = [
   '/privacy',
   '/terms',
   '/sitemap-page',
+  '/sitemap.xml',
+  '/robots.txt',
   '/auth',
   '/leaderboard',
   '/weekly-quiz',
   '/help',
+  '/laws',
+  '/become-a-referee',
 ]
 
 function shouldBypassClerk(pathname: string): boolean {

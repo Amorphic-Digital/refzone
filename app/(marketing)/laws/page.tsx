@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { Breadcrumb } from '@/components/marketing/breadcrumb'
-import { BookOpen, ArrowRight } from 'lucide-react'
+import { LawsGrid } from '@/components/marketing/laws-grid'
+import { BookOpen, ArrowRight, ExternalLink } from 'lucide-react'
 import { lawsOfTheGame } from '@/content/laws-of-the-game'
 
 export const metadata: Metadata = {
@@ -11,19 +12,16 @@ export const metadata: Metadata = {
     'Comprehensive guide to all 17 IFAB Laws of the Game for football referees in Australia. Offside, fouls, penalties, free kicks, and more — explained clearly with examples.',
 }
 
-const colorClasses: Record<string, string> = {
-  green: 'border-l-green-400',
-  blue: 'border-l-blue-400',
-  purple: 'border-l-purple-500',
-  amber: 'border-l-amber-400',
-}
-
-function getLawColor(num: number) {
-  if (num <= 4) return colorClasses.green
-  if (num <= 8) return colorClasses.blue
-  if (num <= 12) return colorClasses.purple
-  return colorClasses.amber
-}
+// Serialize only what the client components need
+const lawsForSearch = lawsOfTheGame.map((law) => ({
+  num: law.num,
+  slug: law.slug,
+  title: law.title,
+  shortDesc: law.shortDesc,
+  searchTerms: law.searchTerms ?? [],
+  sections: law.sections.map((s) => ({ heading: s.heading })),
+  commonQuestions: law.commonQuestions.map((q) => ({ q: q.q })),
+}))
 
 export default function LawsIndexPage() {
   return (
@@ -48,41 +46,31 @@ export default function LawsIndexPage() {
             The IFAB Laws of the Game are the official rules governing football worldwide.
             Whether you are a new referee in Australia starting your first season or an
             experienced official preparing for promotion, understanding every law is essential.
-            Click any law below to read a detailed explanation with key points, common questions,
-            and links to related laws.
+            Search below or click any law to read a detailed explanation.
           </p>
           <div className="mt-8 flex items-center justify-center gap-1.5">
             <div className="h-0.5 w-8 rounded-full bg-white/20" />
             <div className="h-0.5 w-12 rounded-full bg-white/20" />
             <div className="h-0.5 w-8 rounded-full bg-white/20" />
           </div>
+
+          {/* IFAB link */}
+          <a
+            href="https://www.theifab.com/laws-of-the-game/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex items-center gap-1.5 text-sm text-white/30 hover:text-white/60 transition-colors"
+          >
+            View official IFAB Laws of the Game
+            <ExternalLink className="h-3.5 w-3.5" />
+          </a>
         </div>
       </section>
 
-      {/* Law cards grid */}
+      {/* Search + Law cards grid */}
       <section className="px-9 py-24 md:py-32">
         <div className="mx-auto max-w-[1420px]">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {lawsOfTheGame.map((law, i) => (
-              <ScrollAnimate key={law.num} delay={i * 40}>
-                <Link
-                  href={`/laws/${law.slug}`}
-                  className={`group flex gap-4 rounded-xl border border-white/10 bg-white/[0.05] p-5 transition hover:border-purple-400/40 hover:bg-white/[0.07] border-l-2 ${getLawColor(law.num)}`}
-                >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-400/10 text-sm font-bold text-purple-400">
-                    {law.num}
-                  </span>
-                  <div className="flex-1">
-                    <h2 className="font-semibold text-white group-hover:text-purple-300 transition-colors">
-                      {law.title}
-                    </h2>
-                    <p className="mt-1 text-sm leading-relaxed text-white/45">{law.shortDesc}</p>
-                  </div>
-                  <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-white/20 group-hover:text-purple-400 transition-colors" />
-                </Link>
-              </ScrollAnimate>
-            ))}
-          </div>
+          <LawsGrid laws={lawsForSearch} />
         </div>
       </section>
 

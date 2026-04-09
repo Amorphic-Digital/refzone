@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { Breadcrumb } from '@/components/marketing/breadcrumb'
-import { BookOpen, ArrowRight, ArrowLeft } from 'lucide-react'
+import { BookOpen, ArrowRight, ArrowLeft, ExternalLink } from 'lucide-react'
 import { lawsOfTheGame } from '@/content/laws-of-the-game'
 
 interface Props {
@@ -64,17 +64,22 @@ export default async function LawPage({ params }: Props) {
               </p>
             </div>
           </div>
-          <div className="mt-8 flex items-center gap-1.5">
-            <div className="h-0.5 w-8 rounded-full bg-white/20" />
-            <div className="h-0.5 w-12 rounded-full bg-white/20" />
-            <div className="h-0.5 w-8 rounded-full bg-white/20" />
-          </div>
+          {/* IFAB link */}
+          <a
+            href={law.ifabUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex items-center gap-1.5 text-sm text-purple-400/70 hover:text-purple-300 transition-colors"
+          >
+            View official IFAB text for Law {law.num}
+            <ExternalLink className="h-3.5 w-3.5" />
+          </a>
         </div>
       </section>
 
       {/* Content sections */}
-      <section className="px-9 py-16 md:py-24">
-        <div className="mx-auto max-w-[860px] space-y-12">
+      <section className="px-9 py-8 md:py-12">
+        <div className="mx-auto max-w-[860px] space-y-8">
           {law.sections.map((section, i) => (
             <ScrollAnimate key={i} delay={i * 60}>
               <div>
@@ -91,7 +96,7 @@ export default async function LawPage({ params }: Props) {
       </section>
 
       {/* Key points */}
-      <section className="px-9 py-16 md:py-24 border-t border-white/[0.06]">
+      <section className="px-9 py-10 md:py-14 border-t border-white/[0.06]">
         <div className="mx-auto max-w-[860px]">
           <ScrollAnimate>
             <h2 className="text-2xl font-bold tracking-tight text-white">
@@ -112,7 +117,7 @@ export default async function LawPage({ params }: Props) {
       </section>
 
       {/* Referee tips */}
-      <section className="px-9 py-16 md:py-24 border-t border-white/[0.06]">
+      <section className="px-9 py-10 md:py-14 border-t border-white/[0.06]">
         <div className="mx-auto max-w-[860px]">
           <ScrollAnimate>
             <h2 className="text-2xl font-bold tracking-tight text-white">
@@ -131,7 +136,7 @@ export default async function LawPage({ params }: Props) {
       </section>
 
       {/* Australia context */}
-      <section className="px-9 py-16 md:py-24 border-t border-white/[0.06]">
+      <section className="px-9 py-10 md:py-14 border-t border-white/[0.06]">
         <div className="mx-auto max-w-[860px]">
           <ScrollAnimate>
             <h2 className="text-2xl font-bold tracking-tight text-white">
@@ -145,7 +150,7 @@ export default async function LawPage({ params }: Props) {
       </section>
 
       {/* Common questions — also provides FAQ-style content for SEO */}
-      <section className="px-9 py-16 md:py-24 border-t border-white/[0.06]">
+      <section className="px-9 py-10 md:py-14 border-t border-white/[0.06]">
         <div className="mx-auto max-w-[860px]">
           <ScrollAnimate>
             <h2 className="text-2xl font-bold tracking-tight text-white">
@@ -165,7 +170,7 @@ export default async function LawPage({ params }: Props) {
 
       {/* Related laws */}
       {relatedLaws.length > 0 && (
-        <section className="px-9 py-16 md:py-24 border-t border-white/[0.06]">
+        <section className="px-9 py-10 md:py-14 border-t border-white/[0.06]">
           <div className="mx-auto max-w-[860px]">
             <ScrollAnimate>
               <h2 className="text-2xl font-bold tracking-tight text-white">Related laws</h2>
