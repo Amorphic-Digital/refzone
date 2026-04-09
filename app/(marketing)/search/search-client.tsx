@@ -72,7 +72,7 @@ export function SearchPageClient({ searchIndex }: Props) {
     setWebLoading(false)
   }, [])
 
-  // Stream AI answer
+  // Fetch AI answer (non-streaming JSON)
   const fetchAiAnswer = useCallback(async (q: string) => {
     setCompletion('')
     setAiLoading(true)
@@ -83,36 +83,17 @@ export function SearchPageClient({ searchIndex }: Props) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: q }),
       })
-      if (!res.ok || !res.body) {
-        setAiLoading(false)
+      if (!res.ok) {
         setAiFailed(true)
+        setAiLoading(false)
         return
       }
-      const reader = res.body.getReader()
-      const decoder = new TextDecoder()
-      let text = ''
-      let gotContent = false
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-        const chunk = decoder.decode(value, { stream: true })
-        const lines = chunk.split('\n')
-        for (const line of lines) {
-          if (line.startsWith('0:')) {
-            try {
-              const parsed = JSON.parse(line.slice(2))
-              if (typeof parsed === 'string') {
-                text += parsed
-                setCompletion(text)
-                gotContent = true
-              }
-            } catch {
-              // skip
-            }
-          }
-        }
+      const data = await res.json()
+      if (data.text) {
+        setCompletion(data.text)
+      } else {
+        setAiFailed(true)
       }
-      if (!gotContent) setAiFailed(true)
     } catch {
       setAiFailed(true)
     }

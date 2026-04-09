@@ -7,12 +7,11 @@ interface WebResult {
   source: string
 }
 
+const GOOGLE_CSE_CX = '074d6b7677ec54b59'
+
 /**
- * Searches the web for referee-related content.
- * Supports multiple providers via env vars:
- *   - BRAVE_SEARCH_API_KEY: Brave Search API (recommended, 2000 free queries/month)
- *   - GOOGLE_SEARCH_API_KEY + GOOGLE_SEARCH_CX: Google Custom Search
- *   - Falls back to empty results if no API key is configured
+ * Searches the web for referee-related content using Google Custom Search.
+ * Uses the Google CSE JSON API with the RefZone search engine.
  */
 export async function POST(req: Request) {
   try {
@@ -22,74 +21,28 @@ export async function POST(req: Request) {
       return NextResponse.json({ results: [] })
     }
 
-    // Always append referee context to ensure relevant results
     const searchQuery = `football referee ${query.trim()}`
     let results: WebResult[] = []
 
-    // Try Brave Search first
-    if (process.env.BRAVE_SEARCH_API_KEY) {
-      results = await searchBrave(searchQuery)
-    }
-    // Then Google Custom Search
-    else if (process.env.GOOGLE_SEARCH_API_KEY && process.env.GOOGLE_SEARCH_CX) {
-      results = await searchGoogle(searchQuery)
-    }
-
-    // Filter out irrelevant results — must be referee/football related
-    const filtered = results.filter((r) => {
-      const text = `${r.title} ${r.snippet}`.toLowerCase()
-      return (
-        text.includes('referee') ||
-        text.includes('official') ||
-        text.includes('law') ||
-        text.includes('ifab') ||
-        text.includes('football') ||
-        text.includes('soccer') ||
-        text.includes('foul') ||
-        text.includes('offside') ||
-        text.includes('penalty') ||
-        text.includes('var') ||
-        text.includes('card')
+    const apiKey = process.env.GOOGLE_SEARCH_API_KEY
+    if (apiKey) {
+      // Use Google Custom Search JSON API
+      const res = await fetch(
+        `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${GOOGLE_CSE_CX}&q=${encodeURIComponent(searchQuery)}&num=6`
       )
-    })
+      if (res.ok) {
+        const data = await res.json()
+        results = (data.items || []).map((r: { title: string; link: string; snippet: string }) => ({
+          title: r.title || '',
+          url: r.link || '',
+          snippet: (r.snippet || '').replace(/\n/g, ' '),
+          source: (() => { try { return new URL(r.link).hostname.replace('www.', '') } catch { return '' } })(),
+        }))
+      }
+    }
 
-    return NextResponse.json({ results: filtered.slice(0, 6) })
+    return NextResponse.json({ results })
   } catch {
     return NextResponse.json({ results: [] })
   }
-}
-
-async function searchBrave(query: string): Promise<WebResult[]> {
-  const res = await fetch(
-    `https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(query)}&count=10`,
-    {
-      headers: {
-        Accept: 'application/json',
-        'Accept-Encoding': 'gzip',
-        'X-Subscription-Token': process.env.BRAVE_SEARCH_API_KEY!,
-      },
-    }
-  )
-  if (!res.ok) return []
-  const data = await res.json()
-  return (data.web?.results || []).map((r: { title: string; url: string; description: string }) => ({
-    title: r.title,
-    url: r.url,
-    snippet: r.description || '',
-    source: new URL(r.url).hostname.replace('www.', ''),
-  }))
-}
-
-async function searchGoogle(query: string): Promise<WebResult[]> {
-  const res = await fetch(
-    `https://www.googleapis.com/customsearch/v1?key=${process.env.GOOGLE_SEARCH_API_KEY}&cx=${process.env.GOOGLE_SEARCH_CX}&q=${encodeURIComponent(query)}&num=10`
-  )
-  if (!res.ok) return []
-  const data = await res.json()
-  return (data.items || []).map((r: { title: string; link: string; snippet: string }) => ({
-    title: r.title,
-    url: r.link,
-    snippet: r.snippet || '',
-    source: new URL(r.link).hostname.replace('www.', ''),
-  }))
 }
