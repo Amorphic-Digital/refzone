@@ -50,7 +50,7 @@ export default async function LawPage({ params }: Props) {
         <div className="mx-auto max-w-[1420px]">
           <Breadcrumb items={[
             { label: 'Home', href: '/' },
-            { label: 'Laws of the Game', href: '/laws' },
+            { label: 'Laws of the Game', href: '/web' },
             { label: `Law ${law.num}: ${law.title}` },
           ]} />
           <div className="flex items-start gap-5">
@@ -180,7 +180,7 @@ export default async function LawPage({ params }: Props) {
                 {relatedLaws.map((related) => (
                   <Link
                     key={related!.num}
-                    href={`/laws/${related!.slug}`}
+                    href={`/web/${related!.slug}`}
                     className="flex gap-4 rounded-xl border border-white/10 bg-white/[0.05] p-4 transition hover:border-purple-400/40"
                   >
                     <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-purple-400/10 text-sm font-bold text-purple-400">
@@ -203,7 +203,7 @@ export default async function LawPage({ params }: Props) {
         <div className="mx-auto flex max-w-[860px] items-center justify-between">
           {prevLaw ? (
             <Link
-              href={`/laws/${prevLaw.slug}`}
+              href={`/web/${prevLaw.slug}`}
               className="flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
@@ -212,7 +212,7 @@ export default async function LawPage({ params }: Props) {
           ) : <span />}
           {nextLaw ? (
             <Link
-              href={`/laws/${nextLaw.slug}`}
+              href={`/web/${nextLaw.slug}`}
               className="flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors"
             >
               Law {nextLaw.num}: {nextLaw.title}

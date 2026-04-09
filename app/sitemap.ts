@@ -246,18 +246,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.3,
     },
-    // Laws of the Game hub
+    // RefZone Web hub
     {
-      url: `${baseUrl}/laws`,
+      url: `${baseUrl}/web`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
   ]
 
   // Individual law pages
   const lawRoutes: MetadataRoute.Sitemap = lawsOfTheGame.map((law) => ({
-    url: `${baseUrl}/laws/${law.slug}`,
+    url: `${baseUrl}/web/${law.slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.7,

@@ -17,7 +17,7 @@ const appLinks = [
 ];
 
 const navLinks = [
-  { label: "Web", href: "/laws" },
+  { label: "Web", href: "/web" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
@@ -135,7 +135,7 @@ export function MarketingHeader() {
 
             {/* Static nav links */}
             {navLinks.map((link) => {
-              const isActive = pathname === link.href || (link.href === "/laws" && pathname.startsWith("/laws"));
+              const isActive = pathname === link.href || (link.href === "/web" && pathname.startsWith("/web"));
               return (
                 <Link
                   key={link.label}
@@ -240,7 +240,7 @@ export function MarketingHeader() {
 
             {/* Static links */}
             {navLinks.map((link) => {
-              const isActive = pathname === link.href || (link.href === "/laws" && pathname.startsWith("/laws"));
+              const isActive = pathname === link.href || (link.href === "/web" && pathname.startsWith("/web"));
               return (
                 <Link
                   key={link.label}

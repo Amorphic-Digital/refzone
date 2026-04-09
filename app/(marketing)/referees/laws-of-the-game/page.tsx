@@ -47,7 +47,7 @@ export default function LawsOfTheGamePage() {
             {lawsOfTheGame.map((law, i) => (
               <ScrollAnimate key={law.num} delay={i * 40}>
                 <Link
-                  href={`/laws/${law.slug}`}
+                  href={`/web/${law.slug}`}
                   className={`group flex gap-4 rounded-xl border border-white/10 bg-white/[0.05] p-5 transition hover:border-purple-400/40 hover:bg-white/[0.07] ${law.num <= 4 ? 'border-l-2 border-l-green-400' : law.num <= 8 ? 'border-l-2 border-l-blue-400' : law.num <= 12 ? 'border-l-2 border-l-purple-500' : 'border-l-2 border-l-amber-400'}`}
                 >
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-400/10 text-sm font-bold text-purple-400">

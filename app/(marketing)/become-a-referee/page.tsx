@@ -33,7 +33,7 @@ const steps = [
     num: 2,
     title: 'Complete an introductory referee course',
     body: 'The introductory referee course covers all 17 Laws of the Game as defined by the International Football Association Board (IFAB). You will learn the fundamentals of match management, on-field positioning, and communication with players and coaches. Most courses include a practical component where you officiate supervised matches. The course is designed for complete beginners — no prior refereeing experience is required.',
-    cta: { label: 'Preview the Laws of the Game', href: '/laws' },
+    cta: { label: 'Preview the Laws of the Game', href: '/web' },
   },
   {
     num: 3,

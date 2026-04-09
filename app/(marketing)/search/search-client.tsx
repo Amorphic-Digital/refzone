@@ -3,8 +3,15 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Search, X, ArrowRight, Sparkles, BookOpen, HelpCircle, Zap, FileText, Loader2, Mail } from 'lucide-react'
+import { Search, X, ArrowRight, Sparkles, BookOpen, HelpCircle, Zap, FileText, Loader2, Mail, Globe, ExternalLink } from 'lucide-react'
 import { type SearchResult, searchContent } from '@/content/search-index'
+
+interface WebResult {
+  title: string
+  url: string
+  snippet: string
+  source: string
+}
 
 interface Props {
   searchIndex: SearchResult[]
@@ -41,7 +48,29 @@ export function SearchPageClient({ searchIndex }: Props) {
   const [completion, setCompletion] = useState('')
   const [aiLoading, setAiLoading] = useState(false)
   const [aiFailed, setAiFailed] = useState(false)
+  const [webResults, setWebResults] = useState<WebResult[]>([])
+  const [webLoading, setWebLoading] = useState(false)
   const hasSearched = submittedQuery.length >= 2
+
+  // Fetch web search results
+  const fetchWebResults = useCallback(async (q: string) => {
+    setWebResults([])
+    setWebLoading(true)
+    try {
+      const res = await fetch('/api/web-search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: q }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        setWebResults(data.results || [])
+      }
+    } catch {
+      // silent
+    }
+    setWebLoading(false)
+  }, [])
 
   // Stream AI answer
   const fetchAiAnswer = useCallback(async (q: string) => {
@@ -122,8 +151,9 @@ export function SearchPageClient({ searchIndex }: Props) {
       setSubmittedQuery(trimmed)
       router.replace(`/search?q=${encodeURIComponent(trimmed)}`, { scroll: false })
       fetchAiAnswer(trimmed)
+      fetchWebResults(trimmed)
     },
-    [router, fetchAiAnswer]
+    [router, fetchAiAnswer, fetchWebResults]
   )
 
   // Auto-search on page load if query param exists
@@ -164,7 +194,7 @@ export function SearchPageClient({ searchIndex }: Props) {
         </div>
         <div className="mx-auto max-w-3xl">
           {/* Branding */}
-          <Link href="/laws" className="mb-6 inline-flex items-center gap-2 text-[var(--m-text-4)] hover:text-white/60 transition-colors text-sm">
+          <Link href="/web" className="mb-6 inline-flex items-center gap-2 text-[var(--m-text-4)] hover:text-white/60 transition-colors text-sm">
             <BookOpen className="h-4 w-4" />
             <span>
               <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent font-semibold">RefZone</span>
@@ -317,6 +347,56 @@ export function SearchPageClient({ searchIndex }: Props) {
                     </div>
                   </div>
                 ))}
+              </div>
+            )}
+
+            {/* Web results from the internet */}
+            {(webResults.length > 0 || webLoading) && (
+              <div className="mt-8">
+                <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--m-text-5)' }}>
+                  From the web
+                </h2>
+                {webLoading && webResults.length === 0 ? (
+                  <div className="space-y-2">
+                    {[1, 2, 3].map((i) => (
+                      <div key={i} className="rounded-xl border p-4" style={{ borderColor: 'var(--m-border)', background: 'var(--m-bg-card)' }}>
+                        <div className="h-4 w-3/4 rounded animate-pulse" style={{ background: 'var(--m-bg-card-hover)' }} />
+                        <div className="mt-2 h-3 w-full rounded animate-pulse" style={{ background: 'var(--m-bg-card-hover)' }} />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {webResults.map((result, i) => (
+                      <a
+                        key={i}
+                        href={result.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex gap-4 rounded-xl border p-4 transition-colors hover:border-purple-400/30"
+                        style={{ borderColor: 'var(--m-border)', background: 'var(--m-bg-card)' }}
+                      >
+                        <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: 'var(--m-bg-card-hover)' }}>
+                          <Globe className="h-4 w-4 group-hover:text-purple-400 transition-colors" style={{ color: 'var(--m-text-4)' }} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <h3 className="font-medium group-hover:text-purple-300 transition-colors truncate" style={{ color: 'var(--m-text)' }}>
+                              {result.title}
+                            </h3>
+                          </div>
+                          <p className="mt-0.5 text-xs truncate" style={{ color: 'var(--m-accent)' }}>
+                            {result.source}
+                          </p>
+                          <p className="mt-1 text-sm line-clamp-2" style={{ color: 'var(--m-text-3)' }}>
+                            {result.snippet}
+                          </p>
+                        </div>
+                        <ExternalLink className="mt-2 h-3.5 w-3.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: 'var(--m-text-4)' }} />
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 

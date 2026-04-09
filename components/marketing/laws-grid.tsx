@@ -62,7 +62,7 @@ export function LawsGrid({ laws }: LawsGridProps) {
           filteredLaws.map((law) => (
             <Link
               key={law.num}
-              href={`/laws/${law.slug}`}
+              href={`/web/${law.slug}`}
               className={`group flex gap-4 rounded-xl border border-white/10 bg-white/[0.05] p-5 transition hover:border-purple-400/40 hover:bg-white/[0.07] border-l-2 ${getLawColor(law.num)}`}
             >
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-400/10 text-sm font-bold text-purple-400">

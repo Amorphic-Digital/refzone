@@ -28,7 +28,7 @@ export function buildSearchIndex(): SearchResult[] {
       type: 'law',
       title: `Law ${law.num}: ${law.title}`,
       description: law.shortDesc,
-      href: `/laws/${law.slug}`,
+      href: `/web/${law.slug}`,
       badge: `Law ${law.num}`,
       searchText: [
         law.title,
@@ -48,7 +48,7 @@ export function buildSearchIndex(): SearchResult[] {
         type: 'law-faq',
         title: faq.q,
         description: faq.a.slice(0, 160) + (faq.a.length > 160 ? '...' : ''),
-        href: `/laws/${law.slug}`,
+        href: `/web/${law.slug}`,
         badge: `Law ${law.num}`,
         searchText: `${faq.q} ${faq.a}`.toLowerCase(),
       })

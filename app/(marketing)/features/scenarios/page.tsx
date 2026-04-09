@@ -296,11 +296,11 @@ export default function ScenariosPage() {
             </p>
             <p>
               Each scenario is grounded in the{' '}
-              <Link href="/laws" className="text-purple-400 hover:text-purple-300 transition-colors">IFAB Laws of the Game</Link>,
+              <Link href="/web" className="text-purple-400 hover:text-purple-300 transition-colors">IFAB Laws of the Game</Link>,
               covering critical areas like{' '}
-              <Link href="/laws/fouls-and-misconduct" className="text-purple-400 hover:text-purple-300 transition-colors">Law 12 (Fouls and Misconduct)</Link>,{' '}
-              <Link href="/laws/offside" className="text-purple-400 hover:text-purple-300 transition-colors">Law 11 (Offside)</Link>, and{' '}
-              <Link href="/laws/the-penalty-kick" className="text-purple-400 hover:text-purple-300 transition-colors">Law 14 (Penalty Kicks)</Link>.
+              <Link href="/web/fouls-and-misconduct" className="text-purple-400 hover:text-purple-300 transition-colors">Law 12 (Fouls and Misconduct)</Link>,{' '}
+              <Link href="/web/offside" className="text-purple-400 hover:text-purple-300 transition-colors">Law 11 (Offside)</Link>, and{' '}
+              <Link href="/web/the-penalty-kick" className="text-purple-400 hover:text-purple-300 transition-colors">Law 14 (Penalty Kicks)</Link>.
               After each decision, you receive a detailed breakdown explaining the correct call,
               the applicable law and clause, and common mistakes other referees make.
             </p>

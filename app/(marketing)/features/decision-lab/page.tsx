@@ -295,11 +295,11 @@ export default function DecisionLabPage() {
             <p>
               Unlike generic AI tools, Decision Lab understands the context of football refereeing.
               Ask about the{' '}
-              <Link href="/laws/offside" className="text-purple-400 hover:text-purple-300 transition-colors">offside rule</Link>,{' '}
-              <Link href="/laws/fouls-and-misconduct" className="text-purple-400 hover:text-purple-300 transition-colors">handball interpretations</Link>,{' '}
-              <Link href="/laws/the-penalty-kick" className="text-purple-400 hover:text-purple-300 transition-colors">penalty kick procedures</Link>,
+              <Link href="/web/offside" className="text-purple-400 hover:text-purple-300 transition-colors">offside rule</Link>,{' '}
+              <Link href="/web/fouls-and-misconduct" className="text-purple-400 hover:text-purple-300 transition-colors">handball interpretations</Link>,{' '}
+              <Link href="/web/the-penalty-kick" className="text-purple-400 hover:text-purple-300 transition-colors">penalty kick procedures</Link>,
               or any of the{' '}
-              <Link href="/laws" className="text-purple-400 hover:text-purple-300 transition-colors">17 Laws of the Game</Link> —
+              <Link href="/web" className="text-purple-400 hover:text-purple-300 transition-colors">17 Laws of the Game</Link> —
               and receive an answer that references the specific rule, explains the reasoning, and
               highlights common mistakes.
             </p>

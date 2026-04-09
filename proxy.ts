@@ -18,7 +18,7 @@ const bypassPaths = [
   '/leaderboard',
   '/weekly-quiz',
   '/help',
-  '/laws',
+  '/web',
   '/become-a-referee',
   '/search',
 ]

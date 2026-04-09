@@ -227,7 +227,7 @@ export default function GamificationPage() {
               Research in sports education consistently shows that spaced repetition — practising
               a little each day rather than cramming — leads to significantly better long-term
               retention. For football referees in Australia, this means a daily 5-minute quiz on
-              the <Link href="/laws" className="text-purple-400 hover:text-purple-300 transition-colors">Laws of the Game</Link> is
+              the <Link href="/web" className="text-purple-400 hover:text-purple-300 transition-colors">Laws of the Game</Link> is
               more effective than a single hour-long study session once a week.
             </p>
             <p>
@@ -235,8 +235,8 @@ export default function GamificationPage() {
               quiz or <Link href="/features/scenarios" className="text-purple-400 hover:text-purple-300 transition-colors">scenario</Link> each
               day, you build a habit of continuous learning. Australian referees using RefZone
               report improved confidence on match day, particularly when making split-second
-              decisions on <Link href="/laws/fouls-and-misconduct" className="text-purple-400 hover:text-purple-300 transition-colors">fouls
-              and misconduct</Link> and <Link href="/laws/offside" className="text-purple-400 hover:text-purple-300 transition-colors">offside</Link> calls.
+              decisions on <Link href="/web/fouls-and-misconduct" className="text-purple-400 hover:text-purple-300 transition-colors">fouls
+              and misconduct</Link> and <Link href="/web/offside" className="text-purple-400 hover:text-purple-300 transition-colors">offside</Link> calls.
             </p>
             <p>
               Whether you are a new referee in New South Wales preparing for your first season

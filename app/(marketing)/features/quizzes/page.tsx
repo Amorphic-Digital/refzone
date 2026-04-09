@@ -300,12 +300,12 @@ export default function QuizzesPage() {
               The IFAB Laws of the Game are updated annually, and Australian referees are expected
               to stay current with every amendment. RefZone&apos;s quiz bank of 500+ questions
               covers all{' '}
-              <Link href="/laws" className="text-purple-400 hover:text-purple-300 transition-colors">17 Laws of the Game</Link>,
+              <Link href="/web" className="text-purple-400 hover:text-purple-300 transition-colors">17 Laws of the Game</Link>,
               from fundamental rules like{' '}
-              <Link href="/laws/field-of-play" className="text-purple-400 hover:text-purple-300 transition-colors">the field of play</Link> to
+              <Link href="/web/field-of-play" className="text-purple-400 hover:text-purple-300 transition-colors">the field of play</Link> to
               complex areas like{' '}
-              <Link href="/laws/offside" className="text-purple-400 hover:text-purple-300 transition-colors">offside interpretation</Link> and{' '}
-              <Link href="/laws/fouls-and-misconduct" className="text-purple-400 hover:text-purple-300 transition-colors">fouls and misconduct</Link>.
+              <Link href="/web/offside" className="text-purple-400 hover:text-purple-300 transition-colors">offside interpretation</Link> and{' '}
+              <Link href="/web/fouls-and-misconduct" className="text-purple-400 hover:text-purple-300 transition-colors">fouls and misconduct</Link>.
             </p>
             <p>
               Each question includes an instant explanation referencing the specific law, clause,

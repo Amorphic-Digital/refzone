@@ -340,7 +340,7 @@ export default function AnalyticsPage() {
           <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-white/50">
             <p>
               Football referee assessors in Australia evaluate referees on their knowledge of the{' '}
-              <Link href="/laws" className="text-purple-400 hover:text-purple-300 transition-colors">Laws of the Game</Link>,
+              <Link href="/web" className="text-purple-400 hover:text-purple-300 transition-colors">Laws of the Game</Link>,
               match management, and consistency. RefZone&apos;s analytics give you the same data-driven
               view of your performance that assessors use — accuracy by law, difficulty progression,
               and training frequency.
