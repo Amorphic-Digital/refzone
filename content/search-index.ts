@@ -169,27 +169,60 @@ export interface ScoredResult {
   relevance: 'high' | 'medium' | 'low'
 }
 
+// Stop words that add noise to search matching
+const STOP_WORDS = new Set([
+  'a', 'an', 'the', 'is', 'are', 'was', 'were', 'be', 'been', 'being',
+  'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could',
+  'should', 'may', 'might', 'can', 'shall', 'to', 'of', 'in', 'for',
+  'on', 'with', 'at', 'by', 'from', 'as', 'into', 'about', 'between',
+  'through', 'during', 'before', 'after', 'it', 'its', 'this', 'that',
+  'these', 'those', 'i', 'you', 'he', 'she', 'we', 'they', 'me', 'him',
+  'her', 'us', 'them', 'my', 'your', 'his', 'our', 'their', 'what',
+  'which', 'who', 'whom', 'when', 'where', 'why', 'how', 'not', 'no',
+  'nor', 'and', 'but', 'or', 'if', 'then', 'so', 'than', 'too', 'very',
+  'just', 'also', 'only', 'need', 'needs', 'get', 'got',
+])
+
 /** Score and rank search results for a query, returning scored results with relevance tiers */
 export function searchContentScored(query: string, index: SearchResult[]): ScoredResult[] {
   if (!query || query.length < 2) return []
   const q = query.toLowerCase().trim()
-  const terms = q.split(/\s+/).filter(Boolean)
+  // Filter out stop words for individual term matching
+  const allTerms = q.split(/\s+/).filter(Boolean)
+  const meaningfulTerms = allTerms.filter((t) => !STOP_WORDS.has(t) && t.length > 2)
+  // If all terms are stop words, use the full query as a phrase
+  const terms = meaningfulTerms.length > 0 ? meaningfulTerms : allTerms
 
   const scored = index
     .map((item) => {
       let score = 0
-      // Exact phrase match
-      if (item.searchText.includes(q)) score += 10
-      // Title match (high value)
-      if (item.title.toLowerCase().includes(q)) score += 20
-      // Individual term matches
+      const titleLower = item.title.toLowerCase()
+      const descLower = item.description.toLowerCase()
+
+      // Full phrase match (highest value)
+      if (item.searchText.includes(q)) score += 15
+      if (titleLower.includes(q)) score += 30
+      if (descLower.includes(q)) score += 20
+
+      // Multi-word phrase segments (2+ word combos from the meaningful terms)
+      if (terms.length >= 2) {
+        for (let i = 0; i < terms.length - 1; i++) {
+          const bigram = `${terms[i]} ${terms[i + 1]}`
+          if (titleLower.includes(bigram)) score += 15
+          if (descLower.includes(bigram)) score += 10
+          if (item.searchText.includes(bigram)) score += 5
+        }
+      }
+
+      // Individual meaningful term matches
       for (const term of terms) {
-        if (item.title.toLowerCase().includes(term)) score += 5
-        if (item.description.toLowerCase().includes(term)) score += 3
+        if (titleLower.includes(term)) score += 6
+        if (descLower.includes(term)) score += 4
         if (item.searchText.includes(term)) score += 1
       }
-      // Boost law pages and law FAQs (most useful results)
-      if (item.type === 'law') score *= 1.5
+
+      // Boost law pages and law FAQs
+      if (item.type === 'law') score *= 1.4
       if (item.type === 'law-faq') score *= 1.3
       return { item, score }
     })

@@ -89,13 +89,17 @@ export function SearchPageClient({ searchIndex }: Props) {
     setAiLoading(false)
   }, [])
 
-  // Scored search results split into relevance tiers
-  const scoredResults = useMemo(
-    () => searchContentScored(submittedQuery, searchIndex),
-    [submittedQuery, searchIndex]
-  )
+  // Search results — re-ranked using AI keywords when available
+  const scoredResults = useMemo(() => {
+    if (!submittedQuery) return []
+    // If AI has provided keywords, search with those instead of the raw question
+    // This turns "What pressure does the ball need to be?" into "ball pressure 0.6 atmosphere Law 2"
+    const aiQuery = highlightKeywords.length > 0
+      ? highlightKeywords.join(' ')
+      : submittedQuery
+    return searchContentScored(aiQuery, searchIndex)
+  }, [submittedQuery, searchIndex, highlightKeywords])
 
-  // Flat list sorted by relevance (most relevant first)
   const totalResults = scoredResults.length
 
   // Trigger search
@@ -145,7 +149,7 @@ export function SearchPageClient({ searchIndex }: Props) {
       <div className="pt-32 md:pt-40" />
 
       {/* Sticky search bar — pins below navbar on scroll */}
-      <div className="sticky top-[76px] z-30 px-4 sm:px-9 py-3" style={{ background: 'var(--m-bg)', borderBottom: '1px solid var(--m-border)' }}>
+      <div className="sticky top-0 z-30 px-4 sm:px-9 py-3 backdrop-blur-xl" style={{ background: 'color-mix(in srgb, var(--m-bg) 85%, transparent)', borderBottom: '1px solid var(--m-border)' }}>
         <div className="mx-auto max-w-3xl">
           <form onSubmit={handleSubmit} className="relative">
             <Search className="absolute left-4 top-1/2 h-4.5 w-4.5 -translate-y-1/2 pointer-events-none" style={{ color: 'var(--m-text-4)' }} />
