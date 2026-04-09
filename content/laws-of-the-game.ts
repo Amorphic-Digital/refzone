@@ -540,36 +540,113 @@ export const lawsOfTheGame: LawContent[] = [
       'Law 5 defines the referee\'s authority, decision-making powers, and responsibilities. Essential reading for football referees in Australia.',
     h1: 'Law 5: The Referee — Authority & Responsibilities',
     intro:
-      'Law 5 is one of the most important laws for any referee to understand, as it defines your authority, powers, and responsibilities on the field. The referee is the final decision-maker on all facts connected with play. In Australia, referees at all levels — from community to A-League — operate under the same fundamental authority granted by Law 5.',
+      'Law 5 is arguably the most important law for any referee to understand thoroughly, as it defines your authority, powers, duties, and responsibilities on the field. The referee has full and final authority over all decisions connected with the match. In Australia, referees at all levels — from Saturday morning junior community matches to the A-League — operate under the same fundamental powers granted by Law 5. This page covers every aspect of the referee\'s role in comprehensive detail.',
     sections: [
       {
         heading: 'The authority of the referee',
-        body: 'Each match is controlled by a referee who has full authority to enforce the Laws of the Game. The decisions of the referee regarding facts connected with play, including whether or not a goal is scored and the result of the match, are final. The referee may only change a decision on realising that it is incorrect or, at the discretion of the referee, on the advice of an assistant referee or other match official, provided play has not restarted or the referee has not signalled the end of the first or second half.',
+        body: 'Each match is controlled by a referee who has full authority to enforce the Laws of the Game in connection with the match. The decisions of the referee regarding facts connected with play, including whether a goal is scored and the result of the match, are final. This is an absolute principle — no player, team official, or spectator can overrule the referee\'s decision on a matter of fact. The referee may only change a decision upon realising it is incorrect, or on the advice of another match official, provided play has not restarted or the referee has not signalled the end of a half (first or second, or extra time). Once play restarts, the decision is permanently final.',
       },
       {
-        heading: 'Playing advantage',
-        body: 'The referee allows play to continue when an offence occurs and the non-offending team will benefit from the advantage, and penalises the offence if the anticipated advantage does not materialise within a few seconds. If the offence warrants a caution, it is issued at the next stoppage. If the offence denies an obvious goal-scoring opportunity, the player is cautioned for unsporting behaviour. If the offence is denying a goal or an obvious goal-scoring opportunity, the player is not sent off but is cautioned.',
+        heading: 'Powers and duties',
+        body: 'The referee enforces the Laws of the Game, controls the match in cooperation with other match officials, acts as timekeeper and keeps a record of the match, and stops, suspends, or abandons the match for any infringement of the Laws or for outside interference. The referee also stops the match if a player is seriously injured (allowing them to be quickly removed from the field) and ensures any player bleeding from a wound leaves the field. The referee has the power to take disciplinary action from entering the field for the pre-match inspection until leaving the field after the match ends, including during the half-time interval.',
+      },
+      {
+        heading: 'Playing advantage — when and how',
+        body: 'The referee allows play to continue when an offence occurs and the non-offending team will benefit from the advantage. If the anticipated advantage does not materialise within a few seconds (typically 2-3 seconds, though this is a matter of judgment), the referee penalises the original offence. Crucially, advantage is a power, not an obligation — the referee decides whether advantage benefits the fouled team. If the offence warrants a caution, it is still issued at the next stoppage even though advantage was played. For DOGSO offences where advantage is played and the attacking team scores or retains a clear opportunity, the sanction is reduced from red to yellow card. Advantage should not be applied in the defending team\'s own penalty area due to the high risk.',
+      },
+      {
+        heading: 'Changing a decision',
+        body: 'The referee may change a decision provided play has not restarted. If the referee signals the end of the first or second half (including extra time) and leaves the field or signals the end of the match, the decision cannot be changed. In practice, the most common reason for changing a decision is receiving information from an assistant referee that the referee did not see — for example, an assistant flagging for a foul the referee missed. With VAR, the referee can also change a decision based on video review for clear and obvious errors. The referee should always maintain composure when changing a decision and communicate clearly to both teams.',
+      },
+      {
+        heading: 'Stopping play for injuries and medical emergencies',
+        body: 'The referee must stop play if a player is seriously injured and ensure they are removed from the field. A player with a minor injury is not treated on the field — they must leave and can return only with the referee\'s permission after treatment, during a stoppage. If the referee has stopped play for an injury and no other reason requires a different restart, play is restarted with a dropped ball. The referee must stop play immediately for any head injury or suspected concussion. In Australian football, concussion protocols mandate that a player who has been assessed for concussion must not return to play until cleared by a medical professional.',
+      },
+      {
+        heading: 'Suspending, postponing, and abandoning a match',
+        body: 'The referee has the power to suspend play temporarily (e.g. for lightning, severe weather, floodlight failure, or crowd disturbance), postpone a match that has not started, or abandon a match that has started. The match is abandoned if the field or surrounding conditions become dangerous, if one team is reduced below seven players, or if there is persistent interference by outside agents. The referee submits a detailed report to the competition authority after any suspension or abandonment. In Australian community football, lightning is the most common reason for match suspension — most state federations follow a "30-30 rule" (suspend play for lightning within 30 seconds of thunder, wait 30 minutes after the last flash).',
       },
       {
         heading: 'Referee equipment and signals',
-        body: 'The referee must have a whistle, a watch (or two), yellow and red cards, and a notebook (or other means of keeping a record of the match). The referee may also carry communication equipment. In Australian football, referees at higher levels may use electronic communication with assistant referees and fourth officials.',
+        body: 'The referee must carry a whistle (or whistles), a watch (two are recommended — one for match time, one for added time), yellow and red cards, a notebook or other means of keeping a record, and a coin for the toss. The referee may also use communication equipment to communicate with other match officials. The whistle is used to start and restart play, stop play for fouls and other stoppages, and signal the end of each half. Different whistle tones can convey urgency — a short blast for a minor foul, a long forceful blast for a serious offence. Hand signals indicate the direction of restarts, advantage, and indirect free kicks.',
+      },
+      {
+        heading: 'Respect and match control',
+        body: 'The referee is expected to manage the match with authority, fairness, and composure. Good match control involves positioning, communication, personality, and game awareness. The referee should be firm but approachable, consistent in their decisions, and proactive in managing potential flashpoints before they escalate. Preventive refereeing — using body language, verbal warnings, and positioning to manage the match before reaching for cards — is a key skill taught across Australian referee development programmes. The referee should not tolerate abuse, and all Australian state federations support referees who report misconduct through official channels.',
       },
     ],
     keyPoints: [
-      'The referee has full authority to enforce the Laws of the Game',
-      'Decisions on facts of play are final',
-      'Advantage should be played when beneficial to the non-offending team',
-      'A decision can only be changed before play restarts',
-      'The referee acts as timekeeper and keeps a record of the match',
+      'The referee has full and final authority over all facts connected with play',
+      'Decisions can only be changed before play restarts (or before the half ends)',
+      'Advantage is a power, not an obligation — use it only when the fouled team benefits',
+      'Advantage for a cautionable offence: card is still shown at the next stoppage',
+      'The referee must stop play immediately for serious injuries and head injuries',
+      'The referee can suspend, postpone, or abandon a match for safety reasons',
+      'Disciplinary authority extends from pre-match inspection to leaving the field',
+      'The referee is the sole timekeeper and keeper of the match record',
+      'VAR can advise the referee to change a decision for clear and obvious errors',
+      'Preventive refereeing (communication, positioning) is a key match control tool',
     ],
     commonQuestions: [
       {
         q: 'Can a referee change their decision in football?',
-        a: 'Only before play restarts or before signalling the end of a half. After that, the decision is final.',
+        a: 'Yes, but only before play restarts or before signalling the end of a half. Once play has restarted, the decision is permanently final. With VAR, decisions can also be changed based on video review.',
       },
       {
         q: 'What is advantage in football refereeing?',
-        a: 'Advantage allows play to continue when an offence occurs but the non-offending team would benefit more from continued play than from a free kick.',
+        a: 'Advantage allows play to continue when an offence occurs but the non-offending team would benefit more from continued play than from a stoppage and free kick. If the advantage does not materialise within a few seconds, the referee penalises the original offence.',
+      },
+      {
+        q: 'Can a referee send off a player before the match starts?',
+        a: 'Yes. The referee\'s disciplinary authority begins when they enter the field for the pre-match inspection and continues until they leave the field after the match ends, including the half-time interval.',
+      },
+      {
+        q: 'Can a referee abandon a match?',
+        a: 'Yes. The referee can abandon a match if conditions become dangerous (weather, lighting, crowd trouble), if a team is reduced below seven players, or if there is persistent outside interference.',
+      },
+      {
+        q: 'What happens if the referee makes a mistake?',
+        a: 'If the referee realises the error before play restarts, they can change the decision. Once play restarts, the decision is final. With VAR, clear and obvious errors on goals, penalties, red cards, and mistaken identity can be corrected.',
+      },
+      {
+        q: 'Does the referee have to play advantage?',
+        a: 'No. Advantage is optional — the referee uses judgment to decide whether the fouled team will benefit more from continued play or from the free kick. The referee is not obligated to play advantage.',
+      },
+      {
+        q: 'Can a referee issue a yellow card after playing advantage?',
+        a: 'Yes. If the offence warranted a caution, the yellow card is still shown at the next stoppage even though advantage was played. The card is not cancelled by the advantage.',
+      },
+      {
+        q: 'What whistle does a referee use?',
+        a: 'Any whistle that produces a clear, audible sound. Many referees use the Fox 40 Classic or similar pealess whistles. Two whistles are recommended in case one fails.',
+      },
+      {
+        q: 'Can a referee be overruled?',
+        a: 'No person can overrule the referee on a matter of fact. However, the referee may accept advice from assistant referees, the fourth official, or VAR and change their decision accordingly — this is the referee\'s own choice.',
+      },
+      {
+        q: 'What happens if a player is injured and bleeding?',
+        a: 'A player bleeding from a wound must leave the field immediately. They may only return after the bleeding has stopped, the wound is covered, and the referee (or match official) has confirmed their equipment/clothing is blood-free.',
+      },
+      {
+        q: 'Can the referee stop play for a minor injury?',
+        a: 'The referee should only stop play for a serious injury. For minor injuries, the player should leave the field for treatment at the next stoppage and return with the referee\'s permission.',
+      },
+      {
+        q: 'What is preventive refereeing?',
+        a: 'Preventive refereeing means using communication, body language, positioning, and verbal warnings to manage situations before they escalate to fouls or misconduct. It is a key skill for match control without over-reliance on cards.',
+      },
+      {
+        q: 'Can the referee suspend a match for lightning?',
+        a: 'Yes. The referee can suspend play for dangerous weather conditions, including lightning. Most Australian state federations follow the 30-30 rule: suspend for lightning within 30 seconds of thunder, wait 30 minutes after the last flash.',
+      },
+      {
+        q: 'What record must the referee keep during a match?',
+        a: 'The referee keeps a record of goals scored, cautions and send-offs (including the reason), substitutions, injuries requiring treatment, and any other significant incidents. This information is used for the match report.',
+      },
+      {
+        q: 'Does the referee control the clock in football?',
+        a: 'Yes. The referee is the sole timekeeper. They keep track of match time, calculate added time for stoppages, and decide when each half ends. The fourth official indicates the minimum added time.',
       },
     ],
     refereeTips: [
