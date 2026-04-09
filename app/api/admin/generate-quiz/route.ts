@@ -134,10 +134,25 @@ export async function POST(request: Request) {
       const questionCount = quiz.questions.length
       const timeLimit = questionCount <= 5 ? 10 : questionCount <= 10 ? 15 : 20
 
+      // Ensure title is unique
+      let finalTitle = quiz.title
+      const { data: titleCheck } = await supabase
+        .from("quizzes")
+        .select("id")
+        .eq("title", finalTitle)
+        .limit(1)
+      if (titleCheck && titleCheck.length > 0) {
+        const { count } = await supabase
+          .from("quizzes")
+          .select("*", { count: "exact", head: true })
+          .ilike("title", `${finalTitle}%`)
+        finalTitle = `${finalTitle} (${(count || 1) + 1})`
+      }
+
       const { data: newQuiz, error: quizError } = await supabase
         .from("quizzes")
         .insert({
-          title: quiz.title,
+          title: finalTitle,
           description: quiz.description,
           difficulty: quiz.difficulty,
           time_limit_minutes: timeLimit,
