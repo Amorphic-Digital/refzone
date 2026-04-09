@@ -70,11 +70,23 @@ export async function ensureProfile(userId: string) {
   const user = await currentUser()
   const displayName = user?.username || user?.firstName || `User_${userId.slice(-6)}`
 
+  // Append random suffix if display_name is taken
+  let finalDisplayName = displayName
+  const { data: nameCheck } = await supabase
+    .from("profiles")
+    .select("id")
+    .eq("display_name", displayName)
+    .limit(1)
+
+  if (nameCheck && nameCheck.length > 0) {
+    finalDisplayName = `${displayName}_${Math.random().toString(36).slice(2, 6)}`
+  }
+
   const { data: newProfile, error } = await supabase
     .from("profiles")
     .insert({
       id: userId,
-      display_name: displayName,
+      display_name: finalDisplayName,
       has_set_username: !!user?.username,
       total_points: 0,
       current_streak: 0,
