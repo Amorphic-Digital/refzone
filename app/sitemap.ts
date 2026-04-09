@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { createServiceClient } from '@/lib/supabase/service'
+import { lawsOfTheGame } from '@/content/laws-of-the-game'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.refzone.com.au'
@@ -172,7 +173,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.5,
     },
+    {
+      url: `${baseUrl}/referees/resources-australia`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    // Laws of the Game hub
+    {
+      url: `${baseUrl}/laws`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
   ]
+
+  // Individual law pages
+  const lawRoutes: MetadataRoute.Sitemap = lawsOfTheGame.map((law) => ({
+    url: `${baseUrl}/laws/${law.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
+  const allStaticRoutes = [...staticRoutes, ...lawRoutes]
 
   // Dynamic quiz routes
   const quizRoutes: MetadataRoute.Sitemap =
@@ -201,5 +225,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     })) || []
 
-  return [...staticRoutes, ...quizRoutes, ...scenarioRoutes, ...forumRoutes]
+  return [...allStaticRoutes, ...quizRoutes, ...scenarioRoutes, ...forumRoutes]
 }

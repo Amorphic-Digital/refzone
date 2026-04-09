@@ -163,6 +163,13 @@ export const refereesDropdown = {
         'Pre-match checklists, positioning guides, and warm-up routines to get you game-ready.',
       href: '/referees/match-preparation',
     },
+    {
+      icon: 'MapPin',
+      label: 'Resources Australia',
+      description:
+        'State football associations, referee training pathways, and how to become a referee in Australia.',
+      href: '/referees/resources-australia',
+    },
   ],
 };
 
@@ -517,7 +524,8 @@ export const footerContent = {
       title: 'Resources',
       links: [
         { label: 'For Referees', href: '/referees/getting-started' },
-        { label: 'Laws of the Game', href: '/referees/laws-of-the-game' },
+        { label: 'Laws of the Game', href: '/laws' },
+        { label: 'Referee Resources Australia', href: '/referees/resources-australia' },
         { label: 'Weekly Quiz', href: '/weekly-quiz' },
       ],
     },

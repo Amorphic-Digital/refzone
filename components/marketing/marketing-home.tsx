@@ -17,7 +17,7 @@ import { HeroCta, BottomCta } from '@/components/marketing/auth-cta'
 const featureGrid = [
   {
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5 text-purple-400">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5 text-purple-400" aria-hidden="true">
         <circle cx="16" cy="16" r="12" />
         <circle cx="16" cy="16" r="7" />
         <circle cx="16" cy="16" r="2" />
@@ -33,7 +33,7 @@ const featureGrid = [
   },
   {
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5 text-purple-400">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5 text-purple-400" aria-hidden="true">
         <path d="M6 28V4a2 2 0 0 1 2-2h16v24H8a2 2 0 0 0 0 4h16" />
         <line x1="12" y1="10" x2="22" y2="10" />
         <line x1="12" y1="16" x2="20" y2="16" />
@@ -45,7 +45,7 @@ const featureGrid = [
   },
   {
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5 text-purple-400">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5 text-purple-400" aria-hidden="true">
         <path d="M16 4a10 10 0 0 0-10 10c0 4 2.5 7.5 6 9v3h8v-3c3.5-1.5 6-5 6-9a10 10 0 0 0-10-10z" />
         <path d="M12 18c0-2 1-3 2.5-4s2.5-2 2.5-3.5a3 3 0 0 0-6 0" />
         <circle cx="16" cy="20" r="0.5" fill="currentColor" />
@@ -57,7 +57,7 @@ const featureGrid = [
   },
   {
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5 text-purple-400">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5 text-purple-400" aria-hidden="true">
         <rect x="4" y="18" width="5" height="10" rx="1" />
         <rect x="13.5" y="10" width="5" height="18" rx="1" />
         <rect x="23" y="4" width="5" height="24" rx="1" />
@@ -69,7 +69,7 @@ const featureGrid = [
   },
   {
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5 text-purple-400">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5 text-purple-400" aria-hidden="true">
         <path d="M18 2L6 18h10l-2 12 14-20H18l2-8z" />
       </svg>
     ),
@@ -168,7 +168,7 @@ export function MarketingHomePage() {
                 <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]">
                   <div className="aspect-video flex items-center justify-center">
                     {/* Mock pitch graphic */}
-                    <svg viewBox="0 0 640 360" className="h-full w-full" fill="none">
+                    <svg viewBox="0 0 640 360" className="h-full w-full" fill="none" role="img" aria-label="Football pitch diagram showing a referee scenario with player positions and AI-powered decision analysis">
                       <rect width="640" height="360" fill="#0d1a0d"/>
                       {/* Pitch lines */}
                       <rect x="40" y="20" width="560" height="320" stroke="#1a3a1a" strokeWidth="2" fill="none" rx="2"/>
@@ -494,6 +494,25 @@ export function MarketingHomePage() {
           </ScrollAnimate>
         </div>
       </section>
+
+      {/* FAQPage structured data for Google rich snippets */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: faqPage.items.map((item) => ({
+              '@type': 'Question',
+              name: item.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.answer,
+              },
+            })),
+          }),
+        }}
+      />
     </>
   )
 }

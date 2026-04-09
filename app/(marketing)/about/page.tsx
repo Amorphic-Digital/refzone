@@ -16,9 +16,9 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'About — RefZone',
+  title: 'About RefZone — Australian Football Referee Training Platform',
   description:
-    'Learn about RefZone — the advanced football referee training platform empowering referees through technology. Built in Australia for the global referee community.',
+    'RefZone is an advanced football referee training platform built in Australia. 500+ quiz questions, 100+ match scenarios, and AI-powered analysis for referees at every level.',
 }
 
 const features = [
@@ -224,7 +224,7 @@ export default function AboutPage() {
           <ScrollAnimate delay={100}>
             <div className="mx-auto mt-12 max-w-3xl">
               <div className="glass-card overflow-hidden">
-                <svg viewBox="0 0 800 300" className="w-full" fill="none">
+                <svg viewBox="0 0 800 300" className="w-full" fill="none" role="img" aria-label="Football pitch diagram showing player positions, referee location, and AI-powered foul analysis identifying a Law 12 offence">
                   {/* Pitch background */}
                   <rect width="800" height="300" fill="#0d1a0d"/>
                   {/* Field lines */}
