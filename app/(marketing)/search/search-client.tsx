@@ -164,7 +164,7 @@ export function SearchPageClient({ searchIndex }: Props) {
         </div>
         <div className="mx-auto max-w-3xl">
           {/* Branding */}
-          <Link href="/laws" className="mb-6 inline-flex items-center gap-2 text-white/40 hover:text-white/60 transition-colors text-sm">
+          <Link href="/laws" className="mb-6 inline-flex items-center gap-2 text-[var(--m-text-4)] hover:text-white/60 transition-colors text-sm">
             <BookOpen className="h-4 w-4" />
             <span>
               <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent font-semibold">RefZone</span>
@@ -174,7 +174,7 @@ export function SearchPageClient({ searchIndex }: Props) {
 
           {/* Search form */}
           <form onSubmit={handleSubmit} className="relative">
-            <Search className="absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-white/30 pointer-events-none" />
+            <Search className="absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--m-text-4)] pointer-events-none" />
             <input
               ref={inputRef}
               type="text"
@@ -209,7 +209,7 @@ export function SearchPageClient({ searchIndex }: Props) {
                 <button
                   key={term}
                   onClick={() => { setQuery(term); executeSearch(term) }}
-                  className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-1.5 text-xs text-white/40 hover:text-white/70 hover:border-white/15 transition-colors"
+                  className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-1.5 text-xs text-[var(--m-text-4)] hover:text-white/70 hover:border-white/15 transition-colors"
                 >
                   {term}
                 </button>
@@ -240,7 +240,7 @@ export function SearchPageClient({ searchIndex }: Props) {
                     <p key={i}>{formatAIText(para)}</p>
                   ))
                 ) : aiFailed ? (
-                  <p className="text-white/30">
+                  <p className="text-[var(--m-text-4)]">
                     AI Summary is currently unavailable. Browse the results below for answers, or ask your question in{' '}
                     <Link href="/decision-lab" className="text-purple-400 hover:text-purple-300 transition-colors">Decision Lab</Link>.
                   </p>
@@ -266,14 +266,14 @@ export function SearchPageClient({ searchIndex }: Props) {
             </div>
 
             {/* Result count */}
-            <p className="mb-4 text-sm text-white/30">
+            <p className="mb-4 text-sm text-[var(--m-text-4)]">
               {results.length} result{results.length !== 1 ? 's' : ''} for &quot;{submittedQuery}&quot;
             </p>
 
             {/* Grouped results */}
             {results.length === 0 ? (
               <div className="rounded-xl border border-white/10 bg-white/[0.03] p-8 text-center">
-                <p className="text-white/40">No results found. Try a different search term.</p>
+                <p className="text-[var(--m-text-4)]">No results found. Try a different search term.</p>
                 <p className="mt-2 text-sm text-white/25">
                   Tip: Search for specific terms like &quot;offside&quot;, &quot;penalty&quot;, or &quot;red card&quot;
                 </p>
@@ -295,7 +295,7 @@ export function SearchPageClient({ searchIndex }: Props) {
                             className="group flex gap-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-colors hover:border-purple-400/30 hover:bg-white/[0.04]"
                           >
                             <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.04]">
-                              <Icon className="h-4 w-4 text-white/30 group-hover:text-purple-400 transition-colors" />
+                              <Icon className="h-4 w-4 text-[var(--m-text-4)] group-hover:text-purple-400 transition-colors" />
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2">
@@ -322,9 +322,9 @@ export function SearchPageClient({ searchIndex }: Props) {
 
             {/* Request a page CTA */}
             <div className="mt-10 rounded-xl border border-white/[0.06] bg-white/[0.02] p-6 text-center">
-              <Mail className="mx-auto h-6 w-6 text-white/15 mb-3" />
+              <Mail className="mx-auto h-6 w-6 mb-3" style={{ color: 'var(--m-text-5)' }} />
               <h3 className="text-sm font-medium text-white/50">Can&apos;t find what you&apos;re looking for?</h3>
-              <p className="mt-1.5 text-xs text-white/30 max-w-md mx-auto">
+              <p className="mt-1.5 text-xs text-[var(--m-text-4)] max-w-md mx-auto">
                 Request a new page on RefZone Web. Tell us what topic you need covered — provide
                 as much or as little detail as you like, and we&apos;ll build it.
               </p>
@@ -347,7 +347,7 @@ export function SearchPageClient({ searchIndex }: Props) {
             <div className="mt-8 rounded-xl border border-white/[0.06] bg-white/[0.02] p-8 text-center">
               <Search className="mx-auto h-10 w-10 text-white/10 mb-4" />
               <h2 className="text-lg font-semibold text-white/50">RefZone Web</h2>
-              <p className="mt-2 text-sm text-white/30 max-w-md mx-auto">
+              <p className="mt-2 text-sm text-[var(--m-text-4)] max-w-md mx-auto">
                 Search across all 17 IFAB Laws of the Game, FAQs, training resources, and more.
                 Get an AI-powered summary alongside relevant pages.
               </p>

@@ -112,7 +112,7 @@ export function MarketingHeader() {
                   appDropdownOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-1 pointer-events-none"
                 }`}
               >
-                <div className="w-[280px] rounded-xl border border-white/10 bg-[#0f0f17]/95 backdrop-blur-xl shadow-2xl p-2">
+                <div className="w-[280px] rounded-xl border shadow-2xl p-2 backdrop-blur-xl" style={{ background: 'var(--m-bg-raised)', borderColor: 'var(--m-border)' }}>
                   {appLinks.map((link) => {
                     const isActive = pathname === link.href;
                     return (
@@ -125,7 +125,7 @@ export function MarketingHeader() {
                         onClick={() => setAppDropdownOpen(false)}
                       >
                         <span className="text-[14px] font-medium">{link.label}</span>
-                        <span className="text-[12px] text-white/30">{link.desc}</span>
+                        <span className="text-[12px]" style={{ color: 'var(--m-text-4)' }}>{link.desc}</span>
                       </Link>
                     );
                   })}
