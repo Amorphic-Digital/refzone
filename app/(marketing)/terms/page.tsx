@@ -120,8 +120,8 @@ export default function TermsPage() {
             You are solely responsible for maintaining the confidentiality of
             your account credentials and for all activities that occur under
             your account. You agree to immediately notify RefZone at{' '}
-            <a href="mailto:admin@refzone.com.au" className="text-purple-400 hover:text-purple-300">
-              admin@refzone.com.au
+            <a href="mailto:support@refzone.com.au" className="text-purple-400 hover:text-purple-300">
+              support@refzone.com.au
             </a>{' '}
             if you become aware of any unauthorised use of your account or any
             other breach of security.
@@ -558,8 +558,8 @@ export default function TermsPage() {
           <p>
             You may terminate your account at any time by using the account
             deletion feature within the Service or by contacting us at{' '}
-            <a href="mailto:admin@refzone.com.au" className="text-purple-400 hover:text-purple-300">
-              admin@refzone.com.au
+            <a href="mailto:support@refzone.com.au" className="text-purple-400 hover:text-purple-300">
+              support@refzone.com.au
             </a>
             . Upon termination, your right to use the Service will cease
             immediately.
@@ -618,8 +618,8 @@ export default function TermsPage() {
           <p>
             Previous versions of these Terms are available upon request by
             contacting{' '}
-            <a href="mailto:admin@refzone.com.au" className="text-purple-400 hover:text-purple-300">
-              admin@refzone.com.au
+            <a href="mailto:support@refzone.com.au" className="text-purple-400 hover:text-purple-300">
+              support@refzone.com.au
             </a>
             .
           </p>
@@ -649,8 +649,8 @@ export default function TermsPage() {
           <p>
             Before initiating any formal legal proceedings, you agree to first
             attempt to resolve any dispute informally by contacting us at{' '}
-            <a href="mailto:admin@refzone.com.au" className="text-purple-400 hover:text-purple-300">
-              admin@refzone.com.au
+            <a href="mailto:support@refzone.com.au" className="text-purple-400 hover:text-purple-300">
+              support@refzone.com.au
             </a>
             . We will attempt to resolve any dispute through good-faith
             negotiation within 30 days. If the dispute cannot be resolved
@@ -681,10 +681,10 @@ export default function TermsPage() {
             <li>
               <strong>Email:</strong>{' '}
               <a
-                href="mailto:admin@refzone.com.au"
+                href="mailto:support@refzone.com.au"
                 className="text-purple-400 hover:text-purple-300"
               >
-                admin@refzone.com.au
+                support@refzone.com.au
               </a>
             </li>
             <li>

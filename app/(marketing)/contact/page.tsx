@@ -13,8 +13,8 @@ const cards = [
     icon: Mail,
     title: 'Email us',
     description: 'For general enquiries, feedback, or support requests.',
-    detail: 'admin@refzone.com.au',
-    href: 'mailto:admin@refzone.com.au',
+    detail: 'support@refzone.com.au',
+    href: 'mailto:support@refzone.com.au',
   },
   {
     icon: Clock,
@@ -27,8 +27,8 @@ const cards = [
     title: 'Associations',
     description:
       'Want RefZone for your referee panel? Let\u2019s talk about partnership opportunities.',
-    detail: 'admin@refzone.com.au',
-    href: 'mailto:admin@refzone.com.au?subject=Association%20Partnership',
+    detail: 'hello@refzone.com.au',
+    href: 'mailto:hello@refzone.com.au?subject=Association%20Partnership',
   },
 ]
 
@@ -64,14 +64,14 @@ export default function ContactPage() {
       {/* Contact cards */}
       <section className="px-9 py-24 md:py-32">
         <div className="mx-auto max-w-[1420px]">
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-3 items-stretch">
             {cards.map((c) => (
               <div
                 key={c.title}
-                className="overflow-hidden rounded-xl border border-white/10"
+                className="overflow-hidden rounded-xl border border-white/10 flex flex-col"
               >
                 <div className="h-1 bg-gradient-to-r from-purple-500 to-pink-500" />
-                <div className="bg-white/[0.05] p-6">
+                <div className="bg-white/[0.05] p-6 flex-1">
                   <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-purple-400/10">
                     <c.icon className="h-5 w-5 text-purple-400" />
                   </div>
@@ -99,16 +99,16 @@ export default function ContactPage() {
           {/* FAQ link */}
           <div className="mt-10 glass-card rounded-2xl border border-white/10 bg-white/[0.05] p-6 text-center">
             <h3 className="text-lg font-semibold text-white">
-              Check our FAQ first
+              Check our Help Center first
             </h3>
             <p className="mt-1 text-sm text-white/45">
-              Many common questions are already answered in our FAQ section.
+              Many common questions are already answered in our Help Center.
             </p>
             <Link
-              href="/#faq"
+              href="/help"
               className="mt-3 inline-block text-sm font-medium text-purple-400 hover:text-purple-300"
             >
-              View frequently asked questions
+              Visit the Help Center
             </Link>
           </div>
         </div>
@@ -124,23 +124,16 @@ export default function ContactPage() {
       </div>
 
       {/* Contact form */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-12 md:py-16">
         <div className="mx-auto max-w-2xl">
-          <h2 className="text-center text-2xl font-bold text-white">
-            Send us a message
-          </h2>
-          <p className="mt-2 text-center text-sm text-white/45">
-            Fill in the form below and we&apos;ll get back to you as soon as possible.
-          </p>
-
-          <div className="mt-10 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03]">
             <iframe
               src="https://nodumforms.com/f/lrl2owrx/send-us-a-message"
               width="100%"
-              height="650"
               frameBorder="0"
               title="Contact form"
-              style={{ border: 'none', background: 'transparent' }}
+              style={{ border: 'none', background: 'transparent', minHeight: '900px', overflow: 'hidden' }}
+              scrolling="no"
               allow="clipboard-write"
             />
           </div>

@@ -10,7 +10,7 @@ export const siteConfig = {
   description:
     'RefZone is an advanced football referee training platform built for Australian referees. Master the Laws of the Game with interactive scenarios, quizzes, and real-time performance analytics.',
   url: 'https://www.refzone.com.au',
-  supportEmail: 'admin@refzone.com.au',
+  supportEmail: 'support@refzone.com.au',
   brandColor: '#1a73e8',
   brandPink: '#e91e63',
 };
@@ -199,14 +199,12 @@ export const landingPage = {
     primaryCta: { label: 'Start training free', href: '/auth/sign-up' },
     secondaryCta: null,
     logoStrip: [
-      'Football Australia',
-      'FFA',
-      'NPL',
-      'A-League',
+      'Eastern Suburbs Football Association Referees Branch',
+      'Sutherland Shire Football Referees Association',
       'Football NSW',
-      'Football Victoria',
-      'Football Queensland',
       'Capital Football',
+      'Football Queensland',
+      'Football West',
     ],
   },
 
@@ -495,7 +493,7 @@ export const faqPage = {
     {
       question: 'Can football associations use RefZone for their referee panels?',
       answer:
-        'Yes. We offer tools designed for football associations, academies, and referee panels. Association administrators can track their referees\' progress, assign targeted training, and identify areas where additional coaching is needed. Contact us at admin@refzone.com.au to discuss your requirements.',
+        'Yes. We offer tools designed for football associations, academies, and referee panels. Association administrators can track their referees\' progress, assign targeted training, and identify areas where additional coaching is needed. Contact us at hello@refzone.com.au to discuss your requirements.',
     },
   ],
 };
@@ -578,7 +576,7 @@ export const privacyPage = {
     {
       heading: 'Your rights',
       content:
-        'Under the Australian Privacy Principles, you have the right to: (a) access the personal information we hold about you; (b) request correction of inaccurate or outdated information; (c) request deletion of your account and associated data; and (d) lodge a complaint with the Office of the Australian Information Commissioner (OAIC) if you believe your privacy has been breached. To exercise any of these rights, contact us at admin@refzone.com.au.',
+        'Under the Australian Privacy Principles, you have the right to: (a) access the personal information we hold about you; (b) request correction of inaccurate or outdated information; (c) request deletion of your account and associated data; and (d) lodge a complaint with the Office of the Australian Information Commissioner (OAIC) if you believe your privacy has been breached. To exercise any of these rights, contact us at support@refzone.com.au.',
     },
     {
       heading: 'Third-party services',
@@ -588,7 +586,7 @@ export const privacyPage = {
     {
       heading: 'Children\'s privacy',
       content:
-        'RefZone is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us at admin@refzone.com.au and we will promptly delete it.',
+        'RefZone is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us at support@refzone.com.au and we will promptly delete it.',
     },
     {
       heading: 'Changes to this policy',
@@ -598,7 +596,7 @@ export const privacyPage = {
     {
       heading: 'Contact us',
       content:
-        'If you have questions or concerns about this Privacy Policy or our data practices, please contact us at admin@refzone.com.au.',
+        'If you have questions or concerns about this Privacy Policy or our data practices, please contact us at support@refzone.com.au.',
     },
   ],
 };
@@ -624,7 +622,7 @@ export const termsPage = {
     {
       heading: 'Account registration',
       content:
-        'To access certain features of the Service, you must create an account by providing accurate and complete information. You are responsible for maintaining the confidentiality of your login credentials and for all activity that occurs under your account. You must notify us immediately at admin@refzone.com.au if you suspect any unauthorised use of your account.',
+        'To access certain features of the Service, you must create an account by providing accurate and complete information. You are responsible for maintaining the confidentiality of your login credentials and for all activity that occurs under your account. You must notify us immediately at support@refzone.com.au if you suspect any unauthorised use of your account.',
     },
     {
       heading: 'Acceptable use',
@@ -664,7 +662,7 @@ export const termsPage = {
     {
       heading: 'Contact us',
       content:
-        'If you have questions about these Terms of Service, please contact us at admin@refzone.com.au.',
+        'If you have questions about these Terms of Service, please contact us at support@refzone.com.au.',
     },
   ],
 };
