@@ -4,9 +4,9 @@ import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { Target, ArrowRight, FileText, Video, Zap, ClipboardList, Move, Dumbbell } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Training Resources — RefZone',
+  title: 'Football Referee Training Resources — Guides, Videos & Downloads',
   description:
-    'Access referee training resources including Laws of the Game PDFs, video tutorials, weekly challenges, positioning guides, and fitness standards.',
+    'Free referee training resources: IFAB Laws of the Game PDFs, video tutorials, weekly challenges, positioning guides, and fitness standards for Australian referees.',
 }
 
 const resources = [

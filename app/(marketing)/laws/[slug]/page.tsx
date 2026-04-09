@@ -112,6 +112,39 @@ export default async function LawPage({ params }: Props) {
         </div>
       </section>
 
+      {/* Referee tips */}
+      <section className="px-9 py-16 md:py-24 border-t border-white/[0.06]">
+        <div className="mx-auto max-w-[860px]">
+          <ScrollAnimate>
+            <h2 className="text-2xl font-bold tracking-tight text-white">
+              Practical referee tips for {law.title}
+            </h2>
+            <div className="mt-6 space-y-3">
+              {law.refereeTips.map((tip, i) => (
+                <div key={i} className="flex gap-3 rounded-lg border border-white/[0.06] bg-white/[0.02] px-4 py-3">
+                  <span className="mt-0.5 text-purple-400 text-sm font-bold shrink-0">TIP</span>
+                  <p className="text-[15px] leading-relaxed text-white/50">{tip}</p>
+                </div>
+              ))}
+            </div>
+          </ScrollAnimate>
+        </div>
+      </section>
+
+      {/* Australia context */}
+      <section className="px-9 py-16 md:py-24 border-t border-white/[0.06]">
+        <div className="mx-auto max-w-[860px]">
+          <ScrollAnimate>
+            <h2 className="text-2xl font-bold tracking-tight text-white">
+              {law.title} in Australian football
+            </h2>
+            <p className="mt-4 leading-relaxed text-white/50">
+              {law.australiaContext}
+            </p>
+          </ScrollAnimate>
+        </div>
+      </section>
+
       {/* Common questions — also provides FAQ-style content for SEO */}
       <section className="px-9 py-16 md:py-24 border-t border-white/[0.06]">
         <div className="mx-auto max-w-[860px]">
@@ -217,6 +250,27 @@ export default async function LawPage({ params }: Props) {
                 text: faq.a,
               },
             })),
+          }),
+        }}
+      />
+
+      {/* Structured data — Article schema for law page */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: law.h1,
+            description: law.metaDescription,
+            author: { '@type': 'Organization', name: 'RefZone', url: 'https://www.refzone.com.au' },
+            publisher: { '@type': 'Organization', name: 'RefZone', url: 'https://www.refzone.com.au' },
+            mainEntityOfPage: `https://www.refzone.com.au/laws/${law.slug}`,
+            about: {
+              '@type': 'Thing',
+              name: `Law ${law.num}: ${law.title}`,
+              description: law.shortDesc,
+            },
           }),
         }}
       />

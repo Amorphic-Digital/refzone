@@ -4,9 +4,9 @@ import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { GraduationCap, ArrowRight, UserPlus, BookOpen, Target, BarChart3 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Getting Started — RefZone',
+  title: 'Getting Started with Referee Training — New to RefZone',
   description:
-    'New to RefZone? Follow our step-by-step guide to create your account, take your first quiz, try a scenario, and start tracking your progress.',
+    'New to RefZone? Create your free account and start training in minutes. Step-by-step guide to quizzes, scenarios, and Laws of the Game practice for Australian referees.',
 }
 
 const steps = [

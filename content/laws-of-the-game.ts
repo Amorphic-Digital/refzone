@@ -19,6 +19,10 @@ export interface LawContent {
   keyPoints: string[]
   commonQuestions: { q: string; a: string }[]
   relatedLaws: number[]
+  /** Practical advice for match-day application */
+  refereeTips: string[]
+  /** How this law applies in Australian football specifically */
+  australiaContext: string
 }
 
 export const lawsOfTheGame: LawContent[] = [
@@ -64,6 +68,13 @@ export const lawsOfTheGame: LawContent[] = [
         a: 'Yes. FIFA Quality or FIFA Quality Pro certified artificial turf is permitted at all levels, including international matches.',
       },
     ],
+    refereeTips: [
+      'Walk the pitch before kick-off — check markings, goalposts, nets, and any hazards',
+      'Ensure penalty area markings are visible, especially in wet conditions',
+      'Verify both goals are securely anchored and the correct dimensions',
+      'Check corner flagposts are in place and at least 1.5m high',
+    ],
+    australiaContext: 'In Australian community football, pitch conditions vary significantly between grounds. Many suburban fields may have faded markings, uneven surfaces, or temporary goals. Referees should conduct a thorough pitch inspection at least 30 minutes before kick-off and raise any safety concerns with the home team. Football NSW, Football Victoria, and other state associations provide pitch condition guidelines in their competition regulations.',
     relatedLaws: [9, 16, 17],
   },
   {
@@ -104,6 +115,13 @@ export const lawsOfTheGame: LawContent[] = [
         a: 'The goal kick is retaken with a replacement ball.',
       },
     ],
+    refereeTips: [
+      'Test the ball pressure before kick-off using an approved gauge if available',
+      'Have at least one spare ball available at the side of the field',
+      'If you suspect the ball is defective during play, stop at the next natural break',
+      'Note the position where the ball became defective for the correct restart',
+    ],
+    australiaContext: 'Australian community competitions typically require the home team to provide match balls. Referees should confirm ball availability during the pre-match inspection. In junior football across Football NSW and Football Queensland, size 4 balls are commonly used for Under 12 and below, while senior matches use size 5.',
     relatedLaws: [8, 9],
   },
   {
@@ -148,6 +166,13 @@ export const lawsOfTheGame: LawContent[] = [
         a: 'No. If a team has fewer than 7 players, the match cannot start or continue.',
       },
     ],
+    refereeTips: [
+      'Count players during substitutions — teams occasionally end up with 12 on the field',
+      'Confirm substitution procedures with both teams before kick-off',
+      'Record all substitutions in your match notebook immediately',
+      'Be aware of competition-specific rules regarding rolling substitutions',
+    ],
+    australiaContext: 'Australian community leagues commonly allow unlimited rolling substitutions in junior matches and 5 substitutions in senior competitions. NPL competitions across states including Football NSW and Football Victoria follow FIFA guidelines with 5 substitution windows. Always check your competition\'s specific regulations before the match.',
     relatedLaws: [4, 5, 12],
   },
   {
@@ -188,6 +213,13 @@ export const lawsOfTheGame: LawContent[] = [
         a: 'Yes. Shinguards are compulsory equipment and must be covered by the socks.',
       },
     ],
+    refereeTips: [
+      'Check equipment of every player before the match — especially shinguards and jewellery',
+      'Re-check substitutes\' equipment as they enter the field',
+      'Have scissors or tape available in your kit bag for minor adjustments',
+      'Do not allow a player to participate until non-compliant equipment is corrected',
+    ],
+    australiaContext: 'In Australian grassroots football, jewellery and missing shinguards are the most common equipment issues. Some junior competitions across Football Queensland and Football SA have specific requirements about boot types (no metal studs for younger age groups). Referees should familiarise themselves with local ground regulations in addition to Law 4.',
     relatedLaws: [3, 5],
   },
   {
@@ -232,6 +264,13 @@ export const lawsOfTheGame: LawContent[] = [
         a: 'Advantage allows play to continue when an offence occurs but the non-offending team would benefit more from continued play than from a free kick.',
       },
     ],
+    refereeTips: [
+      'Make decisions quickly and communicate them clearly — hesitation undermines authority',
+      'Use advantage wisely — only play advantage when there is a genuine benefit',
+      'Keep a record of all cautions, send-offs, and significant incidents in your notebook',
+      'Position yourself to see between the ball and the players involved',
+    ],
+    australiaContext: 'In Australia, referee authority is supported by state-level codes of conduct enforced by Football NSW, Football Victoria, Capital Football, and other federations. Abuse of match officials is a significant concern at community level, and all Australian states have implemented mandatory reporting and suspension frameworks. Referees who feel unsafe should not hesitate to abandon a match — player safety always takes priority.',
     relatedLaws: [6, 12, 13],
   },
   {
@@ -276,6 +315,13 @@ export const lawsOfTheGame: LawContent[] = [
         a: 'Assistant referees are trained officials who indicate offsides, restarts, and misconduct. Club linesmen only indicate when the ball is out of play.',
       },
     ],
+    refereeTips: [
+      'Establish clear pre-match communication with your assistant referees about signals and responsibilities',
+      'If you are working without neutral assistants, manage expectations with club linesmen before kick-off',
+      'Trust your assistants\' flag signals — they often have a better angle on offside and boundary decisions',
+      'Brief the fourth official on added time, substitution procedures, and technical area management',
+    ],
+    australiaContext: 'Many community matches in Australia are officiated by a single referee without assistant referees. In these cases, club linesmen (provided by each team) can only indicate when the ball is out of play — they cannot flag for offside or fouls. Higher-level competitions in the NPL and state leagues appoint full referee teams. Football Australia and state federations provide guidelines on the duties of club linesmen.',
     relatedLaws: [5, 11, 12],
   },
   {
@@ -320,6 +366,13 @@ export const lawsOfTheGame: LawContent[] = [
         a: 'The referee adds time for substitutions, injuries, VAR checks, time-wasting, and other stoppages during each half.',
       },
     ],
+    refereeTips: [
+      'Start your watch at kick-off and keep track of stoppages for added time',
+      'Use a second watch or stopwatch as a backup — technology can fail',
+      'Communicate clearly with the fourth official about added time at the end of each half',
+      'Remember: a penalty kick must be completed even if full time has expired',
+    ],
+    australiaContext: 'Match duration in Australian junior football varies by age group. Football NSW uses 20-minute halves for Under 8s through to 45-minute halves for Under 18s. Football Queensland and Football Victoria follow similar age-based structures. Referees should confirm match duration with competition coordinators before kick-off, as these can vary between associations and even between divisions within the same age group.',
     relatedLaws: [5, 8, 14],
   },
   {
@@ -360,6 +413,13 @@ export const lawsOfTheGame: LawContent[] = [
         a: 'When the referee stops play for a reason not covered by other restart methods — e.g. a defective ball or an outside agent on the field.',
       },
     ],
+    refereeTips: [
+      'Ensure the coin toss is conducted fairly and both captains understand the result',
+      'At kick-off, check all players are in their own half before whistling',
+      'For a dropped ball, identify which team last touched the ball and act quickly',
+      'Remember that a dropped ball in the penalty area always goes to the goalkeeper',
+    ],
+    australiaContext: 'In Australian community football, kick-off times can be delayed due to late team arrivals or pitch availability. Referees should communicate any delays to both teams and adjust the match schedule accordingly. Some Australian competitions use a "golden point" format in finals, which requires extra time management skills covered under Law 7 and Law 10.',
     relatedLaws: [2, 7, 9],
   },
   {
@@ -400,6 +460,13 @@ export const lawsOfTheGame: LawContent[] = [
         a: 'Play continues unless the ball goes into the goal, possession changes, or a promising attack starts — in those cases, a dropped ball restarts play.',
       },
     ],
+    refereeTips: [
+      'Position yourself with a clear sightline to the ball — especially near boundary lines',
+      'When in doubt about whether the ball crossed the line, consult your assistant referee',
+      'Remember: the ball hitting a match official is still in play unless specific conditions are met',
+      'Be aware that even experienced players and spectators misjudge ball-over-line situations',
+    ],
+    australiaContext: 'Goal-line technology is not available at community level in Australia. Referees must rely on their own positioning and the assistance of neutral assistant referees (where appointed). In single-referee matches common across Australian grassroots football, positioning near the goal line during attacking play is critical for accurate goal/no-goal decisions.',
     relatedLaws: [1, 10, 15, 16, 17],
   },
   {
@@ -444,6 +511,13 @@ export const lawsOfTheGame: LawContent[] = [
         a: 'Each team takes five kicks alternately. If still level, kicks continue one-for-one until one team leads after equal kicks.',
       },
     ],
+    refereeTips: [
+      'During penalty shoot-outs, keep a clear written record of each kick and its outcome',
+      'Ensure both goalkeepers understand the goal line rule before kicks begin',
+      'Check that all eligible players are in the centre circle and monitor for encroachment',
+      'If a goalkeeper is injured during kicks from the mark, only a player already on the pitch may replace them',
+    ],
+    australiaContext: 'Australian cup competitions and finals series frequently require kicks from the penalty mark to determine a winner. Football NSW Cup, FFA Cup qualifying rounds, and state-level knockout competitions all follow IFAB procedures. Referees officiating finals in Australia should practise the penalty shoot-out procedure before the match and brief both teams during the pre-match meeting.',
     relatedLaws: [9, 14],
   },
   {
@@ -488,6 +562,13 @@ export const lawsOfTheGame: LawContent[] = [
         a: 'No. There is no offside offence if the ball is received directly from a throw-in, goal kick, or corner kick.',
       },
     ],
+    refereeTips: [
+      'Focus on the moment the ball is played — that is when offside position is judged',
+      'Use the "wait and see" technique: flag only when the player becomes involved in active play',
+      'Communicate with your assistant referee about marginal calls — eye contact and body language matter',
+      'Remember the three exceptions: goal kick, throw-in, corner kick — commit these to memory',
+    ],
+    australiaContext: 'Offside is the most frequently debated decision in Australian football at every level. Without VAR at community level, referees and assistant referees must rely on positioning and concentration. Football NSW and Football Victoria both include specific offside assessment modules in their referee development programmes. RefZone\'s quiz bank includes over 50 offside-specific questions to help Australian referees master this law.',
     relatedLaws: [6, 13, 15, 16, 17],
   },
   {
@@ -536,6 +617,14 @@ export const lawsOfTheGame: LawContent[] = [
         a: 'A goal can be scored directly from a direct free kick. An indirect free kick requires the ball to touch another player before a goal can be scored.',
       },
     ],
+    refereeTips: [
+      'Distinguish between careless (free kick only), reckless (free kick + caution), and excessive force (free kick + send-off)',
+      'For handling decisions, ask: was the arm in an unnatural position? Did the player make their body bigger?',
+      'When applying DOGSO, consider the four criteria: distance to goal, direction of play, likelihood of keeping the ball, and location/number of defenders',
+      'Keep your cards in separate pockets — yellow in one, red in the other — to avoid mistakes under pressure',
+      'Record the time, player number, and reason for every card in your notebook immediately',
+    ],
+    australiaContext: 'Law 12 accounts for the majority of disciplinary action in Australian football. State federations including Football NSW, Football Queensland, and Football Victoria maintain judiciary systems that review red card incidents after each match round. Referees must submit detailed match reports for all send-offs. Understanding the difference between careless, reckless, and excessive force is essential for passing referee assessments in Australia.',
     relatedLaws: [5, 13, 14],
   },
   {
@@ -580,6 +669,13 @@ export const lawsOfTheGame: LawContent[] = [
         a: '9.15 metres (10 yards) from the ball until it is in play.',
       },
     ],
+    refereeTips: [
+      'Always signal clearly whether the free kick is direct or indirect',
+      'For indirect free kicks near the goal, keep your arm raised until the ball touches another player',
+      'Manage the wall actively — ensure 9.15m distance and that attackers stay 1m from a 3+ person wall',
+      'If a player delays the restart by kicking the ball away, caution them for delaying the restart',
+    ],
+    australiaContext: 'Free kick management is a key assessment criterion for referee promotion in Australian football. State associations evaluate how efficiently referees manage restarts, particularly in and around the penalty area. Quick, clear communication and confident positioning during free kicks are skills that Football NSW, Football Victoria, and other associations expect from referees seeking advancement.',
     relatedLaws: [12, 14],
   },
   {
@@ -624,6 +720,13 @@ export const lawsOfTheGame: LawContent[] = [
         a: 'Feinting during the run-up is allowed. Feinting at the point of kicking (stopping then kicking) is an offence — the kicker is cautioned.',
       },
     ],
+    refereeTips: [
+      'Position yourself with a clear view of the penalty mark, the goalkeeper, and the kicker',
+      'Watch the goalkeeper\'s feet — they must have at least one foot on or in line with the goal line',
+      'If you spot encroachment, wait for the outcome before deciding on the sanction',
+      'Brief both teams on penalty kick procedure before any penalty is taken, especially in finals',
+    ],
+    australiaContext: 'Penalty kicks are high-pressure moments in Australian football, particularly in finals and cup matches. Referees at NPL and A-League level in Australia receive specific training on penalty management. At community level, ensuring both the goalkeeper and kicker understand the rules before the kick is taken can prevent confusion and disputes.',
     relatedLaws: [10, 12, 13],
   },
   {
@@ -664,6 +767,13 @@ export const lawsOfTheGame: LawContent[] = [
         a: 'No. If the ball enters the opponent\'s goal directly from a throw-in, a goal kick is awarded. If it enters the thrower\'s own goal, a corner kick is awarded.',
       },
     ],
+    refereeTips: [
+      'Watch both feet of the thrower — the most common foul throw is lifting a foot completely off the ground',
+      'Be consistent with foul throw decisions throughout the match — don\'t suddenly become strict in the second half',
+      'Position yourself to see the thrower\'s feet and the field of play simultaneously',
+      'In junior football, consider using a quick coaching moment for first-time foul throws rather than immediately penalising',
+    ],
+    australiaContext: 'Foul throws are one of the most common infringements in Australian junior football. Many state associations including Football NSW and Football Queensland encourage referees to use a developmental approach with younger players — explaining the correct procedure rather than simply awarding a throw-in to the opposition. At senior level, the law is applied strictly.',
     relatedLaws: [9, 11],
   },
   {
@@ -704,6 +814,13 @@ export const lawsOfTheGame: LawContent[] = [
         a: 'Yes, against the opposing team. If the ball enters the kicker\'s own goal directly, a corner kick is awarded.',
       },
     ],
+    refereeTips: [
+      'Ensure opponents leave the penalty area before the goal kick is taken',
+      'Remind goalkeepers they can pass to a team-mate inside the penalty area — many still use the old rule',
+      'Position yourself to monitor both the goal kick procedure and potential offside situations',
+      'A goal kick taken from the wrong position should be retaken — communicate clearly with the kicker',
+    ],
+    australiaContext: 'The 2019 rule change allowing goal kicks to be received inside the penalty area is still misunderstood by many players and coaches in Australian community football. Referees should be prepared to explain this change, particularly at lower levels. Football Australia and state federations have issued guidance on communicating rule changes to teams.',
     relatedLaws: [1, 9, 11],
   },
   {
@@ -744,6 +861,13 @@ export const lawsOfTheGame: LawContent[] = [
         a: 'No. There is no offside offence if a player receives the ball directly from a corner kick.',
       },
     ],
+    refereeTips: [
+      'Position yourself near the corner area to monitor the kick procedure and the penalty area simultaneously',
+      'Watch for pushing, holding, and shirt-pulling in the penalty area during corner kicks',
+      'Ensure the ball is placed inside the corner arc and the flagpost is not moved',
+      'Be alert for short corner kicks — opponents must still maintain 9.15m distance',
+    ],
+    australiaContext: 'Corner kicks are a common source of penalty area incidents in Australian football. Referees at all levels should focus on managing the crowded penalty area during corners, watching for off-the-ball fouls that can escalate quickly. State federation assessors in Football NSW, Football Victoria, and Football Queensland frequently evaluate referee positioning and awareness during set pieces as part of promotion assessments.',
     relatedLaws: [1, 9, 11, 13],
   },
 ]

@@ -4,9 +4,9 @@ import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { Users, ArrowRight, MessageSquare, UserPlus, Share2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Community — RefZone',
+  title: 'Australian Football Referee Community — Forum & Discussion',
   description:
-    'Join Australia\'s growing referee community on RefZone. Discuss decisions in the forum, share knowledge, and connect with referees at every level.',
+    'Join Australia\'s growing football referee community on RefZone. Discuss match decisions, share knowledge, and connect with referees across every state and level.',
 }
 
 const mockPosts = [

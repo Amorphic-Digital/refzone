@@ -287,6 +287,43 @@ export default function QuizzesPage() {
         </div>
       </section>
 
+      {/* SEO content — quiz training for Australian referees */}
+      <section className="px-9 py-16 md:py-24 border-t border-white/[0.06]">
+        <div className="mx-auto max-w-[860px]">
+          <h2 className="text-2xl font-bold tracking-tight text-white">
+            Laws of the Game quiz practice for Australian referees
+          </h2>
+          <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-white/50">
+            <p>
+              The IFAB Laws of the Game are updated annually, and Australian referees are expected
+              to stay current with every amendment. RefZone&apos;s quiz bank of 500+ questions
+              covers all{' '}
+              <Link href="/laws" className="text-purple-400 hover:text-purple-300 transition-colors">17 Laws of the Game</Link>,
+              from fundamental rules like{' '}
+              <Link href="/laws/field-of-play" className="text-purple-400 hover:text-purple-300 transition-colors">the field of play</Link> to
+              complex areas like{' '}
+              <Link href="/laws/offside" className="text-purple-400 hover:text-purple-300 transition-colors">offside interpretation</Link> and{' '}
+              <Link href="/laws/fouls-and-misconduct" className="text-purple-400 hover:text-purple-300 transition-colors">fouls and misconduct</Link>.
+            </p>
+            <p>
+              Each question includes an instant explanation referencing the specific law, clause,
+              and practical application. Three difficulty levels — easy, medium, and hard — let
+              you progress from basic rule recall to edge-case scenarios that test even experienced
+              A-League and NPL referees.
+            </p>
+            <p>
+              Referees across Football NSW, Football Victoria, Football Queensland, Capital Football,
+              and Football West use RefZone quizzes to prepare for promotion assessments, pre-season
+              rules refreshers, and weekly training. Pair quizzes with{' '}
+              <Link href="/features/scenarios" className="text-purple-400 hover:text-purple-300 transition-colors">match scenarios</Link> for
+              practical application, or use{' '}
+              <Link href="/features/decision-lab" className="text-purple-400 hover:text-purple-300 transition-colors">Decision Lab</Link> to
+              ask specific questions about tricky rule interpretations.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Bottom CTA */}
       <section className="px-9 py-24 md:py-32">
         <div className="mx-auto max-w-[1420px] text-center">

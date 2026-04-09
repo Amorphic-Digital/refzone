@@ -214,6 +214,39 @@ export default function GamificationPage() {
         </div>
       </section>
 
+      {/* SEO content — why consistency matters */}
+      <section className="px-9 py-16 md:py-24 border-t border-white/[0.06]">
+        <div className="mx-auto max-w-[860px]">
+          <h2 className="text-2xl font-bold tracking-tight text-white">
+            Why daily training matters for football referees
+          </h2>
+          <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-white/50">
+            <p>
+              Research in sports education consistently shows that spaced repetition — practising
+              a little each day rather than cramming — leads to significantly better long-term
+              retention. For football referees in Australia, this means a daily 5-minute quiz on
+              the <Link href="/laws" className="text-purple-400 hover:text-purple-300 transition-colors">Laws of the Game</Link> is
+              more effective than a single hour-long study session once a week.
+            </p>
+            <p>
+              RefZone&apos;s streak system leverages this principle. By completing at least one
+              quiz or <Link href="/features/scenarios" className="text-purple-400 hover:text-purple-300 transition-colors">scenario</Link> each
+              day, you build a habit of continuous learning. Australian referees using RefZone
+              report improved confidence on match day, particularly when making split-second
+              decisions on <Link href="/laws/fouls-and-misconduct" className="text-purple-400 hover:text-purple-300 transition-colors">fouls
+              and misconduct</Link> and <Link href="/laws/offside" className="text-purple-400 hover:text-purple-300 transition-colors">offside</Link> calls.
+            </p>
+            <p>
+              Whether you are a new referee in New South Wales preparing for your first season
+              with Football NSW, or an experienced official in Queensland maintaining your edge,
+              daily training with RefZone helps bridge the gap between match weekends. Pair your
+              streaks with <Link href="/features/analytics" className="text-purple-400 hover:text-purple-300 transition-colors">performance
+              analytics</Link> to identify which laws need the most attention.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Bottom CTA */}
       <section className="px-9 py-24 md:py-32">
         <div className="mx-auto max-w-[1420px] text-center">

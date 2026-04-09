@@ -278,6 +278,42 @@ export default function ScenariosPage() {
         </div>
       </section>
 
+      {/* SEO content — scenario training for Australian referees */}
+      <section className="px-9 py-16 md:py-24 border-t border-white/[0.06]">
+        <div className="mx-auto max-w-[860px]">
+          <h2 className="text-2xl font-bold tracking-tight text-white">
+            How scenario-based training improves referee decision-making
+          </h2>
+          <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-white/50">
+            <p>
+              Traditional referee training in Australia relies heavily on classroom sessions and
+              on-field mentoring. While these methods are effective, they are limited by
+              scheduling and geography. RefZone&apos;s scenario-based training allows you to
+              practise decision-making any time, from any device — whether you are in Sydney,
+              Brisbane, Perth, or regional Australia.
+            </p>
+            <p>
+              Each scenario is grounded in the{' '}
+              <Link href="/laws" className="text-purple-400 hover:text-purple-300 transition-colors">IFAB Laws of the Game</Link>,
+              covering critical areas like{' '}
+              <Link href="/laws/fouls-and-misconduct" className="text-purple-400 hover:text-purple-300 transition-colors">Law 12 (Fouls and Misconduct)</Link>,{' '}
+              <Link href="/laws/offside" className="text-purple-400 hover:text-purple-300 transition-colors">Law 11 (Offside)</Link>, and{' '}
+              <Link href="/laws/the-penalty-kick" className="text-purple-400 hover:text-purple-300 transition-colors">Law 14 (Penalty Kicks)</Link>.
+              After each decision, you receive a detailed breakdown explaining the correct call,
+              the applicable law and clause, and common mistakes other referees make.
+            </p>
+            <p>
+              Australian referees preparing for assessments with Football NSW, Football Queensland,
+              Football Victoria, or any state federation can use RefZone scenarios to build the
+              decision-making speed and accuracy that assessors look for. Combine scenarios with{' '}
+              <Link href="/features/quizzes" className="text-purple-400 hover:text-purple-300 transition-colors">Laws of the Game quizzes</Link> and{' '}
+              <Link href="/features/analytics" className="text-purple-400 hover:text-purple-300 transition-colors">performance analytics</Link> for
+              a complete training programme.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Bottom CTA */}
       <section className="px-9 py-24 md:py-32">
         <div className="mx-auto max-w-[1420px] text-center">

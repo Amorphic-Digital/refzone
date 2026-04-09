@@ -4,9 +4,9 @@ import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { Award, ArrowRight, BookOpen, Target, BarChart3 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Career Development — RefZone',
+  title: 'Football Referee Career Pathway Australia — Community to FIFA',
   description:
-    'Understand the referee career pathway in Australia — from community level to FIFA panel. Learn what it takes to progress and how RefZone supports you at every stage.',
+    'The Australian football referee career pathway explained: community, district, state, national, and FIFA levels. Learn what it takes to progress and how RefZone helps.',
 }
 
 const levels = [

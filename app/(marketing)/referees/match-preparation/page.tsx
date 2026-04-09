@@ -4,9 +4,9 @@ import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { Shield, ArrowRight, BookOpen, Target, Brain, CheckSquare } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Match Preparation — RefZone',
+  title: 'Referee Match Preparation Guide — Pre-Match Checklist & Tips',
   description:
-    'Be ready for every match with RefZone\'s pre-match preparation guide. Review your checklist, warm up mentally, and practice scenarios before kick-off.',
+    'Pre-match preparation guide for football referees. Checklist, mental warm-up, scenario practice, and positioning review. Be game-ready every weekend in Australia.',
 }
 
 const checklist = [

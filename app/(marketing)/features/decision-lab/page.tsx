@@ -277,6 +277,41 @@ export default function DecisionLabPage() {
         </div>
       </section>
 
+      {/* SEO content — AI referee mentor */}
+      <section className="px-9 py-16 md:py-24 border-t border-white/[0.06]">
+        <div className="mx-auto max-w-[860px]">
+          <h2 className="text-2xl font-bold tracking-tight text-white">
+            Your AI-powered Laws of the Game mentor
+          </h2>
+          <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-white/50">
+            <p>
+              Decision Lab is built on the official IFAB Laws of the Game and trained to handle
+              the kinds of questions Australian referees face every match day. Describe any
+              scenario — real or hypothetical — and get an instant, detailed analysis with precise
+              law references, clause numbers, and practical application guidance.
+            </p>
+            <p>
+              Unlike generic AI tools, Decision Lab understands the context of football refereeing.
+              Ask about the{' '}
+              <Link href="/laws/offside" className="text-purple-400 hover:text-purple-300 transition-colors">offside rule</Link>,{' '}
+              <Link href="/laws/fouls-and-misconduct" className="text-purple-400 hover:text-purple-300 transition-colors">handball interpretations</Link>,{' '}
+              <Link href="/laws/the-penalty-kick" className="text-purple-400 hover:text-purple-300 transition-colors">penalty kick procedures</Link>,
+              or any of the{' '}
+              <Link href="/laws" className="text-purple-400 hover:text-purple-300 transition-colors">17 Laws of the Game</Link> —
+              and receive an answer that references the specific rule, explains the reasoning, and
+              highlights common mistakes.
+            </p>
+            <p>
+              For Australian referees, Decision Lab is especially valuable between matches and
+              training sessions. Whether you are debating a call from the weekend with colleagues,
+              preparing for a rules assessment with Football NSW or Football Victoria, or simply
+              curious about an edge case you have never encountered, Decision Lab has you covered
+              24 hours a day, 7 days a week.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Bottom CTA */}
       <section className="px-9 py-24 md:py-32">
         <div className="mx-auto max-w-[1420px] text-center">

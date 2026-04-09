@@ -330,6 +330,31 @@ export default function AnalyticsPage() {
 
       {/* Bottom CTA */}
       <section className="px-9 py-24 md:py-32">
+        {/* SEO content — data-driven referee development */}
+        <div className="mx-auto max-w-[860px] mb-24">
+          <h2 className="text-2xl font-bold tracking-tight text-white">
+            Data-driven referee development in Australia
+          </h2>
+          <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-white/50">
+            <p>
+              Football referee assessors in Australia evaluate referees on their knowledge of the{' '}
+              <Link href="/laws" className="text-purple-400 hover:text-purple-300 transition-colors">Laws of the Game</Link>,
+              match management, and consistency. RefZone&apos;s analytics give you the same data-driven
+              view of your performance that assessors use — accuracy by law, difficulty progression,
+              and training frequency.
+            </p>
+            <p>
+              Whether you are preparing for a promotion assessment with Football NSW, Football Victoria,
+              or Capital Football, or simply want to track your improvement week over week, RefZone&apos;s
+              analytics dashboard gives you a clear picture of where you stand. Pair your analytics
+              with daily <Link href="/features/gamification" className="text-purple-400 hover:text-purple-300 transition-colors">training streaks</Link> to
+              build consistent habits, or dive into{' '}
+              <Link href="/features/scenarios" className="text-purple-400 hover:text-purple-300 transition-colors">match scenarios</Link> to
+              improve your weakest law categories.
+            </p>
+          </div>
+        </div>
+
         <div className="mx-auto max-w-[1420px] text-center">
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
             Know your numbers, improve faster
