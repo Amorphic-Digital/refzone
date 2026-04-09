@@ -1,7 +1,7 @@
 import { Zap } from 'lucide-react'
 import { HelpArticleLayout, HelpSection, HelpStep, HelpTip, HelpList } from '@/components/marketing/help-article-layout'
 
-export const metadata = { title: 'Getting Started — Help Center — RefZone' }
+export const metadata = { title: 'Getting Started — Help Center — RefZone', description: 'Step-by-step guide to creating your RefZone account and starting your first referee training session. Quizzes, scenarios, and analytics setup explained.' }
 
 export default function GettingStartedPage() {
   return (

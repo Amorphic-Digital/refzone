@@ -3,9 +3,9 @@ import Link from 'next/link'
 import { Mail, Clock, Users } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Contact — RefZone',
+  title: 'Contact RefZone — Referee Training Support & Association Partnerships',
   description:
-    'Get in touch with the RefZone team. Questions about referee training, association partnerships, or platform support — we are here to help.',
+    'Contact the RefZone team for referee training support, football association partnerships, or platform enquiries. Based in Australia, supporting referees nationwide.',
 }
 
 const cards = [

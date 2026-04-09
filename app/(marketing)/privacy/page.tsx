@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — RefZone',
+  title: 'Privacy Policy',
   description:
-    'RefZone Privacy Policy. Learn how we collect, use, and protect your personal information on our referee training platform.',
+    'RefZone Privacy Policy. How we collect, use, and protect your personal information on our Australian referee training platform. Compliant with the Australian Privacy Act 1988.',
 }
 
 export default function PrivacyPage() {

@@ -1,7 +1,7 @@
 import { BarChart3 } from 'lucide-react'
 import { HelpArticleLayout, HelpSection, HelpTip, HelpList } from '@/components/marketing/help-article-layout'
 
-export const metadata = { title: 'Performance Analytics — Help Center — RefZone' }
+export const metadata = { title: 'Performance Analytics — Help Center — RefZone', description: 'How to read your RefZone analytics dashboard: accuracy metrics, law-by-law breakdown, 7-day activity tracker, and difficulty-level performance.' }
 
 export default function AnalyticsHelpPage() {
   return (

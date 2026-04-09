@@ -6,9 +6,9 @@ import { FaqAccordion } from '@/components/marketing/faq-accordion'
 import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 
 export const metadata: Metadata = {
-  title: 'Help Center — RefZone',
+  title: 'Help Center — How to Use RefZone Referee Training Platform',
   description:
-    'Find answers to common questions, learn how to use RefZone, and get the most out of your referee training experience.',
+    'Find answers to common questions about RefZone. Guides for quizzes, scenarios, Decision Lab, analytics, streaks, and account settings for football referees.',
 }
 
 const categories = [

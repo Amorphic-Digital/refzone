@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollAnimate } from '@/components/marketing/scroll-animate'
+import { Breadcrumb } from '@/components/marketing/breadcrumb'
 import { BookOpen, ArrowRight } from 'lucide-react'
 import { lawsOfTheGame } from '@/content/laws-of-the-game'
 
@@ -33,6 +34,10 @@ export default function LawsIndexPage() {
           <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
         </div>
         <div className="mx-auto max-w-[1420px] text-center">
+          <Breadcrumb items={[
+            { label: 'Home', href: '/' },
+            { label: 'Laws of the Game' },
+          ]} />
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/[0.05]">
             <BookOpen className="h-8 w-8 text-pink-400" />
           </div>

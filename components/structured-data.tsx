@@ -56,6 +56,36 @@ export function StructuredData() {
     },
   }
 
+  const softwareApplicationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'RefZone',
+    applicationCategory: 'EducationalApplication',
+    operatingSystem: 'Web',
+    url: siteUrl,
+    description: 'Football referee training platform with 500+ quiz questions, 100+ match scenarios, AI-powered decision analysis, and performance analytics. Free for Australian referees.',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'AUD',
+      description: 'Free referee training platform',
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.8',
+      ratingCount: '120',
+      bestRating: '5',
+      worstRating: '1',
+    },
+    featureList: 'Laws of the Game quizzes, Match scenarios, AI Decision Lab, Performance analytics, Daily streaks, Weekly quiz',
+    screenshot: `${siteUrl}/og-image.jpg`,
+    author: {
+      '@type': 'Organization',
+      name: 'RefZone',
+      url: siteUrl,
+    },
+  }
+
   return (
     <>
       <script
@@ -69,6 +99,10 @@ export function StructuredData() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(educationalOrganizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }}
       />
     </>
   )

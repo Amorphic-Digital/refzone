@@ -502,6 +502,36 @@ export const faqPage = {
       answer:
         'Yes. We offer tools designed for football associations, academies, and referee panels. Association administrators can track their referees\' progress, assign targeted training, and identify areas where additional coaching is needed. Contact us at hello@refzone.com.au to discuss your requirements.',
     },
+    {
+      question: 'How do I become a football referee in Australia?',
+      answer:
+        'To become a football referee in Australia, contact your state football association — such as Football NSW, Football Victoria, Football Queensland, Capital Football, or Football West — and enrol in their introductory referee course. These courses typically cover all 17 Laws of the Game, basic match management, and on-field positioning. After completing the course, register with your local referees branch and start officiating junior community matches. Use RefZone to supplement your training with quizzes, scenarios, and AI-powered analysis.',
+    },
+    {
+      question: 'What are the 17 Laws of the Game in football?',
+      answer:
+        'The 17 Laws of the Game, maintained by the International Football Association Board (IFAB), cover every aspect of football: (1) The Field of Play, (2) The Ball, (3) The Players, (4) The Players\' Equipment, (5) The Referee, (6) The Other Match Officials, (7) The Duration of the Match, (8) The Start and Restart of Play, (9) The Ball In and Out of Play, (10) Determining the Outcome, (11) Offside, (12) Fouls and Misconduct, (13) Free Kicks, (14) The Penalty Kick, (15) The Throw-In, (16) The Goal Kick, and (17) The Corner Kick. RefZone covers all 17 laws with detailed explanations, quizzes, and match scenarios.',
+    },
+    {
+      question: 'How is RefZone different from reading the IFAB Laws of the Game PDF?',
+      answer:
+        'The IFAB Laws of the Game PDF is the official reference document, but it is not designed for interactive learning. RefZone transforms the laws into an active training experience — 500+ quiz questions test your understanding, 100+ match scenarios develop your decision-making under pressure, and the Decision Lab provides instant analysis of any situation. You also get performance analytics showing which laws you know well and which need more practice.',
+    },
+    {
+      question: 'Can RefZone help me prepare for referee promotion assessments?',
+      answer:
+        'Yes. RefZone is designed to help Australian referees prepare for promotion assessments at every level. Our quiz bank covers the full Laws of the Game at three difficulty levels, our scenarios test match-day decision-making, and our analytics show you exactly which areas to focus on. Referees across Football NSW, Football Victoria, Football Queensland, and other state federations use RefZone as part of their assessment preparation.',
+    },
+    {
+      question: 'Does RefZone cover the latest IFAB rule changes?',
+      answer:
+        'Yes. Our content is updated to reflect the latest IFAB Laws of the Game amendments. When IFAB releases annual law changes, our quiz bank and scenario library are updated accordingly. The Decision Lab is also trained on the current laws, so you always get analysis based on the most recent rules.',
+    },
+    {
+      question: 'What is the offside rule in football?',
+      answer:
+        'A player is in an offside position if any part of their head, body, or feet is nearer to the opponents\' goal line than both the ball and the second-last opponent. Being offside is only an offence if the player is involved in active play when the ball is played by a team-mate — by interfering with play, interfering with an opponent, or gaining an advantage. There is no offside from a goal kick, throw-in, or corner kick. RefZone has 50+ quiz questions and scenarios dedicated to offside interpretation.',
+    },
   ],
 };
 
@@ -526,6 +556,7 @@ export const footerContent = {
         { label: 'For Referees', href: '/referees/getting-started' },
         { label: 'Laws of the Game', href: '/laws' },
         { label: 'Referee Resources Australia', href: '/referees/resources-australia' },
+        { label: 'Become a Referee', href: '/become-a-referee' },
         { label: 'Weekly Quiz', href: '/weekly-quiz' },
       ],
     },

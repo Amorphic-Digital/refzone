@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ScrollAnimate } from '@/components/marketing/scroll-animate'
+import { Breadcrumb } from '@/components/marketing/breadcrumb'
 import { BookOpen, ArrowRight, ArrowLeft } from 'lucide-react'
 import { lawsOfTheGame } from '@/content/laws-of-the-game'
 
@@ -45,13 +46,11 @@ export default async function LawPage({ params }: Props) {
         <div className="absolute top-24 left-16 h-1 w-1 rounded-full bg-purple-500/30 animate-pulse-glow" />
         <div className="absolute top-36 right-20 h-1.5 w-1.5 rounded-full bg-pink-500/20 animate-pulse-glow" style={{ animationDelay: '1s' }} />
         <div className="mx-auto max-w-[1420px]">
-          <Link
-            href="/laws"
-            className="mb-6 inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-white/70 transition-colors"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            All 17 Laws
-          </Link>
+          <Breadcrumb items={[
+            { label: 'Home', href: '/' },
+            { label: 'Laws of the Game', href: '/laws' },
+            { label: `Law ${law.num}: ${law.title}` },
+          ]} />
           <div className="flex items-start gap-5">
             <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-purple-400/10 text-lg font-bold text-purple-400">
               {law.num}
