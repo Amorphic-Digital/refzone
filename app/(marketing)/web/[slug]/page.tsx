@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { Breadcrumb } from '@/components/marketing/breadcrumb'
-import { SearchHighlight } from '@/components/marketing/search-highlight'
 import { BookOpen, ArrowRight, ArrowLeft, ExternalLink } from 'lucide-react'
 import { lawsOfTheGame } from '@/content/laws-of-the-game'
 
@@ -39,7 +38,6 @@ export default async function LawPage({ params }: Props) {
 
   return (
     <main>
-      <SearchHighlight />
       {/* Hero */}
       <section className="relative overflow-hidden px-9 pt-40 pb-20 md:pt-48 md:pb-28">
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
