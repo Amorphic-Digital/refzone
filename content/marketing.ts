@@ -193,7 +193,7 @@ export const landingPage = {
   // HERO
   // ----------------------------------------------------------
   hero: {
-    headline: 'Train smarter.\nRef better.',
+    headline: 'Football Referee Training.\nTrain Smarter. Ref Better.',
     subheadline:
       'Master the Laws of the Game with algorithm-driven scenarios, quizzes, and real-time performance analytics. Join hundreds of Australian referees levelling up their skills.',
     primaryCta: { label: 'Start training free', href: '/auth/sign-up' },
@@ -212,7 +212,7 @@ export const landingPage = {
   // SECTION 1 — Scenarios
   // ----------------------------------------------------------
   section1: {
-    headline: 'Real decisions. Real improvement.',
+    headline: 'Real Match Scenarios for Referee Training',
     mainFeature: {
       label: 'Scenarios',
       isNew: true,
@@ -443,7 +443,7 @@ export const landingPage = {
 // ============================================================
 
 export const faqPage = {
-  headline: 'Questions & answers',
+  headline: 'Frequently Asked Questions',
   items: [
     {
       question: 'What is RefZone?',

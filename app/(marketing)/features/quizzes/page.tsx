@@ -4,9 +4,9 @@ import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { BookOpen, ArrowRight, CheckCircle, XCircle, Star } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Quiz Library — RefZone',
+  title: 'Laws of the Game Quiz — 500+ Football Referee Questions',
   description:
-    '500+ questions covering all 17 Laws of the Game. Test your knowledge at three difficulty levels with instant feedback.',
+    'Test your knowledge with 500+ quiz questions covering all 17 Laws of the Game. Three difficulty levels with instant explanations for every answer.',
 }
 
 export default function QuizzesPage() {
@@ -27,7 +27,7 @@ export default function QuizzesPage() {
             <BookOpen className="h-8 w-8 text-pink-400" />
           </div>
           <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-            Master every law
+            Laws of the Game Quiz — Master Every Rule
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-[14px] leading-relaxed text-white/45">
             Over 500 carefully crafted questions covering all 17 Laws of the
