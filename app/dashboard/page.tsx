@@ -20,8 +20,8 @@ export default async function DashboardPage() {
 
   // Run queries in parallel
   const [scenarioResult, quizResult, recentScenariosResult, allQuizAttemptsResult] = await Promise.all([
-    // Scenario responses (all time) with scenario law data
-    supabase.from("scenario_responses").select("is_correct, scenario_id, scenarios(law_category, law_section)").eq("user_id", userId),
+    // Scenario responses (all time)
+    supabase.from("scenario_responses").select("is_correct, scenario_id").eq("user_id", userId),
     // Quiz attempts (all time) — need score, total_possible, and id
     supabase.from("quiz_attempts").select("*").eq("user_id", userId),
     // Recent scenario responses for 7-day chart
@@ -99,14 +99,24 @@ export default async function DashboardPage() {
     }
   }
 
-  // Source 3: Scenario responses — include law data from scenarios
-  for (const response of scenarioResponses) {
-    const scenario = (response as any).scenarios
-    if (!scenario?.law_category) continue
-    const law = scenario.law_category
-    if (!lawMap[law]) lawMap[law] = { correct: 0, total: 0, section: scenario.law_section || "" }
-    lawMap[law].total += 1
-    if (response.is_correct) lawMap[law].correct += 1
+  // Source 3: Scenario responses — fetch scenario law data separately
+  if (scenarioResponses.length > 0) {
+    const scenarioIds = [...new Set(scenarioResponses.map((r: any) => r.scenario_id))]
+    const { data: scenariosData } = await supabase
+      .from("scenarios")
+      .select("id, law_category, law_section")
+      .in("id", scenarioIds)
+
+    const scenarioMap = new Map((scenariosData || []).map((s: any) => [s.id, s]))
+
+    for (const response of scenarioResponses) {
+      const scenario = scenarioMap.get((response as any).scenario_id)
+      if (!scenario?.law_category) continue
+      const law = scenario.law_category
+      if (!lawMap[law]) lawMap[law] = { correct: 0, total: 0, section: scenario.law_section || "" }
+      lawMap[law].total += 1
+      if (response.is_correct) lawMap[law].correct += 1
+    }
   }
 
   const lawPerformance = Object.entries(lawMap)
