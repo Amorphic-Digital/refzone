@@ -673,33 +673,102 @@ export const lawsOfTheGame: LawContent[] = [
       'Law 6 covers the duties and responsibilities of match officials other than the referee, including assistant referees, the fourth official, additional assistant referees, and Video Assistant Referees (VAR). In Australian football, assistant referees are appointed at higher-level matches, while community games may rely on club linesmen.',
     sections: [
       {
-        heading: 'Assistant referees',
-        body: 'Two assistant referees may be appointed. Their duties, subject to the decision of the referee, include indicating when the whole of the ball has passed out of the field of play, which team is entitled to a corner kick, goal kick, or throw-in, when a player in an offside position may be penalised, when a substitution is requested, and when misconduct or any other incident has occurred out of the view of the referee.',
+        heading: 'Assistant referees — appointment and authority',
+        body: 'Two assistant referees may be appointed to assist the referee. They operate on opposite touchlines and are subordinate to the referee, meaning the referee may overrule any of their signals. Assistant referees are qualified match officials who have completed training specific to the role. At higher levels of Australian football, including state leagues and NPL competitions, assistant referees are formally appointed by the match allocator. Their positioning along the touchline allows them to provide critical information the referee may not be able to see from the centre of the field.',
       },
       {
-        heading: 'Fourth official and additional officials',
-        body: 'The fourth official assists the referee with administrative duties, supervises substitution procedures, and acts as a replacement if a match official is unable to continue. Additional assistant referees may be positioned behind each goal line to assist with decisions near the goal, particularly penalty area incidents. In Australia, fourth officials are commonly appointed at NPL and A-League level.',
+        heading: 'Duties of assistant referees',
+        body: 'The assistant referee\'s duties include indicating when the whole of the ball has passed out of the field of play and which team is entitled to a corner kick, goal kick, or throw-in. They signal when a player in an offside position should be penalised, when a substitution is requested, and when misconduct or any other incident has occurred out of the referee\'s view. They also assist with monitoring the nearest penalty area during penalty kicks, ensuring the goalkeeper does not leave the goal line early, and tracking the ball crossing the goal line for goal decisions.',
+      },
+      {
+        heading: 'Assistant referee flag signals',
+        body: 'Assistant referees communicate with the referee using a standardised set of flag signals. A raised flag indicates the ball is out of play or an offside offence has occurred. The direction the flag points indicates which team is awarded the restart. For offside, the assistant raises the flag vertically first, then points it to indicate the area of the field where the offence occurred — far side, centre, or near side. Substitution requests are signalled by holding the flag above the head with both hands. Consistent and clear flag technique is emphasised in Australian referee development programmes.',
+      },
+      {
+        heading: 'The fourth official',
+        body: 'The fourth official is appointed to assist the referee with administrative duties before, during, and after the match. They supervise the substitution procedure, check the equipment of substitutes before they enter the field, indicate the minimum amount of added time at the end of each half, and act as a point of contact between the referee and team officials in the technical areas. If a match official is unable to continue, the fourth official can replace them. In Australia, fourth officials are regularly appointed at NPL, A-League, and Football Australia Cup matches.',
+      },
+      {
+        heading: 'Additional assistant referees (AARs)',
+        body: 'Additional assistant referees are positioned behind each goal line to assist with decisions in and around the penalty area. Their primary focus is on incidents near the goal — whether the ball has crossed the goal line, penalty area offences, and goalkeeping infringements at penalty kicks. AARs communicate with the referee via an electronic communication system. While AARs are used in some international and continental competitions, they are not commonly appointed in Australian domestic football, where VAR technology has largely replaced their role at professional level.',
       },
       {
         heading: 'Video Assistant Referee (VAR)',
-        body: 'Where appointed, the VAR can assist the referee with clear and obvious errors or serious missed incidents relating to goals, penalty decisions, direct red card incidents, and mistaken identity. The VAR reviews match footage and communicates with the referee, who retains the final decision. VAR is used in the A-League and select Football Australia competitions.',
+        body: 'Where appointed, the VAR can assist the referee with clear and obvious errors or serious missed incidents in four specific match-changing situations: goals and offences leading to goals, penalty decisions and offences in the penalty area, direct red card incidents, and mistaken identity when cautioning or sending off a player. The VAR reviews footage from multiple camera angles and advises the referee, who may accept the advice or conduct an on-field review (OFR) at the referee review area. The referee always retains the final decision. VAR is used in the A-League and select Football Australia competitions.',
+      },
+      {
+        heading: 'Club linesmen and neutral assistant referees',
+        body: 'When qualified assistant referees are not available, competition rules may allow club linesmen — one nominated by each team — to assist the referee. Club linesmen have significantly limited duties compared to assistant referees: they may only indicate when the ball has wholly passed over the touchline and which team is entitled to the throw-in. They cannot flag for offside, fouls, or misconduct. The referee should brief club linesmen before kick-off, providing a clear explanation of their restricted role. In Australian community football, club linesmen are common at junior and lower-division senior matches.',
+      },
+      {
+        heading: 'Communication between match officials',
+        body: 'Effective communication is the foundation of a well-functioning referee team. Before the match, the referee conducts a pre-match briefing covering positioning, signal protocols, areas of responsibility, and how to handle specific situations such as mass confrontation. During the match, officials communicate through flag signals, hand gestures, eye contact, and (at professional level) electronic communication systems with earpieces and microphones. Post-match, the team debriefs on key decisions. In Australian referee development, pre-match briefings are emphasised as a core competency from the earliest levels of officiation.',
       },
     ],
     keyPoints: [
-      'Assistant referees indicate offsides, throw-ins, and corner kicks',
-      'The fourth official manages substitutions and added time',
-      'VAR reviews goals, penalties, red cards, and mistaken identity',
-      'All officials are subject to the authority of the referee',
-      'Club linesmen only indicate when the ball is out of play',
+      'Assistant referees indicate offsides, throw-ins, corner kicks, and misconduct',
+      'The referee may overrule any decision made by an assistant referee',
+      'The fourth official manages substitutions, added time, and the technical area',
+      'VAR reviews goals, penalties, direct red cards, and mistaken identity only',
+      'The referee always retains the final decision, even when VAR is used',
+      'Additional assistant referees are positioned behind the goal line',
+      'Club linesmen may only indicate when the ball is out of play over the touchline',
+      'All match officials are subject to the authority of the referee (Law 5)',
+      'A pre-match briefing between officials is essential for consistent decision-making',
+      'Electronic communication systems are used at professional level in Australia',
     ],
     commonQuestions: [
       {
         q: 'What decisions can VAR review in football?',
-        a: 'VAR reviews four categories: goals, penalty decisions, direct red card incidents, and mistaken identity.',
+        a: 'VAR can only review four categories: goals and offences leading to goals, penalty decisions, direct red card incidents (not second yellow cards), and mistaken identity when cautioning or dismissing a player.',
       },
       {
         q: 'What is the difference between an assistant referee and a linesman?',
-        a: 'Assistant referees are trained officials who indicate offsides, restarts, and misconduct. Club linesmen only indicate when the ball is out of play.',
+        a: 'Assistant referees are qualified match officials who can flag for offside, fouls, restarts, and misconduct. Club linesmen are unqualified volunteers who may only indicate when the ball is out of play over the touchline.',
+      },
+      {
+        q: 'What does the fourth official do in football?',
+        a: 'The fourth official assists with substitutions, displays added time, monitors the technical areas, checks substitute equipment, and can replace any match official who is unable to continue.',
+      },
+      {
+        q: 'Can the referee overrule the assistant referee?',
+        a: 'Yes. The referee has the final decision on all matters and may overrule any signal or recommendation from the assistant referee, fourth official, or VAR.',
+      },
+      {
+        q: 'What is an on-field review in VAR?',
+        a: 'An on-field review (OFR) is when the referee views the incident on a pitchside monitor before making a final decision. The referee may also accept the VAR\'s recommendation without conducting an OFR.',
+      },
+      {
+        q: 'Can a club linesman flag for offside?',
+        a: 'No. Club linesmen can only indicate when the ball has crossed the touchline. They cannot flag for offside, fouls, or any other offence.',
+      },
+      {
+        q: 'Who replaces the referee if they are injured during a match?',
+        a: 'The fourth official typically replaces the referee. If no fourth official is appointed, the most senior assistant referee may take over, depending on competition rules.',
+      },
+      {
+        q: 'What are additional assistant referees (AARs)?',
+        a: 'AARs are match officials positioned behind each goal line who assist with decisions in the penalty area, including goal-line incidents, penalty area fouls, and goalkeeper infringements at penalty kicks.',
+      },
+      {
+        q: 'How many match officials can there be in a football match?',
+        a: 'A match can have up to eight officials: the referee, two assistant referees, a fourth official, two additional assistant referees, a reserve assistant referee, and a VAR with assistants (AVARs).',
+      },
+      {
+        q: 'Do assistant referees wear communication earpieces?',
+        a: 'At professional level, yes. Electronic communication systems allow the referee team to talk in real time. At community level in Australia, officials rely on flag signals, hand gestures, and eye contact.',
+      },
+      {
+        q: 'What happens if an assistant referee makes a wrong offside call?',
+        a: 'The referee may overrule the assistant referee if they have a better view. If VAR is available and a goal is scored, the offside decision can be reviewed and corrected.',
+      },
+      {
+        q: 'Can VAR review yellow card decisions?',
+        a: 'No. VAR cannot review cautions (yellow cards) unless it involves a case of mistaken identity — where the wrong player has been cautioned or sent off.',
+      },
+      {
+        q: 'What is the "wait and see" technique for assistant referees?',
+        a: 'The assistant referee delays raising the offside flag until the player in an offside position becomes actively involved in play. This prevents incorrect flags when the offside player does not affect the phase of play.',
       },
     ],
     refereeTips: [
@@ -727,32 +796,101 @@ export const lawsOfTheGame: LawContent[] = [
     sections: [
       {
         heading: 'Periods of play',
-        body: 'A match lasts two equal halves of 45 minutes each, unless otherwise agreed between the referee and the two teams before the start of play and in accordance with competition rules. In Australia, competition rules commonly shorten match length for junior age groups (e.g. 20-minute halves for Under 12s) and some community competitions.',
+        body: 'A match lasts two equal halves of 45 minutes each, unless otherwise agreed between the referee and the two teams before the start of play and in accordance with competition rules. The duration must be agreed before kick-off and cannot be changed during the match. In Australia, competition rules commonly shorten match length for junior age groups — for example, Under 8s may play 20-minute halves, while Under 16s may play 35- or 40-minute halves. Senior community competitions occasionally use reduced match lengths for mid-week fixtures or tournament formats.',
       },
       {
         heading: 'Half-time interval',
-        body: 'Players are entitled to an interval at half-time, not exceeding 15 minutes. A short drinks break (not exceeding one minute) is permitted at the interval of a half. Competition rules must state the duration of the half-time interval, which may only be altered with the consent of the referee.',
+        body: 'Players are entitled to an interval at half-time, not exceeding 15 minutes. Competition rules must state the duration of the half-time interval, which may only be altered with the consent of the referee. Players may leave the field of play during half-time but must return promptly when the interval ends. The referee signals the end of the half-time interval and teams must be ready to restart play. If a team is not ready, the referee may start the second half regardless. In Australian community football, half-time intervals typically last 5 to 10 minutes depending on the competition.',
       },
       {
         heading: 'Allowance for time lost (added time)',
-        body: 'The referee adds time lost during each half for substitutions, assessment and/or removal of injured players, wasting time, disciplinary sanctions, medical stoppages, drinks breaks, VAR checks, goal celebrations, and any other cause. The fourth official indicates the minimum additional time at the end of each half. The referee may increase but not reduce this time. A penalty kick must be allowed to be completed even if time has expired.',
+        body: 'The referee adds time at the end of each half to compensate for time lost during that half. Causes for time lost include substitutions, assessment and/or removal of injured players, time-wasting by any player, disciplinary sanctions (cautions and send-offs), medical stoppages including drinks breaks, VAR checks and reviews, goal celebrations, and any other cause including significant delays to restarts. The fourth official indicates the minimum additional time using an electronic board. The referee may always add more time but must not reduce the indicated amount.',
+      },
+      {
+        heading: 'Drinks breaks and cooling breaks',
+        body: 'A short drinks break, not exceeding one minute, is permitted at the midpoint of each half. This is separate from the half-time interval. In hot weather conditions, the referee may authorise cooling breaks of up to three minutes, typically taken around the 30th minute of each half. In Australia, cooling breaks are particularly relevant during summer fixtures and in tropical regions such as Queensland and the Northern Territory. Football Australia and state federations issue heat policies that specify when cooling breaks and match postponements are required based on temperature and humidity.',
+      },
+      {
+        heading: 'Extra time in knockout matches',
+        body: 'When competition rules require a definitive result, extra time may be played after the end of normal time. Extra time consists of two equal periods of 15 minutes each with an interval of no more than five minutes between them. The teams do not change ends between the two periods of extra time (they change ends at the start of extra time). Players may receive a drinks break at the interval between extra time periods. Added time is also applied at the end of each period of extra time. In Australian cup competitions such as the Australia Cup, extra time is standard procedure before kicks from the penalty mark.',
+      },
+      {
+        heading: 'The referee as sole timekeeper',
+        body: 'The referee is the sole timekeeper of the match. Only the referee decides when to end each half or period of play. The referee\'s watch is the official time, even if a stadium clock shows a different time. If the referee\'s watch or timing equipment malfunctions, the referee uses a backup watch or estimates the remaining time. The referee must not end a half while an attack is in progress — play continues until the attacking move is completed or the ball goes out of play. At professional level, the fourth official provides a secondary timing reference.',
+      },
+      {
+        heading: 'Abandoned and suspended matches',
+        body: 'A match that is abandoned (stopped permanently before the regulation time is complete) is replayed unless the competition rules provide otherwise. Common reasons for abandonment include dangerous weather (lightning, severe storms), floodlight failure, insufficient players due to injuries or dismissals (a team must have at least seven players), or serious crowd disturbances. In Australia, referees have the authority to suspend play temporarily (for example, during a thunderstorm) and resume when conditions improve. If the match cannot be resumed within a reasonable time, the referee abandons it and submits a report.',
+      },
+      {
+        heading: 'Penalty kick at the end of a half',
+        body: 'If a penalty kick is awarded at or after the end of normal time in a half, the half is extended until the penalty kick is completed. "Completed" means the ball stops moving, goes out of play, the referee stops play for an offence, or the kicker or a team-mate scores from a rebound. The defending goalkeeper may also commit an offence that results in a retake. All other players except the kicker and goalkeeper must remain outside the penalty area. This rule ensures that a team is never denied a penalty kick simply because time has run out.',
       },
     ],
     keyPoints: [
-      'Standard match: two halves of 45 minutes each',
+      'Standard match duration: two halves of 45 minutes each',
       'Half-time must not exceed 15 minutes',
-      'Added time compensates for stoppages during play',
-      'A penalty kick taken at the end of a half must be completed',
-      'The referee is the sole timekeeper',
+      'Added time compensates for all stoppages during each half',
+      'The fourth official indicates the minimum added time',
+      'The referee may increase but never reduce the indicated added time',
+      'A penalty kick at the end of a half must be completed',
+      'The referee is the sole and final timekeeper',
+      'Extra time in knockout matches: two periods of 15 minutes',
+      'Drinks breaks (max one minute) are permitted at the midpoint of each half',
+      'An abandoned match is replayed unless competition rules state otherwise',
     ],
     commonQuestions: [
       {
         q: 'How long is a football match?',
-        a: '90 minutes — two halves of 45 minutes each, plus any added time for stoppages.',
+        a: 'A standard match lasts 90 minutes — two halves of 45 minutes each — plus any added time at the end of each half for stoppages.',
       },
       {
         q: 'How is added time calculated in football?',
-        a: 'The referee adds time for substitutions, injuries, VAR checks, time-wasting, and other stoppages during each half.',
+        a: 'The referee tracks time lost for substitutions, injuries, time-wasting, disciplinary actions, VAR reviews, goal celebrations, and any other stoppages. This total is displayed as the minimum added time at the end of each half.',
+      },
+      {
+        q: 'Can the referee end the match during an attack?',
+        a: 'No. The referee should not blow the final whistle while an attacking move is in progress. Play continues until the attack is completed or the ball goes out of play.',
+      },
+      {
+        q: 'What happens if a penalty is awarded at full time?',
+        a: 'The half is extended until the penalty kick is completed. This includes any retakes required due to infringements. All other players except the kicker and goalkeeper must leave the penalty area.',
+      },
+      {
+        q: 'How long is extra time in football?',
+        a: 'Extra time consists of two periods of 15 minutes each (30 minutes total), with no more than a five-minute interval between the two periods.',
+      },
+      {
+        q: 'What is a cooling break in football?',
+        a: 'A cooling break of up to three minutes is permitted in hot weather conditions. It allows players to hydrate and cool down, typically taken around the 30th minute of each half.',
+      },
+      {
+        q: 'Can the length of a football match be changed?',
+        a: 'Yes. Competition rules may specify different match lengths (e.g. shorter halves for junior football). Any change must be agreed before kick-off and comply with competition regulations.',
+      },
+      {
+        q: 'Who keeps time in a football match?',
+        a: 'The referee is the sole official timekeeper. A stadium clock is for spectator reference only and is not the official time.',
+      },
+      {
+        q: 'What happens if a match is abandoned?',
+        a: 'An abandoned match is typically replayed in full, unless competition rules specify otherwise — for example, some competitions uphold the result if a certain amount of playing time has been completed.',
+      },
+      {
+        q: 'Can the fourth official add time that the referee has not indicated?',
+        a: 'No. The fourth official displays the minimum added time as determined by the referee. Only the referee can decide to add more time beyond the displayed amount.',
+      },
+      {
+        q: 'Is there a half-time in extra time?',
+        a: 'There is no formal half-time in extra time. Teams change ends at the start of extra time and have a brief interval (maximum five minutes) between the two periods.',
+      },
+      {
+        q: 'How long is half-time in junior football in Australia?',
+        a: 'It varies by competition, but most Australian junior competitions set half-time at 5 to 10 minutes. The referee should confirm with the competition coordinator before the match.',
+      },
+      {
+        q: 'Can a match be stopped for lightning?',
+        a: 'Yes. The referee must suspend play if lightning is observed. In Australia, the 30/30 rule is widely applied — suspend play if the gap between lightning and thunder is 30 seconds or less, and wait 30 minutes after the last flash before resuming.',
       },
     ],
     refereeTips: [
@@ -779,29 +917,102 @@ export const lawsOfTheGame: LawContent[] = [
       'Law 8 covers how a football match begins and how play is restarted after stoppages. Understanding kick-off procedures and the dropped ball rule is essential for referees at every level in Australia, from junior community games to senior competitions.',
     sections: [
       {
-        heading: 'Kick-off',
-        body: 'A kick-off starts both halves of the match, both halves of extra time, and restarts play after a goal has been scored. A coin toss determines which team kicks off. The team that wins the toss decides which goal to attack in the first half. The other team takes the kick-off. The ball must be stationary on the centre mark and all players must be in their own half. The ball is in play when it is kicked and clearly moves. A goal may be scored directly from the kick-off.',
+        heading: 'The coin toss and choosing ends',
+        body: 'Before the match begins, the referee conducts a coin toss with the two team captains. The team that wins the toss chooses which goal to attack in the first half of the match. The other team takes the kick-off to start the first half. In the second half, the teams change ends and the team that won the toss takes the kick-off. If extra time is played, a new coin toss is conducted before extra time begins. The coin toss is a formal procedure — captains must be clearly identified and the result communicated to both teams and the assistant referees.',
       },
       {
-        heading: 'Dropped ball',
-        body: 'A dropped ball is used to restart play when the referee has stopped play for any reason not mentioned elsewhere in the Laws. The ball is dropped for the goalkeeper of the defending team in their penalty area if play was stopped there, or for the team that last touched the ball at the position where it last touched a player, outside agent, or match official. All other players must be at least 4 metres from the ball until it is in play. The ball is in play when it touches the ground.',
+        heading: 'Kick-off procedure',
+        body: 'A kick-off is used to start each half of the match, each half of extra time, and to restart play after a goal has been scored. The ball must be stationary on the centre mark. All players must be in their own half of the field. Opponents of the team taking the kick-off must be at least 9.15 metres (10 yards) from the ball — effectively outside the centre circle — until the ball is in play. The ball is in play when it is kicked and clearly moves. The kicker must not touch the ball again until it has touched another player.',
+      },
+      {
+        heading: 'Scoring directly from a kick-off',
+        body: 'A goal may be scored directly from a kick-off against the opposing team. If the ball enters the kicker\'s own goal directly from a kick-off, a corner kick is awarded to the opposing team rather than an own goal. This provision exists because the Laws do not allow a goal to be scored directly against the kicking team from any restart where the ball is kicked into play (the same principle applies to free kicks and goal kicks). In practice, goals scored directly from kick-off are extremely rare but are a valid test question in referee assessments.',
+      },
+      {
+        heading: 'Dropped ball — when and where',
+        body: 'A dropped ball is used to restart play when the referee has stopped play for any reason not covered by another restart method. Common situations include a defective ball, an outside agent entering the field (such as a dog or spectator), a player requiring medical attention when the referee stops play, or the ball striking the referee and causing a change of possession, a goal, or a promising attack. The location of the dropped ball depends on where the ball was when play was stopped — if inside the penalty area, it is dropped for the goalkeeper; otherwise, it is dropped for the team that last touched the ball.',
+      },
+      {
+        heading: 'Dropped ball procedure and rules',
+        body: 'For a dropped ball, the referee drops the ball at the appropriate location for one player of the team entitled to possession. All other players (of both teams) must be at least 4 metres from the ball until it touches the ground. The ball is in play when it touches the ground. If the ball leaves the field of play after touching the ground without any player touching it, the dropped ball is retaken. The 2019 law change removed the contested dropped ball — the ball is now always returned to the team that last had possession, making the procedure fairer and reducing conflict.',
+      },
+      {
+        heading: 'Dropped ball in the penalty area',
+        body: 'If play was stopped with the ball inside the penalty area, or the last touch was in the penalty area, the dropped ball is always given to the defending team\'s goalkeeper. This rule applies regardless of which team last touched the ball. The rationale is to prevent the attacking team from gaining an advantage inside the penalty area from an uncontested restart. The goalkeeper receives the ball inside the penalty area, and all other players must remain at least 4 metres away until the ball is in play. This provision is frequently tested in Australian referee examinations.',
+      },
+      {
+        heading: 'Kick-off after a goal is scored',
+        body: 'After a goal is scored, the team that conceded the goal takes the kick-off to restart play. This is an important detail — many players and spectators mistakenly believe the scoring team restarts. The procedure is identical to the opening kick-off: ball on the centre mark, all players in their own half, opponents outside the centre circle. The referee should ensure all players are correctly positioned before blowing the whistle. Play cannot restart until the referee gives the signal, even if both teams appear ready.',
+      },
+      {
+        heading: 'Infringements and sanctions at restarts',
+        body: 'If a player commits an offence at a kick-off — such as touching the ball a second time before another player has touched it — an indirect free kick is awarded to the opposing team from the location of the offence. If the kick-off is taken before the referee\'s signal, the kick-off is retaken. For a dropped ball, if a player touches the ball before it contacts the ground, the dropped ball is retaken. If the ball enters a goal directly from a dropped ball without touching at least two players, play is restarted with a goal kick or corner kick as appropriate rather than awarding a goal.',
       },
     ],
     keyPoints: [
-      'Kick-off starts each half and restarts after goals',
+      'The coin toss winner chooses which goal to attack, not which team kicks off',
+      'Kick-off starts each half and restarts play after every goal',
       'All players must be in their own half at kick-off',
-      'A goal can be scored directly from a kick-off',
-      'Dropped ball goes to the team that last touched the ball',
-      'Players must be 4m away from a dropped ball',
+      'Opponents must be outside the centre circle (9.15m) at kick-off',
+      'A goal may be scored directly from a kick-off',
+      'Dropped ball is awarded to the team that last touched the ball',
+      'All other players must be at least 4m from a dropped ball',
+      'A dropped ball in the penalty area always goes to the goalkeeper',
+      'The ball is in play at kick-off when kicked and clearly moves',
+      'The ball is in play at a dropped ball when it touches the ground',
     ],
     commonQuestions: [
       {
         q: 'Can you score directly from a kick-off in football?',
-        a: 'Yes. A goal may be scored directly from a kick-off against the opposing team.',
+        a: 'Yes. A goal may be scored directly from a kick-off against the opposing team. If the ball enters the kicker\'s own goal, a corner kick is awarded instead.',
       },
       {
         q: 'When is a dropped ball used in football?',
-        a: 'When the referee stops play for a reason not covered by other restart methods — e.g. a defective ball or an outside agent on the field.',
+        a: 'When the referee stops play for a reason not covered by other restart methods, such as a defective ball, an outside agent on the field, or the ball striking the referee and meeting certain conditions.',
+      },
+      {
+        q: 'Who takes the kick-off after a goal is scored?',
+        a: 'The team that conceded the goal takes the kick-off to restart play. This is the opposite of what many people assume.',
+      },
+      {
+        q: 'What does the coin toss decide in football?',
+        a: 'The team that wins the coin toss chooses which goal to attack in the first half. The other team takes the kick-off to start the match.',
+      },
+      {
+        q: 'Can you score an own goal from a kick-off?',
+        a: 'No. If the ball enters the kicker\'s own goal directly from a kick-off, a corner kick is awarded to the opposing team rather than an own goal.',
+      },
+      {
+        q: 'Who gets the dropped ball in the penalty area?',
+        a: 'The defending team\'s goalkeeper always receives the dropped ball when the restart location is inside the penalty area, regardless of which team last touched the ball.',
+      },
+      {
+        q: 'How far must players be from a dropped ball?',
+        a: 'All players other than the one receiving the dropped ball must be at least 4 metres away until the ball touches the ground and is in play.',
+      },
+      {
+        q: 'What happens if the ball hits the referee during play?',
+        a: 'If the ball touches the referee and results in a change of possession, a promising attack, or a goal, play is stopped and restarted with a dropped ball for the team that last had possession.',
+      },
+      {
+        q: 'Can a kick-off be taken before the referee blows the whistle?',
+        a: 'No. The kick-off cannot be taken until the referee gives the signal. If it is taken early, the kick-off is retaken.',
+      },
+      {
+        q: 'Is a new coin toss held before extra time?',
+        a: 'Yes. A new coin toss is conducted before extra time begins. The team that wins chooses which goal to attack, and the other team takes the kick-off.',
+      },
+      {
+        q: 'What happens if the kicker touches the ball twice at kick-off?',
+        a: 'An indirect free kick is awarded to the opposing team from the position where the second touch occurred.',
+      },
+      {
+        q: 'Can a goal be scored directly from a dropped ball?',
+        a: 'No. If the ball enters a goal without touching at least two players, the restart is a goal kick (if it enters the opponent\'s goal) or corner kick (if it enters the team\'s own goal).',
+      },
+      {
+        q: 'Why was the contested dropped ball removed from the Laws?',
+        a: 'The 2019 law change removed the contested dropped ball to reduce conflict and ensure fairness. The ball is now returned to the team that last had possession rather than being contested by both sides.',
       },
     ],
     refereeTips: [
@@ -828,29 +1039,102 @@ export const lawsOfTheGame: LawContent[] = [
       'Law 9 is one of the shortest but most fundamental laws in football. It defines when the ball is in play and when it is out of play, which directly affects every restart decision a referee makes. Whether you are officiating a junior match in suburban Australia or a senior state league fixture, this law governs every moment of the game.',
     sections: [
       {
-        heading: 'Ball out of play',
-        body: 'The ball is out of play when it has wholly passed over the goal line or touchline, whether on the ground or in the air, or when play has been stopped by the referee. The key word is "wholly" — the entire ball must cross the entire line. If any part of the ball is on or above the line, it is still in play.',
+        heading: 'Ball out of play — the fundamental rule',
+        body: 'The ball is out of play when it has wholly passed over the goal line or touchline, whether on the ground or in the air. It is also out of play when play has been stopped by the referee (including for a foul, offside, or any other reason). The critical word is "wholly" — the entire circumference of the ball must completely cross the entire width of the line. If any part of the ball remains on or directly above the line, the ball is still in play. This principle applies equally to the touchlines and goal lines, and is the same standard used to determine whether a goal has been scored.',
       },
       {
-        heading: 'Ball in play',
-        body: 'The ball is in play at all other times when it touches a match official and remains on the field of play, including when it rebounds off a goalpost, crossbar, or corner flagpost and remains on the field. The ball is also in play if it touches the referee or another match official who is on the field of play.',
+        heading: 'Ball in play — the default state',
+        body: 'The ball is in play at all other times not covered by the out-of-play provisions. This includes situations where the ball rebounds off a goalpost, crossbar, or corner flagpost and remains on the field of play. It also includes situations where the ball touches a match official (referee, assistant referee, or other official) who is positioned on the field of play, provided none of the specific conditions for a dropped ball are met. The ball being in play is the default state — play only stops when one of the specific out-of-play conditions is met.',
+      },
+      {
+        heading: 'The "whole ball over the whole line" principle',
+        body: 'This principle is central to multiple laws and is one of the most important concepts for referees to understand. The boundary lines (touchlines and goal lines) are part of the field of play (Law 1). Therefore, if any part of the ball is touching or overlapping the line — even by a millimetre — it has not wholly crossed the line and remains in play. This is a three-dimensional assessment: the ball could be in the air above the line and still be in play. Only when the entire ball has passed entirely beyond the outer edge of the line is it out of play.',
+      },
+      {
+        heading: 'Ball striking the goalposts, crossbar, or corner flagpost',
+        body: 'If the ball strikes a goalpost, crossbar, or corner flagpost and rebounds back onto the field of play, the ball remains in play and the match continues without interruption. The goalposts and crossbar are positioned on the goal line, and corner flagposts are positioned at the intersection of the touchline and goal line — all are considered part of the field of play. A ball that hits the post and goes into the goal is a valid goal (provided no offence was committed). A ball that hits the corner flagpost and stays on the field remains in play, even if it appears to have crossed the line before rebounding.',
+      },
+      {
+        heading: 'Ball touching a match official',
+        body: 'If the ball touches a match official who is on the field of play, the ball generally remains in play. However, since the 2019 law changes, play is stopped and restarted with a dropped ball if the ball touching the referee (or another match official on the field) results in any of the following: a goal is scored, the team in possession changes, or a promising attack begins. This change was introduced to prevent situations where a referee inadvertently affects the outcome of play. If none of these three conditions are met, play simply continues as normal.',
+      },
+      {
+        heading: 'Goal-line technology and ball tracking',
+        body: 'At professional level, goal-line technology (GLT) provides automated, near-instant confirmation of whether the ball has wholly crossed the goal line. The system sends a signal to the referee\'s watch within one second. In the A-League, GLT is used at venues where the technology is installed. At community level in Australia, referees rely on their own positioning and the assistance of neutral assistant referees (where appointed) to judge whether the ball has crossed the line. Correct positioning — staying wide and moving toward the goal line during attacks — is essential for accurate decisions.',
+      },
+      {
+        heading: 'Practical positioning for ball-over-line decisions',
+        body: 'For referees without technological assistance, positioning is the key to accurate ball-in-and-out-of-play decisions. Along the touchline, assistant referees should be in line with the ball or the second-last defender, giving them a clear sightline to judge whether the ball has crossed the touchline. For goal-line decisions, the referee should move toward the goal line during attacking play to improve their angle. At community level in Australia where single-referee systems are common, the referee must prioritise positioning near the goal line when an attack is developing, especially for close-range shots and scrambles.',
+      },
+      {
+        heading: 'Relationship with other Laws',
+        body: 'Law 9 directly connects to several other laws. Law 1 establishes that lines belong to the area they define. Law 10 uses the same "whole ball" principle to determine when a goal is scored. Laws 15, 16, and 17 specify the restarts that occur when the ball leaves the field over different lines — throw-in for the touchline, goal kick or corner kick for the goal line. Law 8 covers the dropped ball restart when the referee stops play. Understanding Law 9 is therefore essential for correctly applying restarts throughout the match.',
       },
     ],
     keyPoints: [
-      'The whole ball must cross the whole line to be out of play',
-      'The ball remains in play if it hits the referee on the field',
-      'The ball remains in play if it rebounds off goalposts or crossbar',
-      'Lines are part of the area they define (Law 1)',
-      'Corner flagposts are on the field — ball is in play if it hits them',
+      'The whole ball must completely cross the whole line to be out of play',
+      'If any part of the ball is on or above the line, it is still in play',
+      'The ball remains in play if it hits the goalpost, crossbar, or corner flagpost',
+      'The ball remains in play if it touches a match official on the field (with exceptions)',
+      'Lines are part of the area they define — the touchline is part of the field',
+      'Play is stopped with a dropped ball if the ball hits the referee and causes a goal, change of possession, or promising attack',
+      'Goal-line technology provides automated goal/no-goal decisions at professional level',
+      'The same "whole ball" principle determines goals (Law 10) and boundary decisions',
+      'The ball is out of play whenever the referee stops play, regardless of its position',
+      'Correct referee positioning is critical for accurate ball-over-line decisions',
     ],
     commonQuestions: [
       {
         q: 'Is the ball out if it is on the line in football?',
-        a: 'No. The whole ball must completely cross the whole line. If any part of the ball is on or above the line, it is still in play.',
+        a: 'No. The entire ball must completely cross the entire line. If any part of the ball is touching or hovering above the line, it is still in play.',
       },
       {
         q: 'What happens if the ball hits the referee?',
-        a: 'Play continues unless the ball goes into the goal, possession changes, or a promising attack starts — in those cases, a dropped ball restarts play.',
+        a: 'Play normally continues. However, if the ball hitting the referee results in a goal, a change of possession, or a promising attack, play is stopped and restarted with a dropped ball.',
+      },
+      {
+        q: 'Is the ball still in play if it hits the goalpost?',
+        a: 'Yes. If the ball rebounds off the goalpost, crossbar, or corner flagpost and remains on the field of play, it is still in play and the match continues.',
+      },
+      {
+        q: 'How do you tell if the ball has crossed the line?',
+        a: 'The entire ball must pass entirely beyond the outer edge of the line. At professional level, goal-line technology provides automated confirmation. At community level, it depends on the referee\'s and assistant referee\'s positioning and judgement.',
+      },
+      {
+        q: 'Does the ball have to touch the ground to be out of play?',
+        a: 'No. The ball can be out of play whether on the ground or in the air. If the whole ball crosses the whole line at any height, it is out of play.',
+      },
+      {
+        q: 'What is the restart when the ball goes over the touchline?',
+        a: 'A throw-in is awarded to the opponents of the player who last touched the ball before it crossed the touchline (Law 15).',
+      },
+      {
+        q: 'What is the restart when the ball goes over the goal line?',
+        a: 'If last touched by an attacker, it is a goal kick (Law 16). If last touched by a defender, it is a corner kick (Law 17). If the ball enters the goal between the posts and under the crossbar, it is a goal (Law 10).',
+      },
+      {
+        q: 'Is the corner flagpost part of the field of play?',
+        a: 'Yes. The corner flagpost is positioned on the field, so if the ball strikes it and stays on the field, play continues. The ball is not out of play simply because it hit the flagpost.',
+      },
+      {
+        q: 'Can the ball be in play if it is above the touchline?',
+        a: 'Yes. The ball must wholly cross the line in any plane. If the ball is in the air directly above the touchline but has not fully passed beyond its outer edge, it is still in play.',
+      },
+      {
+        q: 'What if the referee accidentally blocks a pass?',
+        a: 'If the ball striking the referee does not result in a goal, a change of possession, or a promising attack, play continues. If any of those three consequences occur, play is stopped and restarted with a dropped ball.',
+      },
+      {
+        q: 'Is goal-line technology used in Australia?',
+        a: 'Goal-line technology is used at select A-League venues. It is not available at community or state league level in Australia, where referees must rely on their own positioning and judgement.',
+      },
+      {
+        q: 'Does the ball being out of play stop the clock?',
+        a: 'No. The match clock continues to run when the ball is out of play. However, the referee may add time at the end of each half for excessive delays during out-of-play periods.',
+      },
+      {
+        q: 'What if the ball bursts during play?',
+        a: 'The referee stops play. A replacement ball is dropped at the position where the original ball became defective. If it was inside the penalty area, it is dropped for the goalkeeper.',
       },
     ],
     refereeTips: [
@@ -877,33 +1161,106 @@ export const lawsOfTheGame: LawContent[] = [
       'Law 10 defines how goals are scored, the conditions for a valid goal, and the procedures for determining a winner when the match ends in a draw. In Australian cup competitions and finals series, referees must be prepared to manage extra time and kicks from the penalty mark.',
     sections: [
       {
-        heading: 'Goals scored',
-        body: 'A goal is scored when the whole of the ball passes over the goal line, between the goalposts and under the crossbar, provided no offence has been committed by the team scoring the goal. If the referee signals a goal before the ball has wholly passed over the goal line, play is restarted with a dropped ball.',
+        heading: 'When is a goal scored?',
+        body: 'A goal is scored when the whole of the ball passes over the goal line, between the goalposts and under the crossbar, provided that no offence has been committed by the team scoring the goal. The same "whole ball over the whole line" principle from Law 9 applies — the entire circumference of the ball must completely cross the inner edge of the goal line. If any part of the ball is still on or above the line, no goal has been scored. This applies whether the ball is on the ground or in the air. At professional level, goal-line technology provides automated confirmation.',
       },
       {
-        heading: 'Winning team and away goals',
-        body: 'The team scoring the greater number of goals is the winner. If both teams score the same number of goals or no goals are scored, the match is a draw. Competition rules may specify extra time or kicks from the penalty mark to determine a winner. The away goals rule, which was previously used in some two-legged ties, has been abolished by many competitions including FIFA and Football Australia.',
+        heading: 'Offences that invalidate a goal',
+        body: 'A goal is disallowed if the scoring team committed an offence during the build-up to or the scoring of the goal. Common examples include an offside offence, a foul by an attacking player (such as pushing a defender), handball by an attacker (including accidental handball immediately before scoring or creating a goal-scoring opportunity), and an infringement at a restart such as a free kick taken from the wrong position. If VAR is available, goals are reviewed for these offences before being confirmed. The referee has the authority to disallow a goal at any point before play has restarted.',
       },
       {
-        heading: 'Kicks from the penalty mark',
-        body: 'When competition rules require a winner after a drawn match, kicks from the penalty mark are taken. All players must remain in the centre circle except the kicker and the two goalkeepers. The referee selects the goal and tosses a coin. Each team takes five kicks alternately. If one team has scored more goals than the other could score, the remaining kicks are not taken. If the score is equal after five kicks each, kicks continue in the same order until one team has scored one more than the other from the same number of kicks.',
+        heading: 'Winning team and drawn matches',
+        body: 'The team scoring the greater number of goals during the match is the winner. If both teams score the same number of goals, or neither team scores, the match is a draw. For league matches, a draw typically stands as the final result, with each team awarded one point. For knockout matches where a winner must be determined, competition rules may provide for extra time, kicks from the penalty mark, or both. The away goals rule, previously used in two-legged knockout ties, has been abolished by FIFA and most competitions including Football Australia.',
+      },
+      {
+        heading: 'Extra time procedures',
+        body: 'When competition rules require a winner and the match is drawn after normal time, extra time of two equal periods of 15 minutes may be played. A coin toss is conducted before extra time, and teams change ends at the start. There is no change of ends between the two periods, but there is an interval of no more than five minutes. Each team is permitted one additional substitution during extra time (in addition to any unused substitutions). Added time is calculated and applied at the end of each extra time period, just as in normal time. If the score is still level after extra time, kicks from the penalty mark follow.',
+      },
+      {
+        heading: 'Kicks from the penalty mark — preparation',
+        body: 'Before kicks from the penalty mark (KFTPM) begin, the referee confirms which players are eligible to participate. Only players who were on the field of play at the end of the match (or extra time) are eligible — substitutes who did not enter the match cannot take part. If one team has more eligible players than the other, the team with more players must reduce their number to match the smaller team. The referee selects the goal at which the kicks will be taken (usually based on safety and pitch conditions), conducts a coin toss, and records all eligible players.',
+      },
+      {
+        heading: 'Kicks from the penalty mark — procedure',
+        body: 'Each team takes five kicks alternately. The team that wins the coin toss decides whether to kick first or second. All players except the kicker and the two goalkeepers must remain in the centre circle. Each kick is taken by a different player, and all eligible players must take a kick before any player takes a second. If one team has scored more goals than the other could possibly score with their remaining kicks, the procedure ends immediately. If the score is level after five kicks each, kicks continue in sudden-death format — one kick each in the same order, until one team scores and the other does not from the same number of kicks.',
+      },
+      {
+        heading: 'Goalkeeper rules during kicks from the penalty mark',
+        body: 'The goalkeeper must remain on the goal line, facing the kicker, between the goalposts until the ball is kicked. At least one foot must be touching, or be in line with, the goal line when the kick is taken. The goalkeeper may move along the goal line but must not move off it before the ball is kicked. If the goalkeeper commits an infringement and the kick is missed or saved, the kick is retaken. If the goalkeeper commits an infringement and a goal is scored, the goal stands. Either team may change their goalkeeper at any time during KFTPM, provided the replacement is an eligible player.',
+      },
+      {
+        heading: 'Recording and managing kicks from the penalty mark',
+        body: 'The referee must maintain a clear written record of every kick, noting the kicker, whether a goal was scored, and any infringements. This is critical for ensuring the correct order of kickers, tracking when all players have taken a kick, and producing an accurate match report. The referee should also brief both teams on the procedure before kicks begin, including the rules on goalkeeper positioning, encroachment, and the order of kickers. In Australian cup competitions such as the Australia Cup and state knockout cups, referees should practise KFTPM administration as part of their pre-match preparation.',
       },
     ],
     keyPoints: [
-      'The whole ball must cross the whole goal line for a goal',
-      'A goal cannot stand if the scoring team committed an offence',
-      'Competition rules determine how draws are resolved',
-      'Kicks from the penalty mark follow a strict procedure',
+      'The whole ball must cross the whole goal line between the posts and under the crossbar for a goal',
+      'A goal is disallowed if the scoring team committed an offence in the build-up',
+      'The referee can disallow a goal at any time before play restarts',
+      'Competition rules determine how drawn matches are resolved',
+      'Extra time consists of two periods of 15 minutes each',
+      'Kicks from the penalty mark use five kicks per team, then sudden death',
       'All eligible players must take a kick before any player takes a second',
+      'Only players on the field at the end of the match may participate in KFTPM',
+      'The goalkeeper must have at least one foot on or in line with the goal line',
+      'The away goals rule has been abolished by FIFA and Football Australia',
     ],
     commonQuestions: [
       {
         q: 'When is a goal scored in football?',
-        a: 'When the whole ball passes over the goal line between the posts and under the crossbar, with no offence by the scoring team.',
+        a: 'A goal is scored when the whole of the ball passes over the goal line, between the goalposts and under the crossbar, provided no offence was committed by the scoring team.',
       },
       {
         q: 'How do penalty shoot-outs work?',
-        a: 'Each team takes five kicks alternately. If still level, kicks continue one-for-one until one team leads after equal kicks.',
+        a: 'Each team takes five kicks alternately. If the score is still level, kicks continue in sudden-death format — one kick each until one team scores and the other does not from the same number of kicks.',
+      },
+      {
+        q: 'Can a goal be disallowed after it is scored?',
+        a: 'Yes. The referee can disallow a goal at any time before play has restarted with the next kick-off. If VAR is available, it reviews all goals for possible offences before confirmation.',
+      },
+      {
+        q: 'What happens if a penalty shoot-out is tied after five kicks?',
+        a: 'Kicks continue in sudden-death format. Each team takes one kick at a time, in the same order, until one team scores and the other does not from the same number of kicks.',
+      },
+      {
+        q: 'Can substitutes take penalty kicks in a shoot-out?',
+        a: 'Only if they were on the field at the end of the match or extra time. A substitute who was not used during the match cannot participate in kicks from the penalty mark.',
+      },
+      {
+        q: 'What if one team has more players for the shoot-out?',
+        a: 'The team with more eligible players must reduce their number to match the team with fewer players. The excluded players are nominated before kicks begin and cannot take a kick unless the procedure reaches a second round.',
+      },
+      {
+        q: 'Can the goalkeeper be changed during a penalty shoot-out?',
+        a: 'Yes. Either team may change their goalkeeper at any time during kicks from the penalty mark, provided the replacement is an eligible player who is already participating.',
+      },
+      {
+        q: 'Does the away goals rule still exist?',
+        a: 'No. The away goals rule has been abolished by FIFA and most major competitions, including Football Australia. Two-legged ties that are level on aggregate proceed to extra time and/or kicks from the penalty mark.',
+      },
+      {
+        q: 'What is the "golden goal" rule?',
+        a: 'The golden goal rule (where the first goal scored in extra time immediately wins the match) is no longer part of the IFAB Laws of the Game. It was abolished in 2004. Extra time is now always played in full.',
+      },
+      {
+        q: 'Where must the goalkeeper stand during a penalty shoot-out kick?',
+        a: 'The goalkeeper must be on the goal line, between the goalposts, facing the kicker, with at least one foot touching or in line with the goal line until the ball is kicked.',
+      },
+      {
+        q: 'What happens if the referee signals a goal but the ball did not cross the line?',
+        a: 'If the referee realises the error before play restarts, the goal can be cancelled and play restarted with a dropped ball. If VAR is available, it will intervene to correct a clear and obvious error.',
+      },
+      {
+        q: 'Can a goal be scored directly from a restart?',
+        a: 'A goal can be scored directly from a kick-off, direct free kick, penalty kick, goal kick, or corner kick. A goal cannot be scored directly from an indirect free kick, throw-in, or dropped ball.',
+      },
+      {
+        q: 'How are penalty shoot-outs recorded?',
+        a: 'The referee keeps a written record of every kick, noting the kicker, whether a goal was scored, and any infringements. Goals from kicks from the penalty mark are not added to the match score — the result is recorded separately.',
+      },
+      {
+        q: 'Are KFTPM goals counted in the match score?',
+        a: 'No. Goals scored during kicks from the penalty mark are recorded separately from the match score. For example, if the match ends 1–1 and one team wins 4–2 on penalties, the official result is 1–1 (4–2 on penalties).',
       },
     ],
     refereeTips: [
