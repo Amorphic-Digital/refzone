@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { useUser } from "@clerk/nextjs";
-import { ChevronDown } from "lucide-react";
+import { useTheme } from "next-themes";
+import { ChevronDown, Sun, Moon } from "lucide-react";
 
 const appLinks = [
   { label: "Scenarios", href: "/features/scenarios", desc: "100+ match decision situations" },
@@ -26,8 +27,12 @@ export function MarketingHeader() {
   const [appDropdownOpen, setAppDropdownOpen] = useState(false);
   const pathname = usePathname();
   const { isSignedIn } = useUser();
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => setMounted(true), []);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -147,6 +152,16 @@ export function MarketingHeader() {
 
           {/* Right side */}
           <div className="hidden lg:flex items-center gap-5 ml-auto">
+            {/* Theme toggle */}
+            {mounted && (
+              <button
+                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                className="p-2 rounded-lg text-[var(--m-text-3)] hover:text-[var(--m-text)] hover:bg-[var(--m-bg-card)] transition-colors"
+                aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
+              >
+                {resolvedTheme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </button>
+            )}
             {isSignedIn ? (
               <Link
                 href="/dashboard"
@@ -241,6 +256,16 @@ export function MarketingHeader() {
             })}
 
             <div className="border-t border-white/[0.06] mt-2 pt-3 flex flex-col gap-2">
+              {/* Mobile theme toggle */}
+              {mounted && (
+                <button
+                  onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                  className="flex items-center gap-2 py-2 px-3 rounded-md text-[14px] text-[var(--m-text-3)] hover:text-[var(--m-text)] transition-colors"
+                >
+                  {resolvedTheme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                  {resolvedTheme === "dark" ? "Light mode" : "Dark mode"}
+                </button>
+              )}
               {isSignedIn ? (
                 <Link
                   href="/dashboard"
