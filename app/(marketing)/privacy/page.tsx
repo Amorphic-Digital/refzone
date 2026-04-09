@@ -674,10 +674,10 @@ export default function PrivacyPage() {
             described above. If you have concerns about international data
             transfers, please contact us at{' '}
             <a
-              href="mailto:admin@refzone.com.au"
+              href="mailto:support@refzone.com.au"
               className="text-purple-400 hover:text-purple-300"
             >
-              admin@refzone.com.au
+              support@refzone.com.au
             </a>{' '}
             before creating an account.
           </p>
@@ -776,10 +776,10 @@ export default function PrivacyPage() {
           <p className="mt-2 text-white/45">
             To exercise any of the rights described above, please contact us at{' '}
             <a
-              href="mailto:admin@refzone.com.au"
+              href="mailto:support@refzone.com.au"
               className="text-purple-400 hover:text-purple-300"
             >
-              admin@refzone.com.au
+              support@refzone.com.au
             </a>{' '}
             with the subject line &quot;Privacy Request.&quot; We will respond
             to your request within 30 days. We may need to verify your identity
@@ -838,10 +838,10 @@ export default function PrivacyPage() {
           <p className="mt-2 text-white/45">
             Parents and guardians may contact us at{' '}
             <a
-              href="mailto:admin@refzone.com.au"
+              href="mailto:support@refzone.com.au"
               className="text-purple-400 hover:text-purple-300"
             >
-              admin@refzone.com.au
+              support@refzone.com.au
             </a>{' '}
             to:
           </p>
@@ -979,10 +979,10 @@ export default function PrivacyPage() {
             Previous versions of this Privacy Policy are available upon request
             by contacting us at{' '}
             <a
-              href="mailto:admin@refzone.com.au"
+              href="mailto:support@refzone.com.au"
               className="text-purple-400 hover:text-purple-300"
             >
-              admin@refzone.com.au
+              support@refzone.com.au
             </a>
             .
           </p>
@@ -1003,10 +1003,10 @@ export default function PrivacyPage() {
             <li>
               <strong>Email:</strong>{' '}
               <a
-                href="mailto:admin@refzone.com.au"
+                href="mailto:support@refzone.com.au"
                 className="text-purple-400 hover:text-purple-300"
               >
-                admin@refzone.com.au
+                support@refzone.com.au
               </a>
             </li>
             <li>

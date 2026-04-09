@@ -11,6 +11,7 @@ const navLinks = [
   { label: "Weekly Quiz", href: "/weekly-quiz" },
   { label: "Decision Lab", href: "/features/decision-lab" },
   { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function MarketingHeader() {

@@ -15,6 +15,7 @@ const bypassPaths = [
   '/auth',
   '/leaderboard',
   '/weekly-quiz',
+  '/help',
 ]
 
 function shouldBypassClerk(pathname: string): boolean {
