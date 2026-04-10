@@ -112,7 +112,7 @@ export function MarketingHeader() {
 
               {/* Dropdown panel */}
               <div
-                className={`absolute left-1/2 -translate-x-1/2 top-full pt-2 z-[60] transition-all duration-200 ${
+                className={`absolute left-1/2 -translate-x-1/2 top-full pt-2 z-[999] transition-all duration-200 ${
                   appDropdownOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-1 pointer-events-none"
                 }`}
               >
@@ -314,10 +314,10 @@ export function MarketingHeader() {
                 Content may be incomplete or change without notice.
               </p>
               {betaStatus === 'success' ? (
-                <p className="mt-2 text-[11px] text-green-400">Thanks! We&apos;ll notify you when it&apos;s ready.</p>
+                <p className="mt-2 text-[11px] text-green-400">Thanks! We&apos;ll email you when RefZone Web is finished and ready to use.</p>
               ) : (
                 <form
-                  className="mt-2 flex items-center gap-2"
+                  className="mt-2 flex flex-wrap items-center gap-2"
                   onSubmit={async (e) => {
                     e.preventDefault();
                     if (!betaEmail.includes('@')) return;
@@ -334,6 +334,7 @@ export function MarketingHeader() {
                     }
                   }}
                 >
+                  <span className="text-[11px] text-orange-300/60 w-full sm:w-auto">Get emailed when it&apos;s finished:</span>
                   <input
                     type="email"
                     value={betaEmail}
