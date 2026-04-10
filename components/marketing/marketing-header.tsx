@@ -26,6 +26,7 @@ const navLinks = [
 export function MarketingHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [appDropdownOpen, setAppDropdownOpen] = useState(false);
+  const [betaDismissed, setBetaDismissed] = useState(false);
   const pathname = usePathname();
   const { isSignedIn } = useUser();
   const { theme, setTheme, resolvedTheme } = useTheme();
@@ -77,7 +78,7 @@ export function MarketingHeader() {
         onClick={() => setMobileOpen(false)}
       />
     <header className="fixed top-0 left-0 right-0 z-50 px-2 sm:px-8 pt-2 sm:pt-6">
-      <div className="nav-blur mx-auto px-3 sm:px-9 flex flex-col" style={{ maxWidth: "min(1420px, 100vw - 1rem)" }}>
+      <div className={`nav-blur mx-auto px-3 sm:px-9 flex flex-col ${pathname.startsWith("/web") && !betaDismissed ? "!rounded-b-none" : ""}`} style={{ maxWidth: "min(1420px, 100vw - 1rem)" }}>
         {/* Top bar */}
         <div className="h-[76px] flex items-center justify-between relative">
           {/* Logo */}
@@ -288,7 +289,35 @@ export function MarketingHeader() {
             </div>
           </nav>
         </div>
+
       </div>
+      {/* Web beta banner — attaches to bottom of navbar pill on /web pages */}
+      {pathname.startsWith("/web") && !betaDismissed && (
+        <div
+          className="mx-auto flex items-center gap-3 px-4 sm:px-6 py-2"
+          style={{
+            maxWidth: "min(1420px, 100vw - 1rem)",
+            background: "rgba(234, 88, 12, 0.15)",
+            backdropFilter: "blur(20px) saturate(180%)",
+            border: "1px solid rgba(234, 88, 12, 0.2)",
+            borderTop: "none",
+            borderRadius: "0 0 16px 16px",
+          }}
+        >
+          <span className="text-orange-400 text-xs shrink-0">&#9888;</span>
+          <p className="flex-1 text-[11px] sm:text-[12px] leading-snug text-orange-300/80">
+            <strong className="text-orange-300">RefZone Web is in development.</strong>{" "}
+            Content may be incomplete or change without notice.
+          </p>
+          <button
+            onClick={() => setBetaDismissed(true)}
+            className="shrink-0 text-orange-400/50 hover:text-orange-300 transition-colors text-xs px-1"
+            aria-label="Dismiss"
+          >
+            &#10005;
+          </button>
+        </div>
+      )}
     </header>
     </>
   );
