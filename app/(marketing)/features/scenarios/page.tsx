@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollAnimate } from '@/components/marketing/scroll-animate'
+import { Breadcrumb } from '@/components/marketing/breadcrumb'
 import { Crosshair, ArrowRight, Flame, CheckCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export default function ScenariosPage() {
     <main>
       {/* Hero */}
       <section
-        className="relative overflow-hidden px-9 pt-40 pb-20 md:pt-48 md:pb-28"
+        className="relative overflow-hidden px-9 pt-40 pb-12 md:pt-48 md:pb-16"
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
@@ -23,6 +24,7 @@ export default function ScenariosPage() {
         <div className="absolute top-24 left-16 h-1 w-1 rounded-full bg-purple-500/30 animate-pulse-glow" />
         <div className="absolute top-36 right-20 h-1.5 w-1.5 rounded-full bg-pink-500/20 animate-pulse-glow" style={{ animationDelay: '1s' }} />
         <div className="mx-auto max-w-[1420px] text-center">
+          <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Features', href: '/' }, { label: 'Scenarios' }]} />
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/[0.05]">
             <Crosshair className="h-8 w-8 text-pink-400" />
           </div>
@@ -71,7 +73,7 @@ export default function ScenariosPage() {
       </div>
 
       {/* Section 1 — Realistic situations */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="grid gap-12 md:grid-cols-2 md:items-center">
@@ -156,7 +158,7 @@ export default function ScenariosPage() {
       </div>
 
       {/* Section 2 — Algorithm-driven analysis */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="grid gap-12 md:grid-cols-2 md:items-center">
@@ -218,7 +220,7 @@ export default function ScenariosPage() {
       </div>
 
       {/* Section 3 — Track your streaks */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="grid gap-12 md:grid-cols-2 md:items-center">
@@ -278,8 +280,44 @@ export default function ScenariosPage() {
         </div>
       </section>
 
+      {/* SEO content — scenario training for Australian referees */}
+      <section className="px-9 py-16 md:py-24 border-t border-white/[0.06]">
+        <div className="mx-auto max-w-[860px]">
+          <h2 className="text-2xl font-bold tracking-tight text-white">
+            How scenario-based training improves referee decision-making
+          </h2>
+          <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-white/50">
+            <p>
+              Traditional referee training in Australia relies heavily on classroom sessions and
+              on-field mentoring. While these methods are effective, they are limited by
+              scheduling and geography. RefZone&apos;s scenario-based training allows you to
+              practise decision-making any time, from any device — whether you are in Sydney,
+              Brisbane, Perth, or regional Australia.
+            </p>
+            <p>
+              Each scenario is grounded in the{' '}
+              <Link href="/web" className="text-purple-400 hover:text-purple-300 transition-colors">IFAB Laws of the Game</Link>,
+              covering critical areas like{' '}
+              <Link href="/web/fouls-and-misconduct" className="text-purple-400 hover:text-purple-300 transition-colors">Law 12 (Fouls and Misconduct)</Link>,{' '}
+              <Link href="/web/offside" className="text-purple-400 hover:text-purple-300 transition-colors">Law 11 (Offside)</Link>, and{' '}
+              <Link href="/web/the-penalty-kick" className="text-purple-400 hover:text-purple-300 transition-colors">Law 14 (Penalty Kicks)</Link>.
+              After each decision, you receive a detailed breakdown explaining the correct call,
+              the applicable law and clause, and common mistakes other referees make.
+            </p>
+            <p>
+              Australian referees preparing for assessments with Football NSW, Football Queensland,
+              Football Victoria, or any state federation can use RefZone scenarios to build the
+              decision-making speed and accuracy that assessors look for. Combine scenarios with{' '}
+              <Link href="/features/quizzes" className="text-purple-400 hover:text-purple-300 transition-colors">Laws of the Game quizzes</Link> and{' '}
+              <Link href="/features/analytics" className="text-purple-400 hover:text-purple-300 transition-colors">performance analytics</Link> for
+              a complete training programme.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Bottom CTA */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px] text-center">
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
             Ready to sharpen your match instincts?

@@ -4,9 +4,9 @@ import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { Shield, ArrowRight, BookOpen, Target, Brain, CheckSquare } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Match Preparation — RefZone',
+  title: 'Referee Match Preparation Guide — Pre-Match Checklist & Tips',
   description:
-    'Be ready for every match with RefZone\'s pre-match preparation guide. Review your checklist, warm up mentally, and practice scenarios before kick-off.',
+    'Pre-match preparation guide for football referees. Checklist, mental warm-up, scenario practice, and positioning review. Be game-ready every weekend in Australia.',
 }
 
 const checklist = [
@@ -63,7 +63,7 @@ export default function MatchPreparationPage() {
     <main>
       {/* Hero */}
       <section
-        className="relative overflow-hidden px-9 pt-40 pb-20 md:pt-48 md:pb-28"
+        className="relative overflow-hidden px-9 pt-40 pb-12 md:pt-48 md:pb-16"
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
@@ -89,7 +89,7 @@ export default function MatchPreparationPage() {
       </section>
 
       {/* Pre-match checklist */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <h2 className="mb-2 text-center text-3xl font-bold tracking-tight text-white md:text-4xl">
@@ -128,7 +128,7 @@ export default function MatchPreparationPage() {
       </div>
 
       {/* How RefZone helps */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-white md:text-4xl">
@@ -162,7 +162,7 @@ export default function MatchPreparationPage() {
       </div>
 
       {/* Bottom CTA */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px] text-center">
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
             Sharpen your mind before kick-off

@@ -1,7 +1,7 @@
 import { Users } from 'lucide-react'
 import { HelpArticleLayout, HelpSection, HelpTip, HelpList } from '@/components/marketing/help-article-layout'
 
-export const metadata = { title: 'Weekly Quiz — Help Center — RefZone' }
+export const metadata = { title: 'Weekly Quiz — Help Center — RefZone', description: 'How the RefZone weekly quiz works: 15 new Laws of the Game questions every week, instant results, leaderboard rankings, and no sign-up required.' }
 
 export default function WeeklyQuizHelpPage() {
   return (

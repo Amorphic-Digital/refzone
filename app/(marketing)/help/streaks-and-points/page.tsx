@@ -1,7 +1,7 @@
 import { Trophy } from 'lucide-react'
 import { HelpArticleLayout, HelpSection, HelpTip, HelpList } from '@/components/marketing/help-article-layout'
 
-export const metadata = { title: 'Streaks & Points — Help Center — RefZone' }
+export const metadata = { title: 'Streaks & Points — Help Center — RefZone', description: 'How streaks and points work on RefZone: daily training streaks, activity calendar, personal bests, and how consistency builds better referee skills.' }
 
 export default function StreaksHelpPage() {
   return (

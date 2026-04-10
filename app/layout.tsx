@@ -33,14 +33,21 @@ export const metadata: Metadata = {
     "referee education",
     "laws of the game",
     "LOTG",
+    "IFAB Laws of the Game 2024",
     "referee quiz",
     "referee scenarios",
     "referee tools",
     "match official training",
     "Australian referee",
+    "referee training Australia",
+    "referee training app Australia",
+    "how to become a football referee in Australia",
+    "Football NSW referee training",
     "referee development",
     "referee certification",
     "referee exam preparation",
+    "offside rule explained",
+    "football referee quiz Australia",
   ],
   authors: [{ name: "RefZone" }],
   creator: "RefZone",
@@ -115,7 +122,7 @@ export default function RootLayout({
       </head>
       <body className={`font-sans antialiased ${geistSans.className} ${inter.variable}`}>
         <ClerkProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
             <CustomizationProvider>
               <GlobalTutorialWrapper>{children}</GlobalTutorialWrapper>
               <ImportantNotificationModal />

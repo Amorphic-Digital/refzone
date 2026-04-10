@@ -1,7 +1,7 @@
 import { Target } from 'lucide-react'
 import { HelpArticleLayout, HelpSection, HelpTip, HelpList } from '@/components/marketing/help-article-layout'
 
-export const metadata = { title: 'Scenarios — Help Center — RefZone' }
+export const metadata = { title: 'Scenarios — Help Center — RefZone', description: 'How to use RefZone match scenarios: make your call, get expert analysis, track your streak, and improve your referee decision-making skills.' }
 
 export default function ScenariosHelpPage() {
   return (

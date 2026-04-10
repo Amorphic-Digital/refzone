@@ -1,7 +1,7 @@
 import { FlaskConical } from 'lucide-react'
 import { HelpArticleLayout, HelpSection, HelpTip, HelpList } from '@/components/marketing/help-article-layout'
 
-export const metadata = { title: 'Decision Lab — Help Center — RefZone' }
+export const metadata = { title: 'Decision Lab — Help Center — RefZone', description: 'How to use Decision Lab: ask any Laws of the Game question, get instant AI-powered analysis with law references, and explore match scenarios.' }
 
 export default function DecisionLabHelpPage() {
   return (

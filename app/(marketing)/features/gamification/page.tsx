@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollAnimate } from '@/components/marketing/scroll-animate'
+import { Breadcrumb } from '@/components/marketing/breadcrumb'
 import { Flame, ArrowRight, Calendar, TrendingUp, Target } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export default function GamificationPage() {
     <main>
       {/* Hero */}
       <section
-        className="relative overflow-hidden px-9 pt-40 pb-20 md:pt-48 md:pb-28"
+        className="relative overflow-hidden px-9 pt-40 pb-12 md:pt-48 md:pb-16"
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
@@ -23,6 +24,7 @@ export default function GamificationPage() {
         <div className="absolute top-24 left-16 h-1 w-1 rounded-full bg-purple-500/30 animate-pulse-glow" />
         <div className="absolute top-36 right-20 h-1.5 w-1.5 rounded-full bg-pink-500/20 animate-pulse-glow" style={{ animationDelay: '1s' }} />
         <div className="mx-auto max-w-[1420px] text-center">
+          <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Features', href: '/' }, { label: 'Streaks' }]} />
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/[0.05]">
             <Flame className="h-8 w-8 text-pink-400" />
           </div>
@@ -70,7 +72,7 @@ export default function GamificationPage() {
       </div>
 
       {/* Section 1 — Daily streaks */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="grid gap-12 md:grid-cols-2 md:items-center">
@@ -163,7 +165,7 @@ export default function GamificationPage() {
       </div>
 
       {/* Section 2 — Consistency tracking */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="text-center">
@@ -214,8 +216,41 @@ export default function GamificationPage() {
         </div>
       </section>
 
+      {/* SEO content — why consistency matters */}
+      <section className="px-9 py-16 md:py-24 border-t border-white/[0.06]">
+        <div className="mx-auto max-w-[860px]">
+          <h2 className="text-2xl font-bold tracking-tight text-white">
+            Why daily training matters for football referees
+          </h2>
+          <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-white/50">
+            <p>
+              Research in sports education consistently shows that spaced repetition — practising
+              a little each day rather than cramming — leads to significantly better long-term
+              retention. For football referees in Australia, this means a daily 5-minute quiz on
+              the <Link href="/web" className="text-purple-400 hover:text-purple-300 transition-colors">Laws of the Game</Link> is
+              more effective than a single hour-long study session once a week.
+            </p>
+            <p>
+              RefZone&apos;s streak system leverages this principle. By completing at least one
+              quiz or <Link href="/features/scenarios" className="text-purple-400 hover:text-purple-300 transition-colors">scenario</Link> each
+              day, you build a habit of continuous learning. Australian referees using RefZone
+              report improved confidence on match day, particularly when making split-second
+              decisions on <Link href="/web/fouls-and-misconduct" className="text-purple-400 hover:text-purple-300 transition-colors">fouls
+              and misconduct</Link> and <Link href="/web/offside" className="text-purple-400 hover:text-purple-300 transition-colors">offside</Link> calls.
+            </p>
+            <p>
+              Whether you are a new referee in New South Wales preparing for your first season
+              with Football NSW, or an experienced official in Queensland maintaining your edge,
+              daily training with RefZone helps bridge the gap between match weekends. Pair your
+              streaks with <Link href="/features/analytics" className="text-purple-400 hover:text-purple-300 transition-colors">performance
+              analytics</Link> to identify which laws need the most attention.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Bottom CTA */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px] text-center">
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
             Make training a daily habit

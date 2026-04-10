@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service — RefZone',
+  title: 'Terms of Service',
   description:
-    'RefZone Terms of Service. Read the terms and conditions governing your use of our referee training platform.',
+    'RefZone Terms of Service. Terms and conditions governing your use of the RefZone football referee training platform in Australia.',
 }
 
 export default function TermsPage() {

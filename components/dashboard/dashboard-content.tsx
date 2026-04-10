@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Target, TrendingUp, Flame, BarChart3, BookOpen, Star, TrendingDown, Loader2 } from "lucide-react"
+import { Target, TrendingUp, Flame, BarChart3, BookOpen, Star, TrendingDown, Loader2, Calendar } from "lucide-react"
 import { DashboardWrapper } from "./dashboard-wrapper"
 import { PerformanceChart, LawBreakdownChart } from "./performance-chart"
 import { createClient } from "@/lib/supabase/client"
@@ -296,7 +296,7 @@ export function DashboardContent({
         </div>
 
         {/* Row 1: 2 CTA Cards — full-bleed animated backgrounds with text overlay */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {/* Scenario CTA */}
           <Link href="/scenarios" data-tutorial="scenarios" className="block">
             <Card className="border-2 hover:border-primary/50 transition-all hover:shadow-lg group cursor-pointer overflow-hidden relative">
@@ -406,6 +406,96 @@ export function DashboardContent({
                   <div>
                     <h3 className="font-bold text-white text-lg drop-shadow-sm">Quizzes</h3>
                     <p className="text-xs text-white/50 mt-0.5">Test your knowledge</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
+          {/* Weekly Quiz CTA */}
+          <Link href="/weekly-quiz" className="block sm:col-span-2 lg:col-span-1">
+            <Card className="border-2 hover:border-amber-500/50 transition-all hover:shadow-lg group cursor-pointer overflow-hidden relative">
+              <CardContent className="p-0">
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-950/80 to-orange-900/50">
+                  <svg viewBox="0 0 400 200" className="absolute inset-0 w-full h-full" fill="none" preserveAspectRatio="xMidYMid slice">
+                    <style>{`
+                      @keyframes wq-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+                      @keyframes wq-tick{0%,45%{opacity:0.15}50%,95%{opacity:0.5}100%{opacity:0.15}}
+                      @keyframes wq-hand{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+                      @keyframes wq-trophy{0%,100%{transform:translateY(0);opacity:0.5}50%{transform:translateY(-3px);opacity:0.7}}
+                      @keyframes wq-star1{0%,100%{opacity:0;transform:scale(0.5)}50%{opacity:0.6;transform:scale(1)}}
+                      @keyframes wq-star2{0%,100%{opacity:0;transform:scale(0.5)}60%{opacity:0.5;transform:scale(1)}}
+                      @keyframes wq-check{0%,100%{opacity:0.1}50%{opacity:0.4}}
+                      .wq-tick1{animation:wq-tick 7s ease-in-out infinite}
+                      .wq-tick2{animation:wq-tick 7s ease-in-out 1s infinite}
+                      .wq-tick3{animation:wq-tick 7s ease-in-out 2s infinite}
+                      .wq-tick4{animation:wq-tick 7s ease-in-out 3s infinite}
+                      .wq-tick5{animation:wq-tick 7s ease-in-out 4s infinite}
+                      .wq-tick6{animation:wq-tick 7s ease-in-out 5s infinite}
+                      .wq-tick7{animation:wq-tick 7s ease-in-out 6s infinite}
+                      .wq-hand-g{animation:wq-hand 7s linear infinite;transform-origin:200px 95px}
+                      .wq-trophy-g{animation:wq-trophy 3s ease-in-out infinite}
+                      .wq-s1{animation:wq-star1 4s ease-in-out infinite}
+                      .wq-s2{animation:wq-star2 4s ease-in-out 1.5s infinite}
+                      .wq-check1{animation:wq-check 3s ease-in-out infinite}
+                      .wq-check2{animation:wq-check 3s ease-in-out 0.5s infinite}
+                      .wq-check3{animation:wq-check 3s ease-in-out 1s infinite}
+                    `}</style>
+
+                    {/* Clock face */}
+                    <circle cx="200" cy="95" r="55" stroke="rgba(251,191,36,0.12)" strokeWidth="2" />
+                    <circle cx="200" cy="95" r="50" stroke="rgba(251,191,36,0.08)" strokeWidth="1" />
+                    <circle cx="200" cy="95" r="3" fill="rgba(251,191,36,0.3)" />
+
+                    {/* Hour marks around the clock */}
+                    {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle, i) => {
+                      const rad = (angle - 90) * Math.PI / 180
+                      const x1 = 200 + 44 * Math.cos(rad)
+                      const y1 = 95 + 44 * Math.sin(rad)
+                      const x2 = 200 + 50 * Math.cos(rad)
+                      const y2 = 95 + 50 * Math.sin(rad)
+                      return (
+                        <line key={angle} x1={x1} y1={y1} x2={x2} y2={y2}
+                          stroke="rgba(251,191,36,0.25)" strokeWidth="1.5" strokeLinecap="round"
+                          className={`wq-tick${(i % 7) + 1}`}
+                        />
+                      )
+                    })}
+
+                    {/* Clock hand */}
+                    <g className="wq-hand-g">
+                      <line x1="200" y1="95" x2="200" y2="55" stroke="rgba(251,191,36,0.4)" strokeWidth="2" strokeLinecap="round" />
+                    </g>
+
+                    {/* Trophy icon (right side) */}
+                    <g className="wq-trophy-g">
+                      <path d="M320 80 L320 95 Q320 105 310 105 L305 105 Q303 110 298 110 L332 110 Q327 110 325 105 L320 105 Q310 105 310 95 L310 80 Z"
+                        fill="rgba(251,191,36,0.2)" stroke="rgba(251,191,36,0.3)" strokeWidth="1" />
+                      <path d="M310 80 Q300 80 300 88 Q300 95 310 95" stroke="rgba(251,191,36,0.2)" strokeWidth="1" fill="none" />
+                      <path d="M320 80 Q330 80 330 88 Q330 95 320 95" stroke="rgba(251,191,36,0.2)" strokeWidth="1" fill="none" />
+                      <rect x="305" y="110" width="20" height="3" rx="1" fill="rgba(251,191,36,0.15)" />
+                    </g>
+
+                    {/* Sparkle stars */}
+                    <path d="M340 70 L342 66 L344 70 L348 72 L344 74 L342 78 L340 74 L336 72 Z" fill="rgba(251,191,36,0.4)" className="wq-s1" />
+                    <path d="M295 65 L296 62 L297 65 L300 66 L297 67 L296 70 L295 67 L292 66 Z" fill="rgba(251,191,36,0.3)" className="wq-s2" />
+
+                    {/* Checklist (left side) */}
+                    <rect x="60" y="70" width="60" height="60" rx="4" stroke="rgba(255,255,255,0.06)" strokeWidth="1" fill="rgba(255,255,255,0.02)" />
+                    {/* Checklist lines */}
+                    <line x1="80" y1="82" x2="110" y2="82" stroke="rgba(255,255,255,0.08)" strokeWidth="2" strokeLinecap="round" />
+                    <line x1="80" y1="95" x2="105" y2="95" stroke="rgba(255,255,255,0.08)" strokeWidth="2" strokeLinecap="round" />
+                    <line x1="80" y1="108" x2="112" y2="108" stroke="rgba(255,255,255,0.08)" strokeWidth="2" strokeLinecap="round" />
+                    {/* Animated checkmarks */}
+                    <path d="M67 80 L70 83 L75 78" stroke="rgba(251,191,36,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" className="wq-check1" />
+                    <path d="M67 93 L70 96 L75 91" stroke="rgba(251,191,36,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" className="wq-check2" />
+                    <path d="M67 106 L70 109 L75 104" stroke="rgba(251,191,36,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" className="wq-check3" />
+                  </svg>
+                </div>
+                <div className="relative z-10 p-5 flex items-end justify-between min-h-[120px]">
+                  <div>
+                    <h3 className="font-bold text-white text-lg drop-shadow-sm">Weekly Quiz</h3>
+                    <p className="text-xs text-white/50 mt-0.5">New challenge every week</p>
                   </div>
                 </div>
               </CardContent>

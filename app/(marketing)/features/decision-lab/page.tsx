@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollAnimate } from '@/components/marketing/scroll-animate'
+import { Breadcrumb } from '@/components/marketing/breadcrumb'
 import { Brain, ArrowRight, BookMarked, Clock, Zap, MessageCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export default function DecisionLabPage() {
     <main>
       {/* Hero */}
       <section
-        className="relative overflow-hidden px-9 pt-40 pb-20 md:pt-48 md:pb-28"
+        className="relative overflow-hidden px-9 pt-40 pb-12 md:pt-48 md:pb-16"
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
@@ -23,6 +24,7 @@ export default function DecisionLabPage() {
         <div className="absolute top-24 left-16 h-1 w-1 rounded-full bg-purple-500/30 animate-pulse-glow" />
         <div className="absolute top-36 right-20 h-1.5 w-1.5 rounded-full bg-pink-500/20 animate-pulse-glow" style={{ animationDelay: '1s' }} />
         <div className="mx-auto max-w-[1420px] text-center">
+          <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Features', href: '/' }, { label: 'Decision Lab' }]} />
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/[0.05]">
             <Brain className="h-8 w-8 text-pink-400" />
           </div>
@@ -71,7 +73,7 @@ export default function DecisionLabPage() {
       </div>
 
       {/* Section 1 — Ask anything */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="grid gap-12 md:grid-cols-2 md:items-center">
@@ -162,7 +164,7 @@ export default function DecisionLabPage() {
       </div>
 
       {/* Section 2 — Deep analysis */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="grid gap-12 md:grid-cols-2 md:items-center">
@@ -226,7 +228,7 @@ export default function DecisionLabPage() {
       </div>
 
       {/* Section 3 — Available 24/7 */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="text-center">
@@ -277,8 +279,43 @@ export default function DecisionLabPage() {
         </div>
       </section>
 
+      {/* SEO content — AI referee mentor */}
+      <section className="px-9 py-16 md:py-24 border-t border-white/[0.06]">
+        <div className="mx-auto max-w-[860px]">
+          <h2 className="text-2xl font-bold tracking-tight text-white">
+            Your AI-powered Laws of the Game mentor
+          </h2>
+          <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-white/50">
+            <p>
+              Decision Lab is built on the official IFAB Laws of the Game and trained to handle
+              the kinds of questions Australian referees face every match day. Describe any
+              scenario — real or hypothetical — and get an instant, detailed analysis with precise
+              law references, clause numbers, and practical application guidance.
+            </p>
+            <p>
+              Unlike generic AI tools, Decision Lab understands the context of football refereeing.
+              Ask about the{' '}
+              <Link href="/web/offside" className="text-purple-400 hover:text-purple-300 transition-colors">offside rule</Link>,{' '}
+              <Link href="/web/fouls-and-misconduct" className="text-purple-400 hover:text-purple-300 transition-colors">handball interpretations</Link>,{' '}
+              <Link href="/web/the-penalty-kick" className="text-purple-400 hover:text-purple-300 transition-colors">penalty kick procedures</Link>,
+              or any of the{' '}
+              <Link href="/web" className="text-purple-400 hover:text-purple-300 transition-colors">17 Laws of the Game</Link> —
+              and receive an answer that references the specific rule, explains the reasoning, and
+              highlights common mistakes.
+            </p>
+            <p>
+              For Australian referees, Decision Lab is especially valuable between matches and
+              training sessions. Whether you are debating a call from the weekend with colleagues,
+              preparing for a rules assessment with Football NSW or Football Victoria, or simply
+              curious about an edge case you have never encountered, Decision Lab has you covered
+              24 hours a day, 7 days a week.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Bottom CTA */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px] text-center">
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
             Get expert answers in seconds

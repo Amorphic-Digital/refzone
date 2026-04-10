@@ -6,9 +6,9 @@ import { FaqAccordion } from '@/components/marketing/faq-accordion'
 import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 
 export const metadata: Metadata = {
-  title: 'Help Center — RefZone',
+  title: 'Help Center — How to Use RefZone Referee Training Platform',
   description:
-    'Find answers to common questions, learn how to use RefZone, and get the most out of your referee training experience.',
+    'Find answers to common questions about RefZone. Guides for quizzes, scenarios, Decision Lab, analytics, streaks, and account settings for football referees.',
 }
 
 const categories = [
@@ -81,7 +81,7 @@ export default function HelpPage() {
   return (
     <main>
       {/* Hero */}
-      <section className="relative overflow-hidden px-4 sm:px-9 pt-40 pb-20 md:pt-48 md:pb-28">
+      <section className="relative overflow-hidden px-4 sm:px-9 pt-40 pb-12 md:pt-48 md:pb-16">
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
         </div>
@@ -101,7 +101,7 @@ export default function HelpPage() {
       <div className="h-px bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500" />
 
       {/* Category cards */}
-      <section className="px-4 sm:px-9 py-24 md:py-32">
+      <section className="px-4 sm:px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1200px]">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((cat) => (
@@ -139,7 +139,7 @@ export default function HelpPage() {
       </section>
 
       {/* FAQ */}
-      <section className="px-4 sm:px-9 py-24 md:py-32">
+      <section className="px-4 sm:px-9 py-16 md:py-20">
         <div className="mx-auto max-w-2xl">
           <ScrollAnimate>
             <h2 className="text-3xl font-bold text-white text-center md:text-4xl">
@@ -157,7 +157,7 @@ export default function HelpPage() {
       </section>
 
       {/* Still need help? */}
-      <section className="px-4 sm:px-9 py-24 md:py-32">
+      <section className="px-4 sm:px-9 py-16 md:py-20">
         <div className="mx-auto max-w-xl">
           <div className="glass-card rounded-2xl border border-white/10 bg-white/[0.05] p-8 text-center">
             <Mail className="mx-auto h-8 w-8 text-purple-400 mb-4" />

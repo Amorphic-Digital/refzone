@@ -1,7 +1,7 @@
 import { Users } from 'lucide-react'
 import { HelpArticleLayout, HelpSection, HelpTip, HelpList } from '@/components/marketing/help-article-layout'
 
-export const metadata = { title: 'Account & Settings — Help Center — RefZone' }
+export const metadata = { title: 'Account & Settings — Help Center — RefZone', description: 'Manage your RefZone account: update your profile, change display name, adjust notification preferences, and manage your referee training settings.' }
 
 export default function AccountHelpPage() {
   return (

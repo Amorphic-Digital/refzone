@@ -2,39 +2,20 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { BookOpen, ArrowRight } from 'lucide-react'
+import { lawsOfTheGame } from '@/content/laws-of-the-game'
 
 export const metadata: Metadata = {
-  title: 'Laws of the Game — RefZone',
+  title: 'Laws of the Game for Football Referees — All 17 IFAB Rules',
   description:
-    'RefZone covers all 17 Laws of the Game with quizzes, scenarios, and in-depth explanations. Master every law from the Field of Play to the Corner Kick.',
+    'All 17 IFAB Laws of the Game explained for Australian football referees. Quizzes, scenarios, and detailed breakdowns from offside to fouls and misconduct.',
 }
-
-const laws = [
-  { num: 1, title: 'The Field of Play', desc: 'Pitch dimensions, markings, goals, and surfaces.' },
-  { num: 2, title: 'The Ball', desc: 'Size, weight, pressure, and replacement procedures.' },
-  { num: 3, title: 'The Players', desc: 'Number of players, substitutions, and team officers.' },
-  { num: 4, title: 'The Players\' Equipment', desc: 'Required kit, prohibited items, and safety checks.' },
-  { num: 5, title: 'The Referee', desc: 'Authority, decisions, responsibilities, and advantage.' },
-  { num: 6, title: 'The Other Match Officials', desc: 'Assistant referees, fourth official, and VAR.' },
-  { num: 7, title: 'The Duration of the Match', desc: 'Periods of play, half-time, and added time.' },
-  { num: 8, title: 'The Start and Restart of Play', desc: 'Kick-off, dropped ball, and restart procedures.' },
-  { num: 9, title: 'The Ball In and Out of Play', desc: 'When the ball is in play and when it is out.' },
-  { num: 10, title: 'Determining the Outcome of a Match', desc: 'Goals scored, draws, and penalty shoot-outs.' },
-  { num: 11, title: 'Offside', desc: 'Offside position, offence, and when there is no offence.' },
-  { num: 12, title: 'Fouls and Misconduct', desc: 'Direct and indirect free kicks, cautions, and send-offs.' },
-  { num: 13, title: 'Free Kicks', desc: 'Direct vs indirect, positioning, and wall procedures.' },
-  { num: 14, title: 'The Penalty Kick', desc: 'Procedure, position of players, and infringements.' },
-  { num: 15, title: 'The Throw-In', desc: 'Procedure, infringements, and restarts.' },
-  { num: 16, title: 'The Goal Kick', desc: 'Procedure, position of players, and infringements.' },
-  { num: 17, title: 'The Corner Kick', desc: 'Procedure, position of players, and infringements.' },
-]
 
 export default function LawsOfTheGamePage() {
   return (
     <main>
       {/* Hero */}
       <section
-        className="relative overflow-hidden px-9 pt-40 pb-20 md:pt-48 md:pb-28"
+        className="relative overflow-hidden px-9 pt-40 pb-12 md:pt-48 md:pb-16"
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
@@ -60,20 +41,23 @@ export default function LawsOfTheGamePage() {
       </section>
 
       {/* Law cards grid */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {laws.map((law, i) => (
+            {lawsOfTheGame.map((law, i) => (
               <ScrollAnimate key={law.num} delay={i * 40}>
-                <div className={`flex gap-4 rounded-xl border border-white/10 bg-white/[0.05] p-5 transition hover:border-purple-400/40 ${law.num <= 4 ? 'border-l-2 border-l-green-400' : law.num <= 8 ? 'border-l-2 border-l-blue-400' : law.num <= 12 ? 'border-l-2 border-l-purple-500' : 'border-l-2 border-l-amber-400'}`}>
+                <Link
+                  href={`/web/${law.slug}`}
+                  className={`group flex gap-4 rounded-xl border border-white/10 bg-white/[0.05] p-5 transition hover:border-purple-400/40 hover:bg-white/[0.07] ${law.num <= 4 ? 'border-l-2 border-l-green-400' : law.num <= 8 ? 'border-l-2 border-l-blue-400' : law.num <= 12 ? 'border-l-2 border-l-purple-500' : 'border-l-2 border-l-amber-400'}`}
+                >
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-400/10 text-sm font-bold text-purple-400">
                     {law.num}
                   </span>
                   <div>
-                    <h3 className="font-semibold text-white">{law.title}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-white/45">{law.desc}</p>
+                    <h3 className="font-semibold text-white group-hover:text-purple-300 transition-colors">{law.title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-white/45">{law.shortDesc}</p>
                   </div>
-                </div>
+                </Link>
               </ScrollAnimate>
             ))}
           </div>
@@ -90,7 +74,7 @@ export default function LawsOfTheGamePage() {
       </div>
 
       {/* Bottom CTA */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px] text-center">
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
             Think you know the Laws?

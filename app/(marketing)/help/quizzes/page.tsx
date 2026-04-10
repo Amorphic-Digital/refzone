@@ -1,7 +1,7 @@
 import { BookOpen } from 'lucide-react'
 import { HelpArticleLayout, HelpSection, HelpTip, HelpList } from '@/components/marketing/help-article-layout'
 
-export const metadata = { title: 'Quizzes — Help Center — RefZone' }
+export const metadata = { title: 'Quizzes — Help Center — RefZone', description: 'How to use RefZone quizzes: browse by law, filter by difficulty, track your accuracy, and understand instant feedback on every question.' }
 
 export default function QuizzesHelpPage() {
   return (

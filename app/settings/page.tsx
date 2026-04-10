@@ -713,7 +713,7 @@ export default function SettingsPage() {
               <div key={account.id} className="flex items-center justify-between p-3 rounded-lg border">
                 <div className="flex items-center gap-3">
                   {account.imageUrl && (
-                    <img src={account.imageUrl} alt="" className="h-8 w-8 rounded-full" />
+                    <img src={account.imageUrl} alt="Account avatar" className="h-8 w-8 rounded-full" />
                   )}
                   <div>
                     <p className="text-sm font-medium capitalize">{account.provider || "Unknown"}</p>

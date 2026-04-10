@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollAnimate } from '@/components/marketing/scroll-animate'
+import { Breadcrumb } from '@/components/marketing/breadcrumb'
 import { BookOpen, ArrowRight, CheckCircle, XCircle, Star } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export default function QuizzesPage() {
     <main>
       {/* Hero */}
       <section
-        className="relative overflow-hidden px-9 pt-40 pb-20 md:pt-48 md:pb-28"
+        className="relative overflow-hidden px-9 pt-40 pb-12 md:pt-48 md:pb-16"
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
@@ -23,6 +24,7 @@ export default function QuizzesPage() {
         <div className="absolute top-24 left-16 h-1 w-1 rounded-full bg-purple-500/30 animate-pulse-glow" />
         <div className="absolute top-36 right-20 h-1.5 w-1.5 rounded-full bg-pink-500/20 animate-pulse-glow" style={{ animationDelay: '1s' }} />
         <div className="mx-auto max-w-[1420px] text-center">
+          <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Features', href: '/' }, { label: 'Quizzes' }]} />
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/[0.05]">
             <BookOpen className="h-8 w-8 text-pink-400" />
           </div>
@@ -71,7 +73,7 @@ export default function QuizzesPage() {
       </div>
 
       {/* Section 1 — 500+ questions */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="grid gap-12 md:grid-cols-2 md:items-center">
@@ -155,7 +157,7 @@ export default function QuizzesPage() {
       </div>
 
       {/* Section 2 — Three difficulty levels */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="text-center">
@@ -237,7 +239,7 @@ export default function QuizzesPage() {
       </div>
 
       {/* Section 3 — Instant feedback */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="grid gap-12 md:grid-cols-2 md:items-center">
@@ -287,8 +289,45 @@ export default function QuizzesPage() {
         </div>
       </section>
 
+      {/* SEO content — quiz training for Australian referees */}
+      <section className="px-9 py-16 md:py-24 border-t border-white/[0.06]">
+        <div className="mx-auto max-w-[860px]">
+          <h2 className="text-2xl font-bold tracking-tight text-white">
+            Laws of the Game quiz practice for Australian referees
+          </h2>
+          <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-white/50">
+            <p>
+              The IFAB Laws of the Game are updated annually, and Australian referees are expected
+              to stay current with every amendment. RefZone&apos;s quiz bank of 500+ questions
+              covers all{' '}
+              <Link href="/web" className="text-purple-400 hover:text-purple-300 transition-colors">17 Laws of the Game</Link>,
+              from fundamental rules like{' '}
+              <Link href="/web/field-of-play" className="text-purple-400 hover:text-purple-300 transition-colors">the field of play</Link> to
+              complex areas like{' '}
+              <Link href="/web/offside" className="text-purple-400 hover:text-purple-300 transition-colors">offside interpretation</Link> and{' '}
+              <Link href="/web/fouls-and-misconduct" className="text-purple-400 hover:text-purple-300 transition-colors">fouls and misconduct</Link>.
+            </p>
+            <p>
+              Each question includes an instant explanation referencing the specific law, clause,
+              and practical application. Three difficulty levels — easy, medium, and hard — let
+              you progress from basic rule recall to edge-case scenarios that test even experienced
+              A-League and NPL referees.
+            </p>
+            <p>
+              Referees across Football NSW, Football Victoria, Football Queensland, Capital Football,
+              and Football West use RefZone quizzes to prepare for promotion assessments, pre-season
+              rules refreshers, and weekly training. Pair quizzes with{' '}
+              <Link href="/features/scenarios" className="text-purple-400 hover:text-purple-300 transition-colors">match scenarios</Link> for
+              practical application, or use{' '}
+              <Link href="/features/decision-lab" className="text-purple-400 hover:text-purple-300 transition-colors">Decision Lab</Link> to
+              ask specific questions about tricky rule interpretations.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Bottom CTA */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px] text-center">
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
             Test your knowledge of the Laws

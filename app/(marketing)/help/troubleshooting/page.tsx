@@ -2,7 +2,7 @@ import { Shield } from 'lucide-react'
 import Link from 'next/link'
 import { HelpArticleLayout, HelpSection, HelpTip, HelpList } from '@/components/marketing/help-article-layout'
 
-export const metadata = { title: 'Troubleshooting — Help Center — RefZone' }
+export const metadata = { title: 'Troubleshooting — Help Center — RefZone', description: 'Fix common RefZone issues: login problems, quiz loading errors, streak resets, browser compatibility, and how to contact support.' }
 
 export default function TroubleshootingHelpPage() {
   return (

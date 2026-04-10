@@ -16,9 +16,9 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'About — RefZone',
+  title: 'About RefZone — Australian Football Referee Training Platform',
   description:
-    'Learn about RefZone — the advanced football referee training platform empowering referees through technology. Built in Australia for the global referee community.',
+    'RefZone is an advanced football referee training platform built in Australia. 500+ quiz questions, 100+ match scenarios, and AI-powered analysis for referees at every level.',
 }
 
 const features = [
@@ -80,7 +80,7 @@ export default function AboutPage() {
   return (
     <main>
       {/* Hero */}
-      <section className="relative overflow-hidden px-9 pt-40 pb-20 md:pt-48 md:pb-28">
+      <section className="relative overflow-hidden px-9 pt-40 pb-12 md:pt-48 md:pb-16">
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
           <div className="absolute -bottom-20 right-[20%] h-[300px] w-[300px] rounded-full bg-pink-600/5 blur-3xl" />
@@ -114,7 +114,7 @@ export default function AboutPage() {
       </section>
 
       {/* Mission — with large illustration */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="grid items-center gap-16 md:grid-cols-2">
@@ -207,7 +207,7 @@ export default function AboutPage() {
       </div>
 
       {/* What we do — with large pitch illustration */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="text-center">
@@ -224,7 +224,7 @@ export default function AboutPage() {
           <ScrollAnimate delay={100}>
             <div className="mx-auto mt-12 max-w-3xl">
               <div className="glass-card overflow-hidden">
-                <svg viewBox="0 0 800 300" className="w-full" fill="none">
+                <svg viewBox="0 0 800 300" className="w-full" fill="none" role="img" aria-label="Football pitch diagram showing player positions, referee location, and AI-powered foul analysis identifying a Law 12 offence">
                   {/* Pitch background */}
                   <rect width="800" height="300" fill="#0d1a0d"/>
                   {/* Field lines */}
@@ -294,7 +294,7 @@ export default function AboutPage() {
       </div>
 
       {/* Values */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="text-center">
@@ -337,7 +337,7 @@ export default function AboutPage() {
       </div>
 
       {/* Australian football — with map illustration */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="grid items-center gap-16 md:grid-cols-2">
@@ -405,6 +405,15 @@ export default function AboutPage() {
                   referee access the same quality of training, no matter where they
                   are based.
                 </p>
+                <a
+                  href="https://trello.com/b/ERAv1LS8/refzone-dev-board"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-1.5 text-sm text-purple-400 hover:text-purple-300 transition-colors"
+                >
+                  Follow our development on Trello
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </a>
               </div>
             </div>
           </ScrollAnimate>
@@ -412,7 +421,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px] text-center">
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
             Join hundreds of referees already training smarter

@@ -4,9 +4,9 @@ import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { Users, ArrowRight, MessageSquare, UserPlus, Share2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Community — RefZone',
+  title: 'Australian Football Referee Community — Forum & Discussion',
   description:
-    'Join Australia\'s growing referee community on RefZone. Discuss decisions in the forum, share knowledge, and connect with referees at every level.',
+    'Join Australia\'s growing football referee community on RefZone. Discuss match decisions, share knowledge, and connect with referees across every state and level.',
 }
 
 const mockPosts = [
@@ -21,7 +21,7 @@ export default function CommunityPage() {
     <main>
       {/* Hero */}
       <section
-        className="relative overflow-hidden px-9 pt-40 pb-20 md:pt-48 md:pb-28"
+        className="relative overflow-hidden px-9 pt-40 pb-12 md:pt-48 md:pb-16"
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
@@ -53,7 +53,7 @@ export default function CommunityPage() {
       </section>
 
       {/* Forum */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="grid gap-12 md:grid-cols-2 md:items-center">
@@ -116,7 +116,7 @@ export default function CommunityPage() {
       </div>
 
       {/* Friends + Share knowledge */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px] grid gap-6 sm:grid-cols-2">
           <ScrollAnimate>
             <div className="feature-item rounded-xl border border-white/10 bg-white/[0.05] p-6">
@@ -153,7 +153,7 @@ export default function CommunityPage() {
       </div>
 
       {/* Bottom CTA */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px] text-center">
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
             You are not in this alone

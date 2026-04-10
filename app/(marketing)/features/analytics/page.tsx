@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollAnimate } from '@/components/marketing/scroll-animate'
+import { Breadcrumb } from '@/components/marketing/breadcrumb'
 import { BarChart3, ArrowRight } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export default function AnalyticsPage() {
     <main>
       {/* Hero */}
       <section
-        className="relative overflow-hidden px-9 pt-40 pb-20 md:pt-48 md:pb-28"
+        className="relative overflow-hidden px-9 pt-40 pb-12 md:pt-48 md:pb-16"
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
@@ -23,6 +24,7 @@ export default function AnalyticsPage() {
         <div className="absolute top-24 left-16 h-1 w-1 rounded-full bg-purple-500/30 animate-pulse-glow" />
         <div className="absolute top-36 right-20 h-1.5 w-1.5 rounded-full bg-pink-500/20 animate-pulse-glow" style={{ animationDelay: '1s' }} />
         <div className="mx-auto max-w-[1420px] text-center">
+          <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Features', href: '/' }, { label: 'Analytics' }]} />
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/[0.05]">
             <BarChart3 className="h-8 w-8 text-pink-400" />
           </div>
@@ -70,7 +72,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Section 1 — Accuracy dashboard */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="grid gap-12 md:grid-cols-2 md:items-center">
@@ -153,7 +155,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Section 2 — Law-by-law breakdown */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="grid gap-12 md:grid-cols-2 md:items-center">
@@ -226,7 +228,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Section 3 — 7-day activity */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <ScrollAnimate>
             <div className="grid gap-12 md:grid-cols-2 md:items-center">
@@ -329,7 +331,32 @@ export default function AnalyticsPage() {
       </section>
 
       {/* Bottom CTA */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
+        {/* SEO content — data-driven referee development */}
+        <div className="mx-auto max-w-[860px] mb-24">
+          <h2 className="text-2xl font-bold tracking-tight text-white">
+            Data-driven referee development in Australia
+          </h2>
+          <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-white/50">
+            <p>
+              Football referee assessors in Australia evaluate referees on their knowledge of the{' '}
+              <Link href="/web" className="text-purple-400 hover:text-purple-300 transition-colors">Laws of the Game</Link>,
+              match management, and consistency. RefZone&apos;s analytics give you the same data-driven
+              view of your performance that assessors use — accuracy by law, difficulty progression,
+              and training frequency.
+            </p>
+            <p>
+              Whether you are preparing for a promotion assessment with Football NSW, Football Victoria,
+              or Capital Football, or simply want to track your improvement week over week, RefZone&apos;s
+              analytics dashboard gives you a clear picture of where you stand. Pair your analytics
+              with daily <Link href="/features/gamification" className="text-purple-400 hover:text-purple-300 transition-colors">training streaks</Link> to
+              build consistent habits, or dive into{' '}
+              <Link href="/features/scenarios" className="text-purple-400 hover:text-purple-300 transition-colors">match scenarios</Link> to
+              improve your weakest law categories.
+            </p>
+          </div>
+        </div>
+
         <div className="mx-auto max-w-[1420px] text-center">
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
             Know your numbers, improve faster

@@ -65,7 +65,7 @@ export function MarketingFooter() {
       {/* Bottom bar */}
       <div className="border-t border-white/[0.06]">
         <div className="mx-auto max-w-[1420px] px-9 mt-12 pt-8 pb-8">
-          <p className="text-[13px] text-white/20">
+          <p className="text-[13px] text-white/45">
             &copy; {year} {siteConfig.name}. All rights reserved.
           </p>
         </div>
