@@ -27,6 +27,8 @@ export function MarketingHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [appDropdownOpen, setAppDropdownOpen] = useState(false);
   const [betaDismissed, setBetaDismissed] = useState(false);
+  const [betaEmail, setBetaEmail] = useState('');
+  const [betaStatus, setBetaStatus] = useState<'idle' | 'loading' | 'success'>('idle');
   const pathname = usePathname();
   const { isSignedIn } = useUser();
   const { theme, setTheme, resolvedTheme } = useTheme();
@@ -110,7 +112,7 @@ export function MarketingHeader() {
 
               {/* Dropdown panel */}
               <div
-                className={`absolute left-1/2 -translate-x-1/2 top-full pt-2 transition-all duration-200 ${
+                className={`absolute left-1/2 -translate-x-1/2 top-full pt-2 z-[60] transition-all duration-200 ${
                   appDropdownOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-1 pointer-events-none"
                 }`}
               >
@@ -294,7 +296,7 @@ export function MarketingHeader() {
       {/* Web beta banner — attaches to bottom of navbar pill on /web pages */}
       {pathname.startsWith("/web") && !betaDismissed && (
         <div
-          className="mx-auto flex items-center gap-3 px-4 sm:px-6 py-2"
+          className="mx-auto px-4 sm:px-6 py-2.5"
           style={{
             maxWidth: "min(1420px, 100vw - 1rem)",
             background: "rgba(234, 88, 12, 0.15)",
@@ -304,18 +306,60 @@ export function MarketingHeader() {
             borderRadius: "0 0 16px 16px",
           }}
         >
-          <span className="text-orange-400 text-xs shrink-0">&#9888;</span>
-          <p className="flex-1 text-[11px] sm:text-[12px] leading-snug text-orange-300/80">
-            <strong className="text-orange-300">RefZone Web is in development.</strong>{" "}
-            Content may be incomplete or change without notice.
-          </p>
-          <button
-            onClick={() => setBetaDismissed(true)}
-            className="shrink-0 text-orange-400/50 hover:text-orange-300 transition-colors text-xs px-1"
-            aria-label="Dismiss"
-          >
-            &#10005;
-          </button>
+          <div className="flex items-start gap-3">
+            <span className="text-orange-400 text-xs shrink-0 mt-0.5">&#9888;</span>
+            <div className="flex-1 min-w-0">
+              <p className="text-[11px] sm:text-[12px] leading-snug text-orange-300/80">
+                <strong className="text-orange-300">RefZone Web is in development.</strong>{" "}
+                Content may be incomplete or change without notice.
+              </p>
+              {betaStatus === 'success' ? (
+                <p className="mt-2 text-[11px] text-green-400">Thanks! We&apos;ll notify you when it&apos;s ready.</p>
+              ) : (
+                <form
+                  className="mt-2 flex items-center gap-2"
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    if (!betaEmail.includes('@')) return;
+                    setBetaStatus('loading');
+                    try {
+                      await fetch('/api/web-beta-signup', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: betaEmail }),
+                      });
+                      setBetaStatus('success');
+                    } catch {
+                      setBetaStatus('idle');
+                    }
+                  }}
+                >
+                  <input
+                    type="email"
+                    value={betaEmail}
+                    onChange={(e) => setBetaEmail(e.target.value)}
+                    placeholder="your@email.com"
+                    className="rounded-md border border-orange-400/20 bg-orange-500/10 px-2.5 py-1 text-[11px] text-orange-200 placeholder:text-orange-400/40 focus:outline-none focus:border-orange-400/40 w-full max-w-[200px]"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    disabled={betaStatus === 'loading'}
+                    className="shrink-0 rounded-md bg-orange-500/20 px-2.5 py-1 text-[11px] font-medium text-orange-300 hover:bg-orange-500/30 transition-colors disabled:opacity-50"
+                  >
+                    Notify me
+                  </button>
+                </form>
+              )}
+            </div>
+            <button
+              onClick={() => setBetaDismissed(true)}
+              className="shrink-0 text-orange-400/50 hover:text-orange-300 transition-colors text-xs px-1 mt-0.5"
+              aria-label="Dismiss"
+            >
+              &#10005;
+            </button>
+          </div>
         </div>
       )}
     </header>
