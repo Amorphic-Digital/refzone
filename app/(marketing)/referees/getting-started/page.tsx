@@ -45,7 +45,7 @@ export default function GettingStartedPage() {
     <main>
       {/* Hero */}
       <section
-        className="relative overflow-hidden px-9 pt-40 pb-20 md:pt-48 md:pb-28"
+        className="relative overflow-hidden px-9 pt-40 pb-12 md:pt-48 md:pb-16"
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
@@ -70,7 +70,7 @@ export default function GettingStartedPage() {
       </section>
 
       {/* Steps */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <div className="space-y-0">
             {steps.map((step, i) => {
@@ -128,7 +128,7 @@ export default function GettingStartedPage() {
       </div>
 
       {/* Bottom CTA */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px] text-center">
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
             Ready to begin?

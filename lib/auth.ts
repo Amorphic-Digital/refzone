@@ -64,30 +64,33 @@ export async function ensureProfile(userId: string) {
     .eq("id", userId)
     .single()
 
-  if (profile) return profile
+  if (profile) {
+    // Sync display name from Clerk's firstName if user hasn't manually set one via settings
+    if (!profile.has_set_username) {
+      const user = await currentUser()
+      const preferredName = user?.firstName
+      if (preferredName && profile.display_name !== preferredName) {
+        const { data: updated } = await supabase
+          .from("profiles")
+          .update({ display_name: preferredName })
+          .eq("id", userId)
+          .select()
+          .single()
+        if (updated) return updated
+      }
+    }
+    return profile
+  }
 
   // Get user details from Clerk to populate the profile
   const user = await currentUser()
-  const displayName = user?.username || user?.firstName || `User_${userId.slice(-6)}`
-
-  // Append random suffix if display_name is taken
-  let finalDisplayName = displayName
-  const { data: nameCheck } = await supabase
-    .from("profiles")
-    .select("id")
-    .eq("display_name", displayName)
-    .limit(1)
-
-  if (nameCheck && nameCheck.length > 0) {
-    finalDisplayName = `${displayName}_${Math.random().toString(36).slice(2, 6)}`
-  }
+  const displayName = user?.firstName || user?.username || `User_${userId.slice(-6)}`
 
   const { data: newProfile, error } = await supabase
     .from("profiles")
     .insert({
       id: userId,
-      display_name: finalDisplayName,
-      has_set_username: !!user?.username,
+      display_name: displayName,
       total_points: 0,
       current_streak: 0,
       experience_level: "beginner",

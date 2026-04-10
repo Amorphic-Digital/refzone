@@ -122,7 +122,7 @@ export default function RootLayout({
       </head>
       <body className={`font-sans antialiased ${geistSans.className} ${inter.variable}`}>
         <ClerkProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
             <CustomizationProvider>
               <GlobalTutorialWrapper>{children}</GlobalTutorialWrapper>
               <ImportantNotificationModal />

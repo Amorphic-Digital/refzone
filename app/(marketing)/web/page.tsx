@@ -26,7 +26,7 @@ export default function WebIndexPage() {
   return (
     <main>
       {/* Hero */}
-      <section className="relative overflow-hidden px-9 pt-40 pb-16 md:pt-48 md:pb-20">
+      <section className="relative overflow-hidden px-9 pt-40 pb-10 md:pt-48 md:pb-12">
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
         </div>
@@ -69,7 +69,7 @@ export default function WebIndexPage() {
       </section>
 
       {/* Laws of the Game — grid directly, no separate heading */}
-      <section className="px-9 py-12 md:py-16">
+      <section className="px-9 py-8 md:py-10">
         <div className="mx-auto max-w-[1420px]">
           <LawsGrid laws={lawsForSearch} />
         </div>

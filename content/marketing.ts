@@ -567,7 +567,7 @@ export const footerContent = {
         { label: 'Contact', href: '/contact' },
         { label: 'Privacy', href: '/privacy' },
         { label: 'Terms', href: '/terms' },
-        { label: 'Sitemap', href: '/sitemap' },
+        { label: 'Sitemap', href: '/sitemap-page' },
       ],
     },
   ],

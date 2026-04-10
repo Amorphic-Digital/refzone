@@ -11,7 +11,7 @@ interface HelpArticleLayoutProps {
 export function HelpArticleLayout({ icon: Icon, title, description, children }: HelpArticleLayoutProps) {
   return (
     <main>
-      <section className="relative overflow-hidden px-4 sm:px-9 pt-40 pb-16 md:pt-48 md:pb-20">
+      <section className="relative overflow-hidden px-4 sm:px-9 pt-40 pb-12 md:pt-48 md:pb-16">
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
         </div>

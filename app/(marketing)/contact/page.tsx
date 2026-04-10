@@ -37,7 +37,7 @@ export default function ContactPage() {
     <main>
       {/* Hero */}
       <section
-        className="relative overflow-hidden px-9 pt-40 pb-20 md:pt-48 md:pb-28"
+        className="relative overflow-hidden px-9 pt-40 pb-12 md:pt-48 md:pb-16"
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
@@ -62,7 +62,7 @@ export default function ContactPage() {
       <div className="h-px bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500" />
 
       {/* Contact cards */}
-      <section className="px-9 py-24 md:py-32">
+      <section className="px-9 py-16 md:py-20">
         <div className="mx-auto max-w-[1420px]">
           <div className="grid gap-6 md:grid-cols-3 items-stretch">
             {cards.map((c) => (
@@ -126,7 +126,7 @@ export default function ContactPage() {
       {/* Contact form */}
       <section className="px-9 py-12 md:py-16">
         <div className="mx-auto max-w-2xl">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03]">
+          <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]">
             <iframe
               src="https://nodumforms.com/f/lrl2owrx/send-us-a-message"
               width="100%"

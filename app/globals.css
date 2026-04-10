@@ -222,18 +222,41 @@
 }
 
 /* Override white-opacity text in light mode */
+.light [data-marketing] .text-white\/90,
+.light [data-marketing] .text-white\/80,
+.light [data-marketing] .text-white\/85 {
+  color: var(--m-text);
+}
+.light [data-marketing] .text-white\/70,
+.light [data-marketing] .text-white\/65 {
+  color: var(--m-text-2);
+}
 .light [data-marketing] .text-white\/45,
 .light [data-marketing] .text-white\/50,
+.light [data-marketing] .text-white\/55,
 .light [data-marketing] .text-white\/60 {
   color: var(--m-text-3);
 }
 .light [data-marketing] .text-white\/30,
+.light [data-marketing] .text-white\/35,
 .light [data-marketing] .text-white\/40 {
   color: var(--m-text-4);
 }
+.light [data-marketing] .text-white\/10,
+.light [data-marketing] .text-white\/15,
 .light [data-marketing] .text-white\/20,
 .light [data-marketing] .text-white\/25 {
   color: var(--m-text-5);
+}
+
+/* Override hover text states in light mode */
+.light [data-marketing] .hover\:text-white:hover,
+.light [data-marketing] .group:hover .group-hover\:text-white {
+  color: var(--m-text);
+}
+.light [data-marketing] .hover\:text-white\/70:hover,
+.light [data-marketing] .hover\:text-white\/80:hover {
+  color: var(--m-text-2);
 }
 
 /* Override dark backgrounds in light mode */
@@ -243,17 +266,26 @@
 }
 
 /* Override white/opacity backgrounds in light mode */
-.light [data-marketing] .bg-white\/\[0\.05\],
+.light [data-marketing] .bg-white\/\[0\.02\],
 .light [data-marketing] .bg-white\/\[0\.03\],
-.light [data-marketing] .bg-white\/\[0\.02\] {
+.light [data-marketing] .bg-white\/\[0\.04\],
+.light [data-marketing] .bg-white\/\[0\.05\] {
   background: var(--m-bg-card);
 }
+.light [data-marketing] .bg-white\/\[0\.06\],
 .light [data-marketing] .bg-white\/\[0\.07\],
-.light [data-marketing] .bg-white\/\[0\.08\] {
+.light [data-marketing] .bg-white\/\[0\.08\],
+.light [data-marketing] .bg-white\/8,
+.light [data-marketing] .bg-white\/10 {
+  background: var(--m-bg-card-hover);
+}
+.light [data-marketing] .hover\:bg-white\/\[0\.05\]:hover,
+.light [data-marketing] .hover\:bg-white\/\[0\.07\]:hover {
   background: var(--m-bg-card-hover);
 }
 
 /* Override white borders in light mode */
+.light [data-marketing] .border-white\/8,
 .light [data-marketing] .border-white\/10,
 .light [data-marketing] .border-white\/\[0\.06\],
 .light [data-marketing] .border-white\/\[0\.1\] {
@@ -266,13 +298,17 @@
 .light [data-marketing] .border-white\/15 {
   border-color: var(--m-border-hover);
 }
+.light [data-marketing] .hover\:border-white\/20:hover {
+  border-color: var(--m-border-strong);
+}
 
 /* Light mode button overrides */
 .light [data-marketing] .bg-white\/85 {
   background: var(--m-accent);
   color: #ffffff;
 }
-.light [data-marketing] .bg-white\/85:hover {
+.light [data-marketing] .bg-white\/85:hover,
+.light [data-marketing] .hover\:bg-white:hover {
   background: var(--m-accent);
   opacity: 0.9;
 }

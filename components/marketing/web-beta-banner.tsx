@@ -63,7 +63,7 @@ export function WebBetaBanner() {
                 <button
                   type="submit"
                   disabled={status === 'loading'}
-                  className="shrink-0 rounded-lg bg-purple-500/20 px-3 py-1.5 text-xs font-medium text-purple-300 hover:bg-purple-500/30 transition-colors disabled:opacity-50"
+                  className="shrink-0 rounded-lg bg-purple-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-purple-700 transition-colors disabled:opacity-50"
                 >
                   {status === 'loading' ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : 'Notify me'}
                 </button>

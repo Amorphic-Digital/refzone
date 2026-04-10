@@ -80,7 +80,7 @@ export function MarketingHeader() {
         onClick={() => setMobileOpen(false)}
       />
     <header className="fixed top-0 left-0 right-0 z-50 px-2 sm:px-8 pt-2 sm:pt-6">
-      <div className={`nav-blur mx-auto px-3 sm:px-9 flex flex-col ${pathname.startsWith("/web") && !betaDismissed ? "!rounded-b-none" : ""}`} style={{ maxWidth: "min(1420px, 100vw - 1rem)" }}>
+      <div className={`nav-blur mx-auto px-3 sm:px-9 flex flex-col relative z-10 ${pathname.startsWith("/web") && !betaDismissed ? "!rounded-b-none" : ""}`} style={{ maxWidth: "min(1420px, 100vw - 1rem)" }}>
         {/* Top bar */}
         <div className="h-[76px] flex items-center justify-between relative">
           {/* Logo */}
@@ -311,7 +311,8 @@ export function MarketingHeader() {
             <div className="flex-1 min-w-0">
               <p className="text-[11px] sm:text-[12px] leading-snug text-orange-300/80">
                 <strong className="text-orange-300">RefZone Web is in development.</strong>{" "}
-                Content may be incomplete or change without notice.
+                Content may be incomplete or change without notice.{" "}
+                <a href="https://trello.com/b/ERAv1LS8/refzone-dev-board" target="_blank" rel="noopener noreferrer" className="underline text-orange-300 hover:text-orange-200 transition-colors">Follow our progress</a>.
               </p>
               {betaStatus === 'success' ? (
                 <p className="mt-2 text-[11px] text-green-400">Thanks! We&apos;ll email you when RefZone Web is finished and ready to use.</p>
