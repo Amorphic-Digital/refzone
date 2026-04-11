@@ -8,7 +8,10 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Target, TrendingUp, Flame, BarChart3, BookOpen, Star, TrendingDown, Loader2, Calendar } from "lucide-react"
 import { DashboardWrapper } from "./dashboard-wrapper"
-import { PerformanceChart, LawBreakdownChart } from "./performance-chart"
+import dynamic from "next/dynamic"
+
+const PerformanceChart = dynamic(() => import("./performance-chart").then(m => ({ default: m.PerformanceChart })), { ssr: false })
+const LawBreakdownChart = dynamic(() => import("./performance-chart").then(m => ({ default: m.LawBreakdownChart })), { ssr: false })
 import { createClient } from "@/lib/supabase/client"
 import { useTutorial } from "@/components/tutorial/tutorial-context"
 

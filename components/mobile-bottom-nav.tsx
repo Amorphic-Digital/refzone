@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
 import { useAuth, useUser } from "@clerk/nextjs"
-import { Home, Settings, LogOut, Moon, Sun, Users, Shield, HelpCircle, Mail, Copy, Check, FlaskConical, Menu } from "lucide-react"
+import { Home, Settings, LogOut, Moon, Sun, Users, Shield, HelpCircle, Mail, Copy, Check, FlaskConical, Menu, BookOpen, Shuffle } from "lucide-react"
 import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
@@ -70,6 +70,7 @@ export function MobileBottomNav() {
 
   const isActive = (href: string) => pathname === href
   const isDecisionLabActive = pathname === "/decision-lab"
+  const isQuizzesActive = pathname === "/quizzes" || pathname.startsWith("/quizzes/")
   const isAccountActive = ["/settings", "/admin"].includes(pathname)
 
   const GradientUnderline = ({ active }: { active: boolean }) => (
@@ -88,12 +89,17 @@ export function MobileBottomNav() {
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 md:hidden z-50 bg-background border-t">
         <div className="flex items-center justify-between px-2 py-2 h-16 max-w-md mx-auto w-full">
-          {/* Notifications - smaller, no caption */}
-          <div className="flex items-center justify-center w-12">
-            <NotificationsDropdown />
-          </div>
+          {/* Quizzes */}
+          <Link
+            href="/quizzes"
+            className="group relative flex flex-col items-center justify-center gap-0.5 p-2 pb-3 rounded-xl cursor-pointer"
+          >
+            <BookOpen className="h-6 w-6" />
+            <span className="text-[10px] text-muted-foreground">Quizzes</span>
+            <GradientUnderline active={isQuizzesActive} />
+          </Link>
 
-          {/* DecisionLab - larger with caption */}
+          {/* DecisionLab */}
           <Link
             href="/decision-lab"
             data-tutorial="decision-lab-nav"
@@ -104,7 +110,7 @@ export function MobileBottomNav() {
             <GradientUnderline active={isDecisionLabActive} />
           </Link>
 
-          {/* Home - larger with caption */}
+          {/* Home */}
           <Link
             href="/dashboard"
             className="group relative flex flex-col items-center justify-center gap-0.5 p-2 pb-3 rounded-xl cursor-pointer"
@@ -114,7 +120,18 @@ export function MobileBottomNav() {
             <GradientUnderline active={isActive("/dashboard")} />
           </Link>
 
-          {/* Account dropdown - larger with caption */}
+          {/* Random Quiz */}
+          <button
+            onClick={() => {
+              router.push("/quizzes?random=true")
+            }}
+            className="group relative flex flex-col items-center justify-center gap-0.5 p-2 pb-3 rounded-xl cursor-pointer"
+          >
+            <Shuffle className="h-6 w-6" />
+            <span className="text-[10px] text-muted-foreground">Random</span>
+          </button>
+
+          {/* More menu */}
           <DropdownMenu open={accountOpen} onOpenChange={setAccountOpen}>
             <DropdownMenuTrigger asChild>
               <button
@@ -126,7 +143,19 @@ export function MobileBottomNav() {
                 <GradientUnderline active={isAccountActive} />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="center" className="w-48">
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuItem asChild>
+                <Link href="/scenarios" className="flex items-center">
+                  <FlaskConical className="h-4 w-4 mr-2" />
+                  Scenarios
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/leaderboard" className="flex items-center">
+                  <Users className="h-4 w-4 mr-2" />
+                  Leaderboard
+                </Link>
+              </DropdownMenuItem>
               {isAdmin && (
                 <DropdownMenuItem asChild>
                   <Link href="/admin" className="flex items-center">
@@ -152,6 +181,18 @@ export function MobileBottomNav() {
                 <HelpCircle className="h-4 w-4 mr-2" />
                 Support
               </DropdownMenuItem>
+              {mounted && (
+                <DropdownMenuItem
+                  onSelect={(e) => {
+                    e.preventDefault()
+                    toggleTheme()
+                  }}
+                  className="flex items-center cursor-pointer"
+                >
+                  {theme === "dark" ? <Sun className="h-4 w-4 mr-2" /> : <Moon className="h-4 w-4 mr-2" />}
+                  {theme === "dark" ? "Light Mode" : "Dark Mode"}
+                </DropdownMenuItem>
+              )}
               <DropdownMenuItem asChild>
                 <Button
                   variant="ghost"
@@ -165,15 +206,6 @@ export function MobileBottomNav() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-
-          {/* Theme toggle - smaller, no caption */}
-          <div className="flex items-center justify-center w-12">
-            {mounted && (
-              <Button variant="ghost" size="icon" onClick={toggleTheme} className="cursor-pointer h-10 w-10">
-                {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              </Button>
-            )}
-          </div>
         </div>
       </div>
 

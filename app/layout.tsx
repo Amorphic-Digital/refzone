@@ -121,7 +121,7 @@ export default function RootLayout({
         <StructuredData />
       </head>
       <body className={`font-sans antialiased ${geistSans.className} ${inter.variable}`}>
-        <ClerkProvider>
+        <ClerkProvider signInForceRedirectUrl="/dashboard" signUpForceRedirectUrl="/dashboard">
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
             <CustomizationProvider>
               <GlobalTutorialWrapper>{children}</GlobalTutorialWrapper>
