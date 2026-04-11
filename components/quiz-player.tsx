@@ -183,6 +183,8 @@ export function QuizPlayer({ quiz, questions, userId }: QuizPlayerProps) {
         const errData = await saveResponse.json().catch(() => ({}))
         console.error("Failed to save quiz results:", saveResponse.status, errData)
       }
+      // Refresh server data so dashboard/quizzes pages show updated results
+      router.refresh()
     } catch (error) {
       console.error("Failed to save quiz results:", error)
     }

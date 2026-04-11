@@ -435,6 +435,24 @@ export default function PrivacyPage() {
               </a>
               .
             </li>
+            <li>
+              <strong>NodumForms</strong> &mdash; Contact form service.
+              NodumForms powers the contact form on our website, processing
+              any information you submit through it (such as your name, email
+              address, and message content) to deliver your enquiry to us.
+              NodumForms does not use your submitted data for any purpose
+              other than delivering it to RefZone. NodumForms&apos; handling
+              of your data is governed by the{' '}
+              <a
+                href="https://nodumforms.com/privacy"
+                className="text-purple-400 hover:text-purple-300"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                NodumForms Privacy Policy
+              </a>
+              .
+            </li>
           </ul>
 
           <h3 className="mt-6 text-lg font-medium text-white">

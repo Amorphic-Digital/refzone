@@ -25,6 +25,8 @@ interface Scenario {
   video_url: string | null
   ai_answer: string | null
   points_value: number
+  law_category?: string
+  law_section?: string
 }
 
 interface ScenarioPlayerProps {
@@ -132,6 +134,8 @@ export function ScenarioPlayer({ scenario, userId }: ScenarioPlayerProps) {
             lawSection: scenario.law_section,
           }),
         })
+        // Refresh server data so dashboard shows updated results
+        router.refresh()
       } catch (submitErr) {
         console.error("Failed to save scenario response:", submitErr)
       }

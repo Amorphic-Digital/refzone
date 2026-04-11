@@ -1,6 +1,7 @@
 import { requireAuth } from "@/lib/auth"
 import { createServiceClient } from "@/lib/supabase/service"
 import { NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
 
 export async function POST(request: Request) {
   try {
@@ -254,6 +255,10 @@ export async function POST(request: Request) {
         })
       }
     }
+
+    // Revalidate dashboard and quizzes pages so data is fresh
+    revalidatePath("/dashboard")
+    revalidatePath("/quizzes")
 
     return NextResponse.json({
       success: true,

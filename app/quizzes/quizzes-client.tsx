@@ -47,6 +47,18 @@ export function QuizzesClient({ quizzes, bestScores }: QuizzesClientProps) {
     }
   }, [searchParams])
 
+  // Handle random quiz navigation from mobile nav
+  useEffect(() => {
+    if (searchParams.get("random") === "true") {
+      const uncompleted = quizzes.filter((q) => !completedIds.has(q.id))
+      const pool = uncompleted.length > 0 ? uncompleted : quizzes
+      if (pool.length > 0) {
+        const random = pool[Math.floor(Math.random() * pool.length)]
+        router.replace(`/quizzes/${random.id}`)
+      }
+    }
+  }, [searchParams])
+
   // Collect all unique law categories across quizzes
   const allLaws = useMemo(() => {
     const laws = new Set<string>()

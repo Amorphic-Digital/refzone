@@ -40,6 +40,8 @@ ${categoryFilter}
 Generate EXACTLY ${chosenLength.count} questions (${chosenLength.label} quiz). Return ONLY valid JSON, no other text.
 Mix question_type between "multiple_choice", "true_false", "multi_select". Keep explanations to 1-2 sentences.
 
+CRITICAL TITLE RULE: The quiz title MUST be unique and descriptive. Do NOT use generic titles like "Law X: [Law Name] Quiz". Instead, create specific, creative titles that reflect the quiz content (e.g. "Offside Trap Mastery", "Penalty Area Decisions", "Advantage Play Scenarios", "Red Card or Yellow? Misconduct Challenges"). Every quiz must have a different title.
+
 CRITICAL: Every question MUST have a specific "law_category" (e.g. "Law 11", "Law 12", "Law 14") and a specific "law_section" (e.g. "Offside Position", "Fouls and Misconduct", "The Penalty Kick"). Never use "General" — always cite the exact Law number and section.
 
 JSON format:
