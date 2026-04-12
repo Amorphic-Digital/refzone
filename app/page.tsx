@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <div data-marketing="" style={{ fontFamily: 'var(--font-inter), Inter, system-ui, sans-serif' }}>
+    <div data-marketing="" style={{ fontFamily: 'var(--font-inter), Inter, system-ui, sans-serif', overflowX: 'clip' }}>
       <MarketingHeader />
       <MarketingHomePage />
       <MarketingFooter />
