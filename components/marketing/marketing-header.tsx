@@ -80,7 +80,7 @@ export function MarketingHeader() {
         onClick={() => setMobileOpen(false)}
       />
     <header className="fixed top-0 left-0 right-0 z-50 px-2 sm:px-8 pt-2 sm:pt-6 overflow-x-hidden">
-      <div className={`nav-blur mx-auto px-3 sm:px-9 flex flex-col relative z-10 ${pathname.startsWith("/web") && !betaDismissed ? "!rounded-b-none" : ""}`} style={{ maxWidth: "min(1420px, calc(100vw - 1rem))" }}>
+      <div className={`nav-blur mx-auto px-3 sm:px-9 flex flex-col relative z-10 ${pathname.startsWith("/web") && !betaDismissed ? "!rounded-b-none" : ""}`} style={{ maxWidth: "min(1420px, calc(100% - 1rem))" }}>
         {/* Top bar */}
         <div className="h-[76px] flex items-center justify-between relative">
           {/* Logo */}
@@ -298,7 +298,7 @@ export function MarketingHeader() {
         <div
           className="mx-auto px-4 sm:px-6 py-2.5"
           style={{
-            maxWidth: "min(1420px, 100vw - 1rem)",
+            maxWidth: "min(1420px, calc(100% - 1rem))",
             background: "rgba(234, 88, 12, 0.15)",
             backdropFilter: "blur(20px) saturate(180%)",
             border: "1px solid rgba(234, 88, 12, 0.2)",
