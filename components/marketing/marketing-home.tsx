@@ -80,7 +80,7 @@ const featureGrid = [
 ]
 
 export function MarketingHomePage() {
-  const { hero, section1, stats, testimonials, bottomCta } = landingPage
+  const { hero, section1, stats, bottomCta } = landingPage
 
   return (
     <>
@@ -368,95 +368,7 @@ export function MarketingHomePage() {
       </section>
 
       {/* ============================================================
-          6. TESTIMONIALS
-          ============================================================ */}
-      <section className="px-4 sm:px-9 py-16 md:py-20">
-        <div className="mx-auto max-w-[1200px]">
-          <ScrollAnimate>
-            <div className="text-center">
-              <h2 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-                {testimonials.headline}
-              </h2>
-            </div>
-          </ScrollAnimate>
-
-          {/* Featured testimonial */}
-          <div className="mt-16 mx-auto max-w-3xl">
-            <div className="relative glass-card p-8 md:p-12">
-              <svg className="absolute -top-2 -left-2 w-12 h-12 text-purple-500/10" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983z" />
-              </svg>
-              <blockquote className="text-white/80 text-lg leading-relaxed md:text-xl">
-                &ldquo;{testimonials.featured.quote}&rdquo;
-              </blockquote>
-              <div className="mt-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.06] text-sm font-medium text-white/45">
-                  {testimonials.featured.author.charAt(0)}
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-white">{testimonials.featured.author}</p>
-                  <p className="text-white/45 text-[13px]">{testimonials.featured.role}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Marquee row 1 */}
-          <div className="mt-10 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-            <div className="flex animate-marquee gap-4">
-              {[...testimonials.items, ...testimonials.items].map((t, i) => (
-                <div
-                  key={i}
-                  className="w-[340px] shrink-0 glass-card p-6"
-                >
-                  <div className="flex gap-0.5">
-                    {Array.from({ length: t.stars }).map((_, s) => (
-                      <Star key={s} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-                    ))}
-                  </div>
-                  <p className="mt-3 text-white/80 text-[14px] leading-relaxed">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                  <div className="mt-4">
-                    <p className="text-xs font-medium text-white">{t.author}</p>
-                    <p className="text-white/45 text-[13px]">{t.role}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Marquee row 2 — reversed */}
-          <div className="mt-4 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-            <div className="flex animate-marquee-reverse gap-4">
-              {[...testimonials.items.slice().reverse(), ...testimonials.items.slice().reverse()].map(
-                (t, i) => (
-                  <div
-                    key={i}
-                    className="w-[340px] shrink-0 glass-card p-6"
-                  >
-                    <div className="flex gap-0.5">
-                      {Array.from({ length: t.stars }).map((_, s) => (
-                        <Star key={s} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-                      ))}
-                    </div>
-                    <p className="mt-3 text-white/80 text-[14px] leading-relaxed">
-                      &ldquo;{t.quote}&rdquo;
-                    </p>
-                    <div className="mt-4">
-                      <p className="text-xs font-medium text-white">{t.author}</p>
-                      <p className="text-white/45 text-[13px]">{t.role}</p>
-                    </div>
-                  </div>
-                )
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================
-          7. FAQ
+           6. FAQ
           ============================================================ */}
       <section className="px-4 sm:px-9 py-16 md:py-20">
         <div className="mx-auto max-w-2xl">

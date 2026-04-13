@@ -375,49 +375,6 @@ export const landingPage = {
   },
 
   // ----------------------------------------------------------
-  // TESTIMONIALS
-  // ----------------------------------------------------------
-  testimonials: {
-    headline: 'What referees are saying.',
-    featured: {
-      quote:
-        '[Placeholder] This is where a featured testimonial from a real RefZone user will go. We are collecting feedback from our early users.',
-      author: 'Your Name Here',
-      role: 'Placeholder — Real testimonial coming soon',
-    },
-    items: [
-      {
-        quote:
-          '[Placeholder] A real testimonial from a community referee will appear here once we have collected user feedback.',
-        author: 'Community Referee',
-        role: 'Placeholder',
-        stars: 5,
-      },
-      {
-        quote:
-          '[Placeholder] A real testimonial about Decision Lab will appear here once we have collected user feedback.',
-        author: 'Junior Referee',
-        role: 'Placeholder',
-        stars: 5,
-      },
-      {
-        quote:
-          '[Placeholder] A real testimonial about streaks and training habits will appear here once we have collected user feedback.',
-        author: 'District Referee',
-        role: 'Placeholder',
-        stars: 5,
-      },
-      {
-        quote:
-          '[Placeholder] A real testimonial about analytics and improvement will appear here once we have collected user feedback.',
-        author: 'State Referee',
-        role: 'Placeholder',
-        stars: 5,
-      },
-    ],
-  },
-
-  // ----------------------------------------------------------
   // BOTTOM CTA
   // ----------------------------------------------------------
   bottomCta: {
