@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
 import { useAuth, useUser } from "@clerk/nextjs"
-import { Home, Settings, LogOut, Moon, Sun, Users, Shield, HelpCircle, Mail, Copy, Check, FlaskConical, Menu, BookOpen, Shuffle } from "lucide-react"
+import { Home, Settings, LogOut, Moon, Sun, Users, Shield, HelpCircle, Mail, Copy, Check, FlaskConical, Menu, Bell } from "lucide-react"
 import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
@@ -70,14 +70,12 @@ export function MobileBottomNav() {
 
   const isActive = (href: string) => pathname === href
   const isDecisionLabActive = pathname === "/decision-lab"
-  const isQuizzesActive = pathname === "/quizzes" || pathname.startsWith("/quizzes/")
   const isAccountActive = ["/settings", "/admin"].includes(pathname)
 
   const GradientUnderline = ({ active }: { active: boolean }) => (
     <span
-      className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-[#9114af] to-[#ff5eb8] rounded-full transition-all duration-300 my-2 ${
-        active ? "w-8 opacity-100" : "w-0 opacity-0 group-hover:w-8 group-hover:opacity-100"
-      }`}
+      className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-[#9114af] to-[#ff5eb8] rounded-full transition-all duration-300 my-2 ${active ? "w-8 opacity-100" : "w-0 opacity-0 group-hover:w-8 group-hover:opacity-100"
+        }`}
     />
   )
 
@@ -89,15 +87,15 @@ export function MobileBottomNav() {
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 md:hidden z-50 bg-background border-t">
         <div className="flex items-center justify-between px-2 py-2 h-16 max-w-md mx-auto w-full">
-          {/* Quizzes */}
-          <Link
-            href="/quizzes"
-            className="group relative flex flex-col items-center justify-center gap-0.5 p-2 pb-3 rounded-xl cursor-pointer"
-          >
-            <BookOpen className="h-6 w-6" />
-            <span className="text-[10px] text-muted-foreground">Quizzes</span>
-            <GradientUnderline active={isQuizzesActive} />
-          </Link>
+          {/* Notifications */}
+          <NotificationsDropdown align="start">
+            <div
+              className="group relative flex flex-col items-center justify-center gap-0.5 p-2 pb-3 rounded-xl cursor-pointer"
+            >
+              <Bell className="h-6 w-6" />
+              <GradientUnderline active={pathname === "/notifications"} />
+            </div>
+          </NotificationsDropdown>
 
           {/* DecisionLab */}
           <Link
@@ -120,16 +118,7 @@ export function MobileBottomNav() {
             <GradientUnderline active={isActive("/dashboard")} />
           </Link>
 
-          {/* Random Quiz */}
-          <button
-            onClick={() => {
-              router.push("/quizzes?random=true")
-            }}
-            className="group relative flex flex-col items-center justify-center gap-0.5 p-2 pb-3 rounded-xl cursor-pointer"
-          >
-            <Shuffle className="h-6 w-6" />
-            <span className="text-[10px] text-muted-foreground">Random</span>
-          </button>
+
 
           {/* More menu */}
           <DropdownMenu open={accountOpen} onOpenChange={setAccountOpen}>
@@ -144,18 +133,6 @@ export function MobileBottomNav() {
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuItem asChild>
-                <Link href="/scenarios" className="flex items-center">
-                  <FlaskConical className="h-4 w-4 mr-2" />
-                  Scenarios
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/leaderboard" className="flex items-center">
-                  <Users className="h-4 w-4 mr-2" />
-                  Leaderboard
-                </Link>
-              </DropdownMenuItem>
               {isAdmin && (
                 <DropdownMenuItem asChild>
                   <Link href="/admin" className="flex items-center">
@@ -166,9 +143,9 @@ export function MobileBottomNav() {
               )}
               <DropdownMenuItem asChild>
                 <Link href="/settings" className="flex items-center">
-                    <Settings className="h-4 w-4 mr-2" />
-                    Settings
-                  </Link>
+                  <Settings className="h-4 w-4 mr-2" />
+                  Settings
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onSelect={(e) => {
@@ -181,18 +158,6 @@ export function MobileBottomNav() {
                 <HelpCircle className="h-4 w-4 mr-2" />
                 Support
               </DropdownMenuItem>
-              {mounted && (
-                <DropdownMenuItem
-                  onSelect={(e) => {
-                    e.preventDefault()
-                    toggleTheme()
-                  }}
-                  className="flex items-center cursor-pointer"
-                >
-                  {theme === "dark" ? <Sun className="h-4 w-4 mr-2" /> : <Moon className="h-4 w-4 mr-2" />}
-                  {theme === "dark" ? "Light Mode" : "Dark Mode"}
-                </DropdownMenuItem>
-              )}
               <DropdownMenuItem asChild>
                 <Button
                   variant="ghost"
@@ -206,6 +171,16 @@ export function MobileBottomNav() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          {/* Theme Toggle */}
+          {mounted && (
+            <button
+              onClick={toggleTheme}
+              className="group relative flex flex-col items-center justify-center gap-0.5 p-2 pb-3 rounded-xl cursor-pointer"
+            >
+              {theme === "dark" ? <Sun className="h-6 w-6" /> : <Moon className="h-6 w-6" />}
+            </button>
+          )}
         </div>
       </div>
 
@@ -217,29 +192,29 @@ export function MobileBottomNav() {
             <DialogDescription>Have a question or need help? Reach out to us via email.</DialogDescription>
           </DialogHeader>
           <div className="flex flex-col gap-4 pt-2">
-          <div className="flex items-center gap-3 rounded-lg border p-4">
-            <Mail className="h-5 w-5 text-muted-foreground flex-shrink-0" />
-            <span className="flex-1 text-sm font-medium">support@refzone.com.au</span>
-            <Button variant="outline" size="sm" onClick={handleCopyEmail} className="gap-2 cursor-pointer bg-transparent">
-              {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
-              {copied ? "Copied" : "Copy"}
-            </Button>
-          </div>
-          <a
-            href="mailto:support@refzone.com.au"
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary text-primary-foreground px-4 py-2.5 text-sm font-medium transition-colors hover:bg-primary/90"
-          >
-            <Mail className="h-4 w-4" />
-            Send Email
-          </a>
-          <Link
-            href="/help"
-            onClick={() => setSupportOpen(false)}
-            className="inline-flex items-center justify-center gap-2 rounded-lg border border-input bg-transparent px-4 py-2.5 text-sm font-medium transition-colors hover:bg-accent"
-          >
-            <HelpCircle className="h-4 w-4" />
-            Visit Help Center
-          </Link>
+            <div className="flex items-center gap-3 rounded-lg border p-4">
+              <Mail className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+              <span className="flex-1 text-sm font-medium">support@refzone.com.au</span>
+              <Button variant="outline" size="sm" onClick={handleCopyEmail} className="gap-2 cursor-pointer bg-transparent">
+                {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+                {copied ? "Copied" : "Copy"}
+              </Button>
+            </div>
+            <a
+              href="mailto:support@refzone.com.au"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary text-primary-foreground px-4 py-2.5 text-sm font-medium transition-colors hover:bg-primary/90"
+            >
+              <Mail className="h-4 w-4" />
+              Send Email
+            </a>
+            <Link
+              href="/help"
+              onClick={() => setSupportOpen(false)}
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-input bg-transparent px-4 py-2.5 text-sm font-medium transition-colors hover:bg-accent"
+            >
+              <HelpCircle className="h-4 w-4" />
+              Visit Help Center
+            </Link>
           </div>
         </DialogContent>
       </Dialog>
