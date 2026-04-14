@@ -53,6 +53,14 @@ export function NavBar() {
     }
   }, [clerkUser])
 
+  useEffect(() => {
+    router.prefetch("/dashboard")
+    router.prefetch("/quizzes")
+    router.prefetch("/scenarios")
+    router.prefetch("/leaderboard")
+    router.prefetch("/decision-lab")
+  }, [])
+
   const handleSignOut = async () => {
     setIsLoading(true)
     await signOut()
