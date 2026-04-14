@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollAnimate } from '@/components/marketing/scroll-animate'
+import { FeatureHero } from '@/components/marketing/feature-hero'
 import {
   ArrowRight,
   BookOpen,
@@ -79,24 +80,11 @@ const stats = [
 export default function AboutPage() {
   return (
     <main>
-      {/* Hero */}
-      <section className="relative overflow-hidden px-9 pt-40 pb-12 md:pt-48 md:pb-16">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-          <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
-          <div className="absolute -bottom-20 right-[20%] h-[300px] w-[300px] rounded-full bg-pink-600/5 blur-3xl" />
-        </div>
-        <div className="absolute top-24 left-16 h-1 w-1 rounded-full bg-purple-500/30 animate-pulse-glow" />
-        <div className="absolute top-36 right-20 h-1.5 w-1.5 rounded-full bg-pink-500/20 animate-pulse-glow" style={{ animationDelay: '1s' }} />
-        <div className="mx-auto max-w-[1420px] text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-            About RefZone
-          </h1>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-white/45">
-            Empowering referees through technology. Algorithm-driven training for the
-            modern match official.
-          </p>
-        </div>
-      </section>
+      <FeatureHero
+        headline="About RefZone"
+        subheadline="Empowering referees through technology. Algorithm-driven training for the modern match official."
+        accentColour="purple"
+      />
 
       {/* Gradient divider */}
       <div className="h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />

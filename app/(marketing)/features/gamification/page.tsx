@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollAnimate } from '@/components/marketing/scroll-animate'
 import { Breadcrumb } from '@/components/marketing/breadcrumb'
+import { FeatureHero } from '@/components/marketing/feature-hero'
 import { Flame, ArrowRight, Calendar, TrendingUp, Target } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -13,42 +14,12 @@ export const metadata: Metadata = {
 export default function GamificationPage() {
   return (
     <main>
-      {/* Hero */}
-      <section
-        className="relative overflow-hidden px-9 pt-40 pb-12 md:pt-48 md:pb-16"
-      >
-        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-          <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
-          <div className="absolute -bottom-20 right-[20%] h-[300px] w-[300px] rounded-full bg-pink-600/5 blur-3xl" />
-        </div>
-        <div className="absolute top-24 left-16 h-1 w-1 rounded-full bg-purple-500/30 animate-pulse-glow" />
-        <div className="absolute top-36 right-20 h-1.5 w-1.5 rounded-full bg-pink-500/20 animate-pulse-glow" style={{ animationDelay: '1s' }} />
-        <div className="mx-auto max-w-[1420px] text-center">
-          <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Features', href: '/' }, { label: 'Streaks' }]} />
-          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/[0.05]">
-            <Flame className="h-8 w-8 text-pink-400" />
-          </div>
-          <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-            Daily Referee Training Streaks
-          </h1>
-          <p className="mx-auto mt-4 max-w-xl text-[14px] leading-relaxed text-white/45">
-            Daily streaks keep you consistent. Train every day, maintain your
-            momentum, and watch your decision-making improve over time.
-          </p>
-          <Link
-            href="/auth/sign-up"
-            className="mt-8 inline-flex items-center gap-2 bg-white/85 text-black py-2.5 px-5 rounded-xl border border-white/20 hover:bg-white font-medium text-[15px] transition-colors"
-          >
-            Start your streak
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-          <div className="mt-8 flex items-center justify-center gap-1.5">
-            <div className="h-0.5 w-8 rounded-full bg-white/20" />
-            <div className="h-0.5 w-12 rounded-full bg-white/20" />
-            <div className="h-0.5 w-8 rounded-full bg-white/20" />
-          </div>
-        </div>
-      </section>
+      <FeatureHero
+        headline="Daily Referee Training Streaks"
+        subheadline="Daily streaks keep you consistent. Train every day, maintain your momentum, and watch your decision-making improve over time."
+        cta={{ label: 'Start your streak', href: '/auth/sign-up' }}
+        accentColour="emerald"
+      />
 
       {/* Gradient divider */}
       <div className="h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />

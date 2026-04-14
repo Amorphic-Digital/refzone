@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { FeatureHero } from '@/components/marketing/feature-hero'
 import { Mail, Clock, Users } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -35,28 +36,11 @@ const cards = [
 export default function ContactPage() {
   return (
     <main>
-      {/* Hero */}
-      <section
-        className="relative overflow-hidden px-9 pt-40 pb-12 md:pt-48 md:pb-16"
-      >
-        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-          <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-600/10 to-transparent blur-3xl" />
-        </div>
-        <div className="mx-auto max-w-[1420px] text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-            Get in touch
-          </h1>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-white/45">
-            Have a question, suggestion, or want to bring RefZone to your
-            association? We&apos;d love to hear from you.
-          </p>
-          <div className="mt-8 flex items-center justify-center gap-1.5">
-            <div className="h-0.5 w-8 rounded-full bg-white/20" />
-            <div className="h-0.5 w-12 rounded-full bg-white/20" />
-            <div className="h-0.5 w-8 rounded-full bg-white/20" />
-          </div>
-        </div>
-      </section>
+      <FeatureHero
+        headline="Get in touch"
+        subheadline="Have a question, suggestion, or want to bring RefZone to your association? We'd love to hear from you."
+        accentColour="cyan"
+      />
 
       {/* Decorative gradient line */}
       <div className="h-px bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500" />

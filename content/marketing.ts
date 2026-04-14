@@ -205,14 +205,6 @@ export const landingPage = {
       'Master the Laws of the Game with algorithm-driven scenarios, quizzes, and real-time performance analytics. Join hundreds of Australian referees levelling up their skills.',
     primaryCta: { label: 'Start training free', href: '/auth/sign-up' },
     secondaryCta: null,
-    logoStrip: [
-      'Eastern Suburbs Football Association Referees Branch',
-      'Sutherland Shire Football Referees Association',
-      'Football NSW',
-      'Capital Football',
-      'Football Queensland',
-      'Football West',
-    ],
   },
 
   // ----------------------------------------------------------

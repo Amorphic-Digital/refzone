@@ -330,6 +330,34 @@
   --tw-gradient-from: rgba(219, 39, 119, 0.04);
 }
 
+/* ── Hero section ── */
+
+/* Dark mode: show dark SVG, hide light SVG */
+[data-marketing] .pitch-lines-dark { display: block; }
+[data-marketing] .pitch-lines-light { display: none; }
+
+/* Light mode: hide dark SVG, show light SVG */
+.light [data-marketing] .pitch-lines-dark { display: none; }
+.light [data-marketing] .pitch-lines-light { display: block; }
+
+/* Dot grid: dark mode */
+[data-marketing] .hero-dot-grid {
+  background-image: radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Dot grid: light mode */
+.light [data-marketing] .hero-dot-grid {
+  background-image: radial-gradient(rgba(99,102,241,0.12) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Orbs: reduce opacity in light mode so they sit on white tastefully */
+.light [data-marketing] .hero-orb-primary { opacity: 0.55; }
+.light [data-marketing] .hero-orb-secondary { opacity: 0.45; }
+.light [data-marketing] .hero-orb-tertiary { opacity: 0.4; }
+.light [data-marketing] .hero-orb-center { opacity: 0.35; }
+
 /* Focus rings */
 [data-marketing] :focus-visible {
   outline: 2px solid var(--m-accent);
@@ -445,6 +473,15 @@
   50% { opacity: 0.8; }
 }
 .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+/* Floating card — gentle vertical bob */
+@keyframes float-card {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float-card { animation: float-card 6s ease-in-out infinite; }
+.animate-float-card-delayed { animation: float-card 7s ease-in-out infinite; animation-delay: -2s; }
+.animate-float-card-slow { animation: float-card 9s ease-in-out infinite; animation-delay: -4s; }
 
 /* ================================================================
    App-specific (non-marketing)
