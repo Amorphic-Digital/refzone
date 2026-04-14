@@ -52,6 +52,26 @@ export async function getAuthUserId(): Promise<string | null> {
 }
 
 /**
+ * Sync display name from Clerk in the background (fire-and-forget).
+ * Only runs for users who haven't manually set their username.
+ */
+async function syncDisplayName(userId: string, currentDisplayName: string) {
+  try {
+    const user = await currentUser()
+    const preferredName = user?.firstName
+    if (preferredName && currentDisplayName !== preferredName) {
+      const supabase = createServiceClient()
+      await supabase
+        .from("profiles")
+        .update({ display_name: preferredName })
+        .eq("id", userId)
+    }
+  } catch {
+    // Silently ignore — name will sync on next load
+  }
+}
+
+/**
  * Ensure a profile exists in Supabase for the given Clerk user.
  * Creates one if it doesn't exist. Returns the profile.
  */
@@ -65,19 +85,9 @@ export async function ensureProfile(userId: string) {
     .single()
 
   if (profile) {
-    // Sync display name from Clerk's firstName if user hasn't manually set one via settings
+    // Sync display name from Clerk in the background — don't block rendering
     if (!profile.has_set_username) {
-      const user = await currentUser()
-      const preferredName = user?.firstName
-      if (preferredName && profile.display_name !== preferredName) {
-        const { data: updated } = await supabase
-          .from("profiles")
-          .update({ display_name: preferredName })
-          .eq("id", userId)
-          .select()
-          .single()
-        if (updated) return updated
-      }
+      syncDisplayName(userId, profile.display_name).catch(() => {})
     }
     return profile
   }
