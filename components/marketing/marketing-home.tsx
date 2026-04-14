@@ -117,18 +117,6 @@ export function MarketingHomePage() {
               </div>
             </div>
           </div>
-
-          {/* Trust strip */}
-          <div className="mt-12">
-            <p className="text-xs text-white/30 text-center mb-3">Trusted by referees from</p>
-            <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
-              {hero.logoStrip.map((name) => (
-                <span key={name} className="text-[13px] text-white/20">
-                  {name}
-                </span>
-              ))}
-            </div>
-          </div>
         </div>
       </HeroSectionWrapper>
 
