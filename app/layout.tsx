@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 
 import { ClerkProvider } from "@clerk/nextjs"
+import { CLERK_PUBLISHABLE_KEY } from "@/lib/clerk-key"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CustomizationProvider } from "@/lib/customization-context"
 import { ImportantNotificationModal } from "@/components/important-notification-modal"
@@ -125,7 +126,11 @@ export default function RootLayout({
             a share link, dumping every invited referee on the dashboard instead
             of the scenario their coach sent them. Fallback still sends ordinary
             sign-ins to /dashboard. */}
-        <ClerkProvider signInFallbackRedirectUrl="/dashboard" signUpFallbackRedirectUrl="/dashboard">
+        <ClerkProvider
+          publishableKey={CLERK_PUBLISHABLE_KEY}
+          signInFallbackRedirectUrl="/dashboard"
+          signUpFallbackRedirectUrl="/dashboard"
+        >
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
             <CustomizationProvider>
               <GlobalTutorialWrapper>{children}</GlobalTutorialWrapper>

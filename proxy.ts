@@ -1,6 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { CLERK_PUBLISHABLE_KEY } from '@/lib/clerk-key'
 
 // Routes that should completely skip Clerk middleware — no server-side API calls
 const bypassPaths = [
@@ -57,12 +58,17 @@ export default function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // All other routes — go through Clerk
-  return clerkMiddleware(async (auth, req) => {
-    if (!isPublicRoute(req)) {
-      await auth.protect()
-    }
-  })(request, {} as any)
+  // All other routes — go through Clerk. The publishable key is passed
+  // explicitly so the handshake redirect targets the same validated Frontend
+  // API host the browser bundle uses (see lib/clerk-key.ts).
+  return clerkMiddleware(
+    async (auth, req) => {
+      if (!isPublicRoute(req)) {
+        await auth.protect()
+      }
+    },
+    { publishableKey: CLERK_PUBLISHABLE_KEY },
+  )(request, {} as any)
 }
 
 export const config = {
