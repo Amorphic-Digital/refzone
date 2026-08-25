@@ -24,6 +24,9 @@ const bypassPaths = [
   '/search',
   '/topics',
   '/api/search',
+  // Config health check: has to answer even when the Clerk key itself is the
+  // broken thing, so it cannot sit behind Clerk middleware.
+  '/api/health',
   '/api/web-beta-signup',
 ]
 
