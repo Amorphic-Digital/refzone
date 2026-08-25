@@ -21,6 +21,7 @@ const bypassPaths = [
   '/web',
   '/become-a-referee',
   '/search',
+  '/topics',
   '/api/search',
   '/api/web-beta-signup',
 ]
@@ -41,6 +42,10 @@ const isPublicRoute = createRouteMatcher([
   '/user/(.*)',
   '/api/cron/(.*)',
   '/api/weekly-quiz(.*)',
+  // Share landing pages. Deliberately NOT in bypassPaths: Clerk has to run so
+  // the page can detect an existing session and send signed-in users straight
+  // through to the content instead of showing them the sign-in prompt.
+  '/share/(.*)',
 ])
 
 // Main middleware: skip Clerk entirely for marketing routes

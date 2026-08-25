@@ -17,6 +17,7 @@ import { Progress } from "@/components/ui/progress"
 import { StreakCelebration } from "@/components/streak-celebration"
 import { CustomCelebration } from "@/components/custom-celebration"
 import { FeedbackCard } from "@/components/feedback-card"
+import { ShareButton } from "@/components/share-button"
 
 interface Quiz {
   id: string
@@ -323,6 +324,7 @@ export function QuizPlayer({ quiz, questions, userId }: QuizPlayerProps) {
           Exit Quiz
         </Button>
         <div className="flex items-center gap-2 mt-2">
+          <ShareButton url={`/share/quiz/${quiz.id}`} title={quiz.title} variant="outline" size="sm" />
           <Badge>{quiz.difficulty}</Badge>
           <div className="flex items-center gap-2 text-sm font-medium text-foreground">
             <Timer className="h-4 w-4" />

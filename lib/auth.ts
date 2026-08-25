@@ -78,11 +78,18 @@ async function syncDisplayName(userId: string, currentDisplayName: string) {
 export async function ensureProfile(userId: string) {
   const supabase = createServiceClient()
 
-  const { data: profile } = await supabase
+  const { data: profile, error: lookupError } = await supabase
     .from("profiles")
     .select("*")
     .eq("id", userId)
     .single()
+
+  // PGRST116 = "no rows returned", which is expected for a first-time user.
+  // Anything else (Supabase unreachable, RLS, outage) has to surface here rather
+  // than falling through to an INSERT that is guaranteed to fail the same way.
+  if (lookupError && lookupError.code !== "PGRST116") {
+    throw new Error(`Could not reach the RefZone database: ${lookupError.message}`)
+  }
 
   if (profile) {
     // Sync display name from Clerk in the background — don't block rendering
@@ -108,7 +115,7 @@ export async function ensureProfile(userId: string) {
     .select()
     .single()
 
-  if (error) throw error
+  if (error) throw new Error(`Could not create your RefZone profile: ${error.message}`)
   return newProfile
 }
 

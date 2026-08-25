@@ -1,6 +1,7 @@
 import { requireAdmin } from "@/lib/auth"
 import { createServiceClient } from "@/lib/supabase/service"
 import { NextResponse } from "next/server"
+import { isValidCategory } from "@/lib/scenario-categories"
 
 export async function POST(request: Request) {
   try {
@@ -11,10 +12,16 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json()
-    const { title, video_url, ai_answer, ai_description, law_category, law_section, scenario_type, difficulty, points_value } = body
+    const { title, video_url, ai_answer, ai_description, law_category, law_section, scenario_type, category, difficulty, points_value } = body
 
     if (!video_url || !ai_answer) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+    }
+
+    // A category outside the taxonomy would be invisible in the category menu
+    // and break the /topics pages, so reject it rather than storing it.
+    if (category && !isValidCategory(category)) {
+      return NextResponse.json({ error: `Unknown category: ${category}` }, { status: 400 })
     }
 
     const supabase = createServiceClient()
@@ -27,6 +34,7 @@ export async function POST(request: Request) {
       law_category: law_category || null,
       law_section: law_section || null,
       scenario_type,
+      category: category || null,
       difficulty,
       is_active: true,
       points_value: points_value || 10,

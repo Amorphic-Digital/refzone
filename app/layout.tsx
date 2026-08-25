@@ -121,7 +121,11 @@ export default function RootLayout({
         <StructuredData />
       </head>
       <body className={`font-sans antialiased ${geistSans.className} ${inter.variable}`}>
-        <ClerkProvider signInForceRedirectUrl="/dashboard" signUpForceRedirectUrl="/dashboard">
+        {/* Fallback, not Force: a forced redirect discards the ?redirect_url on
+            a share link, dumping every invited referee on the dashboard instead
+            of the scenario their coach sent them. Fallback still sends ordinary
+            sign-ins to /dashboard. */}
+        <ClerkProvider signInFallbackRedirectUrl="/dashboard" signUpFallbackRedirectUrl="/dashboard">
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
             <CustomizationProvider>
               <GlobalTutorialWrapper>{children}</GlobalTutorialWrapper>

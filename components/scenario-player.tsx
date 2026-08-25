@@ -15,6 +15,7 @@ import { CustomCelebration } from "@/components/custom-celebration"
 import { FeedbackCard } from "@/components/feedback-card"
 import { UserFeedbackButton } from "@/components/user-feedback-button"
 import { YouTubePlayer } from "@/components/youtube-player"
+import { ShareButton } from "@/components/share-button"
 
 interface Scenario {
   id: string
@@ -184,6 +185,12 @@ export function ScenarioPlayer({ scenario, userId }: ScenarioPlayerProps) {
           Back to Scenarios
         </Button>
         <div className="flex flex-wrap items-center gap-2 md:gap-4">
+          <ShareButton
+            url={`/share/scenario/${scenario.id}`}
+            title={scenario.title}
+            variant="outline"
+            size="sm"
+          />
           <UserFeedbackButton contentType="scenario" contentId={scenario.id} contentTitle={scenario.title} />
           <Badge className={getDifficultyColor(scenario.difficulty)} variant="outline">
             {scenario.difficulty}

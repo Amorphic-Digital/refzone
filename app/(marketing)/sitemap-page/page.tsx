@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { SCENARIO_CATEGORIES } from '@/lib/scenario-categories'
 
 export const metadata: Metadata = {
   title: 'Sitemap — RefZone',
@@ -28,6 +29,16 @@ const groups = [
       { label: 'Community', href: '/referees/community' },
       { label: 'Training Resources', href: '/referees/training-resources' },
       { label: 'Match Preparation', href: '/referees/match-preparation' },
+    ],
+  },
+  {
+    heading: 'Training Topics',
+    links: [
+      { label: 'All topics', href: '/topics' },
+      ...SCENARIO_CATEGORIES.map((category) => ({
+        label: category.label,
+        href: `/topics/${category.slug}`,
+      })),
     ],
   },
   {

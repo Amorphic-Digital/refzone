@@ -24,6 +24,8 @@ import { Eye, EyeOff, Pencil, Plus, Trash2, ArrowLeft, Target, FileQuestion, Spa
 import Link from "next/link"
 import { VideoScenarioUpload } from "./video-scenarios"
 import { getDifficultyColor } from "@/lib/shared-utils"
+import { SCENARIO_CATEGORIES, categoryLabel } from "@/lib/scenario-categories"
+import { ShareButton } from "@/components/share-button"
 
 interface Scenario {
   id: string
@@ -32,6 +34,7 @@ interface Scenario {
   ai_answer: string | null
   difficulty: string
   scenario_type: string
+  category: string | null
   law_category: string | null
   video_url: string | null
   is_active: boolean
@@ -422,6 +425,27 @@ export default function ContentManagement() {
     const supabase = createClient()
     await supabase.from("scenarios").update({ is_active: !currentActive }).eq("id", id)
     setScenarios(scenarios.map((s) => (s.id === id ? { ...s, is_active: !currentActive } : s)))
+  }
+
+  const updateScenarioCategory = async (id: string, category: string) => {
+    // Optimistic — the dropdown should feel instant when working through a
+    // backlog of uncategorised scenarios.
+    const previous = scenarios
+    setScenarios(scenarios.map((s) => (s.id === id ? { ...s, category } : s)))
+
+    const supabase = createClient()
+    const { error } = await supabase.from("scenarios").update({ category }).eq("id", id)
+
+    if (error) {
+      setScenarios(previous)
+      setModal({
+        isOpen: true,
+        type: "error",
+        title: "Could not save category",
+        message: error.message,
+        onConfirm: () => {},
+      })
+    }
   }
 
   const toggleQuizActive = async (id: string, currentActive: boolean) => {
@@ -822,9 +846,18 @@ export default function ContentManagement() {
                   {scenarios.map((scenario) => (
                     <div key={scenario.id} className="p-4 rounded-lg border bg-card flex items-center justify-between">
                       <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
                           <h3 className="font-medium">{scenario.title}</h3>
                           <Badge className={getDifficultyColor(scenario.difficulty)}>{scenario.difficulty}</Badge>
+                          {scenario.category ? (
+                            <Badge variant="secondary" className="text-xs">
+                              {categoryLabel(scenario.category)}
+                            </Badge>
+                          ) : (
+                            <Badge variant="outline" className="text-xs text-amber-600 border-amber-500/50">
+                              Uncategorised
+                            </Badge>
+                          )}
                           {!scenario.is_active && (
                             <Badge variant="outline" className="text-xs">
                               Hidden
@@ -832,9 +865,35 @@ export default function ContentManagement() {
                           )}
                         </div>
                         <p className="text-sm text-muted-foreground line-clamp-1">{scenario.ai_answer || "No answer set"}</p>
-                        <p className="text-xs text-muted-foreground mt-1">{scenario.points_value} points</p>
+                        <div className="flex items-center gap-3 mt-2">
+                          <p className="text-xs text-muted-foreground">{scenario.points_value} points</p>
+                          {/* Inline retagging — the fastest way to work through
+                              scenarios created before categories existed. */}
+                          <Select
+                            value={scenario.category || ""}
+                            onValueChange={(value) => updateScenarioCategory(scenario.id, value)}
+                          >
+                            <SelectTrigger className="h-7 w-[220px] text-xs">
+                              <SelectValue placeholder="Set category…" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {SCENARIO_CATEGORIES.map((cat) => (
+                                <SelectItem key={cat.slug} value={cat.slug}>
+                                  {cat.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
                       </div>
                       <div className="flex items-center gap-2">
+                        <ShareButton
+                          url={`/scenarios/${scenario.id}`}
+                          title={scenario.title}
+                          variant="outline"
+                          size="sm"
+                          iconOnly
+                        />
                         <Link href={`/scenarios/${scenario.id}`}>
                           <Button
                             variant="outline"

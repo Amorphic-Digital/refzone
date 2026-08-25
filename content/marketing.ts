@@ -504,6 +504,7 @@ export const footerContent = {
       links: [
         { label: 'For Referees', href: '/referees/getting-started' },
         { label: 'Laws of the Game', href: '/web' },
+        { label: 'Training Topics', href: '/topics' },
         { label: 'Referee Resources Australia', href: '/referees/resources-australia' },
         { label: 'Become a Referee', href: '/become-a-referee' },
         { label: 'Weekly Quiz', href: '/weekly-quiz' },

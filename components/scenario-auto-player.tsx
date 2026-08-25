@@ -15,6 +15,7 @@ import { CustomCelebration } from "@/components/custom-celebration"
 import { FeedbackCard } from "@/components/feedback-card"
 import { UserFeedbackButton } from "@/components/user-feedback-button"
 import { YouTubePlayer } from "@/components/youtube-player"
+import { ShareButton } from "@/components/share-button"
 
 interface Scenario {
   id: string
@@ -27,6 +28,7 @@ interface Scenario {
   points_value: number
   law_category?: string
   law_section?: string
+  category?: string | null
 }
 
 interface ScenarioAutoPlayerProps {
@@ -35,6 +37,10 @@ interface ScenarioAutoPlayerProps {
   initialStreak: number
   longestStreak: number
   totalUnseen: number
+  /** When set, only scenarios in this training category are served. */
+  category?: string | null
+  /** Human label for the active category, shown in the header. */
+  categoryTitle?: string | null
 }
 
 export function ScenarioAutoPlayer({
@@ -43,6 +49,8 @@ export function ScenarioAutoPlayer({
   initialStreak,
   longestStreak,
   totalUnseen,
+  category = null,
+  categoryTitle = null,
 }: ScenarioAutoPlayerProps) {
   const router = useRouter()
   const [currentScenario, setCurrentScenario] = useState<Scenario | null>(initialScenario)
@@ -78,7 +86,11 @@ export function ScenarioAutoPlayer({
     setIsLoadingNext(true)
     const supabase = createClient()
 
-    const { data: scenarios } = await supabase.from("scenarios").select("*").eq("is_active", true)
+    let query = supabase.from("scenarios").select("*").eq("is_active", true)
+    if (category) {
+      query = query.eq("category", category)
+    }
+    const { data: scenarios } = await query
 
     const { data: completedScenarios } = await supabase
       .from("scenario_responses")
@@ -108,7 +120,7 @@ export function ScenarioAutoPlayer({
     }
 
     setIsLoadingNext(false)
-  }, [userId])
+  }, [userId, category])
 
   const handleSubmit = async () => {
     if (!userDecision.trim() || !currentScenario) return
@@ -240,14 +252,30 @@ export function ScenarioAutoPlayer({
             ) : (
               <>
                 <Award className="h-16 w-16 text-yellow-500 mx-auto mb-6" />
-                <h2 className="text-3xl font-bold text-foreground mb-3">All Scenarios Completed!</h2>
-                <p className="text-muted-foreground mb-2">{"You've completed all available scenarios. Great work!"}</p>
+                <h2 className="text-3xl font-bold text-foreground mb-3">
+                  {categoryTitle ? `${categoryTitle} Completed!` : "All Scenarios Completed!"}
+                </h2>
+                <p className="text-muted-foreground mb-2">
+                  {categoryTitle
+                    ? `You've worked through every ${categoryTitle} scenario. Pick another category to keep going.`
+                    : "You've completed all available scenarios. Great work!"}
+                </p>
                 <div className="flex items-center justify-center gap-2 text-lg font-semibold mb-6">
                   <Award className="h-5 w-5 text-orange-500" />
                   <span>Best Streak: {bestStreak} correct in a row</span>
                 </div>
-                <div className="flex items-center justify-center">
-                  <Button onClick={() => router.push("/dashboard")} size="lg">
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  {categoryTitle && (
+                    <Button onClick={() => router.push("/scenarios")} size="lg">
+                      <ArrowLeft className="h-4 w-4 mr-2" />
+                      Pick another category
+                    </Button>
+                  )}
+                  <Button
+                    onClick={() => router.push("/dashboard")}
+                    size="lg"
+                    variant={categoryTitle ? "outline" : "default"}
+                  >
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Back to Dashboard
                   </Button>
@@ -262,6 +290,24 @@ export function ScenarioAutoPlayer({
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
+      {/* Active category — makes it obvious you are in a filtered session and
+          gives a one-click way back to the category menu. */}
+      {categoryTitle && (
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground">Training category</p>
+            <h1 className="text-2xl font-bold text-foreground">{categoryTitle}</h1>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge variant="outline">{remainingCount} left</Badge>
+            <Button variant="ghost" size="sm" onClick={() => router.push("/scenarios")}>
+              <ArrowLeft className="h-4 w-4 mr-1" />
+              All categories
+            </Button>
+          </div>
+        </div>
+      )}
+
       {/* Scenario Streak Header */}
       <Card className="border-2 bg-gradient-to-r from-orange-500/10 to-red-500/10">
         <CardContent className="py-4">
@@ -302,6 +348,12 @@ export function ScenarioAutoPlayer({
             )}
           </div>
           <div className="flex flex-wrap items-center gap-2 md:gap-4">
+            <ShareButton
+              url={`/share/scenario/${currentScenario.id}`}
+              title={currentScenario.title}
+              variant="outline"
+              size="sm"
+            />
             <UserFeedbackButton
               contentType="scenario"
               contentId={currentScenario.id}

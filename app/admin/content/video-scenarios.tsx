@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge"
 import { Loader2, CheckCircle2, XCircle, Sparkles } from "lucide-react"
 import { YouTubePlayer, extractYouTubeId } from "@/components/youtube-player"
+import { SCENARIO_CATEGORIES } from "@/lib/scenario-categories"
 
 export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
   const [videoUrl, setVideoUrl] = useState("")
@@ -24,6 +25,7 @@ export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
   const [suggestedLawCategory, setSuggestedLawCategory] = useState("")
   const [suggestedLawSection, setSuggestedLawSection] = useState("")
   const [suggestedScenarioType, setSuggestedScenarioType] = useState("foul")
+  const [suggestedCategory, setSuggestedCategory] = useState("")
   const [suggestedDifficulty, setSuggestedDifficulty] = useState("medium")
   const [tagsGenerated, setTagsGenerated] = useState(false)
 
@@ -65,6 +67,7 @@ export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
       setSuggestedLawCategory(tags.lawCategory || "")
       setSuggestedLawSection(tags.lawSection || "")
       setSuggestedScenarioType(tags.scenarioType || "foul")
+      setSuggestedCategory(tags.category || "")
       setSuggestedDifficulty(tags.difficulty || "medium")
       setTagsGenerated(true)
     } catch (err) {
@@ -86,6 +89,12 @@ export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
       setError("Please provide the correct answer")
       return
     }
+    // Required: an uncategorised scenario never appears in the category menu
+    // or on its topic page, so it is effectively invisible to coaches.
+    if (!suggestedCategory) {
+      setError("Please pick a training category")
+      return
+    }
 
     setIsSaving(true)
     setError("")
@@ -105,6 +114,7 @@ export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
           law_category: suggestedLawCategory || null,
           law_section: suggestedLawSection || null,
           scenario_type: suggestedScenarioType,
+          category: suggestedCategory,
           difficulty: suggestedDifficulty,
           points_value: 10,
         }),
@@ -239,6 +249,29 @@ export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
                         </>
                       )}
                     </Button>
+                  </div>
+
+                  {/* Training category — drives the category menu on
+                      /scenarios, the /topics pages and pack filtering. */}
+                  <div className="space-y-2">
+                    <Label htmlFor="training-category">
+                      Training Category <span className="text-red-500">*</span>
+                    </Label>
+                    <Select value={suggestedCategory} onValueChange={setSuggestedCategory}>
+                      <SelectTrigger id="training-category">
+                        <SelectValue placeholder="Pick a training category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {SCENARIO_CATEGORIES.map((cat) => (
+                          <SelectItem key={cat.slug} value={cat.slug}>
+                            {cat.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <p className="text-xs text-muted-foreground">
+                      This is what coaches filter by — e.g. &ldquo;DOGSO&rdquo; or &ldquo;Reckless Tackles&rdquo;.
+                    </p>
                   </div>
 
                   <div className="grid gap-4 md:grid-cols-2">

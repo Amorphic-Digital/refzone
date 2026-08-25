@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { createServiceClient } from '@/lib/supabase/service'
 import { lawsOfTheGame } from '@/content/laws-of-the-game'
+import { SCENARIO_CATEGORIES } from '@/lib/scenario-categories'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.refzone.com.au'
@@ -263,7 +264,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }))
 
-  const allStaticRoutes = [...staticRoutes, ...lawRoutes]
+  // Training topic pages — one per scenario category
+  const topicRoutes: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/topics`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
+    ...SCENARIO_CATEGORIES.map((category) => ({
+      url: `${baseUrl}/topics/${category.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
+  ]
+
+  const allStaticRoutes = [...staticRoutes, ...lawRoutes, ...topicRoutes]
 
   // Dynamic quiz routes
   const quizRoutes: MetadataRoute.Sitemap =

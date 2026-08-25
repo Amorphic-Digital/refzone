@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   LayoutDashboard,
+  Layers,
   PlayCircle,
   FileQuestion,
   FlaskConical,
@@ -16,6 +17,7 @@ const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/scenarios", icon: PlayCircle, label: "Scenarios", tutorialId: "scenarios-nav" },
   { href: "/quizzes", icon: FileQuestion, label: "Quizzes", tutorialId: "quizzes-nav" },
+  { href: "/packs", icon: Layers, label: "Training Packs" },
   { href: "/decision-lab", icon: FlaskConical, label: "DecisionLab", tutorialId: "decision-lab-nav" },
 ]
 

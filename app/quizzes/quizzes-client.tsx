@@ -9,6 +9,7 @@ import Link from "next/link"
 import { BookOpen, Clock, Filter, CheckCircle, ChevronDown, Search, Shuffle } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { getDifficultyColor } from "@/lib/shared-utils"
+import { ShareButton } from "@/components/share-button"
 
 interface Quiz {
   id: string
@@ -342,11 +343,20 @@ export function QuizzesClient({ quizzes, bestScores }: QuizzesClientProps) {
                   </div>
                 )}
 
-                <Button asChild size="sm" className="w-full" variant={isCompleted ? "outline" : "default"}>
-                  <Link href={`/quizzes/${quiz.id}`}>
-                    {isCompleted ? "Retake Quiz" : "Start Quiz"}
-                  </Link>
-                </Button>
+                <div className="flex gap-2">
+                  <Button asChild size="sm" className="flex-1" variant={isCompleted ? "outline" : "default"}>
+                    <Link href={`/quizzes/${quiz.id}`}>
+                      {isCompleted ? "Retake Quiz" : "Start Quiz"}
+                    </Link>
+                  </Button>
+                  <ShareButton
+                    url={`/share/quiz/${quiz.id}`}
+                    title={quiz.title}
+                    variant="outline"
+                    size="sm"
+                    iconOnly
+                  />
+                </div>
               </CardContent>
             </Card>
           )
