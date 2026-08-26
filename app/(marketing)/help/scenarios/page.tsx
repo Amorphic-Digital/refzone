@@ -12,13 +12,12 @@ export default function ScenariosHelpPage() {
     >
       <HelpSection title="How scenarios work">
         <p className="text-sm text-white/60 mb-4 leading-relaxed">
-          Each scenario presents a real match situation via a YouTube video embed. Your job is to watch the clip and decide what the correct call should be — just like you would on the pitch.
+          Each scenario presents a real match situation as a video clip. Your job is to watch it and decide what the correct call should be — just like you would on the pitch.
         </p>
         <HelpList items={[
-          'Videos autoplay muted when the page loads.',
-          'The video plays on loop — first at normal (1x) speed, then at 0.5x slow motion, alternating automatically.',
-          'You cannot interact with the video player (pause, scrub, etc.) — this simulates real-time decision-making.',
-          'A pinch-to-zoom hint appears briefly so you can zoom in on mobile devices.',
+          'Videos autoplay muted when the page loads and play through once.',
+          'You can pause and restart the clip, and drag along the timeline to rewatch any moment.',
+          'The player has no other controls — no speed, volume or fullscreen — so the focus stays on the decision.',
           'A timer tracks how long you take to make your decision.',
         ]} />
       </HelpSection>

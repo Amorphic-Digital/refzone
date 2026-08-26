@@ -41,12 +41,11 @@ export default function TroubleshootingHelpPage() {
 
       <HelpSection title="The scenario video isn't playing">
         <HelpList items={[
-          'Scenario videos use YouTube embeds and autoplay muted.',
-          'Most browsers allow muted autoplay by default. If the video does not start, refresh the page.',
-          'Check your internet connection — YouTube needs to be accessible for videos to load.',
-          'If you are on a corporate, school, or public network, YouTube may be blocked by the network administrator.',
+          'Scenario videos are hosted by RefZone and autoplay muted.',
+          'Most browsers allow muted autoplay by default. If the video does not start, press the play button in the middle, or refresh the page.',
+          'Check your internet connection — a slow line will pause the clip while it buffers.',
           'Try accessing the page on a different network (e.g. mobile data) to confirm.',
-          'Some browser extensions (ad blockers, privacy tools) can block YouTube embeds. Try disabling them temporarily.',
+          'Some browser extensions (ad blockers, privacy tools) can block media requests. Try disabling them temporarily.',
           'If the video shows but has no picture, your browser may not support the video codec. Try Chrome or Firefox.',
         ]} />
       </HelpSection>

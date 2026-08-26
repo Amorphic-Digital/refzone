@@ -14,7 +14,7 @@ import { StreakCelebration } from "@/components/streak-celebration"
 import { CustomCelebration } from "@/components/custom-celebration"
 import { FeedbackCard } from "@/components/feedback-card"
 import { UserFeedbackButton } from "@/components/user-feedback-button"
-import { YouTubePlayer } from "@/components/youtube-player"
+import { ScenarioVideoPlayer } from "@/components/scenario-video-player"
 import { ShareButton } from "@/components/share-button"
 
 interface Scenario {
@@ -210,13 +210,13 @@ export function ScenarioPlayer({ scenario, userId }: ScenarioPlayerProps) {
         </CardHeader>
         <CardContent className="space-y-6">
           <p className="text-sm italic text-muted-foreground">
-            The video will play on loop — first at normal speed, then at 0.5x slow motion. Watch the scenario carefully and enter your decision below.
+            Watch the scenario carefully — you can pause the video and move back through the timeline. Enter your decision below.
           </p>
 
           {/* Video Player */}
           {scenario.video_url && (
             <div className="rounded-lg overflow-hidden border-2 border-border">
-              <YouTubePlayer url={scenario.video_url} />
+              <ScenarioVideoPlayer url={scenario.video_url} />
             </div>
           )}
 

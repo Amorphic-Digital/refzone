@@ -2,6 +2,7 @@ import { requireAdmin } from "@/lib/auth"
 import { createServiceClient } from "@/lib/supabase/service"
 import { NextResponse } from "next/server"
 import { isValidCategory } from "@/lib/scenario-categories"
+import { isScenarioVideoKey } from "@/lib/r2"
 
 export async function POST(request: Request) {
   try {
@@ -12,10 +13,17 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json()
-    const { title, video_url, ai_answer, ai_description, law_category, law_section, scenario_type, category, difficulty, points_value } = body
+    const { title, video_url, video_key, ai_answer, ai_description, law_category, law_section, scenario_type, category, difficulty, points_value } = body
 
     if (!video_url || !ai_answer) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+    }
+
+    // video_key is the R2 object key behind video_url. Stored alongside the
+    // URL so deleting a scenario can also delete its video, and so the bucket
+    // can move to a different public domain without orphaning every object.
+    if (video_key && !isScenarioVideoKey(video_key)) {
+      return NextResponse.json({ error: "Not a scenario video key" }, { status: 400 })
     }
 
     // A category outside the taxonomy would be invisible in the category menu
@@ -29,6 +37,7 @@ export async function POST(request: Request) {
     const { data, error } = await supabase.from("scenarios").insert({
       title,
       video_url,
+      video_key: video_key || null,
       ai_answer,
       ai_description,
       law_category: law_category || null,

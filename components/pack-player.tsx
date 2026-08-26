@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Textarea } from "@/components/ui/textarea"
 import { Progress } from "@/components/ui/progress"
-import { YouTubePlayer } from "@/components/youtube-player"
+import { ScenarioVideoPlayer } from "@/components/scenario-video-player"
 import { FeedbackCard } from "@/components/feedback-card"
 import { ShareButton } from "@/components/share-button"
 import { UserFeedbackButton } from "@/components/user-feedback-button"
@@ -242,7 +242,7 @@ export function PackPlayer({ pack, scenarios, completed, isCoach }: PackPlayerPr
             <CardContent className="space-y-6">
               {current.video_url && (
                 <div className="overflow-hidden rounded-lg border-2 border-border">
-                  <YouTubePlayer url={current.video_url} />
+                  <ScenarioVideoPlayer url={current.video_url} />
                 </div>
               )}
 

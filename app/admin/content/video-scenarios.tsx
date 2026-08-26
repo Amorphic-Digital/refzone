@@ -1,26 +1,55 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useRef, useState } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
-import { Loader2, CheckCircle2, XCircle, Sparkles } from "lucide-react"
-import { YouTubePlayer, extractYouTubeId } from "@/components/youtube-player"
+import { Loader2, CheckCircle2, XCircle, Sparkles, Upload, Trash2 } from "lucide-react"
+import { ScenarioVideoPlayer } from "@/components/scenario-video-player"
 import { SCENARIO_CATEGORIES } from "@/lib/scenario-categories"
 
+/** Kept in step with ALLOWED_VIDEO_TYPES in lib/r2.ts. */
+const ACCEPTED_TYPES = ["video/mp4", "video/webm", "video/quicktime", "video/x-matroska"]
+const MAX_BYTES = 500 * 1024 * 1024
+
+function formatBytes(bytes: number): string {
+  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+}
+
+/** Best-effort removal of a video that will never be attached to a scenario. */
+async function discardOrphan(key: string) {
+  try {
+    await fetch(`/api/admin/scenario-video?key=${encodeURIComponent(key)}`, { method: "DELETE" })
+  } catch {
+    // An orphan in the bucket is not worth blocking the admin over.
+  }
+}
+
 export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
+  // The uploaded video, once it is sitting in R2.
+  const [videoKey, setVideoKey] = useState("")
   const [videoUrl, setVideoUrl] = useState("")
+  const [fileName, setFileName] = useState("")
+
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null)
   const [isSaving, setIsSaving] = useState(false)
   const [isGeneratingTags, setIsGeneratingTags] = useState(false)
   const [error, setError] = useState("")
   const [nextNumber, setNextNumber] = useState(1)
   const [answer, setAnswer] = useState("")
-  
+
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const uploadRef = useRef<XMLHttpRequest | null>(null)
+  // Saving hands ownership of the object to the scenario row, so the unmount
+  // cleanup must not then delete the video out from under it.
+  const savedRef = useRef(false)
+
   // AI-suggested tags
   const [suggestedLawCategory, setSuggestedLawCategory] = useState("")
   const [suggestedLawSection, setSuggestedLawSection] = useState("")
@@ -40,7 +69,92 @@ export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
     getNextNumber()
   }, [])
 
-  const isValidYouTubeUrl = !!extractYouTubeId(videoUrl)
+  // Closing the dialog mid-flow would otherwise leave the uploaded video in
+  // the bucket with nothing pointing at it.
+  useEffect(() => {
+    return () => {
+      uploadRef.current?.abort()
+      if (videoKey && !savedRef.current) void discardOrphan(videoKey)
+    }
+  }, [videoKey])
+
+  const isUploading = uploadProgress !== null
+  const hasVideo = !!videoKey && !isUploading
+
+  const handleFile = async (file: File) => {
+    setError("")
+
+    if (!ACCEPTED_TYPES.includes(file.type)) {
+      setError("Unsupported video type. Use MP4, WebM, MOV or MKV.")
+      return
+    }
+    if (file.size > MAX_BYTES) {
+      setError(`Video is too large (${formatBytes(file.size)}). Maximum ${MAX_BYTES / (1024 * 1024)}MB.`)
+      return
+    }
+
+    // Replacing an existing upload: the old object is now dead weight.
+    if (videoKey) {
+      void discardOrphan(videoKey)
+      setVideoKey("")
+      setVideoUrl("")
+    }
+
+    setFileName(file.name)
+    setUploadProgress(0)
+
+    try {
+      const presignRes = await fetch("/api/admin/scenario-video/upload-url", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contentType: file.type, size: file.size }),
+      })
+      const presign = await presignRes.json()
+      if (!presignRes.ok) throw new Error(presign.error || "Could not start the upload")
+
+      // The bytes go browser -> R2 directly. XHR rather than fetch, because
+      // fetch still cannot report upload progress.
+      await new Promise<void>((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        uploadRef.current = xhr
+        xhr.open("PUT", presign.uploadUrl)
+        // R2 stores whatever Content-Type the PUT carried, and the player
+        // needs a real video/* type to play the file back.
+        xhr.setRequestHeader("Content-Type", presign.contentType)
+        xhr.upload.onprogress = (event) => {
+          if (event.lengthComputable) {
+            setUploadProgress(Math.round((event.loaded / event.total) * 100))
+          }
+        }
+        xhr.onload = () =>
+          xhr.status >= 200 && xhr.status < 300
+            ? resolve()
+            : reject(new Error(`Upload rejected by storage (${xhr.status})`))
+        xhr.onerror = () =>
+          reject(new Error("Upload failed — check the bucket CORS policy allows this origin"))
+        xhr.onabort = () => reject(new Error("Upload cancelled"))
+        xhr.send(file)
+      })
+
+      setVideoKey(presign.key)
+      setVideoUrl(presign.publicUrl)
+    } catch (err) {
+      console.error("Video upload error:", err)
+      setError(err instanceof Error ? err.message : "Upload failed")
+      setFileName("")
+    } finally {
+      uploadRef.current = null
+      setUploadProgress(null)
+    }
+  }
+
+  const removeVideo = () => {
+    if (videoKey) void discardOrphan(videoKey)
+    setVideoKey("")
+    setVideoUrl("")
+    setFileName("")
+    if (fileInputRef.current) fileInputRef.current.value = ""
+  }
 
   const generateTags = async () => {
     if (!answer.trim()) {
@@ -63,7 +177,7 @@ export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
       }
 
       const { tags } = await response.json()
-      
+
       setSuggestedLawCategory(tags.lawCategory || "")
       setSuggestedLawSection(tags.lawSection || "")
       setSuggestedScenarioType(tags.scenarioType || "foul")
@@ -81,8 +195,8 @@ export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
   }
 
   const saveScenario = async () => {
-    if (!isValidYouTubeUrl) {
-      setError("Please enter a valid YouTube URL")
+    if (!hasVideo) {
+      setError("Please upload a video first")
       return
     }
     if (!answer.trim()) {
@@ -109,6 +223,7 @@ export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
         body: JSON.stringify({
           title: scenarioTitle,
           video_url: videoUrl,
+          video_key: videoKey,
           ai_answer: answerText,
           ai_description: answerText,
           law_category: suggestedLawCategory || null,
@@ -123,10 +238,12 @@ export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
       const data = await response.json()
       if (!response.ok) throw new Error(data.error || "Failed to save")
 
+      // The scenario row now owns the object — do not clean it up on unmount.
+      savedRef.current = true
       onSuccess()
     } catch (err) {
       console.error("Save scenario error:", err)
-      setError("Failed to save scenario. Please try again.")
+      setError(err instanceof Error ? err.message : "Failed to save scenario. Please try again.")
     } finally {
       setIsSaving(false)
     }
@@ -142,38 +259,65 @@ export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
             <p className="text-lg font-bold">Scenario #{nextNumber}</p>
           </div>
 
-          {/* YouTube URL */}
+          {/* Video upload */}
           <div className="space-y-2">
-            <Label htmlFor="youtube-url">YouTube Video URL</Label>
+            <Label htmlFor="scenario-video">Scenario Video</Label>
             <Input
-              id="youtube-url"
-              type="url"
-              value={videoUrl}
+              ref={fileInputRef}
+              id="scenario-video"
+              type="file"
+              accept={ACCEPTED_TYPES.join(",")}
+              disabled={isUploading || isSaving}
               onChange={(e) => {
-                setVideoUrl(e.target.value)
-                setError("")
+                const file = e.target.files?.[0]
+                if (file) void handleFile(file)
               }}
-              placeholder="https://www.youtube.com/watch?v=..."
+              className="cursor-pointer"
             />
-            {videoUrl && !isValidYouTubeUrl && (
-              <p className="text-sm text-red-500">
-                Please enter a valid YouTube URL
-              </p>
-            )}
+            <p className="text-xs text-muted-foreground">
+              MP4, WebM, MOV or MKV, up to {MAX_BYTES / (1024 * 1024)}MB. Uploads straight to
+              Cloudflare R2, so large files will not time out.
+            </p>
           </div>
 
-          {/* Video Preview */}
-          {isValidYouTubeUrl && (
+          {/* Upload progress */}
+          {isUploading && (
             <div className="space-y-2">
-              <Label>Video Preview</Label>
-              <div className="rounded-lg overflow-hidden border max-h-64">
-                <YouTubePlayer url={videoUrl} />
+              <div className="flex items-center justify-between text-sm">
+                <span className="flex items-center gap-2 text-muted-foreground">
+                  <Upload className="h-4 w-4 animate-pulse" />
+                  Uploading {fileName}
+                </span>
+                <span className="font-medium tabular-nums">{uploadProgress}%</span>
+              </div>
+              <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+                <div
+                  className="h-full bg-primary transition-all"
+                  style={{ width: `${uploadProgress}%` }}
+                />
               </div>
             </div>
           )}
 
-          {/* Answer field - shown after valid YouTube URL */}
-          {isValidYouTubeUrl && (
+          {/* Video Preview */}
+          {hasVideo && (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label>Video Preview</Label>
+                <Button variant="ghost" size="sm" onClick={removeVideo} disabled={isSaving}>
+                  <Trash2 className="h-4 w-4 mr-1" />
+                  Remove
+                </Button>
+              </div>
+              <div className="rounded-lg overflow-hidden border">
+                <ScenarioVideoPlayer url={videoUrl} autoPlay={false} />
+              </div>
+              <p className="text-xs text-muted-foreground truncate">{fileName}</p>
+            </div>
+          )}
+
+          {/* Answer field - shown once the video is in place */}
+          {hasVideo && (
             <>
               <div className="space-y-2">
                 <Label htmlFor="answer">Answer</Label>

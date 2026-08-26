@@ -1,5 +1,6 @@
 import { requireAdmin } from "@/lib/auth"
 import { createServiceClient } from "@/lib/supabase/service"
+import { deleteVideo, isScenarioVideoKey } from "@/lib/r2"
 import { NextResponse } from "next/server"
 
 export async function DELETE(request: Request) {
@@ -14,6 +15,13 @@ export async function DELETE(request: Request) {
     }
 
     const supabase = createServiceClient()
+
+    // Read the video key before the row goes, so the R2 object can follow it.
+    const { data: scenario } = await supabase
+      .from("scenarios")
+      .select("video_key")
+      .eq("id", scenarioId)
+      .single()
 
     // Delete scenario responses first (cascade should handle but be explicit)
     await supabase.from("scenario_responses").delete().eq("scenario_id", scenarioId)
@@ -31,6 +39,13 @@ export async function DELETE(request: Request) {
 
     if (stillExists) {
       return NextResponse.json({ error: "Scenario still exists after delete attempt" }, { status: 500 })
+    }
+
+    // The row is gone, so the video in R2 is now unreachable. deleteVideo
+    // swallows its own failures — a leftover object is not worth failing a
+    // delete the admin has already seen succeed.
+    if (scenario?.video_key && isScenarioVideoKey(scenario.video_key)) {
+      await deleteVideo(scenario.video_key)
     }
 
     return NextResponse.json({ success: true })

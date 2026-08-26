@@ -37,6 +37,8 @@ interface Scenario {
   category: string | null
   law_category: string | null
   video_url: string | null
+  /** R2 object key behind video_url — see scripts/037_r2_scenario_videos.sql. */
+  video_key: string | null
   is_active: boolean
   points_value: number
 }

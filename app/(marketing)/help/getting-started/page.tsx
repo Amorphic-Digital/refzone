@@ -30,8 +30,8 @@ export default function GettingStartedPage() {
           Scenarios are video-based match situations where you make the call. Navigate to <strong>Scenarios</strong> from the dashboard or bottom navigation.
         </p>
         <HelpList items={[
-          'A match clip will autoplay — first at normal speed, then at 0.5x slow motion, on a loop.',
-          'Watch carefully and type your decision in the text box below the video.',
+          'A match clip will autoplay muted and play through once.',
+          'Pause it or drag the timeline back to rewatch a moment, then type your decision in the text box below the video.',
           'Be specific: include the call (e.g. "Direct free kick"), any cards, and the restart.',
           'Click "Submit Decision" and the AI will compare your answer to the correct decision.',
           'You need 70% confidence or higher to be marked correct.',
