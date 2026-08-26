@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation"
 import { Shield, Users, Target, BookOpen, MessageSquare, TrendingUp, Settings, Bell, AlertCircle, Mail } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import { AdminAccessDenied, type AdminDenialReason } from "@/components/admin-access-denied"
 
 interface Stats {
   totalUsers: number
@@ -24,6 +25,8 @@ export default function AdminDashboard() {
   const { user: clerkUser, isLoaded: userLoaded } = useUser()
   const [isAdmin, setIsAdmin] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  // Why the panel would not open, shown instead of a silent redirect.
+  const [denied, setDenied] = useState<{ reason: AdminDenialReason; email: string | null } | null>(null)
   const [stats, setStats] = useState<Stats>({
     totalUsers: 0,
     activeUsers: 0,
@@ -44,7 +47,8 @@ export default function AdminDashboard() {
 
     const checkAdminAndFetchStats = async () => {
       if (!userId) {
-        router.push("/auth/login")
+        setDenied({ reason: "signed-out", email: null })
+        setIsLoading(false)
         return
       }
 
@@ -52,7 +56,8 @@ export default function AdminDashboard() {
       const email = clerkUser?.primaryEmailAddress?.emailAddress
       const adminEmails = ["henrytowen@googlemail.com", "refzone.office@gmail.com"]
       if (!email || !adminEmails.includes(email)) {
-        router.push("/dashboard")
+        setDenied({ reason: "not-admin", email: email ?? null })
+        setIsLoading(false)
         return
       }
 
@@ -93,6 +98,10 @@ export default function AdminDashboard() {
     checkAdminAndFetchStats()
   }, [router, userId, clerkUser, authLoaded, userLoaded])
 
+  if (denied) {
+    return <AdminAccessDenied reason={denied.reason} email={denied.email} />
+  }
+
   if (!isAdmin && !isLoading) {
     return null
   }
@@ -104,6 +113,7 @@ export default function AdminDashboard() {
       </div>
     )
   }
+
 
   return (
     <div className="space-y-6 max-w-7xl">

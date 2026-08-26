@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { CustomModal } from "@/components/custom-modal"
+import { AdminAccessDenied, type AdminDenialReason } from "@/components/admin-access-denied"
 
 interface Feedback {
   id: string
@@ -27,6 +28,8 @@ export default function AdminFeedbackPage() {
   const { user: clerkUser, isLoaded: userLoaded } = useUser()
   const [feedback, setFeedback] = useState<Feedback[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  // Why the panel would not open, shown instead of a silent redirect.
+  const [denied, setDenied] = useState<{ reason: AdminDenialReason; email: string | null } | null>(null)
   const router = useRouter()
 
   const [modal, setModal] = useState({
@@ -46,14 +49,16 @@ export default function AdminFeedbackPage() {
 
     const fetchFeedback = async () => {
       if (!userId) {
-        router.push("/auth/login")
+        setDenied({ reason: "signed-out", email: null })
+        setIsLoading(false)
         return
       }
 
       const email = clerkUser?.primaryEmailAddress?.emailAddress
       const adminEmails = ["henrytowen@googlemail.com", "refzone.office@gmail.com"]
       if (!email || !adminEmails.includes(email)) {
-        router.push("/dashboard")
+        setDenied({ reason: "not-admin", email: email ?? null })
+        setIsLoading(false)
         return
       }
 
@@ -100,6 +105,10 @@ export default function AdminFeedbackPage() {
       default:
         return "bg-gray-100 text-gray-700 border-gray-200"
     }
+  }
+
+  if (denied) {
+    return <AdminAccessDenied reason={denied.reason} email={denied.email} />
   }
 
   return (

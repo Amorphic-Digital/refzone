@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation"
 import { ArrowLeft, Shield, Save, Loader2, Wand2, Sparkles, BookOpen, Upload, FileText, Check } from "lucide-react"
 import Link from "next/link"
 import { CustomModal } from "@/components/custom-modal"
+import { AdminAccessDenied, type AdminDenialReason } from "@/components/admin-access-denied"
 
 interface Config {
   config_key: string
@@ -26,6 +27,8 @@ export default function AdminConfigPage() {
   const [configs, setConfigs] = useState<Config[]>([])
   const [isSaving, setIsSaving] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  // Why the panel would not open, shown instead of a silent redirect.
+  const [denied, setDenied] = useState<{ reason: AdminDenialReason; email: string | null } | null>(null)
   const [isGeneratingScenario, setIsGeneratingScenario] = useState(false)
   const [isGeneratingQuiz, setIsGeneratingQuiz] = useState(false)
   const router = useRouter()
@@ -55,14 +58,16 @@ export default function AdminConfigPage() {
 
     const fetchConfig = async () => {
       if (!userId) {
-        router.push("/auth/login")
+        setDenied({ reason: "signed-out", email: null })
+        setIsLoading(false)
         return
       }
 
       const email = clerkUser?.primaryEmailAddress?.emailAddress
       const adminEmails = ["henrytowen@googlemail.com", "refzone.office@gmail.com"]
       if (!email || !adminEmails.includes(email)) {
-        router.push("/dashboard")
+        setDenied({ reason: "not-admin", email: email ?? null })
+        setIsLoading(false)
         return
       }
 
@@ -228,6 +233,10 @@ export default function AdminConfigPage() {
   const [isUploadingFile, setIsUploadingFile] = useState(false)
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  if (denied) {
+    return <AdminAccessDenied reason={denied.reason} email={denied.email} />
+  }
 
   return (
     <div className="space-y-6 max-w-4xl">

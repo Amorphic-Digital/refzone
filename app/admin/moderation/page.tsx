@@ -26,6 +26,7 @@ import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { CustomModal } from "@/components/custom-modal"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { AdminAccessDenied, type AdminDenialReason } from "@/components/admin-access-denied"
 
 interface ForumPost {
   id: string
@@ -62,6 +63,8 @@ export default function AdminModerationPage() {
   const [pendingPosts, setPendingPosts] = useState<ForumPost[]>([])
   const [reports, setReports] = useState<ForumReport[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  // Why the panel would not open, shown instead of a silent redirect.
+  const [denied, setDenied] = useState<{ reason: AdminDenialReason; email: string | null } | null>(null)
   const [activeTab, setActiveTab] = useState("pending")
   const router = useRouter()
 
@@ -82,14 +85,16 @@ export default function AdminModerationPage() {
 
     const fetchData = async () => {
       if (!userId) {
-        router.push("/auth/login")
+        setDenied({ reason: "signed-out", email: null })
+        setIsLoading(false)
         return
       }
 
       const email = clerkUser?.primaryEmailAddress?.emailAddress
       const adminEmails = ["henrytowen@googlemail.com", "refzone.office@gmail.com"]
       if (!email || !adminEmails.includes(email)) {
-        router.push("/dashboard")
+        setDenied({ reason: "not-admin", email: email ?? null })
+        setIsLoading(false)
         return
       }
 
@@ -346,6 +351,10 @@ export default function AdminModerationPage() {
       other: "Other",
     }
     return labels[reason] || reason
+  }
+
+  if (denied) {
+    return <AdminAccessDenied reason={denied.reason} email={denied.email} />
   }
 
   return (

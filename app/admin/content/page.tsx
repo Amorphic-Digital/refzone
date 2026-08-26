@@ -26,6 +26,7 @@ import { VideoScenarioUpload } from "./video-scenarios"
 import { getDifficultyColor } from "@/lib/shared-utils"
 import { SCENARIO_CATEGORIES, categoryLabel } from "@/lib/scenario-categories"
 import { ShareButton } from "@/components/share-button"
+import { AdminAccessDenied, type AdminDenialReason } from "@/components/admin-access-denied"
 
 interface Scenario {
   id: string
@@ -79,6 +80,8 @@ export default function ContentManagement() {
     editing: null,
   })
   const [isLoading, setIsLoading] = useState(true)
+  // Why the panel would not open, shown instead of a silent redirect.
+  const [denied, setDenied] = useState<{ reason: AdminDenialReason; email: string | null } | null>(null)
   const router = useRouter()
 
   const [scenarioDialog, setScenarioDialog] = useState<{ open: boolean; editing: Scenario | null }>({
@@ -126,14 +129,16 @@ export default function ContentManagement() {
 
     const fetchContent = async () => {
       if (!userId) {
-        router.push("/auth/login")
+        setDenied({ reason: "signed-out", email: null })
+        setIsLoading(false)
         return
       }
 
       const email = clerkUser?.primaryEmailAddress?.emailAddress
       const adminEmails = ["henrytowen@googlemail.com", "refzone.office@gmail.com"]
       if (!email || !adminEmails.includes(email)) {
-        router.push("/dashboard")
+        setDenied({ reason: "not-admin", email: email ?? null })
+        setIsLoading(false)
         return
       }
 
@@ -460,6 +465,10 @@ export default function ContentManagement() {
     const supabase = createClient()
     await supabase.from("quizzes").update({ is_active: !currentActive }).eq("id", id)
     setQuizzes(quizzes.map((q) => (q.id === id ? { ...q, is_active: !currentActive } : q)))
+  }
+
+  if (denied) {
+    return <AdminAccessDenied reason={denied.reason} email={denied.email} />
   }
 
   return (
