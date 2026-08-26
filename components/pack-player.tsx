@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Textarea } from "@/components/ui/textarea"
 import { Progress } from "@/components/ui/progress"
 import { ScenarioVideoPlayer } from "@/components/scenario-video-player"
+import { splitDecision } from "@/lib/answer-summary"
 import { FeedbackCard } from "@/components/feedback-card"
 import { ShareButton } from "@/components/share-button"
 import { UserFeedbackButton } from "@/components/user-feedback-button"
@@ -53,7 +54,7 @@ export function PackPlayer({ pack, scenarios, completed, isCoach }: PackPlayerPr
   const [answer, setAnswer] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [timeElapsed, setTimeElapsed] = useState(0)
-  const [result, setResult] = useState<{ isCorrect: boolean; confidence: number } | null>(null)
+  const [result, setResult] = useState<{ isCorrect: boolean; confidence: number; verdict: string; explanation: string } | null>(null)
   const [answered, setAnswered] = useState<Record<string, boolean>>(completed)
 
   const current = scenarios[index]
@@ -113,11 +114,16 @@ export function PackPlayer({ pack, scenarios, completed, isCoach }: PackPlayerPr
         }),
       ])
 
-      setResult({ isCorrect, confidence: check.confidence ?? 0 })
+      setResult({
+        isCorrect,
+        confidence: check.confidence ?? 0,
+        verdict: check.verdict?.trim() || "",
+        explanation: check.explanation?.trim() || "",
+      })
       setAnswered((prev) => ({ ...prev, [current.id]: isCorrect }))
       router.refresh()
     } catch {
-      setResult({ isCorrect: false, confidence: 0 })
+      setResult({ isCorrect: false, confidence: 0, verdict: "", explanation: "" })
     } finally {
       setIsSubmitting(false)
     }
@@ -286,9 +292,19 @@ export function PackPlayer({ pack, scenarios, completed, isCoach }: PackPlayerPr
                           <p className="text-foreground">{answer}</p>
                         </div>
                         <div>
-                          <p className="mb-1 text-sm font-medium text-muted-foreground">Correct Answer:</p>
-                          <p className="font-semibold text-foreground">{current.ai_answer}</p>
+                          <p className="mb-1 text-sm font-medium text-muted-foreground">Correct Decision:</p>
+                          <p className="font-semibold text-foreground">
+                            {result.verdict || splitDecision(current.ai_answer).verdict}
+                          </p>
                         </div>
+                        {(result.explanation || splitDecision(current.ai_answer).detail) && (
+                          <div>
+                            <p className="mb-1 text-sm font-medium text-muted-foreground">Explanation:</p>
+                            <p className="text-foreground">
+                              {result.explanation || splitDecision(current.ai_answer).detail}
+                            </p>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </FeedbackCard>

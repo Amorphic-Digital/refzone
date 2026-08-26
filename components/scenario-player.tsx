@@ -13,6 +13,7 @@ import { getDifficultyColor, formatTime, updateDailyStreak } from "@/lib/shared-
 import { StreakCelebration } from "@/components/streak-celebration"
 import { CustomCelebration } from "@/components/custom-celebration"
 import { FeedbackCard } from "@/components/feedback-card"
+import { splitDecision } from "@/lib/answer-summary"
 import { UserFeedbackButton } from "@/components/user-feedback-button"
 import { ScenarioVideoPlayer } from "@/components/scenario-video-player"
 import { ShareButton } from "@/components/share-button"
@@ -44,6 +45,9 @@ export function ScenarioPlayer({ scenario, userId }: ScenarioPlayerProps) {
     pointsEarned: number
     aiValidation?: {
       confidence: number
+      /** Short summary of the correct call, from the answer checker. */
+      verdict: string
+      /** Why the referee's answer was right or wrong. */
       feedback: string
       matchesKeyPoints: string[]
     }
@@ -146,7 +150,10 @@ export function ScenarioPlayer({ scenario, userId }: ScenarioPlayerProps) {
         pointsEarned,
         aiValidation: {
           confidence: aiResult.confidence,
-          feedback: aiResult.feedback,
+          verdict: aiResult.verdict?.trim() || "",
+          // Was aiResult.feedback — a field /api/check-answer never returned,
+          // which is why the Explanation panel came up empty.
+          feedback: aiResult.explanation?.trim() || "",
           matchesKeyPoints: aiResult.matchesKeyPoints || [],
         },
       })
@@ -273,9 +280,19 @@ export function ScenarioPlayer({ scenario, userId }: ScenarioPlayerProps) {
                       <p className="text-foreground">{userDecision}</p>
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-muted-foreground mb-1">Correct Answer:</p>
-                      <p className="font-semibold text-foreground">{scenario.ai_answer}</p>
+                      <p className="text-sm font-medium text-muted-foreground mb-1">Correct Decision:</p>
+                      <p className="font-semibold text-foreground">
+                        {result?.aiValidation?.verdict || splitDecision(scenario.ai_answer).verdict}
+                      </p>
                     </div>
+                    {(result?.aiValidation?.feedback || splitDecision(scenario.ai_answer).detail) && (
+                      <div>
+                        <p className="text-sm font-medium text-muted-foreground mb-1">Explanation:</p>
+                        <p className="text-foreground">
+                          {result?.aiValidation?.feedback || splitDecision(scenario.ai_answer).detail}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </FeedbackCard>

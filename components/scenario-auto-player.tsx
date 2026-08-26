@@ -7,8 +7,9 @@ import { Badge } from "@/components/ui/badge"
 import { Textarea } from "@/components/ui/textarea"
 import { createClient } from "@/lib/supabase/client"
 import { getDifficultyColor, formatTime, updateLawPerformance, updateDailyStreak, updateDailyActivityLog } from "@/lib/shared-utils"
+import { splitDecision } from "@/lib/answer-summary"
 import { useRouter } from "next/navigation"
-import { Timer, Award, ArrowLeft, ArrowRight, Loader2, X, Zap, RotateCcw } from "lucide-react"
+import { Timer, Award, ArrowLeft, ArrowRight, Loader2, CheckCircle2 } from "lucide-react"
 
 import { StreakCelebration } from "@/components/streak-celebration"
 import { CustomCelebration } from "@/components/custom-celebration"
@@ -68,8 +69,6 @@ export function ScenarioAutoPlayer({
   const [streak, setStreak] = useState(initialStreak)
   const [bestStreak, setBestStreak] = useState(longestStreak)
   const [remainingCount, setRemainingCount] = useState(totalUnseen)
-  const [isGeneratingNew, setIsGeneratingNew] = useState(false)
-  const [generationError, setGenerationError] = useState<string | null>(null)
   const [showCustomCelebration, setShowCustomCelebration] = useState(false)
   const [celebratingStreak, setCelebratingStreak] = useState(0)
 
@@ -168,10 +167,18 @@ export function ScenarioAutoPlayer({
         console.error("Failed to save scenario response:", submitErr)
       }
 
+      // The card shows the call on its own line and the reasoning under it. The
+      // checker writes both against the referee's actual answer; if it could
+      // not, fall back to splitting the stored answer at its first sentence.
+      const stored = splitDecision(currentScenario.ai_answer)
+
       setResult({
-        isCorrect: aiResult.isCorrect,
-        correctAnswer: currentScenario.ai_answer || "",
-        explanation: "",
+        // Was aiResult.isCorrect, which skipped the confidence gate below —
+        // so the card could say "Correct Decision!" while the same answer was
+        // recorded as wrong and earned nothing.
+        isCorrect,
+        correctAnswer: aiResult.verdict?.trim() || stored.verdict,
+        explanation: aiResult.explanation?.trim() || stored.detail,
         pointsEarned: pointsEarned,
         accuracy: aiResult.confidence,
       })
@@ -188,100 +195,41 @@ export function ScenarioAutoPlayer({
     }
   }
 
-  const generateNewScenario = async () => {
-    setIsGeneratingNew(true)
-    setGenerationError(null)
-
-    try {
-      const response = await fetch("/api/scenarios/auto-generate", {
-        method: "POST",
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.details || data.error || "Failed to generate scenario")
-      }
-
-      if (data.success && data.scenario) {
-        setCurrentScenario(data.scenario)
-        setRemainingCount(1)
-        setUserDecision("")
-        setTimeElapsed(0)
-        setIsSubmitted(false)
-        setResult(null)
-      }
-    } catch (error) {
-      setGenerationError(error instanceof Error ? error.message : "Failed to generate new scenario")
-    } finally {
-      setIsGeneratingNew(false)
-    }
-  }
-
   // No scenarios available state
   if (!currentScenario && !isLoadingNext) {
     return (
       <div className="max-w-2xl mx-auto space-y-6">
         <Card className="border-2 text-center">
           <CardContent className="py-16">
-            {isGeneratingNew ? (
-              <>
-                <Loader2 className="h-16 w-16 text-primary mx-auto mb-6 animate-spin" />
-                <h2 className="text-3xl font-bold text-foreground mb-3">Generating New Scenario...</h2>
-                <p className="text-muted-foreground mb-2">
-                  {"You've completed all scenarios! We're creating a fresh one just for you."}
-                </p>
-                <p className="text-sm text-muted-foreground">This may take up to a minute...</p>
-              </>
-            ) : generationError ? (
-              <>
-                <X className="h-16 w-16 text-red-500 mx-auto mb-6" />
-                <h2 className="text-3xl font-bold text-foreground mb-3">Generation Failed</h2>
-                <p className="text-muted-foreground mb-4">{generationError}</p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                  <Button onClick={generateNewScenario} size="lg">
-                    <RotateCcw className="h-4 w-4 mr-2" />
-                    Try Again
-                  </Button>
-                  <Button onClick={() => router.push("/dashboard")} variant="outline" size="lg">
-                    <ArrowLeft className="h-4 w-4 mr-2" />
-                    Back to Dashboard
-                  </Button>
-                </div>
-              </>
-            ) : (
-              <>
-                <Award className="h-16 w-16 text-yellow-500 mx-auto mb-6" />
-                <h2 className="text-3xl font-bold text-foreground mb-3">
-                  {categoryTitle ? `${categoryTitle} Completed!` : "All Scenarios Completed!"}
-                </h2>
-                <p className="text-muted-foreground mb-2">
-                  {categoryTitle
-                    ? `You've worked through every ${categoryTitle} scenario. Pick another category to keep going.`
-                    : "You've completed all available scenarios. Great work!"}
-                </p>
-                <div className="flex items-center justify-center gap-2 text-lg font-semibold mb-6">
-                  <Award className="h-5 w-5 text-orange-500" />
-                  <span>Best Streak: {bestStreak} correct in a row</span>
-                </div>
-                <div className="flex flex-wrap items-center justify-center gap-3">
-                  {categoryTitle && (
-                    <Button onClick={() => router.push("/scenarios")} size="lg">
-                      <ArrowLeft className="h-4 w-4 mr-2" />
-                      Pick another category
-                    </Button>
-                  )}
-                  <Button
-                    onClick={() => router.push("/dashboard")}
-                    size="lg"
-                    variant={categoryTitle ? "outline" : "default"}
-                  >
-                    <ArrowLeft className="h-4 w-4 mr-2" />
-                    Back to Dashboard
-                  </Button>
-                </div>
-              </>
-            )}
+            <Award className="h-16 w-16 text-yellow-500 mx-auto mb-6" />
+            <h2 className="text-3xl font-bold text-foreground mb-3">
+              {categoryTitle ? `${categoryTitle} Completed!` : "All Scenarios Completed!"}
+            </h2>
+            <p className="text-muted-foreground mb-2">
+              {categoryTitle
+                ? `You've worked through every ${categoryTitle} scenario. Pick another category to keep going.`
+                : "You've completed all available scenarios. Great work!"}
+            </p>
+            <div className="flex items-center justify-center gap-2 text-lg font-semibold mb-6">
+              <Award className="h-5 w-5 text-orange-500" />
+              <span>Best Streak: {bestStreak} correct in a row</span>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              {categoryTitle && (
+                <Button onClick={() => router.push("/scenarios")} size="lg">
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Pick another category
+                </Button>
+              )}
+              <Button
+                onClick={() => router.push("/dashboard")}
+                size="lg"
+                variant={categoryTitle ? "outline" : "default"}
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Dashboard
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -441,10 +389,14 @@ export function ScenarioAutoPlayer({
                         <p className="text-sm font-medium text-muted-foreground mb-1">Correct Decision:</p>
                         <p className="font-semibold text-foreground">{result?.correctAnswer}</p>
                       </div>
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground mb-1">Explanation:</p>
-                        <p className="text-foreground">{result?.explanation}</p>
-                      </div>
+                      {/* Only rendered when there is reasoning to show — an
+                          empty "Explanation:" heading reads as a broken page. */}
+                      {result?.explanation && (
+                        <div>
+                          <p className="text-sm font-medium text-muted-foreground mb-1">Explanation:</p>
+                          <p className="text-foreground">{result.explanation}</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </FeedbackCard>
@@ -495,9 +447,13 @@ export function ScenarioAutoPlayer({
                       )}
                     </Button>
                   ) : (
-                    <Button onClick={generateNewScenario} className="flex-1 cursor-pointer" variant="secondary">
-                      <Zap className="h-4 w-4 mr-2" />
-                      Generate New Scenario
+                    <Button
+                      onClick={() => router.push("/scenarios")}
+                      className="flex-1 cursor-pointer"
+                      variant="secondary"
+                    >
+                      <CheckCircle2 className="h-4 w-4 mr-2" />
+                      All Completed!
                     </Button>
                   )}
                 </div>
