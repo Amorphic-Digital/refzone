@@ -56,10 +56,14 @@ ALTER TABLE public.scenarios
 -- 033 created a 'scenario-videos' bucket that was never actually used (the
 -- app went to YouTube instead), and an unused /api/upload-video route wrote to
 -- a 'videos' bucket. Both are gone from the code now.
+--
+-- Only the policies are dropped here. Supabase guards storage.objects and
+-- storage.buckets with a protect_delete() trigger that rejects any direct
+-- DELETE ("Direct deletion from storage tables is not allowed"), and because
+-- the SQL editor runs this file in a single transaction, that one error rolls
+-- back the scenario wipe above with it. The buckets are empty and harmless, so
+-- delete them from Storage in the dashboard if you want them gone.
 DROP POLICY IF EXISTS "Admins can upload scenario videos" ON storage.objects;
 DROP POLICY IF EXISTS "Anyone can read scenario videos"   ON storage.objects;
 DROP POLICY IF EXISTS "Admins can delete scenario videos" ON storage.objects;
 DROP POLICY IF EXISTS "Admins can update scenario videos" ON storage.objects;
-
-DELETE FROM storage.objects WHERE bucket_id IN ('scenario-videos', 'videos');
-DELETE FROM storage.buckets WHERE id IN ('scenario-videos', 'videos');
