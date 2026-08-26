@@ -20,8 +20,8 @@ interface Stats {
 }
 
 export default function AdminDashboard() {
-  const { userId } = useAuth()
-  const { user: clerkUser } = useUser()
+  const { userId, isLoaded: authLoaded } = useAuth()
+  const { user: clerkUser, isLoaded: userLoaded } = useUser()
   const [isAdmin, setIsAdmin] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [stats, setStats] = useState<Stats>({
@@ -36,6 +36,12 @@ export default function AdminDashboard() {
   const router = useRouter()
 
   useEffect(() => {
+    // Clerk resolves the session in the browser, so userId is null for the
+    // first render or two. Redirecting before it settles bounces a signed-in
+    // admin straight to the login page, which then tells them they are
+    // already signed in. Wait for Clerk to say it has finished.
+    if (!authLoaded || !userLoaded) return
+
     const checkAdminAndFetchStats = async () => {
       if (!userId) {
         router.push("/auth/login")
@@ -85,7 +91,7 @@ export default function AdminDashboard() {
     }
 
     checkAdminAndFetchStats()
-  }, [router])
+  }, [router, userId, clerkUser, authLoaded, userLoaded])
 
   if (!isAdmin && !isLoading) {
     return null

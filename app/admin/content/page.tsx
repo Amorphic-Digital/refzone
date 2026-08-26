@@ -67,8 +67,8 @@ interface QuizQuestion {
 }
 
 export default function ContentManagement() {
-  const { userId } = useAuth()
-  const { user: clerkUser } = useUser()
+  const { userId, isLoaded: authLoaded } = useAuth()
+  const { user: clerkUser, isLoaded: userLoaded } = useUser()
   const [scenarios, setScenarios] = useState<Scenario[]>([])
   const [quizzes, setQuizzes] = useState<Quiz[]>([])
   const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([])
@@ -118,6 +118,12 @@ export default function ContentManagement() {
   })
 
   useEffect(() => {
+    // Clerk resolves the session in the browser, so userId is null for the
+    // first render or two. Redirecting before it settles bounces a signed-in
+    // admin straight to the login page, which then tells them they are
+    // already signed in. Wait for Clerk to say it has finished.
+    if (!authLoaded || !userLoaded) return
+
     const fetchContent = async () => {
       if (!userId) {
         router.push("/auth/login")
@@ -145,7 +151,7 @@ export default function ContentManagement() {
     }
 
     fetchContent()
-  }, [router, clerkUser])
+  }, [router, userId, clerkUser, authLoaded, userLoaded])
 
   // Scenarios are now video-only and managed through VideoScenarioUpload component
   const refreshScenarios = async () => {

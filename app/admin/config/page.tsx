@@ -21,8 +21,8 @@ interface Config {
 }
 
 export default function AdminConfigPage() {
-  const { userId } = useAuth()
-  const { user: clerkUser } = useUser()
+  const { userId, isLoaded: authLoaded } = useAuth()
+  const { user: clerkUser, isLoaded: userLoaded } = useUser()
   const [configs, setConfigs] = useState<Config[]>([])
   const [isSaving, setIsSaving] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -47,6 +47,12 @@ export default function AdminConfigPage() {
   }
 
   useEffect(() => {
+    // Clerk resolves the session in the browser, so userId is null for the
+    // first render or two. Redirecting before it settles bounces a signed-in
+    // admin straight to the login page, which then tells them they are
+    // already signed in. Wait for Clerk to say it has finished.
+    if (!authLoaded || !userLoaded) return
+
     const fetchConfig = async () => {
       if (!userId) {
         router.push("/auth/login")
@@ -79,7 +85,7 @@ export default function AdminConfigPage() {
     }
 
     fetchConfig()
-  }, [router, clerkUser])
+  }, [router, userId, clerkUser, authLoaded, userLoaded])
 
   const handleSave = async () => {
     setIsSaving(true)

@@ -56,8 +56,8 @@ interface ForumReport {
 }
 
 export default function AdminModerationPage() {
-  const { userId } = useAuth()
-  const { user: clerkUser } = useUser()
+  const { userId, isLoaded: authLoaded } = useAuth()
+  const { user: clerkUser, isLoaded: userLoaded } = useUser()
   const [posts, setPosts] = useState<ForumPost[]>([])
   const [pendingPosts, setPendingPosts] = useState<ForumPost[]>([])
   const [reports, setReports] = useState<ForumReport[]>([])
@@ -74,6 +74,12 @@ export default function AdminModerationPage() {
   })
 
   useEffect(() => {
+    // Clerk resolves the session in the browser, so userId is null for the
+    // first render or two. Redirecting before it settles bounces a signed-in
+    // admin straight to the login page, which then tells them they are
+    // already signed in. Wait for Clerk to say it has finished.
+    if (!authLoaded || !userLoaded) return
+
     const fetchData = async () => {
       if (!userId) {
         router.push("/auth/login")
@@ -165,7 +171,7 @@ export default function AdminModerationPage() {
     }
 
     fetchData()
-  }, [router, clerkUser])
+  }, [router, userId, clerkUser, authLoaded, userLoaded])
 
   const approvePost = async (postId: string) => {
     const supabase = createClient()
