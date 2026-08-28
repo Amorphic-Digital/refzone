@@ -69,9 +69,9 @@ export function HeroSectionWrapper({ children }: { children: React.ReactNode }) 
       >
         <defs>
           <radialGradient id="pitchFadeLight" cx="50%" cy="48%" r="55%">
-            <stop offset="0%" stopColor="#312e81" stopOpacity="0.22" />
-            <stop offset="55%" stopColor="#312e81" stopOpacity="0.09" />
-            <stop offset="100%" stopColor="#312e81" stopOpacity="0" />
+            <stop offset="0%" stopColor="#7A3E8C" stopOpacity="0.13" />
+            <stop offset="55%" stopColor="#7A3E8C" stopOpacity="0.05" />
+            <stop offset="100%" stopColor="#7A3E8C" stopOpacity="0" />
           </radialGradient>
           <mask id="pitchMaskLight">
             {/* Mask must use white/black — convert the gradient to greyscale by using white */}
@@ -87,21 +87,21 @@ export function HeroSectionWrapper({ children }: { children: React.ReactNode }) 
             <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
           </filter>
         </defs>
-        <g mask="url(#pitchMaskLight)" stroke="#312e81" strokeLinecap="round" strokeLinejoin="round">
+        <g mask="url(#pitchMaskLight)" stroke="#7A3E8C" strokeLinecap="round" strokeLinejoin="round" opacity="0.45">
           <rect x="80" y="80" width="1280" height="700" strokeWidth="1.8" />
           <line x1="720" y1="80" x2="720" y2="780" strokeWidth="1.8" />
           <circle cx="720" cy="430" r="130" strokeWidth="1.8" filter="url(#lineGlowLight)" />
-          <circle cx="720" cy="430" r="5" fill="#312e81" opacity="0.5" strokeWidth="0" />
+          <circle cx="720" cy="430" r="5" fill="#7A3E8C" opacity="0.3" strokeWidth="0" />
           <rect x="80" y="255" width="198" height="350" strokeWidth="1.8" />
           <rect x="80" y="330" width="88" height="200" strokeWidth="1.8" />
           <rect x="60" y="370" width="20" height="120" strokeWidth="1.4" opacity="0.5" />
           <path d="M 278 300 A 105 105 0 0 1 278 560" strokeWidth="1.8" />
-          <circle cx="190" cy="430" r="3.5" fill="#312e81" opacity="0.5" strokeWidth="0" />
+          <circle cx="190" cy="430" r="3.5" fill="#7A3E8C" opacity="0.3" strokeWidth="0" />
           <rect x="1162" y="255" width="198" height="350" strokeWidth="1.8" />
           <rect x="1272" y="330" width="88" height="200" strokeWidth="1.8" />
           <rect x="1360" y="370" width="20" height="120" strokeWidth="1.4" opacity="0.5" />
           <path d="M 1162 300 A 105 105 0 0 0 1162 560" strokeWidth="1.8" />
-          <circle cx="1250" cy="430" r="3.5" fill="#312e81" opacity="0.5" strokeWidth="0" />
+          <circle cx="1250" cy="430" r="3.5" fill="#7A3E8C" opacity="0.3" strokeWidth="0" />
           <path d="M 80 112 A 32 32 0 0 0 112 80" strokeWidth="1.8" />
           <path d="M 1328 80 A 32 32 0 0 0 1360 112" strokeWidth="1.8" />
           <path d="M 80 748 A 32 32 0 0 1 112 780" strokeWidth="1.8" />
