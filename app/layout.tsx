@@ -131,7 +131,7 @@ export default function RootLayout({
           signInFallbackRedirectUrl="/dashboard"
           signUpFallbackRedirectUrl="/dashboard"
         >
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
             <CustomizationProvider>
               <GlobalTutorialWrapper>{children}</GlobalTutorialWrapper>
               <ImportantNotificationModal />

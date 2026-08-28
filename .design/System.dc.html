@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+  <style>
+    body { margin: 0; font-family: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif; }
+    a { color: #B4187E; } a:hover { color: #9C146D; }
+    .sw { border-radius: 8px; height: 56px; border: 1px solid rgba(0,0,0,0.06); }
+    .lbl { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #726D79; font-weight: 500; }
+    .hx { font-family: "Geist Mono", ui-monospace, monospace; font-size: 11px; color: #66626F; }
+    .nm { font-size: 12px; color: #18161C; font-weight: 500; }
+  </style>
+</helmet>
+
+<div style="background: #F7F6F9; padding: 48px 56px; min-height: 100%; color: #18161C;">
+
+  <!-- Header -->
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; padding-bottom: 24px; border-bottom: 1px solid #E6E3EB;">
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #726D79; font-weight: 500;">RefZone · Design System</div>
+      <div style="font-size: 34px; font-weight: 700; letter-spacing: -0.028em; line-height: 1.1;">Foundations</div>
+      <div style="font-size: 15px; color: #66626F; max-width: 62ch;">Light-first. White surfaces, hairline borders, one accent. Values below are the ones already in <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">app/globals.css</span> and <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">components/ui</span> — nothing here invents a new scale.</div>
+    </div>
+    <div style="display: flex; align-items: baseline; gap: 2px; font-size: 24px; font-weight: 700; letter-spacing: -0.02em;">
+      <span style="background: linear-gradient(90deg, #9114af, #ff5eb8); -webkit-background-clip: text; background-clip: text; color: transparent;">R</span><span>efZone</span>
+    </div>
+  </div>
+
+  <!-- Palette -->
+  <div style="display: flex; flex-direction: column; gap: 16px; padding-top: 36px;">
+    <div class="lbl">Neutrals — violet-biased, never pure grey</div>
+    <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div class="sw" style="background: #F7F6F9;"></div>
+        <div class="nm">Page</div><div class="hx">#F7F6F9</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div class="sw" style="background: #FFFFFF;"></div>
+        <div class="nm">Surface</div><div class="hx">#FFFFFF</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div class="sw" style="background: #F2F0F5;"></div>
+        <div class="nm">Sunk</div><div class="hx">#F2F0F5</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div class="sw" style="background: #E6E3EB;"></div>
+        <div class="nm">Border</div><div class="hx">#E6E3EB</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div class="sw" style="background: #66626F;"></div>
+        <div class="nm">Muted text</div><div class="hx">#66626F</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div class="sw" style="background: #18161C;"></div>
+        <div class="nm">Text</div><div class="hx">#18161C</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 16px; padding-top: 32px;">
+    <div class="lbl">Accent &amp; semantics — one accent, three states</div>
+    <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div class="sw" style="background: {{accent}};"></div>
+        <div class="nm">Accent</div><div class="hx">{{accent}}</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div class="sw" style="background: #FDF0F7;"></div>
+        <div class="nm">Accent tint</div><div class="hx">#FDF0F7</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div class="sw" style="background: #10795A;"></div>
+        <div class="nm">Correct</div><div class="hx">#10795A</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div class="sw" style="background: #BC2338;"></div>
+        <div class="nm">Incorrect</div><div class="hx">#BC2338</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div class="sw" style="background: #9A5B08;"></div>
+        <div class="nm">Warning</div><div class="hx">#9A5B08</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div class="sw" style="background: linear-gradient(90deg, #9114af, #ff5eb8);"></div>
+        <div class="nm">Wordmark only</div><div class="hx">#9114af → #ff5eb8</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Type -->
+  <div style="display: flex; flex-direction: column; gap: 20px; padding-top: 40px;">
+    <div class="lbl">Type — Geist, the app's existing face</div>
+    <div style="background: #FFFFFF; border: 1px solid #E6E3EB; border-radius: 14px; padding: 28px 32px; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);">
+      <div style="display: flex; align-items: baseline; gap: 24px;">
+        <div class="hx" style="width: 132px; flex-shrink: 0;">34 / 1.1 / -0.028em</div>
+        <div style="font-size: 34px; font-weight: 700; letter-spacing: -0.028em; line-height: 1.1;">Make the call</div>
+      </div>
+      <div style="display: flex; align-items: baseline; gap: 24px;">
+        <div class="hx" style="width: 132px; flex-shrink: 0;">24 / 1.25 / -0.02em</div>
+        <div style="font-size: 24px; font-weight: 600; letter-spacing: -0.02em;">Denying a goalscoring opportunity</div>
+      </div>
+      <div style="display: flex; align-items: baseline; gap: 24px;">
+        <div class="hx" style="width: 132px; flex-shrink: 0;">16 / 1.5</div>
+        <div style="font-size: 16px; line-height: 1.5;">Body copy sits at sixteen pixels with a 1.5 line height and never runs wider than about sixty-five characters.</div>
+      </div>
+      <div style="display: flex; align-items: baseline; gap: 24px;">
+        <div class="hx" style="width: 132px; flex-shrink: 0;">14 / 1.45</div>
+        <div style="font-size: 14px; line-height: 1.45; color: #66626F;">Secondary text, form help and table cells.</div>
+      </div>
+      <div style="display: flex; align-items: baseline; gap: 24px;">
+        <div class="hx" style="width: 132px; flex-shrink: 0;">11 / 0.06em / caps</div>
+        <div class="lbl">Section label</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div style="display: flex; flex-direction: column; gap: 20px; padding-top: 40px;">
+    <div class="lbl">Controls — 36px default height, 8px radius</div>
+    <div style="background: #FFFFFF; border: 1px solid #E6E3EB; border-radius: 14px; padding: 28px 32px; display: flex; flex-direction: column; gap: 24px; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);">
+
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <div style="display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 16px; border-radius: 8px; background: {{accent}}; color: #FFFFFF; font-size: 14px; font-weight: 500;">Submit decision</div>
+        <div style="display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 16px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E6E3EB; color: #18161C; font-size: 14px; font-weight: 500; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.04);">Secondary</div>
+        <div style="display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 16px; border-radius: 8px; color: #66626F; font-size: 14px; font-weight: 500;">Ghost</div>
+        <div style="display: inline-flex; align-items: center; justify-content: center; height: 32px; padding: 0 12px; border-radius: 8px; background: {{accent}}; color: #FFFFFF; font-size: 13px; font-weight: 500;">Small</div>
+        <div style="display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0 24px; border-radius: 8px; background: {{accent}}; color: #FFFFFF; font-size: 15px; font-weight: 500;">Large</div>
+        <div style="display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 16px; border-radius: 8px; background: {{accent}}; color: #FFFFFF; font-size: 14px; font-weight: 500; opacity: 0.5;">Disabled</div>
+      </div>
+
+      <div style="display: flex; gap: 16px; align-items: flex-end;">
+        <div style="display: flex; flex-direction: column; gap: 6px; flex-grow: 1;">
+          <div style="font-size: 13px; font-weight: 500;">Input</div>
+          <div style="height: 36px; border-radius: 8px; border: 1px solid #E6E3EB; background: #FFFFFF; display: flex; align-items: center; padding: 0 12px; font-size: 14px; color: #726D79;">Search scenarios…</div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px; flex-grow: 1;">
+          <div style="font-size: 13px; font-weight: 500;">Focused</div>
+          <div style="height: 36px; border-radius: 8px; border: 1px solid {{accent}}; box-shadow: 0 0 0 3px #FDF0F7; background: #FFFFFF; display: flex; align-items: center; padding: 0 12px; font-size: 14px; color: #18161C;">Direct free kick</div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #FDF0F7; color: {{accent}}; border: 1px solid #F3D6E7; font-size: 12px; font-weight: 500;">DOGSO</span>
+        <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #E6F5EF; color: #10795A; border: 1px solid #CDEADF; font-size: 12px; font-weight: 500;">Correct</span>
+        <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #FCEBEE; color: #BC2338; border: 1px solid #F5D2D8; font-size: 12px; font-weight: 500;">Incorrect</span>
+        <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #FCF2E3; color: #9A5B08; border: 1px solid #F1E0C4; font-size: 12px; font-weight: 500;">Hard</span>
+        <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #F2F0F5; color: #66626F; border: 1px solid #E6E3EB; font-size: 12px; font-weight: 500;">Law 12</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stat tile + dark -->
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding-top: 40px;">
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <div class="lbl">Stat tile</div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px;">
+        <div style="background: #FFFFFF; border: 1px solid #E6E3EB; border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);">
+          <div class="lbl">Accuracy</div>
+          <div style="font-size: 30px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;">78%</div>
+          <div style="font-size: 12px; color: #10795A; font-weight: 500;">+4 this week</div>
+        </div>
+        <div style="background: #FFFFFF; border: 1px solid #E6E3EB; border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);">
+          <div class="lbl">Streak</div>
+          <div style="font-size: 30px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;">6</div>
+          <div style="font-size: 12px; color: #66626F;">correct in a row</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <div class="lbl">Dark theme — same structure, inverted tokens</div>
+      <div style="background: #0D0C10; border: 1px solid #2A2732; border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px;">
+          <div style="height: 34px; border-radius: 8px; background: #0D0C10; border: 1px solid #2A2732;"></div>
+          <div style="height: 34px; border-radius: 8px; background: #16151B; border: 1px solid #2A2732;"></div>
+          <div style="height: 34px; border-radius: 8px; background: #1E1C25; border: 1px solid #2A2732;"></div>
+          <div style="height: 34px; border-radius: 8px; background: #A29DAC;"></div>
+          <div style="height: 34px; border-radius: 8px; background: #F05CAE;"></div>
+        </div>
+        <div style="background: #16151B; border: 1px solid #2A2732; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 6px;">
+          <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #75707E; font-weight: 500;">Accuracy</div>
+          <div style="font-size: 30px; font-weight: 700; letter-spacing: -0.02em; color: #EDEBF0; font-variant-numeric: tabular-nums;">78%</div>
+          <div style="font-size: 12px; color: #45C79A; font-weight: 500;">+4 this week</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"accent":{"editor":"color","default":"#B4187E","options":["#B4187E","#9114AF","#A3186B"],"section":"Brand"},"$preview":{"width":1280,"height":1520}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#B4187E' };
+  }
+}
+</script>
+</body>
+</html>

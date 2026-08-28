@@ -1,0 +1,34 @@
+{
+  "artboards": [
+    { "file": "System.dc.html", "x": 0, "y": 0, "w": 1280, "h": 1520, "title": "Foundations" },
+    { "file": "Main.dc.html", "x": 0, "y": 1680, "w": 1280, "h": 940, "title": "Dashboard" },
+    { "file": "Scenarios.dc.html", "x": 1400, "y": 1680, "w": 1280, "h": 1040, "title": "Training topics" },
+    { "file": "Player.dc.html", "x": 2800, "y": 1680, "w": 1280, "h": 1010, "title": "Scenario player" },
+    { "file": "Result.dc.html", "x": 0, "y": 2860, "w": 1280, "h": 1080, "title": "Result" },
+    { "file": "Quiz.dc.html", "x": 1400, "y": 2860, "w": 1280, "h": 940, "title": "Quiz question" }
+  ],
+  "annotations": [
+    {
+      "id": "premise",
+      "x": 0,
+      "y": -230,
+      "w": 620,
+      "text": "Light-first refresh, matched to the code that already exists.\n\nGeist, 10px base radius (cards 14, controls 8), 36px control height, 24px card padding — all lifted from components/ui, not invented. The purple→pink gradient stays, but only on the wordmark; UI uses one solid accent so it can carry meaning.\n\nStatic mockups, not a clickable prototype."
+    },
+    {
+      "id": "player-note",
+      "x": 2800,
+      "y": 1500,
+      "w": 420,
+      "text": "Matches what is already shipped: play/pause and a scrubber, nothing else. No volume, speed, fullscreen or download."
+    },
+    {
+      "id": "result-note",
+      "x": 0,
+      "y": 2680,
+      "w": 420,
+      "text": "Correct Decision is the short verdict; Explanation is the reasoning written against the referee's own answer. Both now come from /api/check-answer."
+    }
+  ],
+  "launch": { "view": "canvas" }
+}

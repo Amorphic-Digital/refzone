@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+  <style>
+    body { margin: 0; font-family: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif; color: #18161C; }
+    a { color: #B4187E; } a:hover { color: #9C146D; }
+    .card { background: #FFFFFF; border: 1px solid #E6E3EB; border-radius: 14px; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
+    .mono { font-family: "Geist Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+    .lbl { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #726D79; font-weight: 500; }
+  </style>
+</helmet>
+
+<div style="background: #F7F6F9; min-height: 100%;">
+
+  <div style="height: 60px; background: #FFFFFF; border-bottom: 1px solid #E6E3EB; display: flex; align-items: center; justify-content: space-between; padding: 0 32px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div style="display: flex; align-items: baseline; gap: 1px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em;">
+        <span style="background: linear-gradient(90deg, #9114af, #ff5eb8); -webkit-background-clip: text; background-clip: text; color: transparent;">R</span><span>efZone</span>
+      </div>
+      <span style="color: #ADA8B6;">/</span>
+      <div style="font-size: 14px; color: #66626F;">Scenarios</div>
+      <span style="color: #ADA8B6;">/</span>
+      <div style="font-size: 15px; font-weight: 600;">Scenario #129</div>
+    </div>
+    <div style="width: 30px; height: 30px; border-radius: 50%; background: #F2F0F5; border: 1px solid #E6E3EB; display: grid; place-items: center; font-size: 12px; font-weight: 600; color: #66626F;">H</div>
+  </div>
+
+  <div style="max-width: 880px; margin: 0 auto; padding: 32px; display: flex; flex-direction: column; gap: 20px;">
+
+    <!-- Verdict -->
+    <div class="card" style="padding: 0; overflow: hidden;">
+      <div style="display: flex; align-items: center; gap: 14px; padding: 20px 24px; background: #FCEBEE; border-bottom: 1px solid #F5D2D8;">
+        <div style="width: 34px; height: 34px; border-radius: 50%; background: #BC2338; display: grid; place-items: center; flex-shrink: 0;">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"><path d="M7 7l10 10"/><path d="M17 7L7 17"/></svg>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <div style="font-size: 17px; font-weight: 600; color: #BC2338;">Not quite</div>
+          <div style="font-size: 13px; color: #66626F;">Streak reset to zero. The card was the missing piece.</div>
+        </div>
+      </div>
+
+      <div style="padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div class="lbl">Your decision</div>
+          <div style="font-size: 15px; line-height: 1.5; color: #66626F;">SPA, yellow card, direct free kick</div>
+        </div>
+
+        <div style="height: 1px; background: #F2F0F5;"></div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div class="lbl">Correct decision</div>
+          <div style="font-size: 19px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.35;">Direct free kick + red card for DOGSO</div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div class="lbl">Explanation</div>
+          <div style="font-size: 15px; line-height: 1.55; color: #18161C; max-width: 66ch;">You called a yellow for stopping a promising attack, but the correct sanction is a red card — the defender denied an obvious goalscoring opportunity. Under Law 12.3 that is a sending-off offence wherever the foul happens, and because this one was outside the area the restart stays a direct free kick.</div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px; padding-top: 2px;">
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #F2F0F5; color: #66626F; border: 1px solid #E6E3EB; font-size: 12px; font-weight: 500;">Law 12.3</span>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #F2F0F5; color: #66626F; border: 1px solid #E6E3EB; font-size: 12px; font-weight: 500;">Law 13.1</span>
+          <span style="font-size: 12px; color: #B4187E; font-weight: 500;">Read the law →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tiles -->
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
+      <div class="card" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+        <div class="lbl">Time taken</div>
+        <div class="mono" style="font-size: 24px; font-weight: 600; letter-spacing: -0.01em;">00:41</div>
+      </div>
+      <div class="card" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+        <div class="lbl">Points earned</div>
+        <div class="mono" style="font-size: 24px; font-weight: 600; letter-spacing: -0.01em; color: #726D79;">0</div>
+      </div>
+      <div class="card" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+        <div class="lbl">Streak</div>
+        <div class="mono" style="font-size: 24px; font-weight: 600; letter-spacing: -0.01em;">0 <span style="font-size: 13px; font-weight: 400; color: #726D79; font-family: 'Geist', sans-serif;">was 6</span></div>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <div style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 8px; border: 1px solid #E6E3EB; background: #FFFFFF; font-size: 14px; font-weight: 500; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.04);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg>
+        Rewatch
+      </div>
+      <div style="flex-grow: 1;"></div>
+      <div style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 20px; border-radius: 8px; background: #B4187E; color: #FFFFFF; font-size: 14px; font-weight: 500;">
+        Next scenario
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </div>
+    </div>
+
+    <!-- Correct variant, for the other state -->
+    <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 8px;">
+      <div class="lbl">Correct state — same card, semantic colour only</div>
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div style="display: flex; align-items: center; gap: 14px; padding: 20px 24px; background: #E6F5EF; border-bottom: 1px solid #CDEADF;">
+          <div style="width: 34px; height: 34px; border-radius: 50%; background: #10795A; display: grid; place-items: center; flex-shrink: 0;">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1;">
+            <div style="font-size: 17px; font-weight: 600; color: #10795A;">Correct</div>
+            <div style="font-size: 13px; color: #66626F;">Seven in a row. +10 points.</div>
+          </div>
+          <div class="mono" style="font-size: 20px; font-weight: 600; color: #10795A; flex-shrink: 0;">+10</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

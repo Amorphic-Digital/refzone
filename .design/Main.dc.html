@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; font-family: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif; color: #18161C; }
+    a { color: #B4187E; } a:hover { color: #9C146D; }
+    .nav { display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 10px; border-radius: 8px; font-size: 14px; color: #66626F; font-weight: 500; }
+    .nav-on { background: #FDF0F7; color: #B4187E; }
+    .lbl { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #726D79; font-weight: 500; }
+    .card { background: #FFFFFF; border: 1px solid #E6E3EB; border-radius: 14px; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
+  </style>
+</helmet>
+
+<div style="display: flex; background: #F7F6F9; min-height: 100%;">
+
+  <!-- Sidebar -->
+  <div style="width: 236px; flex-shrink: 0; background: #FFFFFF; border-right: 1px solid #E6E3EB; display: flex; flex-direction: column; justify-content: space-between; padding: 20px 14px;">
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+      <div style="display: flex; align-items: baseline; gap: 1px; font-size: 19px; font-weight: 700; letter-spacing: -0.02em; padding: 0 10px;">
+        <span style="background: linear-gradient(90deg, #9114af, #ff5eb8); -webkit-background-clip: text; background-clip: text; color: transparent;">R</span><span>efZone</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div class="nav nav-on">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+          Dashboard
+        </div>
+        <div class="nav">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M10 9.5l5 2.5-5 2.5z"/></svg>
+          Scenarios
+        </div>
+        <div class="nav">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 9a2.5 2.5 0 113 2.4V13"/><path d="M12.5 16.5h.01"/><circle cx="12" cy="12" r="9"/></svg>
+          Quizzes
+        </div>
+        <div class="nav">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 12l9 4 9-4"/><path d="M3 17l9 4 9-4"/></svg>
+          Training packs
+        </div>
+        <div class="nav">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v5l-5 9a3 3 0 002.6 4.4h10.8A3 3 0 0020 17l-5-9V3"/><path d="M8 3h8"/></svg>
+          Decision Lab
+        </div>
+        <div class="nav">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg>
+          Analytics
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 2px;">
+      <div class="nav">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-2.7 1.1V21a2 2 0 11-4 0v-.1A1.6 1.6 0 006.5 19.4l-.1.1a2 2 0 11-2.8-2.8l.1-.1A1.6 1.6 0 003 15a2 2 0 010-4 1.6 1.6 0 001.1-2.7l-.1-.1a2 2 0 112.8-2.8l.1.1A1.6 1.6 0 009 4.6V4a2 2 0 014 0v.1a1.6 1.6 0 002.7 1.1l.1-.1a2 2 0 112.8 2.8l-.1.1A1.6 1.6 0 0021 11a2 2 0 010 4z"/></svg>
+        Settings
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px; padding: 10px; border-top: 1px solid #E6E3EB; margin-top: 8px;">
+        <div style="width: 30px; height: 30px; border-radius: 50%; background: #F2F0F5; border: 1px solid #E6E3EB; display: grid; place-items: center; font-size: 12px; font-weight: 600; color: #66626F;">H</div>
+        <div style="display: flex; flex-direction: column; gap: 1px; min-width: 0;">
+          <div style="font-size: 13px; font-weight: 500;">Henry</div>
+          <div style="font-size: 11px; color: #726D79;">Level 4 · NSW</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div style="flex-grow: 1; display: flex; flex-direction: column; min-width: 0;">
+
+    <div style="height: 60px; flex-shrink: 0; background: #FFFFFF; border-bottom: 1px solid #E6E3EB; display: flex; align-items: center; justify-content: space-between; padding: 0 32px;">
+      <div style="font-size: 15px; font-weight: 600;">Dashboard</div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="height: 34px; width: 240px; border-radius: 8px; border: 1px solid #E6E3EB; display: flex; align-items: center; gap: 8px; padding: 0 12px; font-size: 13px; color: #726D79;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          Search
+        </div>
+        <div style="display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: 8px; background: #B4187E; color: #FFFFFF; font-size: 13px; font-weight: 500;">Start training</div>
+      </div>
+    </div>
+
+    <div style="padding: 32px; display: flex; flex-direction: column; gap: 28px;">
+
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <div style="font-size: 26px; font-weight: 700; letter-spacing: -0.024em;">Good morning, Henry</div>
+        <div style="font-size: 14px; color: #66626F;">You are six correct in a row. Two scenarios left in Reckless Tackles.</div>
+      </div>
+
+      <!-- Stats -->
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px;">
+        <div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;">
+          <div class="lbl">Scenarios answered</div>
+          <div style="font-size: 30px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;">128</div>
+          <div style="font-size: 12px; color: #66626F;">of 164 available</div>
+        </div>
+        <div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;">
+          <div class="lbl">Accuracy</div>
+          <div style="font-size: 30px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;">78%</div>
+          <div style="font-size: 12px; color: #10795A; font-weight: 500;">+4 this week</div>
+        </div>
+        <div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;">
+          <div class="lbl">Current streak</div>
+          <div style="font-size: 30px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;">6</div>
+          <div style="font-size: 12px; color: #66626F;">best 14</div>
+        </div>
+        <div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;">
+          <div class="lbl">Points</div>
+          <div style="font-size: 30px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;">1,240</div>
+          <div style="font-size: 12px; color: #66626F;">#12 in NSW</div>
+        </div>
+      </div>
+
+      <!-- Two column -->
+      <div style="display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 20px;">
+
+        <div class="card" style="display: flex; flex-direction: column;">
+          <div style="padding: 20px 24px; border-bottom: 1px solid #E6E3EB; display: flex; align-items: center; justify-content: space-between;">
+            <div style="font-size: 15px; font-weight: 600;">Recent decisions</div>
+            <div style="font-size: 13px; color: #B4187E; font-weight: 500;">View all</div>
+          </div>
+          <div style="display: flex; flex-direction: column;">
+            <div style="display: flex; align-items: center; gap: 14px; padding: 14px 24px; border-bottom: 1px solid #F2F0F5;">
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: #10795A; flex-shrink: 0;"></span>
+              <div style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1; min-width: 0;">
+                <div style="font-size: 14px; font-weight: 500;">Scenario #128</div>
+                <div style="font-size: 12px; color: #726D79;">DOGSO · 41s</div>
+              </div>
+              <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #E6F5EF; color: #10795A; border: 1px solid #CDEADF; font-size: 12px; font-weight: 500;">Correct</span>
+              <div style="font-size: 13px; color: #66626F; font-variant-numeric: tabular-nums; width: 44px; text-align: right;">+10</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 14px; padding: 14px 24px; border-bottom: 1px solid #F2F0F5;">
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: #10795A; flex-shrink: 0;"></span>
+              <div style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1; min-width: 0;">
+                <div style="font-size: 14px; font-weight: 500;">Scenario #127</div>
+                <div style="font-size: 12px; color: #726D79;">Handball · 1m 04s</div>
+              </div>
+              <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #E6F5EF; color: #10795A; border: 1px solid #CDEADF; font-size: 12px; font-weight: 500;">Correct</span>
+              <div style="font-size: 13px; color: #66626F; font-variant-numeric: tabular-nums; width: 44px; text-align: right;">+10</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 14px; padding: 14px 24px; border-bottom: 1px solid #F2F0F5;">
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: #BC2338; flex-shrink: 0;"></span>
+              <div style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1; min-width: 0;">
+                <div style="font-size: 14px; font-weight: 500;">Scenario #126</div>
+                <div style="font-size: 12px; color: #726D79;">Offside · 52s</div>
+              </div>
+              <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #FCEBEE; color: #BC2338; border: 1px solid #F5D2D8; font-size: 12px; font-weight: 500;">Incorrect</span>
+              <div style="font-size: 13px; color: #726D79; font-variant-numeric: tabular-nums; width: 44px; text-align: right;">—</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 14px; padding: 14px 24px;">
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: #10795A; flex-shrink: 0;"></span>
+              <div style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1; min-width: 0;">
+                <div style="font-size: 14px; font-weight: 500;">Weekly quiz</div>
+                <div style="font-size: 12px; color: #726D79;">8 of 10 · 6m 12s</div>
+              </div>
+              <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #F2F0F5; color: #66626F; border: 1px solid #E6E3EB; font-size: 12px; font-weight: 500;">Quiz</span>
+              <div style="font-size: 13px; color: #66626F; font-variant-numeric: tabular-nums; width: 44px; text-align: right;">+80</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <div class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+            <div style="font-size: 15px; font-weight: 600;">Weakest topic</div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                <div style="font-size: 14px;">Offside</div>
+                <div style="font-size: 13px; color: #66626F; font-variant-numeric: tabular-nums;">52%</div>
+              </div>
+              <div style="height: 6px; border-radius: 999px; background: #F2F0F5; overflow: hidden;">
+                <div style="width: 52%; height: 100%; background: #B4187E;"></div>
+              </div>
+              <div style="display: flex; align-items: baseline; justify-content: space-between; padding-top: 4px;">
+                <div style="font-size: 14px;">Handball</div>
+                <div style="font-size: 13px; color: #66626F; font-variant-numeric: tabular-nums;">71%</div>
+              </div>
+              <div style="height: 6px; border-radius: 999px; background: #F2F0F5; overflow: hidden;">
+                <div style="width: 71%; height: 100%; background: #BE5595;"></div>
+              </div>
+            </div>
+            <div style="display: inline-flex; align-items: center; justify-content: center; height: 36px; border-radius: 8px; border: 1px solid #E6E3EB; font-size: 14px; font-weight: 500; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.04);">Train offside</div>
+          </div>
+
+          <div class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+            <div style="font-size: 15px; font-weight: 600;">This week's quiz</div>
+            <div style="font-size: 14px; color: #66626F; line-height: 1.5;">Ten questions on Law 11 and Law 12. Closes Sunday.</div>
+            <div style="display: inline-flex; align-items: center; justify-content: center; height: 36px; border-radius: 8px; background: #B4187E; color: #FFFFFF; font-size: 14px; font-weight: 500;">Take the quiz</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

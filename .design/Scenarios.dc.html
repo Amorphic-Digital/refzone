@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; font-family: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif; color: #18161C; }
+    a { color: #B4187E; } a:hover { color: #9C146D; }
+    .card { background: #FFFFFF; border: 1px solid #E6E3EB; border-radius: 14px; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
+    .cat { background: #FFFFFF; border: 1px solid #E6E3EB; border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
+    .ico { width: 34px; height: 34px; border-radius: 9px; background: #FDF0F7; color: #B4187E; display: grid; place-items: center; }
+    .ttl { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+    .dsc { font-size: 13px; color: #66626F; line-height: 1.45; }
+    .law { font-size: 11px; color: #726D79; }
+    .chip { display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 999px; border: 1px solid #E6E3EB; background: #FFFFFF; font-size: 13px; color: #66626F; font-weight: 500; }
+    .chip-on { background: #18161C; border-color: #18161C; color: #FFFFFF; }
+    .meta { display: flex; align-items: center; justify-content: space-between; padding-top: 4px; }
+    .prog { height: 5px; border-radius: 999px; background: #F2F0F5; overflow: hidden; }
+  </style>
+</helmet>
+
+<div style="background: #F7F6F9; min-height: 100%;">
+
+  <div style="height: 60px; background: #FFFFFF; border-bottom: 1px solid #E6E3EB; display: flex; align-items: center; justify-content: space-between; padding: 0 32px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div style="display: flex; align-items: baseline; gap: 1px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em;">
+        <span style="background: linear-gradient(90deg, #9114af, #ff5eb8); -webkit-background-clip: text; background-clip: text; color: transparent;">R</span><span>efZone</span>
+      </div>
+      <span style="color: #ADA8B6;">/</span>
+      <div style="font-size: 15px; font-weight: 600;">Scenarios</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div style="height: 34px; width: 260px; border-radius: 8px; border: 1px solid #E6E3EB; display: flex; align-items: center; gap: 8px; padding: 0 12px; font-size: 13px; color: #726D79;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        Search topics
+      </div>
+      <div style="width: 30px; height: 30px; border-radius: 50%; background: #F2F0F5; border: 1px solid #E6E3EB; display: grid; place-items: center; font-size: 12px; font-weight: 600; color: #66626F;">H</div>
+    </div>
+  </div>
+
+  <div style="padding: 32px; display: flex; flex-direction: column; gap: 24px;">
+
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;">
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <div style="font-size: 26px; font-weight: 700; letter-spacing: -0.024em;">Training topics</div>
+        <div style="font-size: 14px; color: #66626F;">Fifteen topics, 164 video scenarios. Pick one, or let RefZone choose.</div>
+      </div>
+      <div style="display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 16px; border-radius: 8px; background: #B4187E; color: #FFFFFF; font-size: 14px; font-weight: 500; flex-shrink: 0;">Quick play</div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+      <div class="chip chip-on">All topics</div>
+      <div class="chip">Law 12</div>
+      <div class="chip">Law 11</div>
+      <div class="chip">Not started</div>
+      <div class="chip">Needs work</div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
+
+      <div class="cat">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v6c0 4.2-3 7.5-7.5 9-4.5-1.5-7.5-4.8-7.5-9V6z"/><path d="M12 9v4"/><path d="M12 16h.01"/></svg></div>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #FCF2E3; color: #9A5B08; border: 1px solid #F1E0C4; font-size: 12px; font-weight: 500;">Needs work</span>
+        </div>
+        <div class="ttl">DOGSO</div>
+        <div class="dsc">Denying an obvious goalscoring opportunity — the four considerations.</div>
+        <div class="law">Law 12: Fouls and Misconduct</div>
+        <div class="meta"><div style="font-size: 12px; color: #66626F;">8 of 14</div><div style="font-size: 12px; color: #66626F; font-variant-numeric: tabular-nums;">61%</div></div>
+        <div class="prog"><div style="width: 61%; height: 100%; background: #B4187E;"></div></div>
+      </div>
+
+      <div class="cat">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20l1.5-6.5"/><path d="M13 20l1.5-9"/><path d="M5 9.5l4-3.5 4 2 4-1"/><circle cx="17" cy="4.5" r="1.6"/></svg></div>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #E6F5EF; color: #10795A; border: 1px solid #CDEADF; font-size: 12px; font-weight: 500;">Strong</span>
+        </div>
+        <div class="ttl">Reckless Tackles</div>
+        <div class="dsc">Careless, reckless or excessive force — and the card that follows.</div>
+        <div class="law">Law 12: Fouls and Misconduct</div>
+        <div class="meta"><div style="font-size: 12px; color: #66626F;">16 of 18</div><div style="font-size: 12px; color: #66626F; font-variant-numeric: tabular-nums;">88%</div></div>
+        <div class="prog"><div style="width: 88%; height: 100%; background: #B4187E;"></div></div>
+      </div>
+
+      <div class="cat">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 11V6.5a1.5 1.5 0 013 0V11"/><path d="M11 10.5V5a1.5 1.5 0 013 0v6"/><path d="M14 11V7.5a1.5 1.5 0 013 0V15a6 6 0 01-6 6h-.5a6 6 0 01-5.2-3L4 15.5a1.6 1.6 0 012.7-1.7L8 15"/></svg></div>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #F2F0F5; color: #66626F; border: 1px solid #E6E3EB; font-size: 12px; font-weight: 500;">Not started</span>
+        </div>
+        <div class="ttl">Handball</div>
+        <div class="dsc">Deliberate handling, unnatural position and the accidental-goal rules.</div>
+        <div class="law">Law 12: Fouls and Misconduct</div>
+        <div class="meta"><div style="font-size: 12px; color: #66626F;">0 of 12</div><div style="font-size: 12px; color: #726D79; font-variant-numeric: tabular-nums;">—</div></div>
+        <div class="prog"><div style="width: 0%; height: 100%; background: #B4187E;"></div></div>
+      </div>
+
+      <div class="cat">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4.5h11l-2 4 2 4H5"/></svg></div>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #FCEBEE; color: #BC2338; border: 1px solid #F5D2D8; font-size: 12px; font-weight: 500;">Weakest</span>
+        </div>
+        <div class="ttl">Offside</div>
+        <div class="dsc">Position, interference, and the moment the ball is played.</div>
+        <div class="law">Law 11: Offside</div>
+        <div class="meta"><div style="font-size: 12px; color: #66626F;">11 of 15</div><div style="font-size: 12px; color: #66626F; font-variant-numeric: tabular-nums;">52%</div></div>
+        <div class="prog"><div style="width: 52%; height: 100%; background: #B4187E;"></div></div>
+      </div>
+
+      <div class="cat">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/></svg></div>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #F2F0F5; color: #66626F; border: 1px solid #E6E3EB; font-size: 12px; font-weight: 500;">In progress</span>
+        </div>
+        <div class="ttl">Penalty Area Incidents</div>
+        <div class="dsc">Fouls in the box, penalty kick decisions and encroachment.</div>
+        <div class="law">Law 14: The Penalty Kick</div>
+        <div class="meta"><div style="font-size: 12px; color: #66626F;">5 of 11</div><div style="font-size: 12px; color: #66626F; font-variant-numeric: tabular-nums;">74%</div></div>
+        <div class="prog"><div style="width: 74%; height: 100%; background: #B4187E;"></div></div>
+      </div>
+
+      <div class="cat">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l7 6-7 6z"/><path d="M13 6l7 6-7 6z"/></svg></div>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #E6F5EF; color: #10795A; border: 1px solid #CDEADF; font-size: 12px; font-weight: 500;">Strong</span>
+        </div>
+        <div class="ttl">Advantage</div>
+        <div class="dsc">When to play on, when to pull it back, and managing the aftermath.</div>
+        <div class="law">Law 5: The Referee</div>
+        <div class="meta"><div style="font-size: 12px; color: #66626F;">9 of 9</div><div style="font-size: 12px; color: #66626F; font-variant-numeric: tabular-nums;">91%</div></div>
+        <div class="prog"><div style="width: 91%; height: 100%; background: #B4187E;"></div></div>
+      </div>
+
+      <div class="cat">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><rect x="3" y="3" width="18" height="14" rx="2.5"/></svg></div>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #F2F0F5; color: #66626F; border: 1px solid #E6E3EB; font-size: 12px; font-weight: 500;">Not started</span>
+        </div>
+        <div class="ttl">VAR &amp; Match Control</div>
+        <div class="dsc">Review protocol, clear and obvious errors, and restart procedure.</div>
+        <div class="law">Law 5: The Referee</div>
+        <div class="meta"><div style="font-size: 12px; color: #66626F;">0 of 8</div><div style="font-size: 12px; color: #726D79; font-variant-numeric: tabular-nums;">—</div></div>
+        <div class="prog"><div style="width: 0%; height: 100%; background: #B4187E;"></div></div>
+      </div>
+
+      <div class="cat">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10V6.5a1.5 1.5 0 113 0V10"/><path d="M11 9.5V7a1.5 1.5 0 113 0v3"/><path d="M5 12.5V9a1.5 1.5 0 113 0v3"/><path d="M14 10.5a1.5 1.5 0 113 0V15a6 6 0 01-6 6 6 6 0 01-6-6v-2.5"/></svg></div>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #F2F0F5; color: #66626F; border: 1px solid #E6E3EB; font-size: 12px; font-weight: 500;">In progress</span>
+        </div>
+        <div class="ttl">Holding &amp; Pushing</div>
+        <div class="dsc">Shirt pulls, blocks and wrestling — especially at set pieces.</div>
+        <div class="law">Law 12: Fouls and Misconduct</div>
+        <div class="meta"><div style="font-size: 12px; color: #66626F;">4 of 10</div><div style="font-size: 12px; color: #66626F; font-variant-numeric: tabular-nums;">80%</div></div>
+        <div class="prog"><div style="width: 80%; height: 100%; background: #B4187E;"></div></div>
+      </div>
+
+      <div class="cat">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></div>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 8px; background: #F2F0F5; color: #66626F; border: 1px solid #E6E3EB; font-size: 12px; font-weight: 500;">Not started</span>
+        </div>
+        <div class="ttl">Time Wasting</div>
+        <div class="dsc">Delaying the restart, additional time and game management.</div>
+        <div class="law">Law 7: The Duration of the Match</div>
+        <div class="meta"><div style="font-size: 12px; color: #66626F;">0 of 7</div><div style="font-size: 12px; color: #726D79; font-variant-numeric: tabular-nums;">—</div></div>
+        <div class="prog"><div style="width: 0%; height: 100%; background: #B4187E;"></div></div>
+      </div>
+
+    </div>
+
+    <div style="display: flex; justify-content: center; padding-top: 4px;">
+      <div style="display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 18px; border-radius: 8px; border: 1px solid #E6E3EB; background: #FFFFFF; font-size: 14px; font-weight: 500; color: #18161C; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.04);">Show 6 more topics</div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
