@@ -1,18 +1,38 @@
 import { requireAuth } from "@/lib/auth"
 import { createServiceClient } from "@/lib/supabase/service"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Flame, Medal, Award, Crown } from "lucide-react"
+import { Building2, Flame, Globe, Medal, Award, Crown, Users } from "lucide-react"
 import { LeaderboardClient } from "./leaderboard-client"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { isUnder16 } from "@/lib/age-utils"
+import { getBranchMembership, listBranchRefereeIds } from "@/lib/referee-branches"
 
 export const metadata = {
   title: "RefZone",
-  description: "See how referees rank worldwide",
+  description: "See how you rank in your referee branch",
 }
 
-export default async function LeaderboardPage() {
+/**
+ * The leaderboard, scoped to your branch.
+ *
+ * Ranking 400th of nine thousand strangers is a number nobody acts on. Ranking
+ * 4th of the twenty referees you turn up with is, so the branch ladder is the
+ * default whenever there is one, and the global board stays a click away
+ * rather than being the thing everybody lands on.
+ *
+ * Coaches never appear on either board. A coach's points come from preparing
+ * training rather than from being marked on it, and a coach ranked above the
+ * squad they are reading results for is neither fair nor informative — so the
+ * branch board is built from the branch's `referee` members, and the global
+ * board filters coach accounts out.
+ */
+export default async function LeaderboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ scope?: string }>
+}) {
   const supabase = createServiceClient()
   let userId: string | null = null
   try {
@@ -21,27 +41,44 @@ export default async function LeaderboardPage() {
     // Not logged in - that's ok for leaderboard
   }
 
-  // Fetch verified profiles ordered by streak (only email-verified users)
-  const { data: leaderboard } = await supabase
-    .from("profiles")
-    .select(`
-      id,
-      display_name,
-      total_points,
-      current_streak,
-      longest_streak,
-      is_verified
-    `)
-    .eq("email_verified", true)
-    .order("current_streak", { ascending: false })
-    .limit(100)
+  const membership = userId ? await getBranchMembership(userId) : null
+  const { scope } = await searchParams
+  // The branch board is the default when there is one; ?scope=global is the
+  // deliberate step out of it. Without a branch there is only the global board.
+  const showingBranch = !!membership && scope !== "global"
+
+  let leaderboard: any[] | null = null
+
+  if (showingBranch && membership) {
+    const refereeIds = await listBranchRefereeIds(membership.branch.id)
+
+    const { data } = refereeIds.length
+      ? await supabase
+          .from("profiles")
+          .select("id, display_name, total_points, current_streak, longest_streak, is_verified")
+          .in("id", refereeIds)
+          .eq("email_verified", true)
+          .order("current_streak", { ascending: false })
+      : { data: [] }
+
+    leaderboard = data || []
+  } else {
+    // Verified profiles only, and never coaches — see the note above.
+    const { data } = await supabase
+      .from("profiles")
+      .select("id, display_name, total_points, current_streak, longest_streak, is_verified")
+      .eq("email_verified", true)
+      .not("is_coach", "is", true)
+      .order("current_streak", { ascending: false })
+      .limit(100)
+
+    leaderboard = data || []
+  }
 
   let friendships = null
-  let customizations = null
   let profileRestricted = false
 
   if (userId) {
-    const userIds = leaderboard?.map((p) => p.id) || []
     const [currentProfileResult, friendshipsResult] = await Promise.all([
       supabase.from("profiles").select("date_of_birth").eq("id", userId).single(),
       supabase.from("friendships").select("*").or(`requester_id.eq.${userId},addressee_id.eq.${userId}`),
@@ -66,6 +103,12 @@ export default async function LeaderboardPage() {
 
   // Find current user's rank
   const userRank = userId ? (leaderboard?.findIndex((p) => p.id === userId) ?? -1) : -1
+
+  const heading = showingBranch && membership ? membership.branch.name : "Leaderboard"
+  const subheading =
+    showingBranch && membership
+      ? "How your branch ranks by streak. Coaches are not listed."
+      : "Every verified referee, ranked by streak."
 
   return (
     <div className="space-y-6">
@@ -93,9 +136,17 @@ export default async function LeaderboardPage() {
       )}
 
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold">Leaderboard</h1>
-          <p className="text-muted-foreground">See how referees rank by streak</p>
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-2">
+            <h1 className="text-3xl font-bold">{heading}</h1>
+            {showingBranch && (
+              <Badge variant="secondary" className="gap-1">
+                <Building2 className="h-3 w-3" />
+                Branch
+              </Badge>
+            )}
+          </div>
+          <p className="text-muted-foreground">{subheading}</p>
         </div>
         {userRank >= 0 && (
           <Card className="bg-primary/10 border-primary/20">
@@ -108,6 +159,46 @@ export default async function LeaderboardPage() {
           </Card>
         )}
       </div>
+
+      {/* Branch or global. Only shown to someone who has both. */}
+      {membership && (
+        <div className="flex flex-wrap gap-2">
+          <Button asChild variant={showingBranch ? "default" : "outline"} size="sm">
+            <Link href="/leaderboard">
+              <Building2 className="mr-2 h-4 w-4" />
+              My branch
+            </Link>
+          </Button>
+          <Button asChild variant={showingBranch ? "outline" : "default"} size="sm">
+            <Link href="/leaderboard?scope=global">
+              <Globe className="mr-2 h-4 w-4" />
+              Everyone
+            </Link>
+          </Button>
+        </div>
+      )}
+
+      {/* No branch: this is the whole point of the feature, so it goes above
+          the board rather than being a footnote under it. */}
+      {userId && !membership && (
+        <Card className="border-dashed border-primary/40">
+          <CardContent className="flex flex-wrap items-center justify-between gap-4 py-5">
+            <div className="flex items-start gap-3">
+              <Users className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+              <div>
+                <p className="font-medium text-foreground">Rank against your own branch</p>
+                <p className="max-w-xl text-sm text-muted-foreground">
+                  Join the association you referee for and this board becomes the people you turn up
+                  with on a Saturday, instead of everyone in the app.
+                </p>
+              </div>
+            </div>
+            <Button asChild size="sm">
+              <Link href="/branch">Join a branch</Link>
+            </Button>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Top 3 Podium */}
       {leaderboard && leaderboard.length >= 3 && (
@@ -162,13 +253,20 @@ export default async function LeaderboardPage() {
           <CardTitle>All Rankings</CardTitle>
         </CardHeader>
         <CardContent>
-          <LeaderboardClient
-            leaderboard={leaderboard || []}
-            currentUserId={userId || null}
-            friendshipMap={Object.fromEntries(friendshipMap)}
-            badgeMap={{}}
-            profileRestricted={profileRestricted}
-          />
+          {showingBranch && (leaderboard || []).length === 0 ? (
+            <p className="py-8 text-center text-sm text-muted-foreground">
+              Nobody in your branch is on the board yet. Referees appear here once their email is
+              verified.
+            </p>
+          ) : (
+            <LeaderboardClient
+              leaderboard={leaderboard || []}
+              currentUserId={userId || null}
+              friendshipMap={Object.fromEntries(friendshipMap)}
+              badgeMap={{}}
+              profileRestricted={profileRestricted}
+            />
+          )}
         </CardContent>
       </Card>
     </div>

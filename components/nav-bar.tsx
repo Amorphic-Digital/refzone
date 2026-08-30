@@ -24,6 +24,7 @@ import {
   Copy,
   Check,
   ChevronUp,
+  Building2,
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
@@ -169,6 +170,9 @@ export function NavBar() {
       beta: true,
     },
     { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
+    // The branch is what the leaderboard is now scoped to, so it sits
+    // directly under it rather than being buried in the account menu.
+    { href: "/branch", label: "Your Branch", icon: Building2 },
   ]
 
   // Everything the coach account unlocks, in one place. Referees never see it;

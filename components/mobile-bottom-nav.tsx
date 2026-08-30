@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
 import { useAuth, useUser } from "@clerk/nextjs"
-import { Home, Settings, LogOut, Moon, Sun, Users, Shield, HelpCircle, Mail, Copy, Check, FlaskConical, Menu, Bell, Layers, Library, GraduationCap, UsersRound, PlayCircle, FileQuestion, Trophy, User } from "lucide-react"
+import { Home, Settings, LogOut, Moon, Sun, Users, Shield, HelpCircle, Mail, Copy, Check, FlaskConical, Menu, Bell, Layers, Library, GraduationCap, UsersRound, PlayCircle, FileQuestion, Trophy, User, Building2 } from "lucide-react"
 import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
@@ -74,7 +74,7 @@ export function MobileBottomNav() {
   const isSection = (href: string) => pathname === href || pathname.startsWith(`${href}/`)
   // The More button lights up for anywhere it can take you, which is now
   // everywhere except home and scenarios.
-  const isMoreActive = ["/quizzes", "/packs", "/decision-lab", "/leaderboard", "/settings", "/account", "/admin", "/coach"].some(
+  const isMoreActive = ["/quizzes", "/packs", "/decision-lab", "/leaderboard", "/branch", "/settings", "/account", "/admin", "/coach"].some(
     (href) => isSection(href),
   )
 
@@ -155,6 +155,12 @@ export function MobileBottomNav() {
                 <Link href="/leaderboard" className="flex items-center">
                   <Trophy className="h-4 w-4 mr-2" />
                   Leaderboard
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/branch" className="flex items-center">
+                  <Building2 className="h-4 w-4 mr-2" />
+                  Your branch
                 </Link>
               </DropdownMenuItem>
 

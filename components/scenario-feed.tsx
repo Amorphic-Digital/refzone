@@ -158,7 +158,16 @@ export function ScenarioFeed({
   }, [activeIndex, scenarios.length, exhausted, isLoadingMore, queueIds])
 
   const goToPanel = useCallback((index: number) => {
-    panelRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "start" })
+    const panel = panelRefs.current[index]
+    if (panel) {
+      panel.scrollIntoView({ behavior: "smooth", block: "start" })
+      return
+    }
+    // The next panel's row has not landed yet. Scrolling on anyway puts the
+    // referee at the bottom of the feed where the next clip will appear, which
+    // beats a button that visibly does nothing.
+    const scroller = scrollerRef.current
+    scroller?.scrollBy({ top: scroller.clientHeight, behavior: "smooth" })
   }, [])
 
   const handleAnswered = useCallback(
