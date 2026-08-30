@@ -3,16 +3,17 @@
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
 import { useAuth, useUser } from "@clerk/nextjs"
-import { Home, Settings, LogOut, Moon, Sun, Users, Shield, HelpCircle, Mail, Copy, Check, FlaskConical, Menu, Bell } from "lucide-react"
+import { Home, Settings, LogOut, Moon, Sun, Users, Shield, HelpCircle, Mail, Copy, Check, FlaskConical, Menu, Bell, Layers, Library, GraduationCap, UsersRound } from "lucide-react"
 import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { NotificationsDropdown } from "@/components/notifications-dropdown"
 import { MobileTopBar } from "@/components/mobile-top-bar"
 import { useTutorial } from "@/components/tutorial/tutorial-context"
+import { useCoachStatus } from "@/lib/use-coach"
 
 export function MobileBottomNav() {
   const router = useRouter()
@@ -46,6 +47,8 @@ export function MobileBottomNav() {
   }, [openDropdown, tutorialActive])
 
   const { userId, signOut } = useAuth()
+  // Below useAuth() on purpose — userId is a const declared there.
+  const { isCoach } = useCoachStatus(!!userId)
   const { user } = useUser()
 
   useEffect(() => {
@@ -70,7 +73,7 @@ export function MobileBottomNav() {
 
   const isActive = (href: string) => pathname === href
   const isDecisionLabActive = pathname === "/decision-lab"
-  const isAccountActive = ["/settings", "/admin"].includes(pathname)
+  const isAccountActive = ["/settings", "/admin", "/packs", "/coach"].includes(pathname)
 
   const GradientUnderline = ({ active }: { active: boolean }) => (
     <span
@@ -132,7 +135,42 @@ export function MobileBottomNav() {
                 <GradientUnderline active={isAccountActive} />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
+            <DropdownMenuContent align="end" className="w-52">
+              <DropdownMenuItem asChild>
+                <Link href="/packs" className="flex items-center">
+                  <Layers className="h-4 w-4 mr-2" />
+                  Training Packs
+                </Link>
+              </DropdownMenuItem>
+
+              {isCoach && (
+                <>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel className="text-xs text-muted-foreground">
+                    Coaching
+                  </DropdownMenuLabel>
+                  <DropdownMenuItem asChild>
+                    <Link href="/coach" className="flex items-center">
+                      <GraduationCap className="h-4 w-4 mr-2" />
+                      Coach home
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/scenarios/browse" className="flex items-center">
+                      <Library className="h-4 w-4 mr-2" />
+                      Scenario library
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/coach/groups" className="flex items-center">
+                      <UsersRound className="h-4 w-4 mr-2" />
+                      Groups
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                </>
+              )}
+
               {isAdmin && (
                 <DropdownMenuItem asChild>
                   <Link href="/admin" className="flex items-center">

@@ -2,14 +2,15 @@ import Link from "next/link"
 import { redirect } from "next/navigation"
 import { requireAuth } from "@/lib/auth"
 import { getCoachState } from "@/lib/coach"
+import { getCoachOverview } from "@/lib/coach-overview"
 import { createServiceClient } from "@/lib/supabase/service"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { CoachHub } from "@/components/coach-hub"
 import { CoachApplicationForm } from "@/components/coach-application-form"
 import {
   CalendarClock,
-  CheckCircle2,
   Clock,
   Film,
   Layers,
@@ -20,7 +21,7 @@ import {
   Users,
 } from "lucide-react"
 
-export const metadata = { title: "Referee Coach — RefZone" }
+export const metadata = { title: "Coaching — RefZone" }
 
 const FEATURES = [
   {
@@ -66,11 +67,12 @@ const FEATURES = [
 ]
 
 /**
- * The Referee Coach account: what it is, and how to ask for one.
+ * Two pages behind one route.
  *
- * Referees get scenarios dealt to them; coaches get the library and everything
- * built on top of it. This page is where that difference is explained, where
- * the application lives, and — once approved — the way in to all of it.
+ * A coach gets their home: what is waiting on them, and the way in to
+ * everything. Anyone else gets the pitch and the application form — showing
+ * eight cards explaining an account to someone who already has it is the
+ * mistake this split exists to avoid.
  */
 export default async function CoachPage() {
   let userId: string
@@ -80,10 +82,17 @@ export default async function CoachPage() {
     redirect("/auth/login")
   }
 
-  const [{ isCoach, grant, application }, profileResult] = await Promise.all([
-    getCoachState(userId),
-    createServiceClient().from("profiles").select("display_name").eq("id", userId).single(),
-  ])
+  const { isCoach, grant, application } = await getCoachState(userId)
+
+  if (isCoach) {
+    return <CoachHub overview={await getCoachOverview(userId)} expiresAt={grant.expiresAt} />
+  }
+
+  const { data: profile } = await createServiceClient()
+    .from("profiles")
+    .select("display_name")
+    .eq("id", userId)
+    .single()
 
   const expiryLabel = grant.expiresAt
     ? new Date(grant.expiresAt).toLocaleDateString("en-AU", {
@@ -129,59 +138,7 @@ export default async function CoachPage() {
         ))}
       </div>
 
-      {isCoach ? (
-        <Card className="border-primary/40">
-          <CardContent className="space-y-4 pt-6">
-            <div className="flex items-start gap-3">
-              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-              <div>
-                <h2 className="font-semibold text-foreground">Your coach account is active</h2>
-                <p className="text-sm text-muted-foreground">
-                  {expiryLabel ? (
-                    <>
-                      Everything below is open to you until{" "}
-                      <span className="font-medium text-foreground">{expiryLabel}</span>. We will be
-                      in touch before then.
-                    </>
-                  ) : (
-                    <>
-                      Everything below is open to you, free of charge and with no end date. If coach
-                      accounts ever become paid, we will let you know well beforehand.
-                    </>
-                  )}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              <Button asChild>
-                <Link href="/scenarios/browse">
-                  <Library className="h-4 w-4" />
-                  Browse the library
-                </Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link href="/coach/groups">
-                  <Users className="h-4 w-4" />
-                  Groups
-                </Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link href="/packs">
-                  <Layers className="h-4 w-4" />
-                  Training packs
-                </Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link href="/coach/submit">
-                  <Film className="h-4 w-4" />
-                  Send a clip
-                </Link>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      ) : grant.expired ? (
+      {grant.expired ? (
         <Card className="border-amber-500/40">
           <CardContent className="space-y-3 py-8">
             <div className="flex items-start gap-3">
@@ -214,7 +171,7 @@ export default async function CoachPage() {
         </Card>
       ) : (
         <CoachApplicationForm
-          defaultName={profileResult.data?.display_name || ""}
+          defaultName={profile?.display_name || ""}
           previous={
             application?.status === "rejected"
               ? { reason: application.reason, note: application.review_note }

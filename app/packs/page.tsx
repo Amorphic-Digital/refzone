@@ -95,7 +95,7 @@ export default async function PacksPage() {
               : "Packs your coach has sent you. Each one is a set of clips picked out for your group to work through together."}
           </p>
         </div>
-        {coach && (
+        {coach ? (
           <div className="flex flex-wrap gap-2">
             <Button asChild variant="outline" size="lg">
               <Link href="/coach/groups">
@@ -110,6 +110,15 @@ export default async function PacksPage() {
               </Link>
             </Button>
           </div>
+        ) : (
+          /* The only route to the join page for a referee who already has
+             packs — the empty state below is gone by then. */
+          <Button asChild variant="outline">
+            <Link href="/coach/join">
+              <Users className="h-4 w-4" />
+              Join a group
+            </Link>
+          </Button>
         )}
       </div>
 

@@ -11,6 +11,10 @@ import {
   Moon,
   Sun,
   Users,
+  Layers,
+  Library,
+  GraduationCap,
+  UsersRound,
   HelpCircle,
   Mail,
   Copy,
@@ -21,6 +25,7 @@ import { usePathname, useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 import { useTheme } from "next-themes"
+import { useCoachStatus } from "@/lib/use-coach"
 import { NotificationsDropdown } from "@/components/notifications-dropdown"
 import { MobileBottomNav } from "@/components/mobile-bottom-nav"
 import {
@@ -40,6 +45,11 @@ export function NavBar() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const { isSignedIn, isLoaded, userId, signOut } = useAuth()
+  // Decides whether the Coaching section is there at all. Resolves a moment
+  // after mount; see lib/use-coach.ts for why that direction is the safe one.
+  // Must stay below useAuth(): isSignedIn is a const, so reading it earlier
+  // is a temporal dead zone that only shows up as a prerender failure.
+  const { isCoach } = useCoachStatus(!!isSignedIn)
 
   const { user: clerkUser } = useUser()
 
@@ -123,6 +133,17 @@ export function NavBar() {
   const mainNavItems = [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/decision-lab", label: "Decision Lab", icon: Users },
+    // Referees land here for packs a coach has set them, so it is not a
+    // coach-only link even though coaches are the ones who build them.
+    { href: "/packs", label: "Training Packs", icon: Layers },
+  ]
+
+  // Everything the coach account unlocks, in one place. Referees never see it;
+  // for them these routes either redirect to /coach or do not apply.
+  const coachNavItems = [
+    { href: "/coach", label: "Coach home", icon: GraduationCap },
+    { href: "/scenarios/browse", label: "Scenario library", icon: Library },
+    { href: "/coach/groups", label: "Groups", icon: UsersRound },
   ]
 
   const bottomNavItems: { href: string; label: string; icon: any; tutorialId?: string }[] = [
@@ -158,6 +179,19 @@ export function NavBar() {
       {mainNavItems.map((item) => (
         <NavLink key={item.href} item={item} />
       ))}
+
+      {isCoach && (
+        <div className="pt-4">
+          <p className="px-3 mb-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+            Coaching
+          </p>
+          <div className="space-y-1">
+            {coachNavItems.map((item) => (
+              <NavLink key={item.href} item={item} />
+            ))}
+          </div>
+        </div>
+      )}
     </>
   )
 

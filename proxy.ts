@@ -52,6 +52,11 @@ const isPublicRoute = createRouteMatcher([
   '/user/(.*)',
   '/api/cron/(.*)',
   '/api/weekly-quiz(.*)',
+  // Answers 'are you a coach' for the navigation. Clerk still runs — the route
+  // needs the session to answer — but it must not redirect: the nav renders
+  // for signed-out visitors too, and a login page where JSON was expected is
+  // a wasted round trip on every page they load.
+  '/api/coach/me',
   // Share landing pages. Deliberately NOT in bypassPaths: Clerk has to run so
   // the page can detect an existing session and send signed-in users straight
   // through to the content instead of showing them the sign-in prompt.
