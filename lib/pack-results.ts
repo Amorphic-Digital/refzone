@@ -92,7 +92,7 @@ export async function getPackResults(packId: string): Promise<PackResults> {
       .eq("pack_id", packId),
     supabase
       .from("pack_guest_attempts")
-      .select("id, display_name, created_at")
+      .select("id, display_name, created_at, user_id")
       .eq("pack_id", packId),
   ])
 
@@ -117,10 +117,16 @@ export async function getPackResults(packId: string): Promise<PackResults> {
         )
     : { data: [] }
 
-  // Member names in one query rather than per row.
-  const memberIds = [...new Set(memberRows.map((row) => row.user_id))]
-  const { data: profiles } = memberIds.length
-    ? await supabase.from("profiles").select("id, display_name").in("id", memberIds)
+  const progressIds = [...new Set(memberRows.map((row) => row.user_id))]
+
+  // Names in one query rather than per row. Someone who answered a public pack
+  // while signed in sits in the guest tables but is not a guest, so their
+  // account is resolved here too.
+  const nameIds = [
+    ...new Set([...progressIds, ...guestAttempts.map((a) => a.user_id).filter(Boolean)]),
+  ] as string[]
+  const { data: profiles } = nameIds.length
+    ? await supabase.from("profiles").select("id, display_name").in("id", nameIds)
     : { data: [] }
   const nameById = new Map((profiles || []).map((p) => [p.id, p.display_name as string]))
 
@@ -160,29 +166,51 @@ export async function getPackResults(packId: string): Promise<PackResults> {
     }
   }
 
-  const participants: Participant[] = [
-    ...memberIds.map((id) =>
-      build(
-        `member:${id}`,
-        nameById.get(id) || "Referee",
-        false,
-        memberRows.filter((row) => row.user_id === id).map((row) => toAnswer(row, "member")),
-      ),
-    ),
-    ...guestAttempts
-      .map((attempt) =>
-        build(
-          `guest:${attempt.id}`,
-          attempt.display_name || "Guest",
-          true,
-          (guestRows || [])
-            .filter((row) => row.attempt_id === attempt.id)
-            .map((row) => toAnswer(row, "guest")),
-        ),
-      )
-      // Someone who opened the link and never answered is not a result.
-      .filter((participant) => participant.answered > 0),
-  ].sort((a, b) => b.accuracy - a.accuracy || b.answered - a.answered)
+  // Grouped by the person, not by the table their answers landed in. A
+  // signed-in referee can have rows in both — worked through the pack at home,
+  // then joined the live session — and that is one participant with one list.
+  const grouped = new Map<string, { name: string; isGuest: boolean; rows: ParticipantAnswer[] }>()
+
+  const add = (key: string, name: string, isGuest: boolean, rows: ParticipantAnswer[]) => {
+    if (rows.length === 0) return
+    const entry = grouped.get(key)
+    if (!entry) {
+      grouped.set(key, { name, isGuest, rows: [...rows] })
+      return
+    }
+    entry.rows.push(...rows)
+    // Knowing the account beats not knowing it, whichever half arrived first.
+    if (!isGuest) {
+      entry.isGuest = false
+      entry.name = name
+    }
+  }
+
+  for (const id of progressIds) {
+    add(
+      `member:${id}`,
+      nameById.get(id) || "Referee",
+      false,
+      memberRows.filter((row) => row.user_id === id).map((row) => toAnswer(row, "member")),
+    )
+  }
+
+  for (const attempt of guestAttempts) {
+    add(
+      // Keyed by account where there is one, so the same referee answering from
+      // two devices is one row rather than two.
+      attempt.user_id ? `member:${attempt.user_id}` : `guest:${attempt.id}`,
+      (attempt.user_id ? nameById.get(attempt.user_id) : null) || attempt.display_name || "Guest",
+      !attempt.user_id,
+      (guestRows || [])
+        .filter((row) => row.attempt_id === attempt.id)
+        .map((row) => toAnswer(row, "guest")),
+    )
+  }
+
+  const participants: Participant[] = [...grouped.entries()]
+    .map(([key, entry]) => build(key, entry.name, entry.isGuest, entry.rows))
+    .sort((a, b) => b.accuracy - a.accuracy || b.answered - a.answered)
 
   const allAnswers = participants.flatMap((p) => [...p.byScenario.values()])
 

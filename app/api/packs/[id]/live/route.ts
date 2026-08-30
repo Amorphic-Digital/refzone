@@ -3,29 +3,22 @@ import { requireAuth } from "@/lib/auth"
 import { isCoach } from "@/lib/coach"
 import { createServiceClient } from "@/lib/supabase/service"
 import { generateUniqueCode } from "@/lib/share-codes"
+import { loadOwnedPack } from "@/lib/pack-ownership"
+import { findOpenSessionForPack, type LivePhase } from "@/lib/live-session"
 
 const JOIN_CODE_LENGTH = 5
+const MIN_SECONDS = 15
+const MAX_SECONDS = 600
 
 /**
- * The coach's end of a live session: open one, drive it, close it.
+ * The coach's end of a live session: open one, drive it through its phases,
+ * close it.
  *
  * The room reads the same row through /api/public/live/[code], which is why
  * everything here is a small update to one record rather than a broadcast.
  */
-async function loadOwnedPack(packId: string, userId: string) {
-  const supabase = createServiceClient()
 
-  const { data: pack } = await supabase
-    .from("training_packs")
-    .select("id, created_by, is_active, is_public")
-    .eq("id", packId)
-    .maybeSingle()
-
-  if (!pack || !pack.is_active || pack.created_by !== userId) return null
-  return pack
-}
-
-/** Opens a session, reusing the one already running for this pack if there is one. */
+/** Opens a session in the lobby, reusing one already running for this pack. */
 export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   let userId: string
   try {
@@ -51,22 +44,28 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     )
   }
 
-  const supabase = createServiceClient()
+  const running = await findOpenSessionForPack(id)
+  if (running) {
+    return NextResponse.json({ session: { id: running.id, join_code: running.join_code } })
+  }
 
-  const { data: running } = await supabase
-    .from("pack_live_sessions")
-    .select("id, join_code")
-    .eq("pack_id", id)
-    .eq("is_open", true)
-    .maybeSingle()
-
-  if (running) return NextResponse.json({ session: running })
+  const body = await request.json().catch(() => ({}))
+  const seconds =
+    typeof body.questionSeconds === "number"
+      ? Math.min(MAX_SECONDS, Math.max(MIN_SECONDS, body.questionSeconds | 0))
+      : 90
 
   const joinCode = await generateUniqueCode("pack_live_sessions", "join_code", JOIN_CODE_LENGTH)
 
-  const { data, error } = await supabase
+  const { data, error } = await createServiceClient()
     .from("pack_live_sessions")
-    .insert({ pack_id: id, coach_id: userId, join_code: joinCode })
+    .insert({
+      pack_id: id,
+      coach_id: userId,
+      join_code: joinCode,
+      phase: "lobby",
+      question_seconds: seconds,
+    })
     .select("id, join_code")
     .single()
 
@@ -74,7 +73,14 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   return NextResponse.json({ session: data })
 }
 
-/** Advances the room, reveals the answer, or ends the session. */
+/**
+ * Drives the session.
+ *
+ * Accepts a phase, a clip index, a time limit, or an end. Moving to a question
+ * always restarts the clock — the countdown and the speed bonus are both
+ * measured from question_started_at, so it has to be stamped server-side or a
+ * phone with a wrong clock could buy itself points.
+ */
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   let userId: string
   try {
@@ -91,14 +97,46 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   const body = await request.json().catch(() => ({}))
   const update: Record<string, unknown> = {}
 
+  const phases: LivePhase[] = ["lobby", "question", "reveal", "leaderboard", "ended"]
+  const phase: LivePhase | null = phases.includes(body.phase) ? body.phase : null
+
+  if (typeof body.questionSeconds === "number") {
+    update.question_seconds = Math.min(
+      MAX_SECONDS,
+      Math.max(MIN_SECONDS, body.questionSeconds | 0),
+    )
+  }
+
+  for (const [key, column] of [
+    ["timerEnabled", "timer_enabled"],
+    ["scoringEnabled", "scoring_enabled"],
+    ["leaderboardEnabled", "leaderboard_enabled"],
+  ] as const) {
+    if (typeof body[key] === "boolean") update[column] = body[key]
+  }
+
   if (typeof body.currentIndex === "number") {
     update.current_index = Math.max(0, body.currentIndex | 0)
-    // Moving on always hides the previous answer again, so the next clip never
-    // opens with the solution already on the projector.
-    update.reveal = false
   }
-  if (typeof body.reveal === "boolean") update.reveal = body.reveal
+
+  if (phase) {
+    update.phase = phase
+    // reveal is the 040 flag; keeping it in step means nothing that still
+    // reads it has to learn about phases.
+    update.reveal = phase === "reveal"
+
+    // Entering a question — whether that is the next clip or a restart of this
+    // one — starts the clock fresh.
+    if (phase === "question") update.question_started_at = new Date().toISOString()
+    if (phase === "ended") {
+      update.is_open = false
+      update.ended_at = new Date().toISOString()
+    }
+  }
+
   if (body.end === true) {
+    update.phase = "ended"
+    update.reveal = false
     update.is_open = false
     update.ended_at = new Date().toISOString()
   }

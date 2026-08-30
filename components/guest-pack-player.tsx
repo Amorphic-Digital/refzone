@@ -11,17 +11,8 @@ import { ScenarioVideoPlayer } from "@/components/scenario-video-player"
 import { ScenarioVideoCredit } from "@/components/scenario-video-credit"
 import { getDifficultyColor } from "@/lib/shared-utils"
 import type { PublicScenario } from "@/lib/public-pack"
-import {
-  ArrowRight,
-  CheckCircle2,
-  Loader2,
-  Radio,
-  Trophy,
-  XCircle,
-} from "lucide-react"
-
-/** How often the room asks the coach's session which clip it is on. */
-const LIVE_POLL_MS = 3000
+import { LivePlayer } from "@/components/live-player"
+import { ArrowRight, CheckCircle2, Loader2, Radio, Trophy, XCircle } from "lucide-react"
 
 interface Verdict {
   isCorrect: boolean
@@ -32,10 +23,11 @@ interface Verdict {
 /**
  * A pack answered without an account.
  *
- * Two modes off the same code. On its own it is self-paced: work through the
- * clips in the coach's order and finish whenever. With `sessionCode` it is a
- * live session, and the coach decides which clip is on screen and when the
- * answer appears — the page polls for that rather than holding a socket open.
+ * Handles joining — the name, the attempt, the token — and then splits. On its
+ * own this is self-paced: work through the clips in the coach's order and
+ * finish whenever. With `sessionCode` the coach is running the room, and that
+ * is a genuinely different screen rather than this one with buttons hidden, so
+ * it hands over to LivePlayer.
  *
  * The token in localStorage is what makes a refresh continue the same attempt
  * rather than starting a second one under the same name.
@@ -56,6 +48,10 @@ export function GuestPackPlayer({
   const storageKey = `refzone.pack.${code}`
 
   const [token, setToken] = useState<string | null>(null)
+  const [attemptId, setAttemptId] = useState("")
+  // Whether the person answering has an account. Only known after starting —
+  // /p is outside Clerk so the page itself cannot tell.
+  const [signedIn, setSignedIn] = useState(false)
   const [name, setName] = useState("")
   const [scenarios, setScenarios] = useState<PublicScenario[]>([])
   const [index, setIndex] = useState(0)
@@ -66,10 +62,6 @@ export function GuestPackPlayer({
   const [isChecking, setIsChecking] = useState(false)
   const [finished, setFinished] = useState(false)
   const [error, setError] = useState("")
-
-  // Live session state, only meaningful when sessionCode is set.
-  const [liveReveal, setLiveReveal] = useState(false)
-  const [liveClosed, setLiveClosed] = useState(false)
 
   const startedAt = useRef(Date.now())
 
@@ -89,6 +81,8 @@ export function GuestPackPlayer({
         if (!response.ok) throw new Error(data.error || "Could not start")
 
         setToken(data.token)
+        setAttemptId(data.attemptId || "")
+        setSignedIn(!!data.signedIn)
         setScenarios(data.scenarios || [])
         if (data.displayName) setName(data.displayName)
         setResults(
@@ -105,6 +99,25 @@ export function GuestPackPlayer({
         } catch {
           // Private browsing. The attempt still works, it just will not resume.
         }
+
+        // Claim it for this account if there is one. The pack routes run
+        // outside Clerk, so this is the only place that can tell — and a 401
+        // simply means a genuine guest, which is most of the room.
+        void fetch("/api/pack-attempt/link", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ code, token: data.token }),
+        })
+          .then((res) => (res.ok ? res.json() : null))
+          .then((linked) => {
+            if (!linked?.signedIn) return
+            setSignedIn(true)
+            if (linked.displayName && !displayName) setName(linked.displayName)
+          })
+          .catch(() => {
+            // No account, or Clerk is unreachable. Either way they answer as a
+            // guest and the coach still sees everything.
+          })
       } catch (err) {
         setError(err instanceof Error ? err.message : "Could not start")
       } finally {
@@ -126,44 +139,6 @@ export function GuestPackPlayer({
     if (saved) void start(null, saved)
     else if (!collectName) void start(null, null)
   }, [collectName, start, storageKey])
-
-  // Live session: the coach drives, so the clip on screen and whether the
-  // answer is showing both come from the server rather than from this page.
-  useEffect(() => {
-    if (!sessionCode || !token) return
-
-    let cancelled = false
-
-    const poll = async () => {
-      try {
-        const response = await fetch(`/api/public/live/${sessionCode}`, { cache: "no-store" })
-        if (!response.ok) return
-        const state = await response.json()
-        if (cancelled) return
-
-        setLiveReveal(!!state.reveal)
-        setLiveClosed(!state.isOpen)
-        setIndex((current) => {
-          if (state.currentIndex === current) return current
-          // A new clip: clear the previous answer out of the box so nobody
-          // submits the last one again.
-          setAnswer("")
-          setVerdict(null)
-          startedAt.current = Date.now()
-          return state.currentIndex
-        })
-      } catch {
-        // A dropped poll is not worth surfacing — the next one is 3s away.
-      }
-    }
-
-    void poll()
-    const timer = setInterval(poll, LIVE_POLL_MS)
-    return () => {
-      cancelled = true
-      clearInterval(timer)
-    }
-  }, [sessionCode, token])
 
   const current = scenarios[index]
 
@@ -219,7 +194,7 @@ export function GuestPackPlayer({
     }
   }
 
-  // ---- Name gate ---------------------------------------------------------
+  // ---- Name gate -----------------------------------------------------------
 
   if (!token) {
     return (
@@ -244,7 +219,9 @@ export function GuestPackPlayer({
               value={name}
               onChange={(e) => setName(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && name.trim() && start(name, null)}
-              placeholder="So your coach knows whose answers these are"
+              placeholder={
+                sessionCode ? "This is what the room sees" : "So your coach knows whose these are"
+              }
               autoFocus
             />
           </div>
@@ -258,7 +235,7 @@ export function GuestPackPlayer({
             size="lg"
           >
             {isStarting ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-            Start
+            {sessionCode ? "Join" : "Start"}
           </Button>
 
           <p className="text-center text-xs text-muted-foreground">
@@ -269,7 +246,24 @@ export function GuestPackPlayer({
     )
   }
 
-  // ---- Finished ----------------------------------------------------------
+  // ---- In a room -----------------------------------------------------------
+
+  // The coach sets the pace from here on, so nothing below this applies.
+  if (sessionCode) {
+    return (
+      <LivePlayer
+        code={code}
+        sessionCode={sessionCode}
+        token={token}
+        attemptId={attemptId}
+        name={name}
+        signedIn={signedIn}
+        scenarios={scenarios}
+      />
+    )
+  }
+
+  // ---- Self-paced ----------------------------------------------------------
 
   const answered = Object.keys(results).length
   const correct = Object.values(results).filter(Boolean).length
@@ -284,11 +278,19 @@ export function GuestPackPlayer({
             {correct} of {answered} decisions matched the official call.
           </p>
           <p className="text-sm text-muted-foreground">
-            Your coach can see your answers. Nothing else to do.
+            {signedIn
+              ? "These count towards your training — points, streak and all."
+              : "Your coach can see your answers. Nothing else to do."}
           </p>
-          <Button asChild variant="outline">
-            <a href="/auth/sign-up">Create an account to keep training</a>
-          </Button>
+          {signedIn ? (
+            <Button asChild variant="outline">
+              <a href="/dashboard">Back to your dashboard</a>
+            </Button>
+          ) : (
+            <Button asChild variant="outline">
+              <a href="/auth/sign-up">Create an account to keep training</a>
+            </Button>
+          )}
         </CardContent>
       </Card>
     )
@@ -304,31 +306,16 @@ export function GuestPackPlayer({
     )
   }
 
-  // ---- Playing -----------------------------------------------------------
-
-  // In a live session the coach's reveal is what shows the answer, so a phone
-  // that has already submitted waits with everyone else.
-  const showVerdict = verdict && (!sessionCode || liveReveal)
-  const waitingForCoach = !!verdict && !!sessionCode && !liveReveal
-
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
           <h1 className="text-xl font-bold text-foreground">{title}</h1>
           <p className="text-xs text-muted-foreground">
-            {sessionCode ? `Live · ${name || "you"}` : `Scenario ${index + 1} of ${scenarios.length}`}
+            Scenario {index + 1} of {scenarios.length}
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          {sessionCode && (
-            <Badge variant="outline" className="gap-1 border-primary/40 text-primary">
-              <Radio className="h-3 w-3" />
-              {liveClosed ? "Session ended" : "Live"}
-            </Badge>
-          )}
-          <Badge className={getDifficultyColor(current.difficulty)}>{current.difficulty}</Badge>
-        </div>
+        <Badge className={getDifficultyColor(current.difficulty)}>{current.difficulty}</Badge>
       </div>
 
       <Card>
@@ -371,50 +358,38 @@ export function GuestPackPlayer({
                 )}
               </Button>
             </div>
-          ) : waitingForCoach ? (
-            <div className="rounded-lg border border-dashed p-6 text-center">
-              <p className="font-medium text-foreground">Answer locked in</p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Waiting for your coach to reveal the call.
-              </p>
-            </div>
           ) : (
-            showVerdict && (
-              <div className="space-y-4">
-                <div
-                  className={`flex items-start gap-3 rounded-lg border p-4 ${
-                    verdict.isCorrect
-                      ? "border-emerald-500/40 bg-emerald-500/5"
-                      : "border-red-500/40 bg-red-500/5"
-                  }`}
-                >
-                  {verdict.isCorrect ? (
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
-                  ) : (
-                    <XCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-500" />
-                  )}
-                  <div className="space-y-1">
-                    <p className="font-semibold text-foreground">
-                      {verdict.isCorrect ? "That matches the official call" : "Not the official call"}
-                    </p>
-                    {verdict.verdict && (
-                      <p className="text-sm font-medium text-foreground">{verdict.verdict}</p>
-                    )}
-                    {verdict.explanation && (
-                      <p className="text-sm text-muted-foreground">{verdict.explanation}</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* In a live session the coach moves everyone on together. */}
-                {!sessionCode && (
-                  <Button onClick={next} className="w-full" size="lg">
-                    {index + 1 < scenarios.length ? "Next scenario" : "Finish"}
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
+            <div className="space-y-4">
+              <div
+                className={`flex items-start gap-3 rounded-lg border p-4 ${
+                  verdict.isCorrect
+                    ? "border-emerald-500/40 bg-emerald-500/5"
+                    : "border-red-500/40 bg-red-500/5"
+                }`}
+              >
+                {verdict.isCorrect ? (
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
+                ) : (
+                  <XCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-500" />
                 )}
+                <div className="space-y-1">
+                  <p className="font-semibold text-foreground">
+                    {verdict.isCorrect ? "That matches the official call" : "Not the official call"}
+                  </p>
+                  {verdict.verdict && (
+                    <p className="text-sm font-medium text-foreground">{verdict.verdict}</p>
+                  )}
+                  {verdict.explanation && (
+                    <p className="text-sm text-muted-foreground">{verdict.explanation}</p>
+                  )}
+                </div>
               </div>
-            )
+
+              <Button onClick={next} className="w-full" size="lg">
+                {index + 1 < scenarios.length ? "Next scenario" : "Finish"}
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
           )}
         </CardContent>
       </Card>

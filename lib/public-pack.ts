@@ -73,7 +73,7 @@ export async function findGuestAttempt(packId: string, token: string) {
 
   const { data } = await supabase
     .from("pack_guest_attempts")
-    .select("id, pack_id, display_name, session_id, completed_at")
+    .select("id, pack_id, display_name, session_id, completed_at, user_id")
     .eq("pack_id", packId)
     .eq("session_token", token)
     .maybeSingle()

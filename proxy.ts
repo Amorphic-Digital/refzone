@@ -28,9 +28,15 @@ const bypassPaths = [
   // broken thing, so it cannot sit behind Clerk middleware.
   '/api/health',
   '/api/web-beta-signup',
-  // No-account pack links. A coach sends these to a whole branch, so Clerk
+  // No-account pack pages. A coach sends these to a whole branch, so Clerk
   // must not run at all — not even to notice there is no session and
   // redirect. /live/<code> only resolves the code and forwards to /p.
+  //
+  // A live session polls /api/public/live once a second from every phone in
+  // the room, so running Clerk on it would mean forty middleware invocations
+  // a second and a training night that stops when Clerk does. Signed-in
+  // referees are linked to their attempt by /api/pack-attempt/link instead,
+  // which is one authenticated call each.
   '/p',
   '/live',
   '/api/public',

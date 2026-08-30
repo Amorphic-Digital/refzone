@@ -35,6 +35,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ cod
 
     const supabase = createServiceClient()
 
+
     // Resuming: the token is proof this browser already started, so nothing
     // new is created and any answers already given stay where they are.
     let attempt = existingToken ? await findGuestAttempt(pack.id, existingToken) : null
@@ -64,7 +65,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ cod
           session_token: token,
           session_id: sessionId,
         })
-        .select("id, pack_id, display_name, session_id, completed_at")
+        .select("id, pack_id, display_name, session_id, completed_at, user_id")
         .single()
 
       if (error) {
@@ -88,7 +89,14 @@ export async function POST(request: Request, { params }: { params: Promise<{ cod
 
     return NextResponse.json({
       token,
+      // The phone passes this back to /api/public/live so the leaderboard can
+      // tell it its own rank. It is not a credential — the token is.
+      attemptId: attempt.id,
+      // Whether this attempt belongs to an account is settled separately by
+      // /api/pack-attempt/link — this route runs outside Clerk and cannot know.
+      signedIn: !!attempt.user_id,
       displayName: attempt.display_name,
+      sessionId: attempt.session_id,
       pack: { title: pack.title, description: pack.description },
       scenarios: await listPublicScenarios(pack.id),
       answered: (answered || []).map((row) => ({

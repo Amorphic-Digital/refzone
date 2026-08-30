@@ -2,14 +2,15 @@ import { notFound, redirect } from "next/navigation"
 import { requireAuth } from "@/lib/auth"
 import { isCoach } from "@/lib/coach"
 import { createServiceClient } from "@/lib/supabase/service"
+import { findOpenSessionForPack } from "@/lib/live-session"
 import { LiveSessionControl } from "@/components/live-session-control"
 
 export const metadata = { title: "Live session — RefZone" }
 
 /**
- * The coach's console for a training night: one clip on the projector, the
- * room answering on their phones, and the answer held back until everyone has
- * had a go.
+ * The coach's console for a training night: the room answers on their phones,
+ * the clip goes on the projector at /present/<id>, and the call goes up when
+ * the coach says so.
  */
 export default async function PackLivePage({ params }: { params: Promise<{ id: string }> }) {
   let userId: string
@@ -33,18 +34,13 @@ export default async function PackLivePage({ params }: { params: Promise<{ id: s
   // it belongs to another coach.
   if (!pack || !pack.is_active || pack.created_by !== userId) notFound()
 
-  const [itemsResult, sessionResult] = await Promise.all([
+  const [itemsResult, session] = await Promise.all([
     supabase
       .from("training_pack_items")
       .select("order_index, scenarios(id, title, video_url, video_credit, ai_answer)")
       .eq("pack_id", id)
       .order("order_index"),
-    supabase
-      .from("pack_live_sessions")
-      .select("id, join_code, current_index, reveal, is_open")
-      .eq("pack_id", id)
-      .eq("is_open", true)
-      .maybeSingle(),
+    findOpenSessionForPack(id),
   ])
 
   const scenarios = (itemsResult.data || [])
@@ -55,8 +51,9 @@ export default async function PackLivePage({ params }: { params: Promise<{ id: s
       title: scenario.title,
       video_url: scenario.video_url,
       video_credit: scenario.video_credit,
-      // The coach is the one person who is meant to have the answer in front
-      // of them — that is the whole point of running the session.
+      // The coach is the one person meant to have the answer in front of them
+      // — that is the whole point of running the session. It is behind a peek
+      // toggle on the page, and never on the projector.
       answer: scenario.ai_answer as string | null,
     }))
 
@@ -66,7 +63,21 @@ export default async function PackLivePage({ params }: { params: Promise<{ id: s
       packTitle={pack.title}
       isPublic={pack.is_public}
       scenarios={scenarios}
-      session={sessionResult.data ?? null}
+      session={
+        session
+          ? {
+              id: session.id,
+              join_code: session.join_code,
+              current_index: session.current_index,
+              phase: session.phase,
+              is_open: session.is_open,
+              question_seconds: session.question_seconds,
+              timer_enabled: session.timer_enabled,
+              scoring_enabled: session.scoring_enabled,
+              leaderboard_enabled: session.leaderboard_enabled,
+            }
+          : null
+      }
     />
   )
 }
