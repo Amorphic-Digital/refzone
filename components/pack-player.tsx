@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Textarea } from "@/components/ui/textarea"
 import { Progress } from "@/components/ui/progress"
 import { ScenarioVideoPlayer } from "@/components/scenario-video-player"
+import { ScenarioVideoCredit } from "@/components/scenario-video-credit"
 import { splitDecision } from "@/lib/answer-summary"
 import { FeedbackCard } from "@/components/feedback-card"
 import { ShareButton } from "@/components/share-button"
@@ -25,6 +26,8 @@ interface PackScenario {
   difficulty: string
   scenario_type: string
   video_url: string | null
+  /** Where the footage came from, written by the admin at upload time. */
+  video_credit?: string | null
   points_value: number
   law_category?: string | null
   law_section?: string | null
@@ -247,9 +250,12 @@ export function PackPlayer({ pack, scenarios, completed, isCoach }: PackPlayerPr
             </CardHeader>
             <CardContent className="space-y-6">
               {current.video_url && (
-                <div className="overflow-hidden rounded-lg border-2 border-border">
-                  <ScenarioVideoPlayer url={current.video_url} />
-                </div>
+                <>
+                  {current.video_credit && <ScenarioVideoCredit credit={current.video_credit} />}
+                  <div className="overflow-hidden rounded-lg border-2 border-border">
+                    <ScenarioVideoPlayer url={current.video_url} />
+                  </div>
+                </>
               )}
 
               {!result ? (

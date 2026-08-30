@@ -13,7 +13,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json()
-    const { title, video_url, video_key, ai_answer, ai_description, law_category, law_section, scenario_type, category, difficulty, points_value } = body
+    const { title, video_url, video_key, video_credit, ai_answer, ai_description, law_category, law_section, scenario_type, category, difficulty, points_value } = body
 
     if (!video_url || !ai_answer) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
@@ -38,6 +38,9 @@ export async function POST(request: Request) {
       title,
       video_url,
       video_key: video_key || null,
+      // Acknowledgement of where the footage came from, typed in at upload
+      // time and shown above the video — see scripts/038_scenario_video_credit.sql.
+      video_credit: typeof video_credit === "string" && video_credit.trim() ? video_credit.trim() : null,
       ai_answer,
       ai_description,
       law_category: law_category || null,

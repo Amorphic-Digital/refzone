@@ -40,6 +40,8 @@ interface Scenario {
   video_url: string | null
   /** R2 object key behind video_url — see scripts/037_r2_scenario_videos.sql. */
   video_key: string | null
+  /** Where the footage came from — shown to referees above the video. */
+  video_credit: string | null
   is_active: boolean
   points_value: number
 }
@@ -455,6 +457,27 @@ export default function ContentManagement() {
         isOpen: true,
         type: "error",
         title: "Could not save category",
+        message: error.message,
+        onConfirm: () => {},
+      })
+    }
+  }
+
+  const updateScenarioCredit = async (id: string, credit: string) => {
+    const value = credit.trim() || null
+
+    const previous = scenarios
+    setScenarios(scenarios.map((s) => (s.id === id ? { ...s, video_credit: value } : s)))
+
+    const supabase = createClient()
+    const { error } = await supabase.from("scenarios").update({ video_credit: value }).eq("id", id)
+
+    if (error) {
+      setScenarios(previous)
+      setModal({
+        isOpen: true,
+        type: "error",
+        title: "Could not save video source",
         message: error.message,
         onConfirm: () => {},
       })
@@ -901,6 +924,21 @@ export default function ContentManagement() {
                               ))}
                             </SelectContent>
                           </Select>
+                          {/* Uploaded scenarios carry their source from the
+                              upload form; this is for the ones that predate it. */}
+                          <Input
+                            key={scenario.video_credit || ""}
+                            defaultValue={scenario.video_credit || ""}
+                            placeholder="Video source…"
+                            aria-label={`Video source for ${scenario.title}`}
+                            onBlur={(e) => {
+                              const next = e.target.value.trim()
+                              if (next !== (scenario.video_credit || "")) {
+                                void updateScenarioCredit(scenario.id, next)
+                              }
+                            }}
+                            className="h-7 w-[260px] text-xs"
+                          />
                         </div>
                       </div>
                       <div className="flex items-center gap-2">

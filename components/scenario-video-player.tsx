@@ -1,16 +1,20 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState } from "react"
-import { Loader2, Pause, Play, VideoOff } from "lucide-react"
+import { Loader2, Maximize, Minimize, Pause, Play, VideoOff } from "lucide-react"
 
 /**
  * Player for scenario videos hosted on Cloudflare R2.
  *
- * Deliberately minimal: a referee watching a scenario should be able to pause
- * and scrub the timeline, and nothing else. The native control set is off, so
- * there is no volume, playback-rate, fullscreen, picture-in-picture or
- * download affordance to wander into mid-question — just play/pause and a
- * seek bar.
+ * Deliberately minimal: a referee watching a scenario should be able to pause,
+ * scrub the timeline and go fullscreen, and nothing else. The native control
+ * set is off, so there is no volume, playback-rate, picture-in-picture or
+ * download affordance to wander into mid-question.
+ *
+ * Fullscreen takes the wrapper rather than the <video>, so these controls go
+ * with it and the referee keeps the same seek bar at full size. iOS Safari
+ * cannot fullscreen an arbitrary element, so there it falls back to the
+ * video's own native fullscreen.
  *
  * The video autoplays muted (browsers block autoplay with sound) and plays
  * through once. If the browser refuses to autoplay anyway, the centre play
@@ -24,6 +28,24 @@ function formatTime(seconds: number): string {
   return `${mins}:${secs.toString().padStart(2, "0")}`
 }
 
+/** Safari still carries the prefixed Fullscreen API, desktop and iOS both. */
+type FullscreenDocument = Document & {
+  webkitFullscreenElement?: Element | null
+  webkitExitFullscreen?: () => void
+}
+type FullscreenElement = HTMLElement & {
+  webkitRequestFullscreen?: () => void
+}
+/** iPhone will only fullscreen the video element itself, not a wrapper. */
+type FullscreenVideo = HTMLVideoElement & {
+  webkitEnterFullscreen?: () => void
+}
+
+function fullscreenElement(): Element | null {
+  const doc = document as FullscreenDocument
+  return doc.fullscreenElement ?? doc.webkitFullscreenElement ?? null
+}
+
 interface ScenarioVideoPlayerProps {
   url: string
   className?: string
@@ -34,6 +56,7 @@ interface ScenarioVideoPlayerProps {
 
 export function ScenarioVideoPlayer({ url, className, autoPlay = true }: ScenarioVideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const [isPlaying, setIsPlaying] = useState(false)
   const [duration, setDuration] = useState(0)
@@ -42,6 +65,7 @@ export function ScenarioVideoPlayer({ url, className, autoPlay = true }: Scenari
   const [hasError, setHasError] = useState(false)
   // While the scrubber is being dragged, timeupdate must not fight the thumb.
   const [isScrubbing, setIsScrubbing] = useState(false)
+  const [isFullscreen, setIsFullscreen] = useState(false)
 
   const togglePlay = useCallback(() => {
     const video = videoRef.current
@@ -58,6 +82,46 @@ export function ScenarioVideoPlayer({ url, className, autoPlay = true }: Scenari
       video.pause()
     }
   }, [hasError])
+
+  // Escape and the browser's own fullscreen chrome both exit without going
+  // through the button, so the icon has to follow the document, not the click.
+  useEffect(() => {
+    const sync = () => setIsFullscreen(fullscreenElement() === containerRef.current)
+    document.addEventListener("fullscreenchange", sync)
+    document.addEventListener("webkitfullscreenchange", sync)
+    sync()
+    return () => {
+      document.removeEventListener("fullscreenchange", sync)
+      document.removeEventListener("webkitfullscreenchange", sync)
+    }
+  }, [])
+
+  const toggleFullscreen = useCallback(() => {
+    const container = containerRef.current as FullscreenElement | null
+    if (!container) return
+
+    if (fullscreenElement()) {
+      const doc = document as FullscreenDocument
+      if (doc.exitFullscreen) void doc.exitFullscreen().catch(() => {})
+      else doc.webkitExitFullscreen?.()
+      return
+    }
+
+    if (container.requestFullscreen) {
+      void container.requestFullscreen().catch(() => {
+        /* Refused (permissions policy in an iframe, say) — stay inline. */
+      })
+      return
+    }
+    if (container.webkitRequestFullscreen) {
+      container.webkitRequestFullscreen()
+      return
+    }
+
+    // iOS Safari: the video goes fullscreen on its own and brings the native
+    // controls with it, which is the only fullscreen available there.
+    ;(videoRef.current as FullscreenVideo | null)?.webkitEnterFullscreen?.()
+  }, [])
 
   const seekTo = useCallback((time: number) => {
     const video = videoRef.current
@@ -108,11 +172,18 @@ export function ScenarioVideoPlayer({ url, className, autoPlay = true }: Scenari
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0
 
   return (
-    <div className={`relative w-full overflow-hidden bg-black ${className || ""}`}>
+    <div
+      ref={containerRef}
+      className={`relative w-full overflow-hidden bg-black ${
+        isFullscreen ? "flex h-full items-center justify-center" : ""
+      } ${className || ""}`}
+    >
       <video
         ref={videoRef}
         src={url}
-        className="aspect-video w-full cursor-pointer"
+        className={`w-full cursor-pointer ${
+          isFullscreen ? "h-full object-contain" : "aspect-video"
+        }`}
         autoPlay={autoPlay}
         muted
         playsInline
@@ -208,6 +279,15 @@ export function ScenarioVideoPlayer({ url, className, autoPlay = true }: Scenari
           <span className="shrink-0 font-mono text-xs tabular-nums text-white">
             {formatTime(currentTime)} / {formatTime(duration)}
           </span>
+
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            aria-label={isFullscreen ? "Exit fullscreen" : "Watch fullscreen"}
+            className="shrink-0 cursor-pointer rounded-full p-1 text-white transition-colors hover:bg-white/20"
+          >
+            {isFullscreen ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+          </button>
         </div>
       )}
     </div>

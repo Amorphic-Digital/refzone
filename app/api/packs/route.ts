@@ -1,18 +1,28 @@
 import { NextResponse } from "next/server"
 import { requireAuth } from "@/lib/auth"
+import { isCoach } from "@/lib/coach"
 import { createServiceClient } from "@/lib/supabase/service"
 import { generateShareCode } from "@/lib/training-packs"
 import { isValidCategory } from "@/lib/scenario-categories"
 
 const MAX_SCENARIOS_PER_PACK = 50
 
-/** Creates a training pack. Any signed-in user can build one — that is the coach. */
+/** Creates a training pack. Referee Coach accounts only. */
 export async function POST(request: Request) {
   let userId: string
   try {
     userId = await requireAuth()
   } catch {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+  }
+
+  // Building a pack means choosing from the whole library, so it is gated
+  // the same way the library is.
+  if (!(await isCoach(userId))) {
+    return NextResponse.json(
+      { error: "Training packs are a Referee Coach feature — apply at /coach" },
+      { status: 403 },
+    )
   }
 
   try {

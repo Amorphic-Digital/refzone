@@ -1,13 +1,21 @@
 import { redirect } from "next/navigation"
 import { requireAuth } from "@/lib/auth"
+import { isCoach } from "@/lib/coach"
 import { createServiceClient } from "@/lib/supabase/service"
 import { PackBuilder } from "./pack-builder"
 
 export default async function NewPackPage() {
+  let userId: string
   try {
-    await requireAuth()
+    userId = await requireAuth()
   } catch {
     redirect("/auth/login")
+  }
+
+  // The builder lists the whole library, which is exactly what a referee
+  // account does not get. /coach explains why and takes the application.
+  if (!(await isCoach(userId))) {
+    redirect("/coach")
   }
 
   const supabase = createServiceClient()

@@ -28,6 +28,12 @@ const bypassPaths = [
   // broken thing, so it cannot sit behind Clerk middleware.
   '/api/health',
   '/api/web-beta-signup',
+  // No-account pack links. A coach sends these to a whole branch, so Clerk
+  // must not run at all — not even to notice there is no session and
+  // redirect. /live/<code> only resolves the code and forwards to /p.
+  '/p',
+  '/live',
+  '/api/public',
 ]
 
 function shouldBypassClerk(pathname: string): boolean {

@@ -36,6 +36,9 @@ export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
   const [videoKey, setVideoKey] = useState("")
   const [videoUrl, setVideoUrl] = useState("")
   const [fileName, setFileName] = useState("")
+  // Shown to referees above the video, in place of the old instruction
+  // line — broadcast footage has to say whose footage it is.
+  const [videoCredit, setVideoCredit] = useState("")
 
   const [uploadProgress, setUploadProgress] = useState<number | null>(null)
   const [isSaving, setIsSaving] = useState(false)
@@ -203,6 +206,12 @@ export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
       setError("Please provide the correct answer")
       return
     }
+    // Required: the acknowledgement is the only record of where the clip
+    // came from, and nobody will reconstruct it later from an R2 key.
+    if (!videoCredit.trim()) {
+      setError("Please say where this video is from")
+      return
+    }
     // Required: an uncategorised scenario never appears in the category menu
     // or on its topic page, so it is effectively invisible to coaches.
     if (!suggestedCategory) {
@@ -224,6 +233,7 @@ export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
           title: scenarioTitle,
           video_url: videoUrl,
           video_key: videoKey,
+          video_credit: videoCredit.trim(),
           ai_answer: answerText,
           ai_description: answerText,
           law_category: suggestedLawCategory || null,
@@ -319,6 +329,22 @@ export function VideoScenarioUpload({ onSuccess }: { onSuccess: () => void }) {
           {/* Answer field - shown once the video is in place */}
           {hasVideo && (
             <>
+              <div className="space-y-2">
+                <Label htmlFor="video-credit">
+                  Video Source <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="video-credit"
+                  value={videoCredit}
+                  onChange={(e) => setVideoCredit(e.target.value)}
+                  placeholder="e.g. A-League Men 2024/25 — Perth Glory v Western Sydney Wanderers (Paramount+)"
+                />
+                <p className="text-xs text-muted-foreground">
+                  Shown to referees above the video as the footage acknowledgement. Name the
+                  competition, the fixture and the broadcaster where you can.
+                </p>
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="answer">Answer</Label>
                 <Textarea

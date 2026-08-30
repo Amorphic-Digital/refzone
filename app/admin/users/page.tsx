@@ -28,7 +28,7 @@ export default async function UsersPage() {
   // Fetch all users with their profile data
   const { data: profiles } = await serviceClient
     .from('profiles')
-    .select('id, display_name, experience_level, total_points, current_streak, longest_streak, last_activity_date, created_at, updated_at, is_admin, has_set_username')
+    .select('id, display_name, experience_level, total_points, current_streak, longest_streak, last_activity_date, created_at, updated_at, is_admin, is_coach, coach_expires_at, has_set_username')
     .order('created_at', { ascending: false })
 
   // Get auth data for all users - wrapped in try/catch as it requires service role
@@ -58,6 +58,8 @@ export default async function UsersPage() {
       total_points: profile.total_points || 0,
       current_streak: profile.current_streak || 0,
       is_admin: profile.is_admin,
+      is_coach: !!profile.is_coach,
+      coach_expires_at: profile.coach_expires_at ?? null,
       has_set_username: profile.has_set_username,
       created_at: profile.created_at,
       email: authUser?.email || 'N/A',

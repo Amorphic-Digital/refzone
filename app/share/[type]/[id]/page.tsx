@@ -21,6 +21,7 @@ interface SharedItem {
   title: string
   subtitle: string
   canonicalPath: string
+  guestPath?: string | null
   difficulty?: string
   category?: string | null
   kind: ShareType
@@ -78,7 +79,7 @@ async function resolveShare(type: ShareType, id: string): Promise<SharedItem | n
   // shorter and pack ids are not enumerable.
   const { data } = await supabase
     .from("training_packs")
-    .select("id, title, description, category, is_active, training_pack_items(id)")
+    .select("id, title, description, category, is_active, is_public, share_code, training_pack_items(id)")
     .eq("share_code", id)
     .single()
 
@@ -92,6 +93,10 @@ async function resolveShare(type: ShareType, id: string): Promise<SharedItem | n
     subtitle: data.description || `A training pack of ${itemCount} scenarios.`,
     canonicalPath: `/packs/${data.id}`,
     category: data.category,
+    // Set only for packs the coach opened to everyone. Signing in is still
+    // the better route — it saves your points and streak — but it stops
+    // being the only one.
+    guestPath: data.is_public ? `/p/${data.share_code}` : null,
   }
 }
 
@@ -175,15 +180,23 @@ export default async function SharePage({
             )}
 
             <div className="space-y-2 rounded-lg border bg-muted/40 p-4">
-              <p className="text-sm font-medium">Sign in to open it</p>
+              <p className="text-sm font-medium">
+                {item.guestPath ? "Answer it now, or sign in first" : "Sign in to open it"}
+              </p>
               <p className="text-sm text-muted-foreground">
                 RefZone is free. Signing in means your answers, points and streak are saved — and
                 your coach can see how the squad went.
               </p>
             </div>
 
+            {item.guestPath && (
+              <Button asChild size="lg" className="w-full">
+                <Link href={item.guestPath}>Start without an account</Link>
+              </Button>
+            )}
+
             <div className="flex flex-col gap-2 sm:flex-row">
-              <Button asChild className="flex-1">
+              <Button asChild variant={item.guestPath ? "outline" : "default"} className="flex-1">
                 <Link href={`/auth/sign-up?redirect_url=${target}`}>Create a free account</Link>
               </Button>
               <Button asChild variant="outline" className="flex-1">

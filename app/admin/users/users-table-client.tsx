@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Search, MoreVertical, Eye, Edit, Trash2, RefreshCw, Users, Shield, CheckCircle2, XCircle } from 'lucide-react'
+import { Search, MoreVertical, Eye, Edit, Trash2, RefreshCw, Users, Shield, GraduationCap, CheckCircle2, XCircle } from 'lucide-react'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { BulkActionsToolbar } from '@/components/admin/bulk-actions-toolbar'
@@ -40,12 +40,22 @@ interface User {
   email: string
   experience_level: string
   is_admin: boolean
+  is_coach: boolean
+  /** null means the grant is open-ended, the default while coach accounts are free. */
+  coach_expires_at: string | null
   total_points: number
   current_streak: number
   has_set_username: boolean
   created_at: string
   last_sign_in: string | null
   email_confirmed: boolean
+}
+
+/** What the Coach badge says on hover: open-ended, or when it lapses. */
+function coachGrantLabel(user: { coach_expires_at: string | null }): string {
+  return user.coach_expires_at
+    ? `Coach access until ${new Date(user.coach_expires_at).toLocaleDateString()}`
+    : 'Coach access with no end date'
 }
 
 interface UsersTableClientProps {
@@ -70,13 +80,59 @@ export function UsersTableClient({ users: initialUsers }: UsersTableClientProps)
     const matchesAdmin =
       filterAdmin === 'all' ||
       (filterAdmin === 'admin' && user.is_admin) ||
-      (filterAdmin === 'user' && !user.is_admin)
+      (filterAdmin === 'user' && !user.is_admin) ||
+      (filterAdmin === 'coach' && user.is_coach) ||
+      (filterAdmin === 'noncoach' && !user.is_coach)
 
     const matchesExperience =
       filterExperience === 'all' || user.experience_level === filterExperience
 
     return matchesSearch && matchesAdmin && matchesExperience
   })
+
+  /**
+   * Grants or revokes a coach account.
+   *
+   * Granting asks for an optional end date, because coach accounts are free
+   * now and may not always be — a dated grant is how "free for this season"
+   * gets expressed without a release.
+   */
+  const handleCoach = async (user: User, grant: boolean) => {
+    let expiresAt: string | null = null
+
+    if (grant) {
+      const answer = window.prompt(
+        'End date for this coach account (YYYY-MM-DD), or leave blank for no end date:',
+        user.coach_expires_at ? user.coach_expires_at.slice(0, 10) : '',
+      )
+      // Cancel means cancel; an empty string means "no end date".
+      if (answer === null) return
+      expiresAt = answer.trim() || null
+    } else if (!window.confirm(`Remove coach access from ${user.display_name}?`)) {
+      return
+    }
+
+    try {
+      const response = await fetch('/api/admin/coach-grant', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: user.id, isCoach: grant, expiresAt }),
+      })
+      const data = await response.json()
+      if (!response.ok) throw new Error(data.error || 'Could not change that account')
+
+      setUsers(
+        users.map((u) =>
+          u.id === user.id
+            ? { ...u, is_coach: grant, coach_expires_at: grant ? expiresAt : null }
+            : u,
+        ),
+      )
+      toast.success(grant ? 'Coach access granted' : 'Coach access removed')
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Could not change that account')
+    }
+  }
 
   const handleSelectAll = (checked: boolean) => {
     if (checked) {
@@ -178,6 +234,8 @@ export function UsersTableClient({ users: initialUsers }: UsersTableClientProps)
                 <SelectItem value="all">All Users</SelectItem>
                 <SelectItem value="admin">Admins Only</SelectItem>
                 <SelectItem value="user">Regular Users</SelectItem>
+                <SelectItem value="coach">Coaches Only</SelectItem>
+                <SelectItem value="noncoach">Not Coaches</SelectItem>
               </SelectContent>
             </Select>
 
@@ -268,6 +326,12 @@ export function UsersTableClient({ users: initialUsers }: UsersTableClientProps)
                             Admin
                           </Badge>
                         )}
+                        {user.is_coach && (
+                          <Badge variant="secondary" title={coachGrantLabel(user)}>
+                            <GraduationCap className="h-3 w-3 mr-1" />
+                            Coach
+                          </Badge>
+                        )}
                       </div>
                     </TableCell>
                     <TableCell className="text-sm text-muted-foreground">
@@ -291,6 +355,10 @@ export function UsersTableClient({ users: initialUsers }: UsersTableClientProps)
                           <DropdownMenuItem onClick={() => setEditUserId(user.id)}>
                             <Edit className="h-4 w-4 mr-2" />
                             Edit User
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleCoach(user, !user.is_coach)}>
+                            <GraduationCap className="h-4 w-4 mr-2" />
+                            {user.is_coach ? 'Revoke coach access' : 'Make a Referee Coach'}
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => handleResetPassword(user.id)}>
                             <RefreshCw className="h-4 w-4 mr-2" />

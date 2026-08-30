@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useAuth, useUser } from "@clerk/nextjs"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
-import { Shield, Users, Target, BookOpen, MessageSquare, TrendingUp, Settings, Bell, AlertCircle, Mail } from "lucide-react"
+import { Shield, Users, Target, BookOpen, MessageSquare, TrendingUp, Settings, Bell, AlertCircle, Mail, GraduationCap, Film } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { AdminAccessDenied, type AdminDenialReason } from "@/components/admin-access-denied"
@@ -274,6 +274,38 @@ export default function AdminDashboard() {
                 <div>
                   <CardTitle>Feature Closures</CardTitle>
                   <CardDescription className="mt-1">Temporarily close features with custom messages</CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+          </Card>
+        </Link>
+
+        <Link href="/admin/coach-applications">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer border-2 hover:border-primary">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="p-3 rounded-lg bg-primary/10">
+                  <GraduationCap className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <CardTitle>Coach Applications</CardTitle>
+                  <CardDescription className="mt-1">Referees asking for a coach account — the scenario library and the pack builder</CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+          </Card>
+        </Link>
+
+        <Link href="/admin/scenario-submissions">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer border-2 hover:border-primary">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="p-3 rounded-lg bg-orange-500/10">
+                  <Film className="h-6 w-6 text-orange-500" />
+                </div>
+                <div>
+                  <CardTitle>Coach Submissions</CardTitle>
+                  <CardDescription className="mt-1">Footage coaches have sent in — check the source, then approve into the library</CardDescription>
                 </div>
               </div>
             </CardHeader>

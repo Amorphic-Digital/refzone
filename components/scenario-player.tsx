@@ -5,9 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Textarea } from "@/components/ui/textarea"
-import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
-import { Timer, Award, ArrowLeft, ArrowRight, Loader2, CheckCircle2 } from "lucide-react"
+import { Timer, Award, ArrowLeft, ArrowRight, Loader2 } from "lucide-react"
 
 import { getDifficultyColor, formatTime, updateDailyStreak } from "@/lib/shared-utils"
 import { StreakCelebration } from "@/components/streak-celebration"
@@ -16,6 +15,7 @@ import { FeedbackCard } from "@/components/feedback-card"
 import { splitDecision } from "@/lib/answer-summary"
 import { UserFeedbackButton } from "@/components/user-feedback-button"
 import { ScenarioVideoPlayer } from "@/components/scenario-video-player"
+import { ScenarioVideoCredit } from "@/components/scenario-video-credit"
 import { ShareButton } from "@/components/share-button"
 
 interface Scenario {
@@ -25,6 +25,8 @@ interface Scenario {
   difficulty: string
   scenario_type: string
   video_url: string | null
+  /** Where the footage came from, written by the admin at upload time. */
+  video_credit?: string | null
   ai_answer: string | null
   points_value: number
   law_category?: string
@@ -53,8 +55,6 @@ export function ScenarioPlayer({ scenario, userId }: ScenarioPlayerProps) {
     }
   } | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [nextScenarioId, setNextScenarioId] = useState<string | null>(null)
-  const [allCompleted, setAllCompleted] = useState(false)
   const router = useRouter()
 
   const [celebratingStreak, setCelebratingStreak] = useState<number | null>(null)
@@ -68,40 +68,6 @@ export function ScenarioPlayer({ scenario, userId }: ScenarioPlayerProps) {
       return () => clearInterval(interval)
     }
   }, [isSubmitted])
-
-  useEffect(() => {
-    if (isSubmitted) {
-      findNextScenario()
-    }
-  }, [isSubmitted])
-
-  async function findNextScenario() {
-    const supabase = createClient()
-
-    // Get all active scenarios
-    const { data: scenarios } = await supabase
-      .from("scenarios")
-      .select("id")
-      .eq("is_active", true)
-      .order("created_at", { ascending: true })
-
-    // Get user's completed scenarios
-    const { data: completedScenarios } = await supabase
-      .from("scenario_responses")
-      .select("scenario_id")
-      .eq("user_id", userId)
-
-    const completedIds = new Set(completedScenarios?.map((s) => s.scenario_id) || [])
-
-    // Find the first incomplete scenario (excluding current)
-    const nextIncomplete = scenarios?.find((s) => s.id !== scenario.id && !completedIds.has(s.id))
-
-    if (nextIncomplete) {
-      setNextScenarioId(nextIncomplete.id)
-    } else {
-      setAllCompleted(true)
-    }
-  }
 
   const handleSubmit = async () => {
     if (!userDecision.trim()) return
@@ -169,13 +135,9 @@ export function ScenarioPlayer({ scenario, userId }: ScenarioPlayerProps) {
     }
   }
 
-  const handleNextScenario = () => {
-    if (nextScenarioId) {
-      router.push(`/scenarios/${nextScenarioId}`)
-    } else {
-      router.push("/scenarios")
-    }
-  }
+  // Onward is the random session, never "the scenario after this one" — the
+  // order clips were uploaded in is not a syllabus.
+  const handleNextScenario = () => router.push("/scenarios/play")
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
@@ -216,9 +178,7 @@ export function ScenarioPlayer({ scenario, userId }: ScenarioPlayerProps) {
           <Badge className="w-fit mt-2">{scenario.scenario_type}</Badge>
         </CardHeader>
         <CardContent className="space-y-6">
-          <p className="text-sm italic text-muted-foreground">
-            Watch the scenario carefully — you can pause the video and move back through the timeline. Enter your decision below.
-          </p>
+          <ScenarioVideoCredit credit={scenario.video_credit} />
 
           {/* Video Player */}
           {scenario.video_url && (
@@ -326,23 +286,12 @@ export function ScenarioPlayer({ scenario, userId }: ScenarioPlayerProps) {
               <div className="flex gap-4">
                 <Button variant="outline" onClick={() => router.push("/scenarios")} className="flex-1 cursor-pointer">
                   <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to List
+                  Topics
                 </Button>
-                {allCompleted ? (
-                  <Button
-                    onClick={() => router.push("/scenarios")}
-                    className="flex-1 cursor-pointer"
-                    variant="secondary"
-                  >
-                    <CheckCircle2 className="h-4 w-4 mr-2" />
-                    All Completed!
-                  </Button>
-                ) : (
-                  <Button onClick={handleNextScenario} className="flex-1 cursor-pointer">
-                    Next Scenario
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Button>
-                )}
+                <Button onClick={handleNextScenario} className="flex-1 cursor-pointer">
+                  Keep training
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
               </div>
             </>
           )}

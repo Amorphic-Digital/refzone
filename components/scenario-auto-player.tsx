@@ -16,6 +16,7 @@ import { CustomCelebration } from "@/components/custom-celebration"
 import { FeedbackCard } from "@/components/feedback-card"
 import { UserFeedbackButton } from "@/components/user-feedback-button"
 import { ScenarioVideoPlayer } from "@/components/scenario-video-player"
+import { ScenarioVideoCredit } from "@/components/scenario-video-credit"
 import { ShareButton } from "@/components/share-button"
 
 interface Scenario {
@@ -25,6 +26,8 @@ interface Scenario {
   difficulty: string
   scenario_type: string
   video_url: string | null
+  /** Where the footage came from, written by the admin at upload time. */
+  video_credit?: string | null
   ai_answer: string | null
   points_value: number
   law_category?: string
@@ -203,12 +206,12 @@ export function ScenarioAutoPlayer({
           <CardContent className="py-16">
             <Award className="h-16 w-16 text-yellow-500 mx-auto mb-6" />
             <h2 className="text-3xl font-bold text-foreground mb-3">
-              {categoryTitle ? `${categoryTitle} Completed!` : "All Scenarios Completed!"}
+              {categoryTitle ? `You're up to date on ${categoryTitle}` : "You're up to date"}
             </h2>
             <p className="text-muted-foreground mb-2">
               {categoryTitle
-                ? `You've worked through every ${categoryTitle} scenario. Pick another category to keep going.`
-                : "You've completed all available scenarios. Great work!"}
+                ? "Nothing new in this topic right now. Try another one, or come back after the next upload."
+                : "Nothing new to judge right now. New clips go up regularly — check back soon."}
             </p>
             <div className="flex items-center justify-center gap-2 text-lg font-semibold mb-6">
               <Award className="h-5 w-5 text-orange-500" />
@@ -247,7 +250,6 @@ export function ScenarioAutoPlayer({
             <h1 className="text-2xl font-bold text-foreground">{categoryTitle}</h1>
           </div>
           <div className="flex items-center gap-2">
-            <Badge variant="outline">{remainingCount} left</Badge>
             <Button variant="ghost" size="sm" onClick={() => router.push("/scenarios")}>
               <ArrowLeft className="h-4 w-4 mr-1" />
               All categories
@@ -322,9 +324,7 @@ export function ScenarioAutoPlayer({
             <CardTitle className="text-2xl text-foreground">{currentScenario.title}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            <p className="text-sm italic text-muted-foreground">
-              Watch the scenario carefully — you can pause the video and move back through the timeline. Enter your decision below.
-            </p>
+            <ScenarioVideoCredit credit={currentScenario.video_credit} />
 
             {/* Video Player */}
             {currentScenario.video_url && (
@@ -453,7 +453,7 @@ export function ScenarioAutoPlayer({
                       variant="secondary"
                     >
                       <CheckCircle2 className="h-4 w-4 mr-2" />
-                      All Completed!
+                      You're up to date
                     </Button>
                   )}
                 </div>
