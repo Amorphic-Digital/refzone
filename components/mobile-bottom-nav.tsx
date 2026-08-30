@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { MobileTopBar } from "@/components/mobile-top-bar"
 import { useTutorial } from "@/components/tutorial/tutorial-context"
 import { useCoachStatus } from "@/lib/use-coach"
+import { BetaBadge } from "@/components/beta-badge"
 
 export function MobileBottomNav() {
   const router = useRouter()
@@ -71,7 +72,11 @@ export function MobileBottomNav() {
   }
 
   const isSection = (href: string) => pathname === href || pathname.startsWith(`${href}/`)
-  const isAccountActive = ["/settings", "/admin", "/packs", "/coach"].includes(pathname)
+  // The More button lights up for anywhere it can take you, which is now
+  // everywhere except home and scenarios.
+  const isMoreActive = ["/quizzes", "/packs", "/decision-lab", "/leaderboard", "/settings", "/account", "/admin", "/coach"].some(
+    (href) => isSection(href),
+  )
 
   const GradientUnderline = ({ active }: { active: boolean }) => (
     <span
@@ -87,12 +92,13 @@ export function MobileBottomNav() {
 
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 md:hidden z-50 bg-background border-t">
-        <div className="flex items-center justify-between px-2 py-2 h-16 max-w-md mx-auto w-full">
+        {/* Three targets, not five. A thumb bar is for the places you go
+            constantly — home and training — and one door to everything else;
+            five 60px taps in a row are five things to read every time. */}
+        <div className="flex items-center justify-around px-2 py-2 h-16 max-w-md mx-auto w-full">
           {[
             { href: "/dashboard", label: "Home", icon: Home },
             { href: "/scenarios", label: "Scenarios", icon: PlayCircle },
-            { href: "/quizzes", label: "Quizzes", icon: FileQuestion },
-            { href: "/packs", label: "Packs", icon: Layers },
           ].map((item) => {
             const Icon = item.icon
             return (
@@ -119,14 +125,30 @@ export function MobileBottomNav() {
               >
                 <Menu className="h-6 w-6" />
                 <span className="text-[10px] text-muted-foreground">More</span>
-                <GradientUnderline active={isAccountActive} />
+                <GradientUnderline active={isMoreActive} />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-52">
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuLabel className="text-xs text-muted-foreground">
+                Training
+              </DropdownMenuLabel>
+              <DropdownMenuItem asChild>
+                <Link href="/quizzes" className="flex items-center">
+                  <FileQuestion className="h-4 w-4 mr-2" />
+                  Quizzes
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/packs" className="flex items-center">
+                  <Layers className="h-4 w-4 mr-2" />
+                  Training packs
+                </Link>
+              </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/decision-lab" className="flex items-center">
                   <FlaskConical className="h-4 w-4 mr-2" />
-                  DecisionLab
+                  <span className="flex-1">DecisionLab</span>
+                  <BetaBadge />
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>

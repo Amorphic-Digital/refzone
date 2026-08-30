@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { PageHeader } from "@/components/page-header"
 import { Badge } from "@/components/ui/badge"
 import { ShareButton } from "@/components/share-button"
+import { DeletePackButton } from "@/components/delete-pack-button"
 import { categoryLabel } from "@/lib/scenario-categories"
 import { BarChart3, CalendarClock, GraduationCap, Layers, Play, Plus, Users } from "lucide-react"
 
@@ -252,6 +253,7 @@ export default async function PacksPage() {
                         size="sm"
                         iconOnly
                       />
+                      <DeletePackButton packId={pack.id} packTitle={pack.title} />
                     </div>
                   </CardContent>
                 </Card>

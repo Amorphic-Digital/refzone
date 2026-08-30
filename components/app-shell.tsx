@@ -18,9 +18,29 @@ export function AppShell({
   width = "wide",
 }: {
   children: React.ReactNode
-  /** `narrow` for reading and forms, `wide` for grids and tables. */
-  width?: "narrow" | "wide"
+  /**
+   * `narrow` for reading and forms, `wide` for grids and tables, `full` for a
+   * page that wants the whole panel edge to edge and floor to ceiling — the
+   * scenario feed and the scenario chooser. `full` keeps the mobile header
+   * offset, because that bar is fixed and would otherwise sit over the page,
+   * but drops the container, its padding and its own scrolling: a `full` page
+   * is handed a box of exactly the right height and scrolls itself.
+   */
+  width?: "narrow" | "wide" | "full"
 }) {
+  if (width === "full") {
+    return (
+      <div className="flex h-screen overflow-hidden">
+        <NavBar />
+        {/* overflow-hidden, not auto: the page inside owns its scrolling, and
+            two nested scrollers would fight over a snap feed. */}
+        <main className="flex-1 overflow-hidden bg-background pt-14 md:pt-0">
+          <div className="h-full">{children}</div>
+        </main>
+      </div>
+    )
+  }
+
   return (
     <div className="flex h-screen overflow-hidden">
       <NavBar />

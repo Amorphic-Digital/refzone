@@ -23,6 +23,7 @@ import {
   Mail,
   Copy,
   Check,
+  ChevronUp,
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
@@ -32,6 +33,14 @@ import { useTheme } from "next-themes"
 import { useCoachStatus } from "@/lib/use-coach"
 import { NotificationsDropdown } from "@/components/notifications-dropdown"
 import { MobileBottomNav } from "@/components/mobile-bottom-nav"
+import { BetaBadge } from "@/components/beta-badge"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import {
   Dialog,
   DialogContent,
@@ -40,6 +49,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+
+/** One row in the sidebar. `beta` tags a feature that is still settling. */
+interface NavItem {
+  href: string
+  label: string
+  icon: any
+  tutorialId?: string
+  beta?: boolean
+}
 
 export function NavBar() {
   const pathname = usePathname()
@@ -97,9 +115,11 @@ export function NavBar() {
     setTimeout(() => setCopied(false), 2000)
   }
 
-  const SupportDialog = ({ children }: { children: React.ReactNode }) => (
+  // Children are the trigger. The account menu opens it by flipping
+  // supportOpen instead, so the dialog also has to stand on its own.
+  const SupportDialog = ({ children }: { children?: React.ReactNode }) => (
     <Dialog open={supportOpen} onOpenChange={setSupportOpen}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+      {children && <DialogTrigger asChild>{children}</DialogTrigger>}
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Contact Support</DialogTitle>
@@ -134,35 +154,44 @@ export function NavBar() {
     </Dialog>
   )
 
-  const mainNavItems = [
+  const mainNavItems: NavItem[] = [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/scenarios", label: "Scenarios", icon: PlayCircle, tutorialId: "scenarios-nav" },
     { href: "/quizzes", label: "Quizzes", icon: FileQuestion, tutorialId: "quizzes-nav" },
     // Referees land here for packs a coach has set them, so it is not a
     // coach-only link even though coaches are the ones who build them.
     { href: "/packs", label: "Training Packs", icon: Layers },
-    { href: "/decision-lab", label: "DecisionLab", icon: Users, tutorialId: "decision-lab-nav" },
+    {
+      href: "/decision-lab",
+      label: "DecisionLab",
+      icon: Users,
+      tutorialId: "decision-lab-nav",
+      beta: true,
+    },
     { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
   ]
 
   // Everything the coach account unlocks, in one place. Referees never see it;
   // for them these routes either redirect to /coach or do not apply.
-  const coachNavItems = [
+  const coachNavItems: NavItem[] = [
     { href: "/coach", label: "Coach home", icon: GraduationCap },
     { href: "/scenarios/browse", label: "Scenario library", icon: Library },
     { href: "/coach/groups", label: "Groups", icon: UsersRound },
   ]
 
-  const bottomNavItems: { href: string; label: string; icon: any; tutorialId?: string }[] = [
+  // Everything that is not somewhere you train. This used to be six stacked
+  // rows under the nav — account, settings, admin, support, theme, sign out —
+  // which is more chrome than the six things a referee actually came to do.
+  const accountNavItems: NavItem[] = [
     { href: "/account", label: "Account", icon: User, tutorialId: "account-link" },
     { href: "/settings", label: "Settings", icon: Settings, tutorialId: "settings-link" },
   ]
 
   if (isAdminUser) {
-    bottomNavItems.push({ href: "/admin", label: "Admin Panel", icon: Shield })
+    accountNavItems.push({ href: "/admin", label: "Admin Panel", icon: Shield })
   }
 
-  const NavLink = ({ item }: { item: { href: string; label: string; icon: any; tutorialId?: string } }) => {
+  const NavLink = ({ item }: { item: NavItem }) => {
     const Icon = item.icon
     const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`)
     return (
@@ -177,7 +206,8 @@ export function NavBar() {
         )}
       >
         <Icon className="h-5 w-5" />
-        <span>{item.label}</span>
+        <span className="flex-1">{item.label}</span>
+        {item.beta && <BetaBadge onPrimary={isActive} />}
       </Link>
     )
   }
@@ -203,12 +233,73 @@ export function NavBar() {
     </>
   )
 
-  const BottomNavLinks = () => (
-    <>
-      {bottomNavItems.map((item) => (
-        <NavLink key={item.href} item={item} />
-      ))}
-    </>
+  /**
+   * The account menu that replaced the footer stack. Signed-out visitors do
+   * not get it — there would be nothing in it for them but the theme toggle,
+   * which their footer still shows on its own.
+   */
+  const AccountMenu = () => (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="ghost"
+          data-tutorial="settings-link"
+          className="w-full justify-start gap-3 cursor-pointer text-muted-foreground"
+        >
+          <User className="h-5 w-5" />
+          <span className="flex-1 text-left">Account & settings</span>
+          <ChevronUp className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start" side="top" className="w-56">
+        {accountNavItems.map((item) => {
+          const Icon = item.icon
+          return (
+            <DropdownMenuItem key={item.href} asChild>
+              <Link href={item.href} data-tutorial={item.tutorialId} className="flex items-center">
+                <Icon className="h-4 w-4 mr-2" />
+                {item.label}
+              </Link>
+            </DropdownMenuItem>
+          )
+        })}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onSelect={(event) => {
+            event.preventDefault()
+            setSupportOpen(true)
+          }}
+          className="flex items-center cursor-pointer"
+        >
+          <HelpCircle className="h-4 w-4 mr-2" />
+          Support
+        </DropdownMenuItem>
+        {mounted && (
+          <DropdownMenuItem
+            onSelect={(event) => {
+              event.preventDefault()
+              toggleTheme()
+            }}
+            className="flex items-center cursor-pointer"
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4 mr-2" /> : <Moon className="h-4 w-4 mr-2" />}
+            {theme === "dark" ? "Light mode" : "Dark mode"}
+          </DropdownMenuItem>
+        )}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onSelect={(event) => {
+            event.preventDefault()
+            void handleSignOut()
+          }}
+          disabled={isLoading}
+          className="flex items-center cursor-pointer text-red-600 focus:text-red-600"
+        >
+          <LogOut className="h-4 w-4 mr-2" />
+          {isLoading ? "Signing out..." : "Sign Out"}
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 
   // This prevents the old hamburger menu from flashing
@@ -272,39 +363,9 @@ export function NavBar() {
               <NavLinks />
             </div>
           </div>
-          <div className="border-t p-4 space-y-1">
-            <p className="px-3 mb-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Account</p>
-            <BottomNavLinks />
-            <div className="pt-3 mt-3 border-t space-y-2">
-              <SupportDialog>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start gap-3 cursor-pointer"
-                >
-                  <HelpCircle className="h-5 w-5" />
-                  Support
-                </Button>
-              </SupportDialog>
-              {mounted && (
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start gap-3 cursor-pointer"
-                  onClick={toggleTheme}
-                >
-                  {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-                  {theme === "dark" ? "Light Mode" : "Dark Mode"}
-                </Button>
-              )}
-              <Button
-                variant="ghost"
-                className="w-full justify-start gap-3 cursor-pointer"
-                onClick={handleSignOut}
-                disabled={isLoading}
-              >
-                <LogOut className="h-5 w-5" />
-                {isLoading ? "Signing out..." : "Sign Out"}
-              </Button>
-            </div>
+          <div className="border-t p-3">
+            <AccountMenu />
+            <SupportDialog />
           </div>
         </nav>
 
@@ -349,10 +410,8 @@ export function NavBar() {
             <NavLinks />
           </div>
         </div>
-        <div className="border-t p-4 space-y-1">
-          <p className="px-3 mb-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Account</p>
-          <BottomNavLinks />
-          <div className="pt-3 mt-3 border-t space-y-2">
+        <div className="border-t p-4">
+          <div className="space-y-2">
             {mounted && (
               <Button
                 variant="outline"

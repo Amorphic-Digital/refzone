@@ -10,20 +10,18 @@ import { Button } from "@/components/ui/button"
 import { PageHeader } from "@/components/page-header"
 import { CategoryIcon } from "@/components/scenario-category-icon"
 import { SCENARIO_CATEGORIES } from "@/lib/scenario-categories"
-import { ArrowRight, GraduationCap, Layers, Library, Shuffle } from "lucide-react"
+import { ArrowRight, GraduationCap, Shuffle } from "lucide-react"
+
+export const metadata = { title: "Scenario Topics — RefZone" }
 
 /**
- * The scenario topic menu.
+ * The scenario topic menu, reached from the bottom half of /scenarios.
  *
  * A referee picks a topic, not a clip: the session deals from that topic at
- * random, the way decisions arrive in a match. So nothing here counts. There is
- * no "3 of 230", no progress bar and no per-topic tally — a library that grows
- * every week turns a completion figure into a number that only ever looks
- * worse, and the training is the next decision, not the backlog.
- *
- * Coaches are the exception, and they get a separate door: /scenarios/browse.
+ * random, the way decisions arrive in a match. So nothing here counts either —
+ * see the note on the chooser for why there is no per-topic tally.
  */
-export default async function ScenariosPage() {
+export default async function ScenarioCategoriesPage() {
   let userId: string
   try {
     userId = await requireAuth()
@@ -53,35 +51,16 @@ export default async function ScenariosPage() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Match Scenarios"
-        description="Real match footage, one decision at a time. Pick a topic to train and the app deals you clips from it at random — or take whatever comes next."
+        title="Pick a topic"
+        description="Choose what you want to train and the app deals you clips from it at random."
+        back={{ href: "/scenarios", label: "Scenarios" }}
         actions={
-          <>
-          {coach && (
-            <Button asChild variant="outline">
-              <Link href="/scenarios/browse">
-                <Library className="h-4 w-4" />
-                Browse library
-              </Link>
-            </Button>
-          )}
           <Button asChild variant="outline">
-            <Link href="/packs">
-              <Layers className="h-4 w-4" />
-              Training packs
-            </Link>
-          </Button>
-          <Button
-            asChild
-            size="lg"
-            className="gap-2 bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-lg shadow-orange-500/20 hover:from-orange-600 hover:to-red-700"
-          >
             <Link href="/scenarios/play">
               <Shuffle className="h-4 w-4" />
-              Quick play
+              Random instead
             </Link>
           </Button>
-          </>
         }
       />
 
