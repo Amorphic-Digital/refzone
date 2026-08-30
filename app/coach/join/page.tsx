@@ -2,6 +2,7 @@ import { redirect } from "next/navigation"
 import { requireAuth } from "@/lib/auth"
 import { listGroupsForMember } from "@/lib/coach-groups"
 import { Card, CardContent } from "@/components/ui/card"
+import { PageHeader } from "@/components/page-header"
 import { JoinGroupForm } from "@/components/join-group-form"
 import { Users } from "lucide-react"
 
@@ -26,13 +27,11 @@ export default async function JoinGroupPage() {
 
   return (
     <div className="mx-auto max-w-xl space-y-6">
-      <div>
-        <h1 className="mb-2 text-3xl font-bold text-foreground">Join a group</h1>
-        <p className="text-sm text-muted-foreground">
-          If someone coaches you, they will have given you a six-character code. Entering it puts
-          you on their roster, so the packs they set reach you and they can see how you went.
-        </p>
-      </div>
+      <PageHeader
+        title="Join a group"
+        description="If someone coaches you, they will have given you a six-character code. Entering it puts you on their roster, so the packs they set reach you and they can see how you went."
+        back={{ href: "/packs", label: "Training Packs" }}
+      />
 
       <JoinGroupForm />
 

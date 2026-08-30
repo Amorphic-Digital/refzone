@@ -57,7 +57,7 @@ export default async function ProfilePage() {
     .limit(20)
 
   return (
-    <div className="p-6 lg:p-8 space-y-6">
+    <div className="space-y-6">
       {/* Profile Header */}
       <Card className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
         <CardContent className="pt-6">

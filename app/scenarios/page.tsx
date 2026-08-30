@@ -7,6 +7,7 @@ import { checkFeatureClosure } from "@/lib/feature-closures"
 import { FeatureClosure } from "@/components/ui/feature-closure"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { PageHeader } from "@/components/page-header"
 import { CategoryIcon } from "@/components/scenario-category-icon"
 import { SCENARIO_CATEGORIES } from "@/lib/scenario-categories"
 import { ArrowRight, GraduationCap, Layers, Library, Shuffle } from "lucide-react"
@@ -51,15 +52,11 @@ export default async function ScenariosPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="mb-1 text-3xl font-bold text-foreground">Match Scenarios</h1>
-          <p className="max-w-2xl text-sm text-muted-foreground">
-            Real match footage, one decision at a time. Pick a topic to train and the app deals you
-            clips from it at random — or take whatever comes next.
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-2">
+      <PageHeader
+        title="Match Scenarios"
+        description="Real match footage, one decision at a time. Pick a topic to train and the app deals you clips from it at random — or take whatever comes next."
+        actions={
+          <>
           {coach && (
             <Button asChild variant="outline">
               <Link href="/scenarios/browse">
@@ -84,8 +81,9 @@ export default async function ScenariosPage() {
               Quick play
             </Link>
           </Button>
-        </div>
-      </div>
+          </>
+        }
+      />
 
       {availableCategories.length === 0 && !hasUncategorised ? (
         <Card>

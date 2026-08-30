@@ -4,6 +4,7 @@ import { useMemo, useState } from "react"
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { PageHeader } from "@/components/page-header"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -60,21 +61,19 @@ export function ScenarioLibrary({ scenarios }: { scenarios: LibraryScenario[] })
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="mb-1 text-3xl font-bold text-foreground">Scenario Library</h1>
-          <p className="max-w-2xl text-sm text-muted-foreground">
-            Every live scenario. Open one to watch it and see the answer, or gather a set into a
-            pack for your group.
-          </p>
-        </div>
-        <Button asChild>
-          <Link href="/packs/new">
-            <Plus className="h-4 w-4" />
-            New pack
-          </Link>
-        </Button>
-      </div>
+      <PageHeader
+        title="Scenario Library"
+        description="Every live scenario. Open one to watch it and see the answer, or gather a set into a pack for your group."
+        back={{ href: "/coach", label: "Coaching" }}
+        actions={
+          <Button asChild>
+            <Link href="/packs/new">
+              <Plus className="h-4 w-4" />
+              New pack
+            </Link>
+          </Button>
+        }
+      />
 
       <Card>
         <CardContent className="flex flex-wrap gap-3 pt-6">

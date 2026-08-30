@@ -5,6 +5,7 @@ import { isCoach } from "@/lib/coach"
 import { listGroupsForCoach } from "@/lib/coach-groups"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { PageHeader } from "@/components/page-header"
 import { Badge } from "@/components/ui/badge"
 import { CreateGroupButton } from "@/components/create-group-button"
 import { ArrowRight, Users } from "lucide-react"
@@ -30,16 +31,12 @@ export default async function CoachGroupsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="mb-1 text-3xl font-bold text-foreground">Groups</h1>
-          <p className="max-w-2xl text-sm text-muted-foreground">
-            Your referees, by name. Give the group your join code once and everything you assign
-            after that reaches them without another link.
-          </p>
-        </div>
-        <CreateGroupButton />
-      </div>
+      <PageHeader
+        title="Groups"
+        description="Your referees, by name. Give the group your join code once and everything you assign after that reaches them without another link."
+        back={{ href: "/coach", label: "Coaching" }}
+        actions={<CreateGroupButton />}
+      />
 
       {groups.length === 0 ? (
         <Card className="border-dashed">

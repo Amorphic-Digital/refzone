@@ -15,6 +15,10 @@ import {
   Library,
   GraduationCap,
   UsersRound,
+  PlayCircle,
+  FileQuestion,
+  Trophy,
+  User,
   HelpCircle,
   Mail,
   Copy,
@@ -132,10 +136,13 @@ export function NavBar() {
 
   const mainNavItems = [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/decision-lab", label: "Decision Lab", icon: Users },
+    { href: "/scenarios", label: "Scenarios", icon: PlayCircle, tutorialId: "scenarios-nav" },
+    { href: "/quizzes", label: "Quizzes", icon: FileQuestion, tutorialId: "quizzes-nav" },
     // Referees land here for packs a coach has set them, so it is not a
     // coach-only link even though coaches are the ones who build them.
     { href: "/packs", label: "Training Packs", icon: Layers },
+    { href: "/decision-lab", label: "DecisionLab", icon: Users, tutorialId: "decision-lab-nav" },
+    { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
   ]
 
   // Everything the coach account unlocks, in one place. Referees never see it;
@@ -147,6 +154,7 @@ export function NavBar() {
   ]
 
   const bottomNavItems: { href: string; label: string; icon: any; tutorialId?: string }[] = [
+    { href: "/account", label: "Account", icon: User, tutorialId: "account-link" },
     { href: "/settings", label: "Settings", icon: Settings, tutorialId: "settings-link" },
   ]
 

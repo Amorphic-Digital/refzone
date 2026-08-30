@@ -3,14 +3,13 @@
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
 import { useAuth, useUser } from "@clerk/nextjs"
-import { Home, Settings, LogOut, Moon, Sun, Users, Shield, HelpCircle, Mail, Copy, Check, FlaskConical, Menu, Bell, Layers, Library, GraduationCap, UsersRound } from "lucide-react"
+import { Home, Settings, LogOut, Moon, Sun, Users, Shield, HelpCircle, Mail, Copy, Check, FlaskConical, Menu, Bell, Layers, Library, GraduationCap, UsersRound, PlayCircle, FileQuestion, Trophy, User } from "lucide-react"
 import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { NotificationsDropdown } from "@/components/notifications-dropdown"
 import { MobileTopBar } from "@/components/mobile-top-bar"
 import { useTutorial } from "@/components/tutorial/tutorial-context"
 import { useCoachStatus } from "@/lib/use-coach"
@@ -71,8 +70,7 @@ export function MobileBottomNav() {
     setTheme(theme === "dark" ? "light" : "dark")
   }
 
-  const isActive = (href: string) => pathname === href
-  const isDecisionLabActive = pathname === "/decision-lab"
+  const isSection = (href: string) => pathname === href || pathname.startsWith(`${href}/`)
   const isAccountActive = ["/settings", "/admin", "/packs", "/coach"].includes(pathname)
 
   const GradientUnderline = ({ active }: { active: boolean }) => (
@@ -90,36 +88,25 @@ export function MobileBottomNav() {
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 md:hidden z-50 bg-background border-t">
         <div className="flex items-center justify-between px-2 py-2 h-16 max-w-md mx-auto w-full">
-          {/* Notifications */}
-          <NotificationsDropdown align="start">
-            <div
-              className="group relative flex flex-col items-center justify-center gap-0.5 p-2 pb-3 rounded-xl cursor-pointer"
-            >
-              <Bell className="h-6 w-6" />
-              <GradientUnderline active={pathname === "/notifications"} />
-            </div>
-          </NotificationsDropdown>
-
-          {/* DecisionLab */}
-          <Link
-            href="/decision-lab"
-            data-tutorial="decision-lab-nav"
-            className="group relative flex flex-col items-center justify-center gap-0.5 p-2 pb-3 rounded-xl cursor-pointer"
-          >
-            <FlaskConical className="h-6 w-6" />
-            <span className="text-[10px] text-muted-foreground">DecisionLab</span>
-            <GradientUnderline active={isDecisionLabActive} />
-          </Link>
-
-          {/* Home */}
-          <Link
-            href="/dashboard"
-            className="group relative flex flex-col items-center justify-center gap-0.5 p-2 pb-3 rounded-xl cursor-pointer"
-          >
-            <Home className="h-6 w-6" />
-            <span className="text-[10px] text-muted-foreground">Home</span>
-            <GradientUnderline active={isActive("/dashboard")} />
-          </Link>
+          {[
+            { href: "/dashboard", label: "Home", icon: Home },
+            { href: "/scenarios", label: "Scenarios", icon: PlayCircle },
+            { href: "/quizzes", label: "Quizzes", icon: FileQuestion },
+            { href: "/packs", label: "Packs", icon: Layers },
+          ].map((item) => {
+            const Icon = item.icon
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="group relative flex flex-col items-center justify-center gap-0.5 rounded-xl p-2 pb-3 cursor-pointer"
+              >
+                <Icon className="h-6 w-6" />
+                <span className="text-[10px] text-muted-foreground">{item.label}</span>
+                <GradientUnderline active={isSection(item.href)} />
+              </Link>
+            )
+          })}
 
 
 
@@ -137,9 +124,15 @@ export function MobileBottomNav() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-52">
               <DropdownMenuItem asChild>
-                <Link href="/packs" className="flex items-center">
-                  <Layers className="h-4 w-4 mr-2" />
-                  Training Packs
+                <Link href="/decision-lab" className="flex items-center">
+                  <FlaskConical className="h-4 w-4 mr-2" />
+                  DecisionLab
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/leaderboard" className="flex items-center">
+                  <Trophy className="h-4 w-4 mr-2" />
+                  Leaderboard
                 </Link>
               </DropdownMenuItem>
 
@@ -179,12 +172,35 @@ export function MobileBottomNav() {
                   </Link>
                 </DropdownMenuItem>
               )}
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link href="/account" className="flex items-center">
+                  <User className="h-4 w-4 mr-2" />
+                  Account
+                </Link>
+              </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/settings" className="flex items-center">
                   <Settings className="h-4 w-4 mr-2" />
                   Settings
                 </Link>
               </DropdownMenuItem>
+              {mounted && (
+                <DropdownMenuItem
+                  onSelect={(e) => {
+                    e.preventDefault()
+                    toggleTheme()
+                  }}
+                  className="flex items-center cursor-pointer"
+                >
+                  {theme === "dark" ? (
+                    <Sun className="h-4 w-4 mr-2" />
+                  ) : (
+                    <Moon className="h-4 w-4 mr-2" />
+                  )}
+                  {theme === "dark" ? "Light mode" : "Dark mode"}
+                </DropdownMenuItem>
+              )}
               <DropdownMenuItem
                 onSelect={(e) => {
                   e.preventDefault()
@@ -210,15 +226,6 @@ export function MobileBottomNav() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Theme Toggle */}
-          {mounted && (
-            <button
-              onClick={toggleTheme}
-              className="group relative flex flex-col items-center justify-center gap-0.5 p-2 pb-3 rounded-xl cursor-pointer"
-            >
-              {theme === "dark" ? <Sun className="h-6 w-6" /> : <Moon className="h-6 w-6" />}
-            </button>
-          )}
         </div>
       </div>
 

@@ -68,7 +68,7 @@ export default async function LeaderboardPage() {
   const userRank = userId ? (leaderboard?.findIndex((p) => p.id === userId) ?? -1) : -1
 
   return (
-    <div className="p-6 lg:p-8 space-y-6">
+    <div className="space-y-6">
       {!userId && (
         <Card className="border-2 border-primary/30 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/50 dark:to-purple-950/50 shadow-md">
           <CardContent className="p-6">

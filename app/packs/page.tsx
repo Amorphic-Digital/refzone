@@ -6,6 +6,7 @@ import { listPacksForCoach } from "@/lib/training-packs"
 import { createServiceClient } from "@/lib/supabase/service"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { PageHeader } from "@/components/page-header"
 import { Badge } from "@/components/ui/badge"
 import { ShareButton } from "@/components/share-button"
 import { categoryLabel } from "@/lib/scenario-categories"
@@ -86,16 +87,15 @@ export default async function PacksPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="mb-1 text-3xl font-bold text-foreground">Training Packs</h1>
-          <p className="max-w-2xl text-sm text-muted-foreground">
-            {coach
-              ? "Group scenarios into a set and send your referees one link. Everything they answer comes back to you in the results view."
-              : "Packs your coach has sent you. Each one is a set of clips picked out for your group to work through together."}
-          </p>
-        </div>
-        {coach ? (
+      <PageHeader
+        title="Training Packs"
+        description={
+          coach
+            ? "Group scenarios into a set and send your referees one link. Everything they answer comes back to you in the results view."
+            : "Packs your coach has sent you. Each one is a set of clips picked out for your group to work through together."
+        }
+        actions={
+          coach ? (
           <div className="flex flex-wrap gap-2">
             <Button asChild variant="outline" size="lg">
               <Link href="/coach/groups">
@@ -113,14 +113,15 @@ export default async function PacksPage() {
         ) : (
           /* The only route to the join page for a referee who already has
              packs — the empty state below is gone by then. */
-          <Button asChild variant="outline">
-            <Link href="/coach/join">
-              <Users className="h-4 w-4" />
-              Join a group
-            </Link>
-          </Button>
-        )}
-      </div>
+            <Button asChild variant="outline">
+              <Link href="/coach/join">
+                <Users className="h-4 w-4" />
+                Join a group
+              </Link>
+            </Button>
+          )
+        }
+      />
 
       {/* ---- Set for you ------------------------------------------------- */}
       {assigned.length > 0 && (

@@ -6,9 +6,10 @@ import { listGroupMembers } from "@/lib/coach-groups"
 import { createServiceClient } from "@/lib/supabase/service"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { PageHeader } from "@/components/page-header"
 import { Badge } from "@/components/ui/badge"
 import { GroupRoster } from "@/components/group-roster"
-import { ArrowLeft, CalendarClock, Users } from "lucide-react"
+import { CalendarClock, Users } from "lucide-react"
 
 export const metadata = { title: "Group — RefZone" }
 
@@ -58,18 +59,11 @@ export default async function CoachGroupPage({ params }: { params: Promise<{ id:
 
   return (
     <div className="space-y-6">
-      <div>
-        <Button asChild variant="ghost" size="sm" className="-ml-2 mb-1">
-          <Link href="/coach/groups">
-            <ArrowLeft className="h-4 w-4" />
-            All groups
-          </Link>
-        </Button>
-        <h1 className="text-3xl font-bold text-foreground">{group.name}</h1>
-        {group.description && (
-          <p className="mt-1 max-w-2xl text-sm text-muted-foreground">{group.description}</p>
-        )}
-      </div>
+      <PageHeader
+        title={group.name}
+        description={group.description}
+        back={{ href: "/coach/groups", label: "All groups" }}
+      />
 
       <Card className="border-primary/40">
         <CardContent className="flex flex-wrap items-center justify-between gap-4 py-5">

@@ -4,6 +4,7 @@ import { isCoach } from "@/lib/coach"
 import { createServiceClient } from "@/lib/supabase/service"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { PageHeader } from "@/components/page-header"
 import { SubmitScenarioForm } from "@/components/submit-scenario-form"
 
 export const metadata = { title: "Send a clip — RefZone" }
@@ -27,13 +28,11 @@ export default async function CoachSubmitPage() {
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
-      <div>
-        <h1 className="mb-2 text-3xl font-bold text-foreground">Send us a clip</h1>
-        <p className="text-sm text-muted-foreground">
-          Got footage the library does not have? Send it over. An admin checks every clip before it
-          goes in — mainly that we are allowed to use it, which is why the source is required.
-        </p>
-      </div>
+      <PageHeader
+        title="Send us a clip"
+        description="Got footage the library does not have? Send it over. An admin checks every clip before it goes in — mainly that we are allowed to use it, which is why the source is required."
+        back={{ href: "/coach", label: "Coaching" }}
+      />
 
       <SubmitScenarioForm />
 

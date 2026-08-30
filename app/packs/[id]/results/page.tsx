@@ -1,14 +1,12 @@
-import Link from "next/link"
 import { notFound, redirect } from "next/navigation"
 import { requireAuth } from "@/lib/auth"
 import { listGroupsForCoach } from "@/lib/coach-groups"
 import { getPackResults } from "@/lib/pack-results"
 import { loadOwnedPack } from "@/lib/pack-ownership"
 import { createServiceClient } from "@/lib/supabase/service"
-import { Button } from "@/components/ui/button"
+import { PageHeader } from "@/components/page-header"
 import { ShareButton } from "@/components/share-button"
 import { PackResultsView } from "@/components/pack-results-view"
-import { ArrowLeft } from "lucide-react"
 
 export const metadata = { title: "Pack results — RefZone" }
 
@@ -50,23 +48,18 @@ export default async function PackResultsPage({ params }: { params: Promise<{ id
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <Button asChild variant="ghost" size="sm" className="-ml-2 mb-1">
-            <Link href="/packs">
-              <ArrowLeft className="h-4 w-4" />
-              All packs
-            </Link>
-          </Button>
-          <h1 className="text-3xl font-bold text-foreground">{pack.title}</h1>
-          <p className="text-sm text-muted-foreground">
-            {results.participants.length} participant
-            {results.participants.length === 1 ? "" : "s"} · {results.items.length} scenarios
-            {results.guestCount > 0 && ` · ${results.guestCount} without an account`}
-          </p>
-        </div>
-        <ShareButton url={`/share/pack/${pack.share_code}`} title={pack.title} variant="outline" />
-      </div>
+      <PageHeader
+        title={pack.title}
+        back={{ href: "/packs", label: "All packs" }}
+        description={`${results.participants.length} participant${
+          results.participants.length === 1 ? "" : "s"
+        } · ${results.items.length} scenarios${
+          results.guestCount > 0 ? ` · ${results.guestCount} without an account` : ""
+        }`}
+        actions={
+          <ShareButton url={`/share/pack/${pack.share_code}`} title={pack.title} variant="outline" />
+        }
+      />
 
       <PackResultsView
         packId={pack.id}
