@@ -23,8 +23,9 @@ import {
 import { Eye, EyeOff, Pencil, Plus, Trash2, ArrowLeft, Target, FileQuestion, Sparkles, Loader2 } from "lucide-react"
 import Link from "next/link"
 import { VideoScenarioUpload } from "./video-scenarios"
+import { ScenarioFootageEditor } from "./scenario-footage-editor"
 import { getDifficultyColor } from "@/lib/shared-utils"
-import { SCENARIO_CATEGORIES, categoryLabel } from "@/lib/scenario-categories"
+import { categoryLabel } from "@/lib/scenario-categories"
 import { ShareButton } from "@/components/share-button"
 import { AdminAccessDenied, type AdminDenialReason } from "@/components/admin-access-denied"
 
@@ -442,46 +443,9 @@ export default function ContentManagement() {
     setScenarios(scenarios.map((s) => (s.id === id ? { ...s, is_active: !currentActive } : s)))
   }
 
-  const updateScenarioCategory = async (id: string, category: string) => {
-    // Optimistic — the dropdown should feel instant when working through a
-    // backlog of uncategorised scenarios.
-    const previous = scenarios
-    setScenarios(scenarios.map((s) => (s.id === id ? { ...s, category } : s)))
-
-    const supabase = createClient()
-    const { error } = await supabase.from("scenarios").update({ category }).eq("id", id)
-
-    if (error) {
-      setScenarios(previous)
-      setModal({
-        isOpen: true,
-        type: "error",
-        title: "Could not save category",
-        message: error.message,
-        onConfirm: () => {},
-      })
-    }
-  }
-
-  const updateScenarioCredit = async (id: string, credit: string) => {
-    const value = credit.trim() || null
-
-    const previous = scenarios
-    setScenarios(scenarios.map((s) => (s.id === id ? { ...s, video_credit: value } : s)))
-
-    const supabase = createClient()
-    const { error } = await supabase.from("scenarios").update({ video_credit: value }).eq("id", id)
-
-    if (error) {
-      setScenarios(previous)
-      setModal({
-        isOpen: true,
-        type: "error",
-        title: "Could not save video source",
-        message: error.message,
-        onConfirm: () => {},
-      })
-    }
+  /** The footage editor has already written the row; mirror it in the list. */
+  const applyScenarioPatch = (id: string, patch: Partial<Scenario>) => {
+    setScenarios((current) => current.map((s) => (s.id === id ? { ...s, ...patch } : s)))
   }
 
   const toggleQuizActive = async (id: string, currentActive: boolean) => {
@@ -905,41 +869,14 @@ export default function ContentManagement() {
                           )}
                         </div>
                         <p className="text-sm text-muted-foreground line-clamp-1">{scenario.ai_answer || "No answer set"}</p>
-                        <div className="flex items-center gap-3 mt-2">
-                          <p className="text-xs text-muted-foreground">{scenario.points_value} points</p>
-                          {/* Inline retagging — the fastest way to work through
-                              scenarios created before categories existed. */}
-                          <Select
-                            value={scenario.category || ""}
-                            onValueChange={(value) => updateScenarioCategory(scenario.id, value)}
-                          >
-                            <SelectTrigger className="h-7 w-[220px] text-xs">
-                              <SelectValue placeholder="Set category…" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {SCENARIO_CATEGORIES.map((cat) => (
-                                <SelectItem key={cat.slug} value={cat.slug}>
-                                  {cat.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          {/* Uploaded scenarios carry their source from the
-                              upload form; this is for the ones that predate it. */}
-                          <Input
-                            key={scenario.video_credit || ""}
-                            defaultValue={scenario.video_credit || ""}
-                            placeholder="Video source…"
-                            aria-label={`Video source for ${scenario.title}`}
-                            onBlur={(e) => {
-                              const next = e.target.value.trim()
-                              if (next !== (scenario.video_credit || "")) {
-                                void updateScenarioCredit(scenario.id, next)
-                              }
-                            }}
-                            className="h-7 w-[260px] text-xs"
-                          />
-                        </div>
+                        <p className="text-xs text-muted-foreground mt-2">{scenario.points_value} points</p>
+                        <ScenarioFootageEditor
+                          scenario={scenario}
+                          onSaved={(patch) => applyScenarioPatch(scenario.id, patch)}
+                          onError={(title, message) =>
+                            setModal({ isOpen: true, type: "error", title, message, onConfirm: () => {} })
+                          }
+                        />
                       </div>
                       <div className="flex items-center gap-2">
                         <ShareButton
