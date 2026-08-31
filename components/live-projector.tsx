@@ -155,14 +155,21 @@ export function LiveProjector({
         </div>
 
         <div className="grid w-full max-w-6xl gap-8 lg:grid-cols-[1fr_auto]">
-          <div className="overflow-hidden rounded-2xl border-4 border-white/10">
-            {current?.video_url ? (
-              <ScenarioVideoPlayer url={current.video_url} key={current.id} />
-            ) : (
-              <div className="flex aspect-video items-center justify-center bg-black text-white/40">
-                No video
-              </div>
+          <div className="space-y-3">
+            {current?.video_credit && (
+              <p className="text-xl text-white/60">
+                <span className="font-medium text-white/80">Footage:</span> {current.video_credit}
+              </p>
             )}
+            <div className="overflow-hidden rounded-2xl border-4 border-white/10">
+              {current?.video_url ? (
+                <ScenarioVideoPlayer url={current.video_url} key={current.id} />
+              ) : (
+                <div className="flex aspect-video items-center justify-center bg-black text-white/40">
+                  No video
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="flex flex-col items-center justify-center gap-4">

@@ -401,14 +401,14 @@ function ScenarioPanel({
 
   return (
     <div className="mx-auto flex min-h-full max-w-2xl flex-col justify-center gap-4 px-4 pb-6 pt-16">
-      {/* Video first: the decision is in the footage, not in the metadata. */}
+      {/* Whose footage this is, before the footage itself. */}
+      <ScenarioVideoCredit credit={scenario.video_credit} />
+
       {scenario.video_url && (
         <div className="overflow-hidden rounded-xl border-2 border-border">
           <ScenarioVideoPlayer url={scenario.video_url} active={isActive} loop />
         </div>
       )}
-
-      <ScenarioVideoCredit credit={scenario.video_credit} />
 
       <div className="space-y-2">
         <div className="flex flex-wrap items-center gap-2">
