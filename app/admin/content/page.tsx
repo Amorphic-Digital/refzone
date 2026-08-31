@@ -23,7 +23,7 @@ import {
 import { Eye, EyeOff, Pencil, Plus, Trash2, ArrowLeft, Target, FileQuestion, Sparkles, Loader2 } from "lucide-react"
 import Link from "next/link"
 import { VideoScenarioUpload } from "./video-scenarios"
-import { ScenarioFootageEditor } from "./scenario-footage-editor"
+import { ScenarioEditDialog } from "./scenario-edit-dialog"
 import { getDifficultyColor } from "@/lib/shared-utils"
 import { categoryLabel } from "@/lib/scenario-categories"
 import { ShareButton } from "@/components/share-button"
@@ -91,6 +91,9 @@ export default function ContentManagement() {
     open: false,
     editing: null,
   })
+  // The scenario being edited in the modal, or null when it is closed. The
+  // dialog is mounted only while set, so each opening starts from saved values.
+  const [editingScenario, setEditingScenario] = useState<Scenario | null>(null)
   const [quizDialog, setQuizDialog] = useState<{ open: boolean; editing: Quiz | null }>({ open: false, editing: null })
   const [aiQuizDialog, setAiQuizDialog] = useState(false)
   const [aiQuizForm, setAiQuizForm] = useState({ quantity: 5, category: "", length: "random" as "short" | "standard" | "extended" | "random" })
@@ -485,6 +488,21 @@ export default function ContentManagement() {
         </DialogContent>
       </Dialog>
 
+      {/* Scenario edit — footage and its acknowledgement */}
+      {editingScenario && (
+        <ScenarioEditDialog
+          scenario={editingScenario}
+          onClose={() => setEditingScenario(null)}
+          onSaved={(patch) => {
+            applyScenarioPatch(editingScenario.id, patch)
+            setEditingScenario(null)
+          }}
+          onError={(title, message) =>
+            setModal({ isOpen: true, type: "error", title, message, onConfirm: () => {} })
+          }
+        />
+      )}
+
       {/* Scenario Dialog - Video Upload */}
       <Dialog open={scenarioDialog.open} onOpenChange={(open) => setScenarioDialog({ open, editing: null })}>
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
@@ -869,16 +887,25 @@ export default function ContentManagement() {
                           )}
                         </div>
                         <p className="text-sm text-muted-foreground line-clamp-1">{scenario.ai_answer || "No answer set"}</p>
-                        <p className="text-xs text-muted-foreground mt-2">{scenario.points_value} points</p>
-                        <ScenarioFootageEditor
-                          scenario={scenario}
-                          onSaved={(patch) => applyScenarioPatch(scenario.id, patch)}
-                          onError={(title, message) =>
-                            setModal({ isOpen: true, type: "error", title, message, onConfirm: () => {} })
-                          }
-                        />
+                        <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
+                          <span>{scenario.points_value} points</span>
+                          {scenario.video_credit ? (
+                            <span className="truncate">Footage: {scenario.video_credit}</span>
+                          ) : (
+                            <span className="text-amber-600">No footage acknowledgement</span>
+                          )}
+                        </div>
                       </div>
                       <div className="flex items-center gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setEditingScenario(scenario)}
+                          className="cursor-pointer"
+                          aria-label={`Edit ${scenario.title}`}
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
                         <ShareButton
                           url={`/scenarios/${scenario.id}`}
                           title={scenario.title}
