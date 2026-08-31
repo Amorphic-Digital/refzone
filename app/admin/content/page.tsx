@@ -24,6 +24,7 @@ import { Eye, EyeOff, Pencil, Plus, Trash2, ArrowLeft, Target, FileQuestion, Spa
 import Link from "next/link"
 import { VideoScenarioUpload } from "./video-scenarios"
 import { ScenarioEditDialog } from "./scenario-edit-dialog"
+import { adminDelete, adminInsert, adminUpdate } from "@/lib/admin-records"
 import { getDifficultyColor } from "@/lib/shared-utils"
 import { categoryLabel } from "@/lib/scenario-categories"
 import { ShareButton } from "@/components/share-button"
@@ -235,24 +236,21 @@ export default function ContentManagement() {
   }
 
   const saveQuiz = async () => {
-    const supabase = createClient()
+    const editing = quizDialog.editing
 
-    if (quizDialog.editing) {
-      const { error } = await supabase.from("quizzes").update(quizForm).eq("id", quizDialog.editing.id)
+    const { record, error } = editing
+      ? await adminUpdate<Quiz>("quizzes", { id: editing.id }, quizForm)
+      : await adminInsert<Quiz>("quizzes", { ...quizForm, is_active: true })
 
-      if (!error) {
-        setQuizzes(quizzes.map((q) => (q.id === quizDialog.editing!.id ? { ...q, ...quizForm } : q)))
-      }
-    } else {
-      const { data, error } = await supabase
-        .from("quizzes")
-        .insert({ ...quizForm, is_active: true })
-        .select()
-        .single()
+    if (error) {
+      showWriteError(editing ? "Could not save the quiz" : "Could not create the quiz", error)
+      return
+    }
 
-      if (data && !error) {
-        setQuizzes([data, ...quizzes])
-      }
+    if (editing) {
+      setQuizzes(quizzes.map((q) => (q.id === editing.id ? { ...q, ...quizForm } : q)))
+    } else if (record) {
+      setQuizzes([record, ...quizzes])
     }
 
     setQuizDialog({ open: false, editing: null })
@@ -339,42 +337,38 @@ export default function ContentManagement() {
 
   const saveQuestion = async () => {
     if (!editingQuizId) return
-    const supabase = createClient()
+    const editing = questionDialog.editing
 
-    if (questionDialog.editing) {
-      const { error } = await supabase
-        .from("quiz_questions")
-        .update({
-          question_text: questionForm.question_text,
-          question_type: questionForm.question_type,
-          options: questionForm.options,
-          correct_answer: questionForm.correct_answer,
-          explanation: questionForm.explanation,
-          points_value: questionForm.points_value,
-          law_category: questionForm.law_category,
-          law_section: questionForm.law_section,
-        })
-        .eq("id", questionDialog.editing.id)
-
-      if (!error) {
-        setQuizQuestions(
-          quizQuestions.map((q) => (q.id === questionDialog.editing!.id ? { ...q, ...questionForm } : q)),
+    const { record, error } = editing
+      ? await adminUpdate<QuizQuestion>(
+          "quiz_questions",
+          { id: editing.id },
+          {
+            question_text: questionForm.question_text,
+            question_type: questionForm.question_type,
+            options: questionForm.options,
+            correct_answer: questionForm.correct_answer,
+            explanation: questionForm.explanation,
+            points_value: questionForm.points_value,
+            law_category: questionForm.law_category,
+            law_section: questionForm.law_section,
+          },
         )
-      }
-    } else {
-      const { data, error } = await supabase
-        .from("quiz_questions")
-        .insert({
+      : await adminInsert<QuizQuestion>("quiz_questions", {
           quiz_id: editingQuizId,
           ...questionForm,
           order_index: quizQuestions.length,
         })
-        .select()
-        .single()
 
-      if (data && !error) {
-        setQuizQuestions([...quizQuestions, data])
-      }
+    if (error) {
+      showWriteError(editing ? "Could not save the question" : "Could not add the question", error)
+      return
+    }
+
+    if (editing) {
+      setQuizQuestions(quizQuestions.map((q) => (q.id === editing.id ? { ...q, ...questionForm } : q)))
+    } else if (record) {
+      setQuizQuestions([...quizQuestions, record])
     }
 
     setQuestionDialog({ open: false, editing: null })
@@ -383,12 +377,14 @@ export default function ContentManagement() {
   const deleteQuestion = async (questionId: string) => {
     if (!confirm("Are you sure you want to delete this question?")) return
 
-    const supabase = createClient()
-    const { error } = await supabase.from("quiz_questions").delete().eq("id", questionId)
+    const { error } = await adminDelete("quiz_questions", { id: questionId })
 
-    if (!error) {
-      setQuizQuestions(quizQuestions.filter((q) => q.id !== questionId))
+    if (error) {
+      showWriteError("Could not delete the question", error)
+      return
     }
+
+    setQuizQuestions(quizQuestions.filter((q) => q.id !== questionId))
   }
 
   const generateAIQuiz = async () => {
@@ -465,15 +461,25 @@ export default function ContentManagement() {
     }
   }
 
+  const showWriteError = (title: string, message: string) => {
+    setModal({ isOpen: true, type: "error", title, message, onConfirm: () => {} })
+  }
+
   /** The footage editor has already written the row; mirror it in the list. */
   const applyScenarioPatch = (id: string, patch: Partial<Scenario>) => {
     setScenarios((current) => current.map((s) => (s.id === id ? { ...s, ...patch } : s)))
   }
 
   const toggleQuizActive = async (id: string, currentActive: boolean) => {
-    const supabase = createClient()
-    await supabase.from("quizzes").update({ is_active: !currentActive }).eq("id", id)
-    setQuizzes(quizzes.map((q) => (q.id === id ? { ...q, is_active: !currentActive } : q)))
+    const next = !currentActive
+    setQuizzes((current) => current.map((q) => (q.id === id ? { ...q, is_active: next } : q)))
+
+    const { error } = await adminUpdate("quizzes", { id }, { is_active: next })
+
+    if (error) {
+      setQuizzes((current) => current.map((q) => (q.id === id ? { ...q, is_active: currentActive } : q)))
+      showWriteError(next ? "Could not show the quiz" : "Could not hide the quiz", error)
+    }
   }
 
   if (denied) {

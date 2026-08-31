@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { useAuth, useUser } from "@clerk/nextjs"
 import { createClient } from "@/lib/supabase/client"
+import { adminUpdate } from "@/lib/admin-records"
 import { useRouter } from "next/navigation"
 import { ArrowLeft, Shield, Save, Loader2, Wand2, Sparkles, BookOpen, Upload, FileText, Check } from "lucide-react"
 import Link from "next/link"
@@ -96,16 +97,16 @@ export default function AdminConfigPage() {
     setIsSaving(true)
 
     try {
-      const supabase = createClient()
-
       for (const config of configs) {
-        await supabase
-          .from("admin_config")
-          .update({
-            config_value: config.config_value,
-            updated_at: new Date().toISOString(),
-          })
-          .eq("config_key", config.config_key)
+        const { error } = await adminUpdate("admin_config", { config_key: config.config_key }, {
+          config_value: config.config_value,
+          updated_at: new Date().toISOString(),
+        })
+
+        if (error) {
+          showModal("error", "Save Failed", `${config.config_key} could not be saved: ${error}`)
+          return
+        }
       }
 
       showModal("success", "Configuration Saved", "Configuration has been saved successfully!")

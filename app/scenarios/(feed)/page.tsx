@@ -62,7 +62,7 @@ export default async function ScenariosPage() {
         href="/scenarios/play"
         eyebrow="Just deal me one"
         title="Random"
-        blurb="Real match footage, one decision at a time. Scroll for the next."
+        blurb="Real match footage, one decision at a time. Next when you are ready."
         icon={<Shuffle className="h-7 w-7" />}
         className="bg-gradient-to-br from-orange-500 via-orange-600 to-red-600"
       />

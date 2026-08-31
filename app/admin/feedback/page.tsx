@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useAuth, useUser } from "@clerk/nextjs"
 import { createClient } from "@/lib/supabase/client"
+import { adminDelete } from "@/lib/admin-records"
 import { useRouter } from "next/navigation"
 import { ArrowLeft, Shield, Star, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -86,8 +87,17 @@ export default function AdminFeedbackPage() {
       title: "Delete Feedback",
       message: "Are you sure you want to delete this feedback?",
       onConfirm: async () => {
-        const supabase = createClient()
-        await supabase.from("user_feedback").delete().eq("id", feedbackId)
+        const { error } = await adminDelete("user_feedback", { id: feedbackId })
+        if (error) {
+          setModal({
+            isOpen: true,
+            type: "error",
+            title: "Could not delete the feedback",
+            message: error,
+            onConfirm: () => setModal((current) => ({ ...current, isOpen: false })),
+          })
+          return
+        }
         setFeedback(feedback.filter((f) => f.id !== feedbackId))
         setModal({ ...modal, isOpen: false })
       },

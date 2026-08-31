@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useAuth, useUser } from "@clerk/nextjs"
 import { createClient } from "@/lib/supabase/client"
+import { adminDelete, adminUpdate } from "@/lib/admin-records"
 import { useRouter } from "next/navigation"
 import {
   ArrowLeft,
@@ -178,12 +179,21 @@ export default function AdminModerationPage() {
     fetchData()
   }, [router, userId, clerkUser, authLoaded, userLoaded])
 
+  const showWriteError = (title: string, message: string) => {
+    setModal({
+      isOpen: true,
+      type: "error",
+      title,
+      message,
+      onConfirm: () => setModal((current) => ({ ...current, isOpen: false })),
+    })
+  }
+
   const approvePost = async (postId: string) => {
-    const supabase = createClient()
-    const { error } = await supabase
-      .from("forum_posts")
-      .update({ moderation_status: "approved", moderation_reason: null })
-      .eq("id", postId)
+    const { error } = await adminUpdate("forum_posts", { id: postId }, {
+      moderation_status: "approved",
+      moderation_reason: null,
+    })
 
     if (error) {
       setModal({
@@ -218,15 +228,14 @@ export default function AdminModerationPage() {
       title: "Reject Post",
       message: "This will permanently delete the post. The user will not be notified. Continue?",
       onConfirm: async () => {
-        const supabase = createClient()
-        const { error } = await supabase.from("forum_posts").delete().eq("id", postId)
+        const { error } = await adminDelete("forum_posts", { id: postId })
 
         if (error) {
           setModal({
             isOpen: true,
             type: "error",
             title: "Error",
-            message: "Failed to delete post. Please try again. " + error.message,
+            message: "Failed to delete post. Please try again. " + error,
             onConfirm: () => setModal({ ...modal, isOpen: false }),
           })
           return
@@ -245,15 +254,23 @@ export default function AdminModerationPage() {
   }
 
   const togglePin = async (postId: string, currentPinned: boolean) => {
-    const supabase = createClient()
-    await supabase.from("forum_posts").update({ is_pinned: !currentPinned }).eq("id", postId)
-    setPosts(posts.map((p) => (p.id === postId ? { ...p, is_pinned: !currentPinned } : p)))
+    const next = !currentPinned
+    const { error } = await adminUpdate("forum_posts", { id: postId }, { is_pinned: next })
+    if (error) {
+      showWriteError(next ? "Could not pin the post" : "Could not unpin the post", error)
+      return
+    }
+    setPosts(posts.map((p) => (p.id === postId ? { ...p, is_pinned: next } : p)))
   }
 
   const toggleLock = async (postId: string, currentLocked: boolean) => {
-    const supabase = createClient()
-    await supabase.from("forum_posts").update({ is_locked: !currentLocked }).eq("id", postId)
-    setPosts(posts.map((p) => (p.id === postId ? { ...p, is_locked: !currentLocked } : p)))
+    const next = !currentLocked
+    const { error } = await adminUpdate("forum_posts", { id: postId }, { is_locked: next })
+    if (error) {
+      showWriteError(next ? "Could not lock the post" : "Could not unlock the post", error)
+      return
+    }
+    setPosts(posts.map((p) => (p.id === postId ? { ...p, is_locked: next } : p)))
   }
 
   const deletePost = async (postId: string) => {
@@ -263,8 +280,11 @@ export default function AdminModerationPage() {
       title: "Delete Post",
       message: "Are you sure you want to delete this post? This action cannot be undone.",
       onConfirm: async () => {
-        const supabase = createClient()
-        await supabase.from("forum_posts").delete().eq("id", postId)
+        const { error } = await adminDelete("forum_posts", { id: postId })
+        if (error) {
+          showWriteError("Could not delete the post", error)
+          return
+        }
         setPosts(posts.filter((p) => p.id !== postId))
         setModal({ ...modal, isOpen: false })
       },
@@ -272,16 +292,12 @@ export default function AdminModerationPage() {
   }
 
   const dismissReport = async (reportId: string) => {
-    const supabase = createClient()
-
-    const { error } = await supabase
-      .from("forum_reports")
-      .update({
-        status: "dismissed",
-        reviewed_by: userId,
-        reviewed_at: new Date().toISOString(),
-      })
-      .eq("id", reportId)
+    // reviewed_by is not written: it is a UUID column and this app's user ids
+    // are Clerk strings, so setting it would fail the whole update.
+    const { error } = await adminUpdate("forum_reports", { id: reportId }, {
+      status: "dismissed",
+      reviewed_at: new Date().toISOString(),
+    })
 
     if (error) {
       setModal({
@@ -311,20 +327,22 @@ export default function AdminModerationPage() {
       title: "Delete Reported Post",
       message: "This will delete the reported post permanently. Continue?",
       onConfirm: async () => {
-        const supabase = createClient()
+        const removal = await adminDelete("forum_posts", { id: postId })
+        if (removal.error) {
+          showWriteError("Could not delete the post", removal.error)
+          return
+        }
 
-        // Delete the post
-        await supabase.from("forum_posts").delete().eq("id", postId)
-
-        // Mark report as reviewed
-        await supabase
-          .from("forum_reports")
-          .update({
-            status: "reviewed",
-            reviewed_by: userId,
-            reviewed_at: new Date().toISOString(),
-          })
-          .eq("id", reportId)
+        // Mark the report as reviewed. reviewed_by is left alone: it is a UUID
+        // column and this app's user ids are Clerk strings.
+        const review = await adminUpdate("forum_reports", { id: reportId }, {
+          status: "reviewed",
+          reviewed_at: new Date().toISOString(),
+        })
+        if (review.error) {
+          showWriteError("The post was deleted, but the report is still open", review.error)
+          return
+        }
 
         // Remove from lists
         setReports(reports.filter((r) => r.id !== reportId))

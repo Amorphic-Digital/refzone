@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { useAuth } from "@clerk/nextjs"
 import { createClient } from "@/lib/supabase/client"
+import { adminUpsert } from "@/lib/admin-records"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
@@ -84,26 +85,23 @@ export default function FeatureClosuresPage() {
     try {
       if (!userId) throw new Error('Not authenticated')
 
-      const supabase = createClient()
-
       const now = new Date().toISOString()
       const updateData: any = {
         ...updates,
         updated_at: now,
       }
 
-      // If closing the feature, set closed_by and closed_at
+      // closed_by is not written: it is a UUID column and this app's user ids
+      // are Clerk strings, so setting it would fail the whole write.
       if (updates.is_closed) {
-        updateData.closed_by = userId
         updateData.closed_at = now
       }
 
-      const { error } = await supabase
-        .from('feature_closures')
-        .update(updateData)
-        .eq('feature_key', featureKey)
+      // Upsert, not update: a feature that has never been closed has no row,
+      // and an update matching nothing would report success and change nothing.
+      const { error } = await adminUpsert('feature_closures', { feature_key: featureKey }, updateData)
 
-      if (error) throw error
+      if (error) throw new Error(error)
 
       // Update local state
       setClosures(prev => ({
