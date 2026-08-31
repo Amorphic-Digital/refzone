@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -149,12 +148,24 @@ export function ScenarioEditDialog({
       patch.video_key = pendingVideo.key
     }
 
-    const supabase = createClient()
-    const { error: saveError } = await supabase.from("scenarios").update(patch).eq("id", scenario.id)
+    // Through the API, not the browser's Supabase client: that client is
+    // anonymous (auth is Clerk), so RLS drops the write and reports success.
+    let saveError: string | null = null
+    try {
+      const response = await fetch("/api/admin/update-scenario", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: scenario.id, ...patch }),
+      })
+      const data = await response.json()
+      if (!response.ok) saveError = data.error || "The server rejected the change"
+    } catch (err) {
+      saveError = err instanceof Error ? err.message : "The change could not be sent"
+    }
 
     if (saveError) {
       setIsSaving(false)
-      onError("Could not save the changes", saveError.message)
+      onError("Could not save the changes", saveError)
       return
     }
 

@@ -441,9 +441,28 @@ export default function ContentManagement() {
   }
 
   const toggleScenarioActive = async (id: string, currentActive: boolean) => {
-    const supabase = createClient()
-    await supabase.from("scenarios").update({ is_active: !currentActive }).eq("id", id)
-    setScenarios(scenarios.map((s) => (s.id === id ? { ...s, is_active: !currentActive } : s)))
+    // Optimistic, but rolled back if the server refuses — the browser's
+    // Supabase client is anonymous, so this has to go through the admin route.
+    const next = !currentActive
+    setScenarios((current) => current.map((s) => (s.id === id ? { ...s, is_active: next } : s)))
+
+    const response = await fetch("/api/admin/update-scenario", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, is_active: next }),
+    })
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}))
+      setScenarios((current) => current.map((s) => (s.id === id ? { ...s, is_active: currentActive } : s)))
+      setModal({
+        isOpen: true,
+        type: "error",
+        title: next ? "Could not show the scenario" : "Could not hide the scenario",
+        message: data.error || "The server rejected the change.",
+        onConfirm: () => {},
+      })
+    }
   }
 
   /** The footage editor has already written the row; mirror it in the list. */
