@@ -226,34 +226,43 @@ export function ScenarioFootageEditor({
         </p>
       )}
 
-      {isDirty && (
-        <div className="flex items-center gap-2">
-          <Button size="sm" className="h-7 cursor-pointer text-xs" disabled={isBusy} onClick={save}>
-            {isSaving ? (
-              <>
-                <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
-                Saving…
-              </>
-            ) : (
-              <>
-                <Save className="h-3.5 w-3.5 mr-1" />
-                Save changes
-              </>
-            )}
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-7 cursor-pointer text-xs"
-            disabled={isBusy}
-            onClick={revert}
-          >
-            <RotateCcw className="h-3.5 w-3.5 mr-1" />
-            Revert
-          </Button>
-          <span className="text-xs text-muted-foreground">Unsaved changes</span>
-        </div>
-      )}
+      {/* Always on show, so the panel never looks like it saves by itself —
+          it simply has nothing to do until something is edited. */}
+      <div className="flex items-center gap-2">
+        <Button
+          size="sm"
+          className="h-7 cursor-pointer text-xs"
+          disabled={!isDirty || isBusy}
+          onClick={save}
+        >
+          {isSaving ? (
+            <>
+              <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+              Saving…
+            </>
+          ) : (
+            <>
+              <Save className="h-3.5 w-3.5 mr-1" />
+              Save changes
+            </>
+          )}
+        </Button>
+        {isDirty && (
+          <>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-7 cursor-pointer text-xs"
+              disabled={isBusy}
+              onClick={revert}
+            >
+              <RotateCcw className="h-3.5 w-3.5 mr-1" />
+              Revert
+            </Button>
+            <span className="text-xs text-amber-600">Unsaved changes</span>
+          </>
+        )}
+      </div>
 
       {error && <p className="text-xs text-red-600">{error}</p>}
     </div>
