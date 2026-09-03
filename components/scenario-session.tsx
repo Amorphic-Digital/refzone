@@ -1,8 +1,9 @@
 "use client"
 
+import type React from "react"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
-import { Award, ArrowLeft, ChevronDown, Flame, Loader2, Timer } from "lucide-react"
+import { Award, ArrowLeft, ArrowRight, Flame, Loader2, RotateCw, Timer } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -16,7 +17,7 @@ import { ScenarioVideoPlayer } from "@/components/scenario-video-player"
 import { ScenarioVideoCredit } from "@/components/scenario-video-credit"
 import { ShareButton } from "@/components/share-button"
 
-export interface FeedScenario {
+export interface SessionScenario {
   id: string
   title: string
   ai_description: string | null
@@ -32,10 +33,10 @@ export interface FeedScenario {
   category?: string | null
 }
 
-interface ScenarioFeedProps {
-  /** The first few scenarios, rendered on the server so the feed opens full. */
-  initialScenarios: FeedScenario[]
-  /** The whole running order, ids only. Rows are pulled in as you scroll. */
+interface ScenarioSessionProps {
+  /** The first few scenarios, rendered on the server so the session opens full. */
+  initialScenarios: SessionScenario[]
+  /** The whole running order, ids only. Rows are pulled in as you advance. */
   queueIds: string[]
   initialStreak: number
   longestStreak: number
@@ -49,33 +50,31 @@ const PREFETCH_WITHIN = 2
 const BATCH_SIZE = 5
 
 /**
- * The scenario feed.
+ * The scenario training session.
  *
- * One clip per screen, scrolled the way a phone feed is scrolled: the panel in
- * view plays, everything else is paused and rewound, and the next decision is
- * one flick away. That is the point of the rework — the old player put a "Next
- * Scenario" button at the bottom of a page you had to scroll back up from, so a
- * referee who wanted five reps had to decide to keep going five separate times.
+ * One clip at a time, on an ordinary page. Answer it, read the marking, press
+ * Next — the session replaces the clip with the following one and the page
+ * starts again at the top. Nothing is stacked below the clip you are looking
+ * at, so there is no running order to scroll through and no question of which
+ * clip the page thinks you are on: the button is the only way forward.
  *
- * Answers live on the panel that asked the question, so scrolling back up to a
- * clip you have already judged shows your answer and the marking again rather
- * than an empty box.
+ * Rows are still pulled in a handful at a time rather than all at once, so
+ * opening the session does not ship the whole library, answers included.
  */
-export function ScenarioFeed({
+export function ScenarioSession({
   initialScenarios,
   queueIds,
   initialStreak,
   longestStreak,
   categoryTitle = null,
-}: ScenarioFeedProps) {
+}: ScenarioSessionProps) {
   const router = useRouter()
-  const scrollerRef = useRef<HTMLDivElement>(null)
-  const panelRefs = useRef<(HTMLElement | null)[]>([])
+  const rootRef = useRef<HTMLDivElement>(null)
 
-  const [scenarios, setScenarios] = useState<FeedScenario[]>(initialScenarios)
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [scenarios, setScenarios] = useState<SessionScenario[]>(initialScenarios)
+  const [index, setIndex] = useState(0)
   const [isLoadingMore, setIsLoadingMore] = useState(false)
-  const [hasScrolled, setHasScrolled] = useState(false)
+  const [loadFailed, setLoadFailed] = useState(false)
   const [streak, setStreak] = useState(initialStreak)
   const [bestStreak, setBestStreak] = useState(longestStreak)
   const [celebrate, setCelebrate] = useState(false)
@@ -87,34 +86,10 @@ export function ScenarioFeed({
     queueIds.every((id) => loadedIds.current.has(id)),
   )
 
-  /** Which panel is on screen. The one that is decides what plays. */
-  useEffect(() => {
-    const scroller = scrollerRef.current
-    if (!scroller) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue
-          const index = Number((entry.target as HTMLElement).dataset.index)
-          if (Number.isFinite(index)) setActiveIndex(index)
-        }
-      },
-      // 0.6 rather than 0.5 so a panel has to be properly settled before it
-      // takes over; at half, a slow drag flips the active video back and forth.
-      { root: scroller, threshold: 0.6 },
-    )
-
-    for (const panel of panelRefs.current) {
-      if (panel) observer.observe(panel)
-    }
-    return () => observer.disconnect()
-  }, [scenarios.length, exhausted])
-
   /** Top up the loaded rows before the referee reaches the end of them. */
   useEffect(() => {
-    if (exhausted || isLoadingMore) return
-    if (activeIndex < scenarios.length - 1 - PREFETCH_WITHIN) return
+    if (exhausted || isLoadingMore || loadFailed) return
+    if (index < scenarios.length - 1 - PREFETCH_WITHIN) return
 
     const next = queueIds.filter((id) => !loadedIds.current.has(id)).slice(0, BATCH_SIZE)
     if (next.length === 0) {
@@ -137,16 +112,17 @@ export function ScenarioFeed({
         })
         const body = await response.json()
         if (cancelled) return
-        const rows: FeedScenario[] = body.scenarios || []
+        const rows: SessionScenario[] = body.scenarios || []
         if (rows.length === 0) {
           setExhausted(true)
         } else {
           setScenarios((prev) => [...prev, ...rows])
         }
       } catch {
-        // Give the ids back so a later scroll can try again rather than
-        // stranding the feed on one flaky request.
+        // Give the ids back, and stop asking until the referee says to try
+        // again: retrying on every render would hammer a failing endpoint.
         for (const id of next) loadedIds.current.delete(id)
+        if (!cancelled) setLoadFailed(true)
       } finally {
         if (!cancelled) setIsLoadingMore(false)
       }
@@ -155,19 +131,16 @@ export function ScenarioFeed({
     return () => {
       cancelled = true
     }
-  }, [activeIndex, scenarios.length, exhausted, isLoadingMore, queueIds])
+  }, [index, scenarios.length, exhausted, isLoadingMore, loadFailed, queueIds])
 
-  const goToPanel = useCallback((index: number) => {
-    const panel = panelRefs.current[index]
-    if (panel) {
-      panel.scrollIntoView({ behavior: "smooth", block: "start" })
-      return
-    }
-    // The next panel's row has not landed yet. Scrolling on anyway puts the
-    // referee at the bottom of the feed where the next clip will appear, which
-    // beats a button that visibly does nothing.
-    const scroller = scrollerRef.current
-    scroller?.scrollBy({ top: scroller.clientHeight, behavior: "smooth" })
+  const goNext = useCallback(() => {
+    setIndex((prev) => prev + 1)
+    // A fresh clip belongs at the top of the page, not wherever the marking on
+    // the last one left the view. The app shell scrolls its <main>, not the
+    // window, so that is the box to send back to the top.
+    const scroller = rootRef.current?.closest("main")
+    if (scroller) scroller.scrollTo({ top: 0 })
+    else window.scrollTo({ top: 0 })
   }, [])
 
   const handleAnswered = useCallback(
@@ -179,108 +152,54 @@ export function ScenarioFeed({
     [],
   )
 
-  // Nothing to judge at all — there is no feed to show, so this is the screen.
-  if (scenarios.length === 0) {
+  const current = scenarios[index]
+
+  // Past the end of the running order — which on the first clip means there
+  // was nothing to judge at all.
+  if (!current && exhausted) {
     return <UpToDate categoryTitle={categoryTitle} bestStreak={bestStreak} />
   }
 
   return (
-    <div className="relative h-full">
-      <div
-        ref={scrollerRef}
-        onScroll={() => {
-          if (!hasScrolled) setHasScrolled(true)
-        }}
-        className="h-full snap-y snap-mandatory overflow-y-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {scenarios.map((scenario, index) => (
-          <section
-            key={scenario.id}
-            data-index={index}
-            ref={(node) => {
-              panelRefs.current[index] = node
-            }}
-            // h-full keeps one clip to a screen; the inner scroll is the escape
-            // hatch for a panel whose marking runs longer than the viewport,
-            // which mandatory snapping would otherwise put out of reach.
-            className="h-full w-full snap-start snap-always overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
-            <ScenarioPanel
-              scenario={scenario}
-              isActive={index === activeIndex}
-              streak={streak}
-              onAnswered={handleAnswered}
-              onNext={() => goToPanel(index + 1)}
-              hasNext={index < scenarios.length - 1 || !exhausted}
-              isLast={index === scenarios.length - 1 && exhausted}
-              categoryTitle={categoryTitle}
-            />
-          </section>
-        ))}
+    <div ref={rootRef} className="mx-auto max-w-2xl">
+      <SessionHeader
+        categoryTitle={categoryTitle}
+        streak={streak}
+        bestStreak={bestStreak}
+        onBack={() => router.push(categoryTitle ? "/scenarios/categories" : "/scenarios")}
+      />
 
-        {/* The end of the road, as its own panel: reaching it by scrolling is
-            the same gesture as everything else in the feed. */}
-        {exhausted && (
-          <section
-            data-index={scenarios.length}
-            ref={(node) => {
-              panelRefs.current[scenarios.length] = node
-            }}
-            className="h-full w-full snap-start snap-always overflow-y-auto"
-          >
-            <UpToDate categoryTitle={categoryTitle} bestStreak={bestStreak} />
-          </section>
-        )}
-      </div>
-
-      {/* Streak floats over the feed rather than riding inside a panel — it
-          belongs to the session, not to any one clip. */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-start justify-between gap-2 p-3">
-        <div className="pointer-events-auto flex items-center gap-2">
-          <Button
-            variant="secondary"
-            size="sm"
-            className="bg-background/70 backdrop-blur-sm"
-            onClick={() => router.push(categoryTitle ? "/scenarios/categories" : "/scenarios")}
-          >
-            <ArrowLeft className="h-4 w-4" />
-            {categoryTitle ? "Topics" : "Back"}
-          </Button>
-          {categoryTitle && (
-            <Badge variant="secondary" className="bg-background/70 backdrop-blur-sm">
-              {categoryTitle}
-            </Badge>
-          )}
-        </div>
-
-        <div className="flex items-center gap-3 rounded-full bg-background/70 px-3 py-1.5 backdrop-blur-sm">
-          <span className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
-            <Flame className="h-4 w-4 text-orange-500" />
-            {streak}
-          </span>
-          <span className="h-4 w-px bg-border" />
-          <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <Award className="h-4 w-4 text-yellow-500" />
-            {bestStreak}
-          </span>
-        </div>
-      </div>
-
-      {/* The one-time nudge that this page scrolls. Once it has, it never comes
-          back — a permanent hint is just clutter. */}
-      {!hasScrolled && scenarios.length > 1 && (
-        <div className="pointer-events-none absolute inset-x-0 bottom-4 z-20 flex justify-center">
-          <span className="flex animate-bounce items-center gap-1.5 rounded-full bg-background/80 px-3 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur-sm">
-            <ChevronDown className="h-3.5 w-3.5" />
-            Scroll for the next clip
-          </span>
-        </div>
-      )}
-
-      {isLoadingMore && (
-        <div className="pointer-events-none absolute bottom-4 right-4 z-20">
-          <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-        </div>
+      {current ? (
+        <ScenarioCard
+          // Keyed so the next clip starts clean: no carried-over answer, no
+          // marking from the one before it, and a video that reloads.
+          key={current.id}
+          scenario={current}
+          streak={streak}
+          onAnswered={handleAnswered}
+          onNext={goNext}
+          hasNext={index < scenarios.length - 1 || !exhausted}
+          categoryTitle={categoryTitle}
+        />
+      ) : loadFailed ? (
+        <WaitingForNext
+          message={
+            index === 0
+              ? "The scenarios could not be loaded."
+              : "The next clip could not be loaded."
+          }
+          action={
+            <Button onClick={() => setLoadFailed(false)} variant="outline">
+              <RotateCw className="h-4 w-4" />
+              Try again
+            </Button>
+          }
+        />
+      ) : (
+        <WaitingForNext
+          message={index === 0 ? "Loading..." : "Loading the next clip..."}
+          spinner
+        />
       )}
 
       {celebrate && <CustomCelebration show onComplete={() => setCelebrate(false)} />}
@@ -288,26 +207,79 @@ export function ScenarioFeed({
   )
 }
 
-interface PanelResult {
+/** Where you are, how you are doing, and the way back out. */
+function SessionHeader({
+  categoryTitle,
+  streak,
+  bestStreak,
+  onBack,
+}: {
+  categoryTitle: string | null
+  streak: number
+  bestStreak: number
+  onBack: () => void
+}) {
+  return (
+    <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+      <div className="flex items-center gap-2">
+        <Button variant="outline" size="sm" onClick={onBack}>
+          <ArrowLeft className="h-4 w-4" />
+          {categoryTitle ? "Topics" : "Back"}
+        </Button>
+        {categoryTitle && <Badge variant="secondary">{categoryTitle}</Badge>}
+      </div>
+
+      <div className="flex items-center gap-3 rounded-full border border-border px-3 py-1.5">
+        <span className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
+          <Flame className="h-4 w-4 text-orange-500" />
+          {streak}
+        </span>
+        <span className="h-4 w-px bg-border" />
+        <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
+          <Award className="h-4 w-4 text-yellow-500" />
+          {bestStreak}
+        </span>
+      </div>
+    </div>
+  )
+}
+
+/** The gap between clips, when the next row has not landed yet. */
+function WaitingForNext({
+  message,
+  spinner = false,
+  action,
+}: {
+  message: string
+  spinner?: boolean
+  action?: React.ReactNode
+}) {
+  return (
+    <div className="flex flex-col items-center justify-center gap-3 py-24 text-center">
+      {spinner && <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />}
+      <p className="text-sm text-muted-foreground">{message}</p>
+      {action}
+    </div>
+  )
+}
+
+interface CardResult {
   isCorrect: boolean
   correctAnswer: string
   explanation: string
   pointsEarned: number
 }
 
-/** One clip, one decision, one screen. */
-function ScenarioPanel({
+/** One clip, one decision. */
+function ScenarioCard({
   scenario,
-  isActive,
   streak,
   onAnswered,
   onNext,
   hasNext,
-  isLast,
   categoryTitle,
 }: {
-  scenario: FeedScenario
-  isActive: boolean
+  scenario: SessionScenario
   streak: number
   onAnswered: (next: {
     scenarioStreak?: number
@@ -316,22 +288,20 @@ function ScenarioPanel({
   }) => void
   onNext: () => void
   hasNext: boolean
-  isLast: boolean
   categoryTitle: string | null
 }) {
   const [decision, setDecision] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [result, setResult] = useState<PanelResult | null>(null)
+  const [result, setResult] = useState<CardResult | null>(null)
   const [timeElapsed, setTimeElapsed] = useState(0)
 
-  // The clock runs while this is the clip you are looking at and you have not
-  // answered it. Scrolling past a question you have not answered stops it,
-  // which is the honest reading of "how long did that decision take".
+  // The clock runs until the decision is in, which is the honest reading of
+  // "how long did that decision take".
   useEffect(() => {
-    if (!isActive || result) return
+    if (result) return
     const interval = setInterval(() => setTimeElapsed((prev) => prev + 1), 1000)
     return () => clearInterval(interval)
-  }, [isActive, result])
+  }, [result])
 
   const handleSubmit = async () => {
     if (!decision.trim() || result) return
@@ -393,20 +363,20 @@ function ScenarioPanel({
       })
       onAnswered({ ...streakUpdate, isCorrect })
     } catch {
-      // Leave the panel answerable rather than eating what the referee typed.
+      // Leave the card answerable rather than eating what the referee typed.
     } finally {
       setIsSubmitting(false)
     }
   }
 
   return (
-    <div className="mx-auto flex min-h-full max-w-2xl flex-col justify-center gap-4 px-4 pb-6 pt-16">
+    <div className="flex flex-col gap-4">
       {/* Whose footage this is, before the footage itself. */}
       <ScenarioVideoCredit credit={scenario.video_credit} />
 
       {scenario.video_url && (
         <div className="overflow-hidden rounded-xl border-2 border-border">
-          <ScenarioVideoPlayer url={scenario.video_url} active={isActive} loop />
+          <ScenarioVideoPlayer url={scenario.video_url} loop />
         </div>
       )}
 
@@ -515,23 +485,20 @@ function ScenarioPanel({
             />
           </div>
 
-          {hasNext ? (
-            <Button onClick={onNext} size="lg" className="w-full cursor-pointer">
-              Next scenario
-              <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          ) : isLast ? (
-            <p className="text-center text-sm text-muted-foreground">
-              That was the last one — keep scrolling.
-            </p>
-          ) : null}
+          {/* Always a button, even on the last clip: there it steps on to the
+              end-of-session screen rather than leaving the referee on a page
+              whose only remaining move is the back arrow. */}
+          <Button onClick={onNext} size="lg" className="w-full cursor-pointer">
+            {hasNext ? "Next scenario" : "Finish session"}
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
         </div>
       )}
     </div>
   )
 }
 
-/** The end of the feed, and the end of the topic. */
+/** The end of the running order, and the end of the topic. */
 function UpToDate({
   categoryTitle,
   bestStreak,
@@ -541,7 +508,7 @@ function UpToDate({
 }) {
   const router = useRouter()
   return (
-    <div className="flex min-h-full flex-col items-center justify-center gap-4 px-6 text-center">
+    <div className="flex flex-col items-center justify-center gap-4 py-16 text-center">
       <Award className="h-14 w-14 text-yellow-500" />
       <h2 className="text-2xl font-bold text-foreground md:text-3xl">
         {categoryTitle ? `You're up to date on ${categoryTitle}` : "You're up to date"}

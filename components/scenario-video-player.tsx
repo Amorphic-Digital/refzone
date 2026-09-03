@@ -52,14 +52,8 @@ interface ScenarioVideoPlayerProps {
   /** Skip autoplay — used by the admin preview, where a video that starts
    *  itself while you are typing an answer is a nuisance. */
   autoPlay?: boolean
-  /**
-   * Feed control. In the scroll feed every scenario is mounted at once, so
-   * "should this one be running" is a property of the page rather than of the
-   * element: the panel in view sets it true and every other panel false.
-   * Leave it undefined and the player behaves exactly as it always has.
-   */
-  active?: boolean
-  /** Loop the clip — the feed does, so a panel you sit on keeps replaying. */
+  /** Loop the clip — the training session does, so a clip you sit on keeps
+   *  replaying while you write the decision. */
   loop?: boolean
 }
 
@@ -67,7 +61,6 @@ export function ScenarioVideoPlayer({
   url,
   className,
   autoPlay = true,
-  active,
   loop = false,
 }: ScenarioVideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -145,24 +138,6 @@ export function ScenarioVideoPlayer({
     setCurrentTime(time)
   }, [])
 
-  // Feed control: play the panel in view, park every other one at the start.
-  // Rewinding on the way out is what makes scrolling back to a clip replay it
-  // from the first touch rather than from wherever it was abandoned.
-  useEffect(() => {
-    if (active === undefined) return
-    const video = videoRef.current
-    if (!video) return
-
-    if (active) {
-      void video.play().catch(() => {
-        /* Refused (no interaction yet) — the centre play button covers it. */
-      })
-    } else {
-      video.pause()
-      video.currentTime = 0
-    }
-  }, [active])
-
   // A fresh src means a fresh video: reset the UI so the previous scenario's
   // duration and progress never show under the new one, then reconcile against
   // whatever the element is actually doing.
@@ -217,7 +192,7 @@ export function ScenarioVideoPlayer({
         className={`w-full cursor-pointer ${
           isFullscreen ? "h-full object-contain" : "aspect-video"
         }`}
-        autoPlay={active === undefined ? autoPlay : active}
+        autoPlay={autoPlay}
         loop={loop}
         muted
         playsInline

@@ -1,9 +1,13 @@
 import { Skeleton } from "@/components/ui/skeleton"
 
-/** One panel's worth of skeleton — the feed opens on exactly one clip. */
+/** One clip's worth of skeleton — the session shows exactly one at a time. */
 export default function ScenarioPlayLoading() {
   return (
-    <div className="mx-auto flex h-full max-w-2xl flex-col justify-center gap-4 px-4 pb-6 pt-16">
+    <div className="mx-auto flex max-w-2xl flex-col gap-4">
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <Skeleton className="h-8 w-20 rounded-md" />
+        <Skeleton className="h-8 w-24 rounded-full" />
+      </div>
       <Skeleton className="aspect-video w-full rounded-xl" />
       <div className="flex items-center gap-2">
         <Skeleton className="h-5 w-16 rounded-full" />

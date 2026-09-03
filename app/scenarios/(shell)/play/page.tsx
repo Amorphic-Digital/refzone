@@ -1,26 +1,26 @@
 import { requireAuth } from "@/lib/auth"
 import { createServiceClient } from "@/lib/supabase/service"
 import { redirect } from "next/navigation"
-import { ScenarioFeed, type FeedScenario } from "@/components/scenario-feed"
+import { ScenarioSession, type SessionScenario } from "@/components/scenario-session"
 import { checkFeatureClosure } from "@/lib/feature-closures"
 import { FeatureClosure } from "@/components/ui/feature-closure"
 import { getCategory } from "@/lib/scenario-categories"
 
-/** Rows sent with the page. Enough to scroll into before the first top-up. */
+/** Rows sent with the page. Enough to work through before the first top-up. */
 const INITIAL_ROWS = 4
 
 /**
  * The scenario training session.
  *
  * `?category=<slug>` restricts the session to one training topic; without it
- * the feed deals from everything the referee has not judged yet.
+ * the session deals from everything the referee has not judged yet.
  *
  * The running order is shuffled once, here, and sent down as a list of ids.
- * Only the first few rows travel with the page — the feed pulls the rest a
- * handful at a time through /api/scenarios/batch as it is scrolled. Sending
- * every row would mean shipping the entire library, answers and all, to open
- * one clip; re-shuffling on each top-up instead would repeat clips and skip
- * others.
+ * Only the first few rows travel with the page — the session pulls the rest a
+ * handful at a time through /api/scenarios/batch as the referee works through
+ * them. Sending every row would mean shipping the entire library, answers and
+ * all, to open one clip; re-shuffling on each top-up instead would repeat
+ * clips and skip others.
  */
 export default async function ScenarioPlayPage({
   searchParams,
@@ -82,10 +82,10 @@ export default async function ScenarioPlayPage({
   const rowsById = new Map((firstRows || []).map((row) => [row.id as string, row]))
   const initialScenarios = firstIds
     .map((id) => rowsById.get(id))
-    .filter(Boolean) as FeedScenario[]
+    .filter(Boolean) as SessionScenario[]
 
   return (
-    <ScenarioFeed
+    <ScenarioSession
       initialScenarios={initialScenarios}
       queueIds={queueIds}
       initialStreak={profile?.scenario_streak || 0}

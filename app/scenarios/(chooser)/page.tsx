@@ -57,7 +57,7 @@ export default async function ScenariosPage() {
 
   return (
     <div className="relative flex h-full flex-col">
-      {/* Top half — straight into the feed. */}
+      {/* Top half — straight into a session. */}
       <Half
         href="/scenarios/play"
         eyebrow="Just deal me one"
