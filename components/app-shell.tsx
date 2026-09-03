@@ -21,7 +21,7 @@ export function AppShell({
   /**
    * `narrow` for reading and forms, `wide` for grids and tables, `full` for a
    * page that wants the whole panel edge to edge and floor to ceiling — the
-   * scenario feed and the scenario chooser. `full` keeps the mobile header
+   * scenario chooser. `full` keeps the mobile header
    * offset, because that bar is fixed and would otherwise sit over the page,
    * but drops the container, its padding and its own scrolling: a `full` page
    * is handed a box of exactly the right height and scrolls itself.
@@ -32,8 +32,9 @@ export function AppShell({
     return (
       <div className="flex h-screen overflow-hidden">
         <NavBar />
-        {/* overflow-hidden, not auto: the page inside owns its scrolling, and
-            two nested scrollers would fight over a snap feed. */}
+        {/* overflow-hidden, not auto: a `full` page is sized to the panel and
+            owns whatever scrolling it needs, so a second scroller here would
+            only fight with it. */}
         <main className="flex-1 overflow-hidden bg-background pt-14 md:pt-0">
           <div className="h-full">{children}</div>
         </main>
